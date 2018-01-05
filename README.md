@@ -72,6 +72,6 @@ each page represents a complete page composed of components. This is where we de
 our navigation
 
 ## Running Tests
-Tests are written in App.test.js in the root directory. Jest, our test runner,
-watches for changes to this file and automatically runs tests on save. To start Jest,
-simply run `yarn test` in a terminal from this directory.
+Tests are written in /\__test\__. Jest watches for changes to this file and
+automatically runs tests on save. To start Jest, simply run `yarn test` in a
+terminal.
