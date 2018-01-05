@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "name": "LyfLynks Customer App",
+    "slug": "lyflynks-customer-app",
+    "sdkVersion": "23.0.0",
+    "privacy": "public"
+  }
+}
