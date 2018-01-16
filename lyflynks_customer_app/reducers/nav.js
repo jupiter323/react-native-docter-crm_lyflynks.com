@@ -21,6 +21,33 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'LOGGED_OUT_1_BACK':
+      return {
+        ...state,
+        loggedOutState1: {
+          ...loggedOutState1,
+          routes: loggedOutState1.routes.slice(0, loggedOutState1.routes.length)
+        }
+      }
+
+    case 'LOGGED_OUT_2_BACK':
+      return {
+        ...state,
+        loggedOutState2: {
+          ...loggedOutState2,
+          routes: loggedOutState2.routes.slice(0, loggedOutState1.routes.length)
+        }
+      }
+
+    case 'LOGGED_IN_BACK':
+      return {
+        ...state,
+        loggedOutState1: {
+          ...loggedOutState1,
+          routes: loggedOutState1.routes.slice(0, loggedOutState1.routes.length)
+        }
+      }
+
     case 'MemberLogin':
       return {
         ...state,

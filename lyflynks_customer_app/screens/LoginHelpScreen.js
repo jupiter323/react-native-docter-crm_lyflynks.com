@@ -15,7 +15,7 @@ import { NavigationActions } from 'react-navigation';
 })
 export default class LoginHelpScreen extends Component {
   navBack = () => {
-    this.props.navigation.dispatch(NavigationActions.back());
+    this.props.navigation.dispatch({ type: 'LOGGED_OUT_1_BACK' });
   }
 
   render() {
