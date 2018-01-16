@@ -69,7 +69,14 @@ components. The login page or profile page is a good example of this.
 ### App.js
 The App.js file represents our complete application composed of pages just as
 each page represents a complete page composed of components. This is where we define
-our navigation
+our navigation between pages.
+
+## Styling components
+Component styles are contained within each component definition and applied in-line.
+However, to make the process of recoloring the UI simple and consistent, the /styles/StyleGuide.js
+file is imported into most components. This allows us to define a set of common colors for
+buttons, headers, text, etc. that can be reused across all of our components and easily
+updated at any time.
 
 ## Running Tests
 Tests are written in /\__test\__. Jest watches for changes to this file and

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Provider, connect } from 'react-redux';
+import { addNavigationHelpers } from 'react-navigation';
 
-import Login from './pages/Login';
+import Navigation from './Navigation/index';
+import store from './store';
 
-export default class App extends Component {
+export default class LyfLynks_App extends Component {
   render() {
     return (
-      <Login />
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
     );
   }
 }
