@@ -8,11 +8,9 @@ export function list(token) {
   return async (dispatch) => {
     dispatch(membersAccountsList());
     try {
-      dispatch(
-        membersAccountsListSuccess(
-          await members_accounts.list(token)
-        )
-      );
+      dispatch(membersAccountsListSuccess(
+        await members_accounts.list(token)
+      ));
     } catch (err) {
       dispatch(membersAccountsListFailure(err));
     }

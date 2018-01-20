@@ -35,16 +35,16 @@ export default (state = initialState, action) => {
         ...state,
         loggedOutState2: {
           ...loggedOutState2,
-          routes: loggedOutState2.routes.slice(0, loggedOutState1.routes.length)
+          routes: loggedOutState2.routes.slice(0, loggedOutState2.routes.length)
         }
       }
 
     case 'LOGGED_IN_BACK':
       return {
         ...state,
-        loggedOutState1: {
-          ...loggedOutState1,
-          routes: loggedOutState1.routes.slice(0, loggedOutState1.routes.length)
+        loggedInState: {
+          ...loggedInState,
+          routes: loggedInState.routes.slice(0, loggedInState.routes.length)
         }
       }
 

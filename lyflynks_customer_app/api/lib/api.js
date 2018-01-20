@@ -1,5 +1,6 @@
-export async function makeRequest(route, method, body, token) {
+export async function makeRequest(route, method, data, token) {
   const url = route.reduce((a, b) => a.concat(b));
+  const body = JSON.stringify(data);
   let req;
 
   try {

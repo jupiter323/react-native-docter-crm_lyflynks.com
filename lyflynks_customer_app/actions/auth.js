@@ -25,8 +25,9 @@ export function member(data) {
   return async (dispatch) => {
     dispatch(authMember());
     try {
-      data = JSON.stringify(data);
-      dispatch(authMemberSuccess(await auth.member(data)));
+      dispatch(authMemberSuccess(
+        await auth.member(data)
+      ));
     } catch (err) {
       dispatch(authMemberFailure(err));
     }
@@ -37,8 +38,9 @@ export function member_account(data, token) {
   return async (dispatch) => {
     dispatch(authMemberAccount());
     try {
-      data = JSON.stringify(data);
-      dispatch(authMemberAccountSuccess(await auth.member_account(data, token)));
+      dispatch(authMemberAccountSuccess(
+        await auth.member_account(data, token)
+      ));
     } catch (err) {
       dispatch(authMemberAccountFailure(err));
     }
