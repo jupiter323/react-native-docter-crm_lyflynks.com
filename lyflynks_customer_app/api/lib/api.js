@@ -1,6 +1,6 @@
 export async function makeRequest(route, method, data, token) {
   const url = route.reduce((a, b) => a.concat(b));
-  const body = JSON.stringify(data);
+  const body = data ? JSON.stringify(data) : null;
   let req;
 
   try {
@@ -25,6 +25,13 @@ const getHeader = (token) => {
   }
 
   return headers;
+}
+
+export const toQueryString = (obj) => {
+  if (!obj) return '';
+  return '?' + Object.keys(obj).map(k => {
+    return `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`
+  }).join('&');
 }
 
 export const domain = 'http://localhost:5002';

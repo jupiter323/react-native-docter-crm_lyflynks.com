@@ -8,12 +8,12 @@ export const COMPLETED_ACTIVITIES = 'COMPLETED_ACTIVITIES';
 export const COMPLETED_ACTIVITIES_SUCCESS = 'COMPLETED_ACTIVITIES_SUCCESS';
 export const COMPLETED_ACTIVITIES_FAILURE = 'COMPLETED_ACTIVITIES_FAILURE';
 
-export function upcoming(data, token) {
+export function upcoming(params, token) {
   return async (dispatch) => {
     dispatch(activitiesUpcoming());
     try {
       dispatch(activitiesUpcomingSuccess(
-        await activities.upcoming(data, token)
+        await activities.upcoming(params, token)
       ));
     } catch (err) {
       dispatch(activitiesUpcomingFailure(err));
@@ -21,12 +21,12 @@ export function upcoming(data, token) {
   }
 }
 
-export function completed(data, token) {
+export function completed(params, token) {
   return async (dispatch) => {
     dispatch(activitiesCompleted());
     try {
       dispatch(activitiesCompletedSuccess(
-        await activities.completed(data, token)
+        await activities.completed(params, token)
       ));
     } catch (err) {
       dispatch(activitiesCompletedFailure(err));
@@ -34,11 +34,11 @@ export function completed(data, token) {
   }
 }
 
-function actvitiesUpcoming() {
+function activitiesUpcoming() {
   return { type: UPCOMING_ACTIVITIES };
 }
 
-function actvitiesUpcomingSuccess(data) {
+function activitiesUpcomingSuccess(data) {
   return { type: UPCOMING_ACTIVITIES_SUCCESS, data };
 }
 
@@ -46,11 +46,11 @@ function activitiesUpcomingFailure(error) {
   return { type: UPCOMING_ACTIVITIES_FAILURE, error };
 }
 
-function actvitiesCompleted() {
+function activitiesCompleted() {
   return { type: COMPLETED_ACTIVITIES };
 }
 
-function actvitiesCompletedSuccess(data) {
+function activitiesCompletedSuccess(data) {
   return { type: COMPLETED_ACTIVITIES_SUCCESS, data };
 }
 
