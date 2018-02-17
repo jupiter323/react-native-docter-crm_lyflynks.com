@@ -10,21 +10,33 @@ import { connect } from 'react-redux';
 
 import LoginForm from '../components/LoginForm';
 import LyfLynks_Logo from '../components/LyfLynks_Logo';
+import { member } from '../actions/auth';
 
 @connect(store => {
-  const {member, isFetching, error} = store.auth;
-  return {member, isFetching, error}
+  const {member, username, password, isFetching, error} = store.auth;
+  return {member, username, password, isFetching, error}
 })
 export default class MemberLogin extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.member.success && !this.props.member.success) {
+      this.props.navigation.navigate('MemberAccountLogin');
+    }
+  }
+
   navToLoginHelpScreen = () => {
-    this.props.navigation.dispatch({ type: 'LoginHelp' });
+    this.props.navigation.navigate('LoginHelp');
+  }
+
+  logIn = () => {
+    const { dispatch, username, password } = this.props;
+    dispatch(member({ username, password }));
   }
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <LyfLynks_Logo style={styles.logo} />
-        <LoginForm />
+        <LoginForm logIn={this.logIn} />
         <Text style={styles.loginHelpText} onPress={this.navToLoginHelpScreen}>Help me log in</Text>
       </KeyboardAvoidingView>
     );

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
 import members_accounts from './members_accounts';
-import nav from './nav';
+import activities from './activities';
 
 export default combineReducers({
-  nav,
   auth,
   members_accounts,
+  activities,
 });

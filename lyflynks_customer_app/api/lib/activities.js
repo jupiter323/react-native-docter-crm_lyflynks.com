@@ -1,13 +1,15 @@
-import { domain, activities, makeRequest } from './api';
+import { domain, activities, makeRequest, toQueryString } from './api';
 
 const base = domain + activities.root;
 
 // data is the JSON request body
 export default {
-  async upcoming(data, token) {
-    return makeRequest([base, activities.upcoming], 'GET', data, token)
+  async upcoming(params, token) {
+    params = toQueryString(params);
+    return makeRequest([base, activities.upcoming, params], 'GET', null, token);
   },
-  async completed(data, token) {
-    return makeRequest([base, activities.completed], 'GET', data, token)
+  async completed(params, token) {
+    params = toQueryString(params);
+    return makeRequest([base, activities.completed, params], 'GET', null, token);
   },
 }

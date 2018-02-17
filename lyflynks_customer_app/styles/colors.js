@@ -3,6 +3,7 @@ import Color from 'color';
 const c1 = '#2196F3';
 
 const styles = {
+  mainColor: c1,
   text: {
     color: '#fff',
   },

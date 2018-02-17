@@ -7,6 +7,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import { FontAwesome } from '@expo/vector-icons';
+
 import { connect } from 'react-redux';
 import { list } from '../actions/members_accounts';
 import { member_account } from '../actions/auth';
@@ -25,6 +27,37 @@ import { member_account } from '../actions/auth';
   }
 })
 export default class MemberAccountLogin extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Select Account',
+    headerStyle: {
+      backgroundColor: '#2196F3',
+      shadowRadius: 5,
+      shadowOpacity: 0.11,
+      shadowOffset: {
+        height: 5,
+        width: 0,
+      },
+      shadowColor: '#000',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+      fontSize: 24,
+      fontWeight: '600',
+    },
+    headerLeft: <FontAwesome
+      name={'chevron-left'}
+      style={styles.headerBackButton}
+      onPress={() => {
+        navigation.navigate('ActivityLog')
+      }}/>,
+  })
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.member_account.success) {
+      this.props.navigation.navigate('ActivityLog');
+    }
+  }
+
   componentDidMount() {
     const { dispatch, member } = this.props;
     const token = member.data;
@@ -45,7 +78,7 @@ export default class MemberAccountLogin extends Component {
 
   // TODO:
   // Get names of seniors on member's accounts to display
-  // Needs account_member_list route to accept account id, not req.decoded.act
+  // Needs new route to get seniors' names for accounts
   // Check memberId is associated with account to prevent access of unauthorized accounts
 
   render() {
@@ -78,7 +111,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#f0f0f5',
     padding: 20,
   },
@@ -87,7 +120,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     backgroundColor: '#fff',
-    marginTop: 30,
+    marginBottom: 30,
     borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.11,
@@ -96,5 +129,11 @@ const styles = StyleSheet.create({
       width: 0,
     },
     shadowColor: '#000',
+  },
+  headerBackButton: {
+    color: '#fff',
+    fontSize: 24,
+    marginLeft: 20,
+    fontWeight: '200',
   }
 });

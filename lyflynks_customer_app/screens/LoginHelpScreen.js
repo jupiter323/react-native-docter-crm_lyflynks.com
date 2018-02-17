@@ -7,6 +7,8 @@ import {
   Button,
 } from 'react-native';
 
+import { FontAwesome } from '@expo/vector-icons';
+
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -14,14 +16,34 @@ import { NavigationActions } from 'react-navigation';
   return {};
 })
 export default class LoginHelpScreen extends Component {
-  navBack = () => {
-    this.props.navigation.dispatch({ type: 'LOGGED_OUT_1_BACK' });
-  }
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Login Help',
+    headerStyle: {
+      backgroundColor: '#2196F3',
+      shadowRadius: 5,
+      shadowOpacity: 0.11,
+      shadowOffset: {
+        height: 5,
+        width: 0,
+      },
+      shadowColor: '#000',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
+    headerLeft: <FontAwesome
+      name={'chevron-left'}
+      style={styles.headerBackButton}
+      onPress={() => {
+        navigation.goBack();
+      }}/>,
+  })
 
   render() {
     return (
       <View style={styles.container}>
-        <Button title='Back' onPress={this.navBack} />
         <Text style={styles.text}>Reset Password</Text>
       </View>
     );
@@ -36,5 +58,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 32,
+  },
+  headerBackButton: {
+    color: '#fff',
+    fontSize: 24,
+    marginLeft: 20,
   }
 });

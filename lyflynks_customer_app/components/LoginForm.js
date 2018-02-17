@@ -11,13 +11,13 @@ import {
 
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { member, updateLoginForm } from '../actions/auth';
+import { updateLoginForm } from '../actions/auth';
 
 import colors from '../styles/colors';
 
 @connect(store => {
-  const { member, username, password } = store.auth;
-  return { member, username, password };
+  const { username, password } = store.auth;
+  return { username, password };
 })
 export default class LoginForm extends Component {
   updateUsername = (username) => {
@@ -32,14 +32,9 @@ export default class LoginForm extends Component {
     );
   }
 
-  logIn = () => {
-    const { dispatch, username, password } = this.props;
-    dispatch(member({ username, password }));
-  }
-
   render() {
     return (
-      <View onLayout={this.navigateToNextPage}>
+      <View>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -68,14 +63,11 @@ export default class LoginForm extends Component {
         </View>
 
         <TouchableHighlight
-          onPress={this.logIn}
+          onPress={this.props.logIn}
           style={styles.buttonContainer}
           underlayColor={colors.buttonUnderlay}>
             <Text style={styles.buttonText}>Login</Text>
         </TouchableHighlight>
-        { /*
-          TODO: Add a 'Help me log in' link to forgot_username/reset_password page
-        */ }
       </View>
     );
   }
