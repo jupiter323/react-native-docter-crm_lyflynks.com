@@ -60,7 +60,7 @@ The navigationStack.js file specifies all navigation actions between screens usi
 three available navigation types are DrawerNavigator, StackNavigator, and TabNavigator. 
 
 ### App.js
-The App.js file is the root of our App. It is currently wraps our Navigation component with Redux.
+The App.js file is the root of our App. It currently wraps our Navigation component with Redux.
 
 ## Styling components
 Component styles are contained within each component definition and applied in-line.
