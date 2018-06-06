@@ -1,0 +1,31 @@
+[
+  {
+    "id": "firstName",
+    "placeholder": "First Name"
+  },
+  {
+    "id": "lastName",
+    "placeholder": "Last Name",
+    "ref": "lastName"
+  },
+  {
+    "id": "userName",
+    "placeholder": "Username"
+  },
+  {
+    "id": "email",
+    "placeholder": "Email Address"
+  },
+  {
+    "id": "primaryPhoneNumber",
+    "placeholder": "Primary Phone Number"
+  },
+  {
+    "id": "secondaryPhoneNumber",
+    "placeholder": "Secondary Phone Number"
+  },
+  {
+    "id": "zipCode",
+    "placeholder": "Elder's Zip Code"
+  }
+]
