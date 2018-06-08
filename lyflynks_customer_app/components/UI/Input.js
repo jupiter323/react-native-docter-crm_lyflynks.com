@@ -8,7 +8,8 @@ export class Input extends React.Component {
       value,
       placeholder,
       focusNextInput,
-      setReference
+      setReference,
+      onBlur
     } = this.props;
     return (
       <TextInput
@@ -22,6 +23,7 @@ export class Input extends React.Component {
         onChangeText={onChangeText}
         value={value}
         onSubmitEditing={focusNextInput}
+        onBlur={onBlur}
       />
     );
   }

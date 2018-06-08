@@ -7,6 +7,7 @@ export const Button = props => {
       onPress={props.onPress}
       style={[styles.buttonContainer, props.style]}
       underlineColorAndroid="transparent"
+      disabled={props.disabled}
     >
       <Text style={styles.buttonText}>{props.children}</Text>
     </TouchableHighlight>
