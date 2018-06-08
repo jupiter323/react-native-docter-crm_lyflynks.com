@@ -117,4 +117,4 @@ const Navigation = StackNavigator(
   }
 );
 
-export default NewMemberWizard;
+export default Navigation;
