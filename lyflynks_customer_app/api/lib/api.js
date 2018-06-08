@@ -34,7 +34,7 @@ export const toQueryString = (obj) => {
   }).join('&');
 }
 
-export const domain = 'http://localhost:5002';
+export const domain = 'http://192.168.1.230:5002';
 
 export const accounts = {
   root: '/accounts',

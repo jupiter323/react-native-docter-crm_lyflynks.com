@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { Button } from 'react-native';
 import {
   StackNavigator,
   TabNavigator,
+  DrawerNavigator,
  } from 'react-navigation';
 
 import MemberLoginScreen from '../screens/MemberLoginScreen';
 import MemberAccountLoginScreen from '../screens/MemberAccountLoginScreen';
 import ActivitiesUpcomingScreen from '../screens/ActivitiesUpcomingScreen';
 import ActivitiesCompletedScreen from '../screens/ActivitiesCompletedScreen';
+import ActivitiesAlertsScreen from '../screens/ActivitiesAlertsScreen';
 import LoginHelpScreen from '../screens/LoginHelpScreen';
+import MemberInviteScreen from '../screens/MemberInviteScreen';
+import NewMemberWizard from '../screens/NewMemberWizard';
 
 export const ActivityLog = TabNavigator({
   Upcoming: {
@@ -17,10 +22,46 @@ export const ActivityLog = TabNavigator({
   Completed: {
     screen: ActivitiesCompletedScreen,
   },
-}, {
-  order: ['Upcoming', 'Completed'],
+  Alerts: {
+    screen: ActivitiesAlertsScreen,
+  },
+},{
+  tabBarPosition: 'top', 
+  tabBarOptions: {
+  indicatorStyle: { backgroundColor: '#0E3A53', },
+  labelStyle: {
+    fontSize: 14,
+    color: '#fff',
+  },
+  style: {
+    backgroundColor: '#00a68c',
+  },
+},
+  order: ['Upcoming', 'Completed', 'Alerts'],
   animationEnabled: true,
 });
+
+const DrawerStack = DrawerNavigator({
+  Activities: { 
+    screen: ActivityLog,
+    navigationOptions: {
+    title: 'Activity Log',
+    }, 
+  },
+  MemberInvite: { 
+    screen: MemberInviteScreen, 
+    navigationOptions: {
+      title: 'Invite Member',
+    },
+  },
+  NewMemberWizard: { 
+    screen: NewMemberWizard, 
+    navigationOptions: {
+      title: 'New Member Wizard',
+    },
+  },
+   
+})
 
 const Navigation = StackNavigator(
   {
@@ -28,6 +69,21 @@ const Navigation = StackNavigator(
       screen: MemberLoginScreen,
       navigationOptions: {
         header: null,
+        headerStyle: {
+        backgroundColor: '#0E3A53',
+        shadowRadius: 5,
+        shadowOpacity: 0.11,
+        shadowOffset: {
+          height: 5,
+          width: 0,
+        },
+        shadowColor: '#000',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 24,
+        fontWeight: '600',
+      },
       },
     },
     LoginHelp: {
@@ -37,12 +93,10 @@ const Navigation = StackNavigator(
       screen: MemberAccountLoginScreen,
     },
     ActivityLog: {
-      screen: ActivityLog,
+      screen: DrawerStack,
       navigationOptions: {
-        title: 'Activity Log',
-        headerLeft: null,
         headerStyle: {
-          backgroundColor: '#2196F3',
+          backgroundColor: '#0E3A53',
           shadowRadius: 5,
           shadowOpacity: 0.11,
           shadowOffset: {
@@ -63,4 +117,4 @@ const Navigation = StackNavigator(
   }
 );
 
-export default Navigation;
+export default NewMemberWizard;
