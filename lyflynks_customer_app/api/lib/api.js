@@ -4,10 +4,11 @@ export async function makeRequest(route, method, data, token) {
   let req;
 
   try {
+    debugger;
     req = await fetch(url, {
       method,
       body,
-      headers: getHeader(token),
+      headers: getHeader(token)
     });
   } catch (err) {
     console.log(err);
@@ -16,49 +17,54 @@ export async function makeRequest(route, method, data, token) {
   return req.json();
 }
 
-const getHeader = (token) => {
+const getHeader = token => {
   const headers = new Headers();
-  headers.append('Content-Type', 'application/json')
+  headers.append("Content-Type", "application/json");
 
   if (token) {
-    headers.append('x-access-token', token);
+    headers.append("x-access-token", token);
   }
 
   return headers;
-}
+};
 
-export const toQueryString = (obj) => {
-  if (!obj) return '';
-  return '?' + Object.keys(obj).map(k => {
-    return `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`
-  }).join('&');
-}
+export const toQueryString = obj => {
+  if (!obj) return "";
+  return (
+    "?" +
+    Object.keys(obj)
+      .map(k => {
+        return `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`;
+      })
+      .join("&")
+  );
+};
 
-export const domain = 'http://localhost:5002';
+export const domain = "http://192.168.1.210:5002";
 
 export const accounts = {
-  root: '/accounts',
-  members: '/members',
-}
+  root: "/accounts",
+  members: "/members"
+};
 
 export const activities = {
-  root: '/activities',
-  upcoming: '/upcoming',
-  completed: '/completed',
-}
+  root: "/activities",
+  upcoming: "/upcoming",
+  completed: "/completed"
+};
 
 export const auth = {
-  root: '/auth',
-  members: '/members',
-  members_accounts: '/members/accounts',
-  forgot: '/forgot',
-  reset: '/reset',
-}
+  root: "/auth",
+  members: "/members",
+  members_accounts: "/members/accounts",
+  forgot: "/forgot",
+  reset: "/reset"
+};
 
 export const members = {
-  root: '/members',
-}
+  root: "/members"
+};
 
 export const members_accounts = {
-  root: '/members_accounts',
-}
+  root: "/members_accounts"
+};

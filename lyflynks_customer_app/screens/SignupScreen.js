@@ -5,9 +5,11 @@ import {
   RegistrationForm,
   PrefferedDayTimeForm,
   InviteOthersForm,
+  SignupComplete,
   TEXT_FOR_PREFERRED_DAY_TIME_FORM,
   INSTRUCTIONS_FOR_REGISTRATION_FORM,
-  TEXT_FOR_INVITATION_FORM
+  TEXT_FOR_INVITATION_FORM,
+  INSTRUCTIONS_FOR_SIGNUP_COMPLETE
 } from "../components/Signup Forms";
 
 class SignupScreen extends React.Component {
@@ -39,11 +41,13 @@ class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>{this.getScreenForCorrespondingStep()}</View>
+      <View style={{ flex: 1, marginTop: 25 }}>
+        {this.getScreenForCurrentStep()}
+      </View>
     );
   }
 
-  getScreenForCorrespondingStep() {
+  getScreenForCurrentStep() {
     switch (this.state.step) {
       case 1:
         return (
@@ -92,16 +96,3 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
-
-// import {
-//   InviteOthersForm,
-//   TEXT_FOR_INVITATION_FORM
-// } from "../components/InviteOthersForm";
-// import {
-//   INSTRUCTIONS_FOR_REGISTRATION_FORM,
-//   RegistrationForm
-// } from "../components/RegistrationForm";
-// import {
-//   TEXT_FOR_PREFERRED_DAY_TIME_FORM,
-//   PrefferedDayTimeForm
-// } from "../components/PreferrdDayTimeForm";

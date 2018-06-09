@@ -9,27 +9,21 @@ import {
   Platform,
   KeyboardAvoidingView
 } from "react-native";
-import { Input, Card, Button } from "../../UI";
 import { connect } from "react-redux";
-import { updateValue } from "../../../actions/member_form";
-import { signup } from "../../../actions/members_signup";
-import Color from "color";
+import { Input, Card, Button } from "../../UI";
+import { validator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
 import Roles from "./rolesConfig.json";
+import {
+  updateFormValue,
+  updateErrorMessage
+} from "../../../actions/member_form";
 
 const mapStateToProps = state => {
-  return ({
-    firstName,
-    lastName,
-    userName,
-    email,
-    primaryPhoneNumber,
-    secondaryPhoneNumber,
-    zipCode,
-    role
-  } = state.accountCreationForm);
+  return {
+    ...state.accountCreationForm
+  };
 };
-
 @connect(mapStateToProps)
 class RegistrationForm extends React.Component {
   getNextInputFieldReference(arrayOfInputs, currentIndex) {
@@ -46,22 +40,38 @@ class RegistrationForm extends React.Component {
       : "";
   }
 
+  validateValue(inputElementName, value) {
+    return validator(inputElementName, value);
+  }
+
   renderInputFields() {
     const { dispatch } = this.props;
     return InputFields.map((input, index) => {
       return (
-        <Input
-          key={input.id}
-          setReference={inputElement => (this[input.id] = inputElement)}
-          onChangeText={value =>
-            dispatch(updateValue({ prop: input.id, value }))
-          }
-          value={this.props[input.id]}
-          focusNextInput={() =>
-            this.getNextInputFieldReference(InputFields, index)
-          }
-          placeholder={input.placeholder}
-        />
+        <View key={input.id}>
+          <Input
+            value={this.props[input.id]}
+            placeholder={input.placeholder}
+            setReference={inputElement => (this[input.id] = inputElement)}
+            onChangeText={value =>
+              dispatch(updateFormValue({ prop: input.id, value }))
+            }
+            onBlur={() =>
+              dispatch(
+                updateErrorMessage({
+                  prop: input.errorId,
+                  value: this.validateValue(input.id, this.props[input.id])
+                })
+              )
+            }
+            focusNextInput={() =>
+              this.getNextInputFieldReference(InputFields, index)
+            }
+          />
+          <Text style={styles.errorMessage}>
+            {this.props.errors[input.errorId]}
+          </Text>
+        </View>
       );
     });
   }
@@ -78,11 +88,27 @@ class RegistrationForm extends React.Component {
           {this.renderInputFields()}
         </View>
         {this.renderPLatformSpecificComponent()}
-        <Button style={styles.nextButton} onPress={proceedAhead}>
+        <Button
+          style={styles.nextButton}
+          onPress={proceedAhead}
+          disabled={false}
+        >
           Next
         </Button>
       </ScrollView>
     );
+  }
+
+  disableNextButton() {
+    const { errors } = this.props;
+    for (let errorId in errors) {
+      if (errors.hasOwnProperty(errorId)) {
+        if (errors[errorId]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   renderPLatformSpecificComponent() {
@@ -108,7 +134,7 @@ class RegistrationForm extends React.Component {
         <Picker
           selectedValue="js"
           onValueChange={selectedRole =>
-            dispatch(updateValue({ prop: "role", value: selectedRole }))
+            dispatch(updateFormValue({ prop: "role", value: selectedRole }))
           }
           style={styles.androidPicker}
         >
@@ -127,7 +153,7 @@ class RegistrationForm extends React.Component {
       },
       selectedRoleIndex =>
         dispatch(
-          updateValue({ prop: "role", value: options[selectedRoleIndex] })
+          updateFormValue({ prop: "role", value: options[selectedRoleIndex] })
         )
     );
   }
@@ -148,7 +174,11 @@ const styles = StyleSheet.create({
   },
   formFieldsContainer: {
     width: "100%",
-    marginTop: 20
+    marginTop: 0
+  },
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
   },
   roleButton: {
     borderRadius: 5,

@@ -1,65 +1,73 @@
-import React, { Component } from 'react';
-import {
-  StackNavigator,
-  TabNavigator,
- } from 'react-navigation';
+import React, { Component } from "react";
+import { StackNavigator, TabNavigator } from "react-navigation";
 
-import MemberLoginScreen from '../screens/MemberLoginScreen';
-import MemberAccountLoginScreen from '../screens/MemberAccountLoginScreen';
-import ActivitiesUpcomingScreen from '../screens/ActivitiesUpcomingScreen';
-import ActivitiesCompletedScreen from '../screens/ActivitiesCompletedScreen';
-import LoginHelpScreen from '../screens/LoginHelpScreen';
+import MemberLoginScreen from "../screens/MemberLoginScreen";
+import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
+import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
+import ActivitiesCompletedScreen from "../screens/ActivitiesCompletedScreen";
+import LoginHelpScreen from "../screens/LoginHelpScreen";
+import SignupScreen from "../screens/SignupScreen";
 
-export const ActivityLog = TabNavigator({
-  Upcoming: {
-    screen: ActivitiesUpcomingScreen,
+export const ActivityLog = TabNavigator(
+  {
+    Upcoming: {
+      screen: ActivitiesUpcomingScreen
+    },
+    Completed: {
+      screen: ActivitiesCompletedScreen
+    }
   },
-  Completed: {
-    screen: ActivitiesCompletedScreen,
-  },
-}, {
-  order: ['Upcoming', 'Completed'],
-  animationEnabled: true,
-});
+  {
+    order: ["Upcoming", "Completed"],
+    animationEnabled: true
+  }
+);
 
 const Navigation = StackNavigator(
   {
-    MemberLogin: {
-      screen: MemberLoginScreen,
+    // MemberLogin: {
+    //   screen: MemberLoginScreen,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
+    Signup: {
+      screen: SignupScreen,
       navigationOptions: {
-        header: null,
-      },
+        header: null
+      }
     },
     LoginHelp: {
-      screen: LoginHelpScreen,
+      screen: LoginHelpScreen
     },
     MemberAccountLogin: {
-      screen: MemberAccountLoginScreen,
+      screen: MemberAccountLoginScreen
     },
     ActivityLog: {
       screen: ActivityLog,
       navigationOptions: {
-        title: 'Activity Log',
+        title: "Activity Log",
         headerLeft: null,
         headerStyle: {
-          backgroundColor: '#2196F3',
+          backgroundColor: "#2196F3",
           shadowRadius: 5,
           shadowOpacity: 0.11,
           shadowOffset: {
             height: 5,
-            width: 0,
+            width: 0
           },
-          shadowColor: '#000',
+          shadowColor: "#000"
         },
         headerTitleStyle: {
-          color: '#fff',
+          color: "#fff",
           fontSize: 24,
-          fontWeight: '600',
-        },
-      },
-    },
-  }, {
-    headerMode: 'screen',
+          fontWeight: "600"
+        }
+      }
+    }
+  },
+  {
+    headerMode: "screen"
   }
 );
 

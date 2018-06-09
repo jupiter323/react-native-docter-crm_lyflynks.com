@@ -23,6 +23,7 @@
   "dependencies": {
     "color": "^2.0.1",
     "expo": "^23.0.4",
+    "lodash": "^4.17.10",
     "moment": "^2.20.1",
     "react": "16.0.0",
     "react-native": "0.50.3",
