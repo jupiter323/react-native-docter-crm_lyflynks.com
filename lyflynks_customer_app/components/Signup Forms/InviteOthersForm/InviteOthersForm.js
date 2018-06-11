@@ -1,17 +1,18 @@
 import React from "react";
-import { View, Text, Modal } from "react-native";
-import { Input, Card, Button } from "../../UI";
-import { member } from "../../../actions/auth";
+import { View, Modal } from "react-native";
+import { Button, Icon, Text } from "react-native-elements";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { modifyEmailInvitations } from "../../../actions/member_form";
+
+import { Input } from "../../UI";
+import { member } from "../../../actions/auth";
+import { modifyEmailInvitations } from "../../../actions/email_invitations";
 
 const mapStateToProps = state => {
-  debugger;
   return {
-    ...state.accountCreationForm,
     ...state.auth,
-    ...state.emailInvitations
+    ...state.member_form,
+    ...state.email_invitations
   };
 };
 @connect(mapStateToProps)
@@ -27,89 +28,72 @@ class InviteOthersForm extends React.Component {
     }
   }
 
+  render() {
+    const { instructions, renderInstructions, proceedAhead } = this.props;
+    return (
+      <View style={styles.container}>
+        <Text h4 style={styles.heading}>
+          Would you like to add any other members to your account once it has
+          been activated?
+        </Text>
+        {this.renderEmails()}
+        {this.renderModal()}
+        <Button
+          raised
+          icon={{ name: "send" }}
+          title="Invite"
+          backgroundColor="#00A68C"
+          onPress={this.toggleModal.bind(this)}
+        />
+        <Icon
+          raised
+          name="add"
+          reverse={true}
+          type="material-icon"
+          color="#2096f3"
+          containerStyle={{
+            position: "absolute",
+            bottom: 5,
+            right: 10,
+            alignSelf: "flex-end"
+          }}
+          onPress={this.modifyEmailInvite.bind(this, "add")}
+        />
+      </View>
+    );
+  }
+
   renderEmails() {
-    debugger;
     const { invitations, dispatch } = this.props;
     return _.map(invitations, invite => {
       return (
-        <Input
-          value={invite.email}
-          key={invite.id}
-          onChangeText={value => {
-            debugger;
-            dispatch(
-              modifyEmailInvitations({
-                operation: "edit",
-                id: invite.id,
-                email: value
-              })
-            );
-          }}
-          placeholder="Email"
-        />
+        <View style={styles.inviteContainer} key={invite.id}>
+          <Input
+            value={invite.email}
+            style={styles.emailcontainer}
+            onChangeText={this.modifyEmailInvite.bind(this, "edit", invite)}
+            placeholder="Email"
+          />
+          <Icon
+            name="delete"
+            type="material-icon"
+            color="#e2401b"
+            size={30}
+            onPress={this.modifyEmailInvite.bind(this, "delete", invite)}
+          />
+        </View>
       );
     });
   }
 
-  render() {
-    const {
-      instructions,
-      renderInstructions,
-      proceedAhead,
-      dispatch
-    } = this.props;
-    return (
-      <View>
-        {/* <Card>{renderInstructions(instructions)}</Card> */}
-        <View style={styles.container}>
-          {/* <Input
-            onChangeText={this.updateUsername}
-            value={this.props.username}
-            onChangeText={dispatch(
-              modifyEmailInvitations({
-                operation: "add",
-                email: this.props.email
-              })
-            )}
-            placeholder="Email"
-          /> */}
-          {this.renderEmails()}
-          <Button
-            style={styles.inviteButton}
-            onPress={() =>
-              dispatch(modifyEmailInvitations({ operation: "add" }))
-            }
-          >
-            Add
-          </Button>
-          <Button
-            style={styles.inviteButton}
-            onPress={() =>
-              dispatch(modifyEmailInvitations({ operation: "delete" }))
-            }
-          >
-            Add
-          </Button>
-          {/* {this.renderModal()}
-          <Button
-            style={styles.inviteButton}
-            onPress={() => this.setState({ modalVisible: true })}
-          >
-            Invite
-          </Button>
-          <Button
-            style={styles.inviteButton}
-            onPress={() => this.setState({ modalVisible: true })}
-          >
-            Invite
-          </Button>
-          <Button
-          //onPress={() => //dispatch(member(prepareUserDataForSignup()))}
-          >
-            Finish
-          </Button> */}
-        </View>
-      </View>
+  modifyEmailInvite(operation, emailInvite, updatedEmailId) {
+    const { dispatch } = this.props;
+    dispatch(
+      modifyEmailInvitations({
+        operation,
+        id: emailInvite.id || undefined,
+        email: updatedEmailId !== undefined ? updatedEmailId : emailInvite.email
+      })
     );
   }
 
@@ -119,25 +103,26 @@ class InviteOthersForm extends React.Component {
         animationType="slide"
         transparent={false}
         visible={this.state.modalVisible}
-        onRequestClose={() => {
-          alert("Modal has been closed.");
-        }}
+        onRequestClose={this.toggleModal.bind(this)}
       >
         <View style={styles.modalContainer}>
-          <View>
-            <Text>We will contact them shortly.</Text>
-            <Button
-              style={styles.inviteButton}
-              onPress={() => {
-                this.setState({ modalVisible: !this.state.modalVisible });
-              }}
-            >
-              Close
-            </Button>
-          </View>
+          <Text h2 style={styles.modalHeading}>
+            we will contact them shortly.
+          </Text>
+          <Button
+            raised
+            backgroundColor="#00A68C"
+            iconRight={{ name: "done" }}
+            title="Done"
+            onPress={this.toggleModal.bind(this)}
+          />
         </View>
       </Modal>
     );
+  }
+
+  toggleModal() {
+    this.setState({ modalVisible: !this.state.modalVisible });
   }
 
   prepareUserDataForSignup() {
@@ -151,24 +136,34 @@ const styles = {
   container: {
     flex: 1,
     marginTop: 20,
+    width: "100%",
+    marginLeft: 10,
+    marginRight: 10,
     alignItems: "center"
   },
-  textContainer: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10
+  heading: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#0E3A53",
+    margin: 10
+  },
+  inviteContainer: {
+    flexDirection: "row",
+    width: "100%"
+  },
+  emailcontainer: {
+    flex: 0.9
   },
   modalContainer: {
     flex: 1,
-    marginTop: 22,
-    alignItems: "center",
-    justifyContent: "center"
+    marginTop: 25,
+    justifyContent: "space-around",
+    backgroundColor: "#C5AE91"
   },
-  inviteButton: {
-    borderRadius: 5,
-    width: 150,
-    marginTop: 15,
-    marginBottom: 15
+  modalHeading: {
+    textAlign: "center",
+    color: "white"
   }
 };
 export { InviteOthersForm };
