@@ -5,7 +5,7 @@ import {
   UPDATE_PREFERRED_TIME
 } from "../actions/member_form";
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   firstName: "",
   lastName: "",
   userName: "",
