@@ -20,16 +20,9 @@ class SignupScreen extends React.Component {
   }
 
   renderInstructions(instructions) {
-    const _instructions = instructions.map(instruction => {
-      return (
-        <Text key={instruction.id} style={styles.instructionStyles}>
-          {instruction.text}
-        </Text>
-      );
-    });
     return (
       <Card style={styles.instructionContainer}>
-        <Text>{_instructions}</Text>
+        <Text style={styles.instructionStyles}>{instructions}</Text>
       </Card>
     );
   }
@@ -92,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3"
   },
   instructionStyles: {
-    fontSize: 14,
+    fontSize: 16,
     color: "white"
   }
 });

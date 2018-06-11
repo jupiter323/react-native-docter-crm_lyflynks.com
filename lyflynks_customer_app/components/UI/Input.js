@@ -14,7 +14,7 @@ export class Input extends React.Component {
     return (
       <TextInput
         ref={setReference}
-        style={styles.textInput}
+        style={[styles.textInput, this.props.style]}
         placeholderTextColor="black"
         autoCapitalize="none"
         autoCorrect={false}
