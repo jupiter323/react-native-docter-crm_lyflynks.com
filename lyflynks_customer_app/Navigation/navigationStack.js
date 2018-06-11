@@ -14,32 +14,35 @@ import ActivitiesAlertsScreen from '../screens/ActivitiesAlertsScreen';
 import LoginHelpScreen from '../screens/LoginHelpScreen';
 import MemberInviteScreen from '../screens/MemberInviteScreen';
 import NewMemberWizard from '../screens/NewMemberWizard';
+import SignupScreen from "../screens/SignupScreen";
 
 export const ActivityLog = TabNavigator({
-  Upcoming: {
-    screen: ActivitiesUpcomingScreen,
+    Upcoming: {
+      screen: ActivitiesUpcomingScreen
+    },
+    Completed: {
+      screen: ActivitiesCompletedScreen
+    },
+    Alerts: {
+      screen: ActivitiesAlertsScreen,
+    },
   },
-  Completed: {
-    screen: ActivitiesCompletedScreen,
-  },
-  Alerts: {
-    screen: ActivitiesAlertsScreen,
-  },
-},{
-  tabBarPosition: 'top', 
-  tabBarOptions: {
-  indicatorStyle: { backgroundColor: '#0E3A53', },
-  labelStyle: {
-    fontSize: 14,
-    color: '#fff',
-  },
-  style: {
-    backgroundColor: '#00a68c',
-  },
-},
-  order: ['Upcoming', 'Completed', 'Alerts'],
-  animationEnabled: true,
+    {
+      tabBarPosition: 'top', 
+      tabBarOptions: {
+        indicatorStyle: { backgroundColor: '#0E3A53', },
+        labelStyle: {
+          fontSize: 14,
+          color: '#fff',
+        },
+        style: {
+          backgroundColor: '#00a68c',
+        },
+      },
+    order: ['Upcoming', 'Completed', 'Alerts'],
+    animationEnabled: true,
 });
+
 
 const DrawerStack = DrawerNavigator({
   Activities: { 
@@ -60,13 +63,18 @@ const DrawerStack = DrawerNavigator({
       title: 'New Member Wizard',
     },
   },
-   
 })
 
 const Navigation = StackNavigator(
   {
     MemberLogin: {
       screen: MemberLoginScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Signup: {
+      screen: SignupScreen,
       navigationOptions: {
         header: null,
         headerStyle: {
@@ -87,10 +95,10 @@ const Navigation = StackNavigator(
       },
     },
     LoginHelp: {
-      screen: LoginHelpScreen,
+      screen: LoginHelpScreen
     },
     MemberAccountLogin: {
-      screen: MemberAccountLoginScreen,
+      screen: MemberAccountLoginScreen
     },
     ActivityLog: {
       screen: DrawerStack,
@@ -101,19 +109,20 @@ const Navigation = StackNavigator(
           shadowOpacity: 0.11,
           shadowOffset: {
             height: 5,
-            width: 0,
+            width: 0
           },
-          shadowColor: '#000',
+          shadowColor: "#000"
         },
         headerTitleStyle: {
-          color: '#fff',
+          color: "#fff",
           fontSize: 24,
-          fontWeight: '600',
-        },
-      },
-    },
-  }, {
-    headerMode: 'screen',
+          fontWeight: "600"
+        }
+      }
+    }
+  },
+  {
+    headerMode: "screen"
   }
 );
 

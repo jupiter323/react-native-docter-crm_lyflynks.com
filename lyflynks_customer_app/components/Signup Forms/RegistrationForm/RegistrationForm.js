@@ -1,71 +1,23 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Picker,
-  ScrollView,
-  ActionSheetIOS,
-  Platform,
-  KeyboardAvoidingView
-} from "react-native";
-import { Input, Card, Button } from "../../UI";
+import { View, Text, StyleSheet, Picker, ScrollView } from "react-native";
+import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import { updateValue } from "../../../actions/member_form";
-import { signup } from "../../../actions/members_signup";
-import Color from "color";
+
+import { Input } from "../../UI";
+import { validator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
 import Roles from "./rolesConfig.json";
+import {
+  updateMemberFormField,
+  updateErrorMessage
+} from "../../../actions/member_form";
 
 const mapStateToProps = state => {
-  return ({
-    firstName,
-    lastName,
-    userName,
-    email,
-    primaryPhoneNumber,
-    secondaryPhoneNumber,
-    zipCode,
-    role
-  } = state.accountCreationForm);
+  return { ...state.member_form };
 };
 
 @connect(mapStateToProps)
 class RegistrationForm extends React.Component {
-  getNextInputFieldReference(arrayOfInputs, currentIndex) {
-    const nextInputFieldReference =
-      arrayOfInputs.length - 1 === currentIndex
-        ? null
-        : InputFields[currentIndex + 1].id;
-    this.focusNextInput(nextInputFieldReference);
-  }
-
-  focusNextInput(nextInputFieldReference) {
-    nextInputFieldReference !== null
-      ? this[nextInputFieldReference].focus()
-      : "";
-  }
-
-  renderInputFields() {
-    const { dispatch } = this.props;
-    return InputFields.map((input, index) => {
-      return (
-        <Input
-          key={input.id}
-          setReference={inputElement => (this[input.id] = inputElement)}
-          onChangeText={value =>
-            dispatch(updateValue({ prop: input.id, value }))
-          }
-          value={this.props[input.id]}
-          focusNextInput={() =>
-            this.getNextInputFieldReference(InputFields, index)
-          }
-          placeholder={input.placeholder}
-        />
-      );
-    });
-  }
-
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;
     return (
@@ -76,66 +28,115 @@ class RegistrationForm extends React.Component {
         {renderInstructions(instructions)}
         <View style={styles.formFieldsContainer}>
           {this.renderInputFields()}
+          <Text style={styles.pickerLabel}>Select your Role</Text>
+          {this.renderPicker()}
+          <Button
+            large
+            raised
+            iconRight={{ name: "trending-flat" }}
+            title="Next"
+            backgroundColor="#00A68C"
+            onPress={proceedAhead}
+            disabled={this.disableNextButton()}
+          />
         </View>
-        {this.renderPLatformSpecificComponent()}
-        <Button style={styles.nextButton} onPress={proceedAhead}>
-          Next
-        </Button>
       </ScrollView>
     );
   }
 
-  renderPLatformSpecificComponent() {
-    return Platform.OS == "ios" ? this.renderForIOS() : this.renderForAndroid();
-  }
-
-  renderForIOS() {
-    return (
-      <Button
-        style={styles.roleButton}
-        onPress={this.openActionSheetInIOS.bind(this, ROLES)}
-      >
-        Describe your Role
-      </Button>
-    );
-  }
-
-  renderForAndroid() {
+  renderInputFields() {
     const { dispatch } = this.props;
-    return (
-      <View style={styles.androidPickerConatiner}>
-        <Text style={styles.androidPickerLabel}>Role</Text>
-        <Picker
-          selectedValue="js"
-          onValueChange={selectedRole =>
-            dispatch(updateValue({ prop: "role", value: selectedRole }))
-          }
-          style={styles.androidPicker}
-        >
-          {this.renderPickerItemsForAndroid(ROLES)}
-        </Picker>
-      </View>
-    );
+    return InputFields.map((input, index) => {
+      return (
+        <View key={input.id}>
+          <Input
+            value={this.props[input.id]}
+            placeholder={input.placeholder}
+            setReference={this.bindReferenceToInputFields.bind(this, input)}
+            focusNextInput={this.focusNextInput.bind(this, InputFields, index)}
+            onChangeText={this.updateInputFieldValue.bind(this, input.id)}
+            onBlur={this.updateErrorMessage.bind(this, input)}
+          />
+          <Text style={styles.errorMessage}>
+            {this.props.errors[input.errorId]}
+          </Text>
+        </View>
+      );
+    });
   }
 
-  openActionSheetInIOS(options) {
+  bindReferenceToInputFields(inputField, inputElement) {
+    this[inputField.id] = inputElement;
+  }
+
+  getNextInputFieldReference(InputFields, indexOfCurrentFocusedElement) {
+    return InputFields.length - 1 === indexOfCurrentFocusedElement
+      ? null
+      : InputFields[indexOfCurrentFocusedElement + 1].id;
+  }
+
+  focusNextInput(InputFields, indexOfCurrentFocusedElement) {
+    const nextInputFieldReference = this.getNextInputFieldReference(
+      InputFields,
+      indexOfCurrentFocusedElement
+    );
+    nextInputFieldReference !== null
+      ? this[nextInputFieldReference].focus()
+      : "";
+  }
+
+  updateInputFieldValue(inputFieldId, value) {
     const { dispatch } = this.props;
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex: options.length - 1
-      },
-      selectedRoleIndex =>
-        dispatch(
-          updateValue({ prop: "role", value: options[selectedRoleIndex] })
-        )
+    dispatch(updateMemberFormField({ prop: inputFieldId, value }));
+  }
+
+  validateValue(inputElementName, value) {
+    return validator(inputElementName, value);
+  }
+
+  updateErrorMessage(inputField) {
+    const { dispatch } = this.props;
+    dispatch(
+      updateErrorMessage({
+        prop: inputField.errorId,
+        value: this.validateValue(inputField.id, this.props[inputField.id])
+      })
     );
   }
 
-  renderPickerItemsForAndroid(options) {
-    return options.map(role => {
+  renderPickerItems(roles) {
+    return roles.map(role => {
       return <Picker.Item label={role} value={role} key={role} />;
     });
+  }
+
+  renderPicker() {
+    const { dispatch, role } = this.props;
+    return (
+      <Picker
+        selectedValue={role}
+        onValueChange={this.setSelectedRole.bind(this)}
+      >
+        {this.renderPickerItems(ROLES)}
+      </Picker>
+    );
+  }
+
+  setSelectedRole(selectedRole) {
+    const { dispatch } = this.props;
+    dispatch(updateMemberFormField({ prop: "role", value: selectedRole }));
+  }
+
+  disableNextButton() {
+    const { errors } = this.props;
+    for (let errorId in errors) {
+      if (errors.hasOwnProperty(errorId)) {
+        if (errors[errorId]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
 
@@ -147,33 +148,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   formFieldsContainer: {
-    width: "100%",
-    marginTop: 20
+    width: "100%"
   },
-  roleButton: {
-    borderRadius: 5,
-    alignSelf: "center",
-    width: "90%"
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
   },
-  nextButton: {
-    backgroundColor: "#aaf255",
-    width: 150,
-    marginTop: 20,
-    marginBottom: 20,
-    alignSelf: "center",
-    borderColor: "#aaf255"
-  },
-  androidPickerConatiner: {
-    flexDirection: "row",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  androidPickerLabel: {
-    flex: 0.1
-  },
-  androidPicker: {
-    flex: 0.6
+  pickerLabel: {
+    textAlign: "center",
+    fontSize: 18
   }
 });
 
