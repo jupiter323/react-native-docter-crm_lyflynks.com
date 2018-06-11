@@ -67,32 +67,17 @@ const DrawerStack = DrawerNavigator({
 
 const Navigation = StackNavigator(
   {
-    MemberLogin: {
-      screen: MemberLoginScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
+    // MemberLogin: {
+    //   screen: MemberLoginScreen,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {
-        header: null,
-        headerStyle: {
-        backgroundColor: '#0E3A53',
-        shadowRadius: 5,
-        shadowOpacity: 0.11,
-        shadowOffset: {
-          height: 5,
-          width: 0,
-        },
-        shadowColor: '#000',
-      },
-      headerTitleStyle: {
-        color: '#fff',
-        fontSize: 24,
-        fontWeight: '600',
-      },
-      },
+        header: null
+      }
     },
     LoginHelp: {
       screen: LoginHelpScreen
