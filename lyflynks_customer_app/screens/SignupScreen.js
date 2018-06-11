@@ -5,9 +5,11 @@ import {
   RegistrationForm,
   PrefferedDayTimeForm,
   InviteOthersForm,
+  SignupComplete,
   TEXT_FOR_PREFERRED_DAY_TIME_FORM,
   INSTRUCTIONS_FOR_REGISTRATION_FORM,
-  TEXT_FOR_INVITATION_FORM
+  TEXT_FOR_INVITATION_FORM,
+  INSTRUCTIONS_FOR_SIGNUP_COMPLETE
 } from "../components/Signup Forms";
 
 class SignupScreen extends React.Component {
@@ -18,16 +20,9 @@ class SignupScreen extends React.Component {
   }
 
   renderInstructions(instructions) {
-    const _instructions = instructions.map(instruction => {
-      return (
-        <Text key={instruction.id} style={styles.instructionStyles}>
-          {instruction.text}
-        </Text>
-      );
-    });
     return (
       <Card style={styles.instructionContainer}>
-        <Text>{_instructions}</Text>
+        <Text style={styles.instructionStyles}>{instructions}</Text>
       </Card>
     );
   }
@@ -39,11 +34,13 @@ class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>{this.getScreenForCorrespondingStep()}</View>
+      <View style={{ flex: 1, marginTop: 25 }}>
+        {this.getScreenForCurrentStep()}
+      </View>
     );
   }
 
-  getScreenForCorrespondingStep() {
+  getScreenForCurrentStep() {
     switch (this.state.step) {
       case 1:
         return (
@@ -88,20 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3"
   },
   instructionStyles: {
-    fontSize: 14,
+    fontSize: 16,
     color: "white"
   }
 });
-
-// import {
-//   InviteOthersForm,
-//   TEXT_FOR_INVITATION_FORM
-// } from "../components/InviteOthersForm";
-// import {
-//   INSTRUCTIONS_FOR_REGISTRATION_FORM,
-//   RegistrationForm
-// } from "../components/RegistrationForm";
-// import {
-//   TEXT_FOR_PREFERRED_DAY_TIME_FORM,
-//   PrefferedDayTimeForm
-// } from "../components/PreferrdDayTimeForm";
