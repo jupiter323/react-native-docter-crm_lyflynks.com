@@ -1,35 +1,39 @@
+import {
+  ADD_EMAIL,
+  EDIT_EMAIL,
+  DELETE_EMAIL
+} from "../actions/email_invitations";
+
 const INITITAL_STATE = {
-  count: 2,
+  count: 1,
   invitations: {
-    id1: { id: "id1", email: "" },
-    id2: { id: "id2", email: "" }
+    id1: { id: "id1", email: "" }
   }
 };
 
 export default (state = INITITAL_STATE, action) => {
-  debugger;
   switch (action.type) {
-    case "add_email":
+    case "ADD_EMAIL":
       const nextCount = state.count + 1;
       const newInvitations = {
         ...state.invitations,
         [`id${nextCount}`]: { id: `id${nextCount}`, email: "" }
       };
       return { ...state, count: nextCount, invitations: newInvitations };
-    case "edit_email":
+    case "EDIT_EMAIL":
       const inviteToEdit = state.invitations[action.payload.id];
       const updatedInvite = { ...inviteToEdit, email: action.payload.email };
       const updatedInvitations = {
         ...state.invitations,
         [action.payload.id]: updatedInvite
       };
-      return { ...state, updatedInvitations };
-    case "delete_email":
+      return { ...state, invitations: updatedInvitations };
+    case "DELETE_EMAIL":
       const {
-        [`id${action.payload.id}`]: email,
-        nextInvitations
+        [action.payload.id]: email,
+        ...nextInvitations
       } = state.invitations;
-      return { ...state, invitations: newInvitations };
+      return { ...state, invitations: nextInvitations };
     default:
       return state;
   }
