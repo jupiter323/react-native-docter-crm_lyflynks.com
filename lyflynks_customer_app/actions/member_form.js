@@ -1,7 +1,9 @@
 export const UPDATE_FORM_VALUE = "update_form_value";
 export const UPDATE_ERROR_MESSAGE = "update_error_message";
+export const UPDATE_PREFERRED_DAYS = "update_preferred_days";
+export const UPDATE_PREFERRED_TIME = "update_preferred_time";
 
-export const updateFormValue = ({ prop, value }) => {
+export const updateMemberFormField = ({ prop, value }) => {
   return {
     type: UPDATE_FORM_VALUE,
     payload: { prop, value }
@@ -15,22 +17,17 @@ export const updateErrorMessage = ({ prop, value }) => {
   };
 };
 
-export const modifyEmailInvitations = ({ operation, id, email }) => {
-  switch (operation) {
-    case "add":
+export const updateEntity = ({ entityType, key, selected }) => {
+  switch (entityType) {
+    case "time":
       return {
-        type: "add_email",
-        payload: { id, email }
+        type: UPDATE_PREFERRED_TIME,
+        payload: { key, selected }
       };
-    case "edit":
+    case "day":
       return {
-        type: "edit_email",
-        payload: { id, email }
-      };
-    case "delete":
-      return {
-        type: "add_email",
-        payload: { id, email }
+        type: UPDATE_PREFERRED_DAYS,
+        payload: { key, selected }
       };
   }
 };
