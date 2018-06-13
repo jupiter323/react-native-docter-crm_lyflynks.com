@@ -1,19 +1,19 @@
 import React from "react";
-import { View, Modal } from "react-native";
+import { View, Modal, TouchableOpacity, Text as PlainText } from "react-native";
 import { Button, Icon, Text } from "react-native-elements";
 import { connect } from "react-redux";
 import _ from "lodash";
 
+import { emailInviteValidator } from "../index";
 import { Input } from "../../UI";
-import { member } from "../../../actions/auth";
-import { modifyEmailInvitations } from "../../../actions/email_invitations";
+import {
+  modifyEmailInvitations,
+  sendEmailInvitations,
+  updateEmailErrorMessage
+} from "../../../actions/email_invitations";
 
 const mapStateToProps = state => {
-  return {
-    ...state.auth,
-    ...state.member_form,
-    ...state.email_invitations
-  };
+  return { ...state.email_invitations, ...state.member_form };
 };
 @connect(mapStateToProps)
 class InviteOthersForm extends React.Component {
@@ -22,14 +22,23 @@ class InviteOthersForm extends React.Component {
     this.state = { modalVisible: false };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.member.success && !this.props.member.success) {
-      //this.props.navigation.navigate("MemberAccountLogin");
+  componentDidUpdate(prevProps) {
+    const { invitationResponse } = this.props;
+    const { modalVisible } = this.state;
+    if (invitationResponse !== prevProps.invitationResponse) {
+      invitationResponse === "success"
+        ? this.setState({ modalVisible: !modalVisible })
+        : "";
     }
   }
 
   render() {
-    const { instructions, renderInstructions, proceedAhead } = this.props;
+    const {
+      instructions,
+      renderInstructions,
+      invitationResponse,
+      invitations
+    } = this.props;
     return (
       <View style={styles.container}>
         <Text h4 style={styles.heading}>
@@ -38,12 +47,15 @@ class InviteOthersForm extends React.Component {
         </Text>
         {this.renderEmails()}
         {this.renderModal()}
+        {this.renderTryAgain()}
         <Button
           raised
           icon={{ name: "send" }}
-          title="Invite"
+          title="Finish"
+          disabled={this.checkForInvalidFields()}
           backgroundColor="#00A68C"
-          onPress={this.toggleModal.bind(this)}
+          containerViewStyle={styles.inviteButton}
+          onPress={this.sendEmailInvitations.bind(this, invitations)}
         />
         <Icon
           raised
@@ -51,13 +63,8 @@ class InviteOthersForm extends React.Component {
           reverse={true}
           type="material-icon"
           color="#2096f3"
-          containerStyle={{
-            position: "absolute",
-            bottom: 5,
-            right: 10,
-            alignSelf: "flex-end"
-          }}
-          onPress={this.modifyEmailInvite.bind(this, "add")}
+          containerStyle={styles.addButton}
+          onPress={this.addEmail.bind(this, "add")}
         />
       </View>
     );
@@ -67,68 +74,149 @@ class InviteOthersForm extends React.Component {
     const { invitations, dispatch } = this.props;
     return _.map(invitations, invite => {
       return (
-        <View style={styles.inviteContainer} key={invite.id}>
-          <Input
-            value={invite.email}
-            style={styles.emailcontainer}
-            onChangeText={this.modifyEmailInvite.bind(this, "edit", invite)}
-            placeholder="Email"
-          />
-          <Icon
-            name="delete"
-            type="material-icon"
-            color="#e2401b"
-            size={30}
-            onPress={this.modifyEmailInvite.bind(this, "delete", invite)}
-          />
+        <View key={invite.id}>
+          <View style={styles.inviteContainer}>
+            <Input
+              value={invite.email}
+              style={styles.input}
+              onChangeText={this.editEmail.bind(this, "edit", invite)}
+              placeholder="Email"
+              onBlur={this.updateEmailErrorMessage.bind(this, invite)}
+            />
+            <Icon
+              name="delete"
+              type="material-icon"
+              color="#0E3A53"
+              size={30}
+              onPress={this.deleteEmail.bind(this, "delete", invite)}
+            />
+          </View>
+          <View>
+            <Text style={{ alignSelf: "center", color: "red" }}>
+              {invite.error}
+            </Text>
+          </View>
         </View>
       );
     });
   }
 
-  modifyEmailInvite(operation, emailInvite, updatedEmailId) {
+  updateEmailErrorMessage(invite) {
     const { dispatch } = this.props;
     dispatch(
-      modifyEmailInvitations({
-        operation,
-        id: emailInvite.id || undefined,
-        email: updatedEmailId !== undefined ? updatedEmailId : emailInvite.email
+      updateEmailErrorMessage({
+        id: invite.id,
+        error: this.validateValue(invite.email)
       })
     );
   }
 
+  validateValue(value) {
+    return emailInviteValidator("emailInvite", value);
+  }
+
   renderModal() {
+    const { invitationResponse, navigation, errorEmails } = this.props;
     return (
       <Modal
         animationType="slide"
         transparent={false}
         visible={this.state.modalVisible}
-        onRequestClose={this.toggleModal.bind(this)}
+        onRequestClose={this.navigateToSignUpComplete.bind(this)}
       >
         <View style={styles.modalContainer}>
           <Text h2 style={styles.modalHeading}>
-            we will contact them shortly.
+            We will contact them shortly.
           </Text>
+          {this.renderErrorEmails()}
           <Button
             raised
             backgroundColor="#00A68C"
             iconRight={{ name: "done" }}
             title="Done"
-            onPress={this.toggleModal.bind(this)}
+            onPress={this.navigateToSignUpComplete.bind(this)}
           />
         </View>
       </Modal>
     );
   }
 
-  toggleModal() {
-    this.setState({ modalVisible: !this.state.modalVisible });
+  renderErrorEmails() {
+    if (this.props.errorEmails.length != 0) {
+      return (
+        <View>
+          <PlainText style={{ alignSelf: "center" }}>
+            Following emails couldn't be send
+          </PlainText>
+          {this.getErrorEmails()}
+        </View>
+      );
+    }
   }
 
-  prepareUserDataForSignup() {
-    return (user = {
-      fnmae: this.props.firstname
+  getErrorEmails() {
+    const { errorEmails } = this.props;
+    return errorEmails.map(email => {
+      return (
+        <PlainText key={email} style={{ alignSelf: "center" }}>
+          {email}
+        </PlainText>
+      );
     });
+  }
+
+  navigateToSignUpComplete() {
+    const { navigation } = this.props;
+    this.setState({ modalVisible: false });
+    navigation.navigate("SignUpComplete");
+  }
+
+  renderTryAgain() {
+    const { invitationResponse } = this.props;
+    return invitationResponse == "failure" ? (
+      <PlainText>Try Again</PlainText>
+    ) : null;
+  }
+
+  addEmail(operation, email) {
+    const { dispatch } = this.props;
+    dispatch(modifyEmailInvitations({ operation }));
+  }
+
+  editEmail(operation, email, updatedEmailId) {
+    const { dispatch } = this.props;
+    dispatch(
+      modifyEmailInvitations({
+        operation,
+        id: email.id,
+        email: updatedEmailId
+      })
+    );
+  }
+
+  deleteEmail(operation, email) {
+    const { dispatch } = this.props;
+    dispatch(
+      modifyEmailInvitations({
+        operation,
+        id: email.id
+      })
+    );
+  }
+
+  checkForInvalidFields() {
+    const { invitations } = this.props;
+    for (let invite in invitations) {
+      if (invitations[invite].error !== "") {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  sendEmailInvitations(emailInvitations) {
+    const { dispatch, accountId } = this.props;
+    dispatch(sendEmailInvitations(emailInvitations, accountId));
   }
 }
 
@@ -148,22 +236,44 @@ const styles = {
     color: "#0E3A53",
     margin: 10
   },
+  addButton: {
+    position: "absolute",
+    bottom: 35,
+    right: 15,
+    alignSelf: "flex-end"
+  },
   inviteContainer: {
     flexDirection: "row",
     width: "100%"
   },
-  emailcontainer: {
-    flex: 0.9
+  inviteButton: {
+    position: "absolute",
+    bottom: 15,
+    alignSelf: "center",
+    width: 180
+  },
+  skipButton: {
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center"
+  },
+  input: {
+    height: 40,
+    margin: 10,
+    backgroundColor: "#fafafa",
+    borderColor: "#eeeeee",
+    borderWidth: 1,
+    flex: 0.95
   },
   modalContainer: {
     flex: 1,
-    marginTop: 25,
-    justifyContent: "space-around",
-    backgroundColor: "#C5AE91"
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: "white",
+    justifyContent: "space-around"
   },
   modalHeading: {
-    textAlign: "center",
-    color: "white"
+    textAlign: "center"
   }
 };
 export { InviteOthersForm };
