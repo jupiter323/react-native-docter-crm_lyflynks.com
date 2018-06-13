@@ -16,7 +16,7 @@ export class Input extends React.Component {
         secureTextEntry={this.props.secureTextEntry}
         ref={setReference}
         style={[styles.textInput, this.props.style]}
-        placeholderTextColor="black"
+        placeholderTextColor="#c2c2c2"
         autoCapitalize="none"
         underlineColorAndroid="transparent"
         autoCorrect={false}
@@ -26,6 +26,7 @@ export class Input extends React.Component {
         value={value}
         onSubmitEditing={focusNextInput}
         onBlur={onBlur}
+        underlineColorAndroid="transparent"
       />
     );
   }
@@ -47,16 +48,3 @@ const styles = StyleSheet.create({
     borderColor: "red"
   }
 });
-
-// const styles = StyleSheet.create({
-//   textInput: {
-//     ...colors.textInput,
-//     borderBottomWidth: 1,
-//     fontSize: 18,
-//     paddingVertical: 5,
-//     paddingHorizontal: 10,
-//     marginBottom: 30,
-//     marginLeft: 15,
-//     width: 300
-//   }
-// });

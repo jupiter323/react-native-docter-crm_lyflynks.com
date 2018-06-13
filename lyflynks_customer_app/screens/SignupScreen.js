@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Card } from "../components/UI";
+import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { Card } from "react-native-elements";
+
 import {
   RegistrationForm,
   PrefferedDayTimeForm,
   InviteOthersForm,
-  SignupComplete,
-  TEXT_FOR_PREFERRED_DAY_TIME_FORM,
+  INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM,
   INSTRUCTIONS_FOR_REGISTRATION_FORM,
-  TEXT_FOR_INVITATION_FORM,
-  INSTRUCTIONS_FOR_SIGNUP_COMPLETE
+  INSTRUCTIONS_FOR_INVITATION_FORM
 } from "../components/Signup Forms";
 
 class SignupScreen extends React.Component {
@@ -21,9 +20,9 @@ class SignupScreen extends React.Component {
 
   renderInstructions(instructions) {
     return (
-      <Card style={styles.instructionContainer}>
+      <View style={styles.instructionContainer}>
         <Text style={styles.instructionStyles}>{instructions}</Text>
-      </Card>
+      </View>
     );
   }
 
@@ -34,7 +33,8 @@ class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, marginTop: 25 }}>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" hidden={false} />
         {this.getScreenForCurrentStep()}
       </View>
     );
@@ -53,17 +53,19 @@ class SignupScreen extends React.Component {
       case 2:
         return (
           <PrefferedDayTimeForm
-            instructions={TEXT_FOR_PREFERRED_DAY_TIME_FORM}
+            instructions={INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM}
             renderInstructions={this.renderInstructions}
             proceedAhead={this.renderNextScreen}
+            navigation={this.props.navigation}
           />
         );
       case 3:
         return (
           <InviteOthersForm
-            instructions={TEXT_FOR_INVITATION_FORM}
+            instructions={INSTRUCTIONS_FOR_INVITATION_FORM}
             renderInstructions={this.renderInstructions}
             proceedAhead={this.renderNextScreen}
+            navigation={this.props.navigation}
           />
         );
       default:
@@ -82,10 +84,17 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   instructionContainer: {
-    backgroundColor: "#2196F3"
+    paddingTop: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 20,
+    backgroundColor: "#0E3A53",
+    width: "100%"
   },
   instructionStyles: {
     fontSize: 16,
-    color: "white"
+    color: "white",
+    textAlign: "center",
+    fontWeight: "500"
   }
 });

@@ -16,6 +16,8 @@ import MemberInviteScreen from '../screens/MemberInviteScreen';
 import NewMemberWizard from '../screens/NewMemberWizard';
 import SignupScreen from "../screens/SignupScreen";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
+import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
+import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
 
 export const ActivityLog = TabNavigator({
     Upcoming: {
@@ -72,16 +74,31 @@ const DrawerStack = DrawerNavigator({
 
 const Navigation = StackNavigator(
   {
-    MemberLogin: {
-      screen: MemberLoginScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {
         header: null
+      }
+    },
+    MemberLogin: {
+      screen: MemberLoginScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    SignUpComplete: {
+      screen: SignupComplete,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    EmailInvite: {
+      screen: InviteOthersForm,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
       }
     },
     LoginHelp: {

@@ -14,6 +14,9 @@ export const CONSTRAINTS = {
     },
     email: true
   },
+  emailInvite: {
+    email: true
+  },
   primaryPhoneNumber: {
     presence: { allowEmpty: false },
     length: {
@@ -25,8 +28,8 @@ export const CONSTRAINTS = {
   zipCode: {
     presence: { allowEmpty: false },
     length: {
-      minimum: 6,
-      message: "^Zip Code must be at least 6 digits long"
+      is: 5,
+      message: "^Zip Code must be exact 5 digits long"
     },
     numericality: true
   }

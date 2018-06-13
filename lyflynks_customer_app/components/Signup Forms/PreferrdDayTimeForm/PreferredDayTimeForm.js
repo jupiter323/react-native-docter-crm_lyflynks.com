@@ -5,41 +5,99 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { updateEntity } from "../../../actions/member_form";
+import { signUp } from "../../../actions/accounts";
 
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
 @connect(mapStateToProps)
 class PrefferedDayTimeForm extends React.Component {
+  componentDidUpdate(prevProps) {
+    const { accountCreated, navigation } = this.props;
+    if (
+      prevProps.accountCreated != accountCreated &&
+      accountCreated === "success"
+    ) {
+      navigation.navigate("EmailInvite");
+    }
+  }
+
   render() {
-    const { instructions, renderInstructions, proceedAhead } = this.props;
+    const {
+      instructions,
+      renderInstructions,
+      proceedAhead,
+      creatingAccount
+    } = this.props;
     return (
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
       >
         {renderInstructions(instructions)}
-        <Text h4 style={styles.heading}>
-          Select Your Preferred Day
-        </Text>
-        <Card containerStyle={styles.card}>{this.renderPrefferedTime()}</Card>
-        <Text h4 style={styles.heading}>
-          Select Your Preferred Time
-        </Text>
-        <Card containerStyle={[styles.card, { marginBottom: 10 }]}>
+        <Text h4 style={styles.heading} />
+        <Card
+          title="Select your preferred time"
+          dividerStyle={{ marginBottom: 0 }}
+          titleStyle={{ marginTop: 15 }}
+          containerStyle={styles.card}
+        >
+          {this.renderPrefferedTime()}
+        </Card>
+        <Card
+          title="Select your preferred day"
+          dividerStyle={{ marginBottom: 0 }}
+          titleStyle={{ marginTop: 15 }}
+          containerStyle={styles.card}
+        >
           {this.renderPreferredDays()}
         </Card>
+        {this.renderErrorMessage()}
         <Button
           large
           raised
-          iconRight={{ name: "trending-flat" }}
           title="Next"
+          loading={creatingAccount === true}
           backgroundColor="#00A68C"
           buttonStyle={styles.nextButton}
-          onPress={proceedAhead}
+          onPress={this.signUp.bind(this)}
         />
       </ScrollView>
     );
+  }
+
+  renderErrorMessage() {
+    if (this.props.accountCreated === "failure") {
+      return <Text style={styles.errorMessage}>Please Try Again</Text>;
+    }
+  }
+
+  signUp() {
+    const { dispatch } = this.props;
+    const {
+      firstName,
+      lastName,
+      email,
+      primaryPhoneNumber,
+      secondaryPhoneNumber,
+      zipCode,
+      role,
+      preferredDays,
+      preferredTime
+    } = this.props;
+
+    const member = {
+      firstName,
+      lastName,
+      email,
+      primaryPhoneNumber,
+      secondaryPhoneNumber,
+      zipCode,
+      role,
+      preferredDays,
+      preferredTime
+    };
+    dispatch(signUp(member));
   }
 
   renderPreferredDays() {
@@ -87,10 +145,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   card: {
-    padding: 0
+    padding: 0,
+    margin: 0,
+    marginBottom: 15
   },
   heading: {
     textAlign: "center",
     margin: 10
+  },
+  nextButton: {
+    marginBottom: 10
+  },
+  errorMessage: {
+    color: "red",
+    marginTop: 10,
+    marginBottom: 20,
+    alignSelf: "center"
   }
 });

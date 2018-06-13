@@ -4,17 +4,14 @@ export async function makeRequest(route, method, data, token) {
   let req;
 
   try {
-    debugger;
     req = await fetch(url, {
       method,
       body,
       headers: getHeader(token)
     });
   } catch (err) {
-    debugger
     console.log(err);
   }
-  debugger
   return req.json();
 }
 
@@ -73,4 +70,8 @@ export const memberInvitation = {
 
 export const members_accounts = {
   root: "/members_accounts"
+};
+
+export const memberInvite = {
+  root: "/send-mail"
 };
