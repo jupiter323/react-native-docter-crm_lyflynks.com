@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Picker, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
 
 import { Input } from "../../UI";
@@ -26,7 +26,7 @@ class RegistrationForm extends React.Component {
         showsVerticalScrollIndicator={false}
       >
         {renderInstructions(instructions)}
-        <View style={styles.formFieldsContainer}>
+        <Card containerStyle={styles.formFieldsContainer}>
           {this.renderInputFields()}
           <Text style={styles.pickerLabel}>Select your Role</Text>
           {this.renderPicker()}
@@ -39,7 +39,7 @@ class RegistrationForm extends React.Component {
             onPress={proceedAhead}
             disabled={this.disableNextButton()}
           />
-        </View>
+        </Card>
       </ScrollView>
     );
   }
@@ -49,17 +49,24 @@ class RegistrationForm extends React.Component {
     return InputFields.map((input, index) => {
       return (
         <View key={input.id}>
-          <Input
-            value={this.props[input.id]}
-            placeholder={input.placeholder}
-            setReference={this.bindReferenceToInputFields.bind(this, input)}
-            focusNextInput={this.focusNextInput.bind(this, InputFields, index)}
-            onChangeText={this.updateInputFieldValue.bind(this, input.id)}
-            onBlur={this.updateErrorMessage.bind(this, input)}
-          />
-          <Text style={styles.errorMessage}>
-            {this.props.errors[input.errorId]}
-          </Text>
+          <View key={input.id} style={styles.inputContainer}>
+            <Input
+              value={this.props[input.id]}
+              placeholder={input.placeholder}
+              style={styles.input}
+              setReference={this.bindReferenceToInputFields.bind(this, input)}
+              focusNextInput={this.focusNextInput.bind(
+                this,
+                InputFields,
+                index
+              )}
+              onChangeText={this.updateInputFieldValue.bind(this, input.id)}
+              onBlur={this.updateErrorMessage.bind(this, input)}
+            />
+            <Text style={styles.errorMessage}>
+              {this.props.errors[input.errorId]}
+            </Text>
+          </View>
         </View>
       );
     });
@@ -106,7 +113,9 @@ class RegistrationForm extends React.Component {
 
   renderPickerItems(roles) {
     return roles.map(role => {
-      return <Picker.Item label={role} value={role} key={role} />;
+      return (
+        <Picker.Item label={role.title} value={role.role} key={role.role} />
+      );
     });
   }
 
@@ -144,7 +153,20 @@ const ROLES = Roles["roles"];
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    backgroundColor: "white",
+    backgroundColor: "#0E3A53",
+    alignItems: "center"
+  },
+  input: {
+    height: 40,
+    margin: 10,
+    backgroundColor: "#fafafa",
+    borderColor: "#eeeeee",
+    borderWidth: 1,
+    width: "100%"
+  },
+  inputContainer: {
+    justifyContent: "center",
+    height: 70,
     alignItems: "center"
   },
   formFieldsContainer: {
@@ -152,7 +174,7 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: "red",
-    alignSelf: "center"
+    alignSelf: "flex-start"
   },
   pickerLabel: {
     textAlign: "center",
@@ -161,3 +183,24 @@ const styles = StyleSheet.create({
 });
 
 export { RegistrationForm };
+
+// import {
+//   FormLabel,
+//   FormInput,
+//   FormValidationMessage
+// } from "react-native-elements";
+
+{
+  /* <FormLabel>{input.placeholder}</FormLabel>
+          <FormInput
+            value={this.props[input.id]}
+            ref={this.bindReferenceToInputFields.bind(this, input)}
+            onChangeText={this.updateInputFieldValue.bind(this, input.id)}
+            onBlur={this.updateErrorMessage.bind(this, input)}
+            onSubmitEditing={this.focusNextInput.bind(this, InputFields, index)}
+            shake={this.props.errors[input.errorId]}
+          />
+          <FormValidationMessage>
+            {this.props.errors[input.errorId]}
+          </FormValidationMessage> */
+}

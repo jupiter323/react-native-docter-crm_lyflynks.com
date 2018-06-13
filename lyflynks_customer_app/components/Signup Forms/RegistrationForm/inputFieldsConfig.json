@@ -1,38 +1,33 @@
 [
   {
     "id": "firstName",
-    "placeholder": "First Name",
+    "placeholder": "First name",
     "errorId": "firstNameErrorMessage"
   },
   {
     "id": "lastName",
-    "placeholder": "Last Name",
+    "placeholder": "Last name",
     "ref": "lastName",
     "errorId": "lastNameErrorMessage"
   },
   {
-    "id": "userName",
-    "placeholder": "Username",
-    "errorId": "userNameErrorMessage"
-  },
-  {
     "id": "email",
-    "placeholder": "Email Address",
+    "placeholder": "Email address",
     "errorId": "emailErrorMessage"
   },
   {
     "id": "primaryPhoneNumber",
-    "placeholder": "Primary Phone Number",
+    "placeholder": "Primary phone number",
     "errorId": "primaryPhoneNumberErrorMessage"
   },
   {
     "id": "secondaryPhoneNumber",
-    "placeholder": "Secondary Phone Number",
+    "placeholder": "Secondary phone number",
     "errorId": "secondaryPhoneNumberErrorMessage"
   },
   {
     "id": "zipCode",
-    "placeholder": "Elder's Zip Code",
+    "placeholder": "Elder's zip code",
     "errorId": "zipCodeErrorMessage"
   }
 ]
