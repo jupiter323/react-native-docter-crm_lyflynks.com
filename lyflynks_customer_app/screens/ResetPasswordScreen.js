@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import NavigatorService from '../Navigation/service/navigator';
-import { Input, DefaultButton } from "../components/UI";
+import { Input, Button } from "../components/UI";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
@@ -14,24 +14,8 @@ export default class ResetPasswordScreen extends Component {
       confirmPassword: '',
     }
   }
-	static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Drawer',
-    tabBarOptions: {
-      style: {
-         backgroundColor: 'black',
-      }
-    },
-    headerLeft: (
-      <TouchableOpacity onPress={() => this.navigateScreen()} >
-        <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
-      </TouchableOpacity>
-    ),
-  });
 
 	render() {
-    navigateScreen = () => {
-      NavigatorService.navigate('DrawerToggle')
-    }
 		return (
 			<View style={styles.container}>
         <Input 
@@ -45,9 +29,9 @@ export default class ResetPasswordScreen extends Component {
           value={this.state.confirmPassword}
           placeholder='Confirm Password'
         />
-        <DefaultButton style={styles.nextButton}>
+        <Button onPress={() => this.props.navigation.navigate('NewMemberWizard')} >
           Next
-        </DefaultButton>
+        </Button>
 			</View>
 		);
 	}

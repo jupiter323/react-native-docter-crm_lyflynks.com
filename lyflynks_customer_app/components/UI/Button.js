@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, TouchableHighlight } from "react-native";
 
-export const DefaultButton = props => {
+export const Button = props => {
   return (
     <TouchableHighlight
       onPress={props.onPress}

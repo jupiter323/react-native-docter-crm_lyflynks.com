@@ -5,12 +5,15 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Button,
 } from 'react-native';
-
-import { FontAwesome } from '@expo/vector-icons';
+import NavigatorService from '../Navigation/service/navigator';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { upcoming } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
@@ -21,8 +24,25 @@ import Moment from 'moment';
 })
 export default class ActivitiesUpcoming extends Component {
   static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Upcoming'
+    tabBarLabel: 'Upcoming',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+        headerLeft: (
+          <TouchableOpacity onPress={() => this.navigateScreen()} >
+            <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
+          </TouchableOpacity>
+        ),
+        headerRight: (
+          <TouchableOpacity onPress={() => this.logOut()} >
+            <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+          </TouchableOpacity>
+        ),
   })
+
+
 
   componentDidMount() {
     const { dispatch, member_account } = this.props;
@@ -34,11 +54,23 @@ export default class ActivitiesUpcoming extends Component {
   }
 
   render() {
+    const token = this.props.member_account.data
+
+    logOut = () => {
+      const { dispatch } = this.props;
+      NavigatorService.navigate('MemberLogin')
+      dispatch(memberLogout(token));
+    }
+
+    navigateScreen = () => {
+      NavigatorService.navigate('DrawerToggle')
+    }
     const { upcoming } = this.props;
     let activities;
 
     if (upcoming.success) {
       activities = upcoming.data.map((activity, index) => {
+        console.log(activity)
         const for_who = activity.type === 'medical appointment'
                         ? activity.for_who
                         : activity.for_who.join('\n')
@@ -53,16 +85,15 @@ export default class ActivitiesUpcoming extends Component {
 
         return (
           <TouchableOpacity key={index} style={styles.card}>
-            <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
-            </Text>
-            <Text style={styles.activityStatus(activity.status)}>
-              {activity.status.toUpperCase()}
-            </Text>
-            <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-            <Text style={styles.activityWho}>{who}</Text>
-            <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-            <Text style={styles.activityForWho}>{for_who}</Text>
+            <View style={styles.cardView}>
+              <View style={styles.leftCol}>
+                <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+                <Text style={styles.activityForWho}>{who}</Text>
+              </View>
+              <Text style={styles.activityWhen}>
+                {when}
+              </Text>
+            </View>
           </TouchableOpacity>
         )
       });
@@ -82,6 +113,7 @@ export default class ActivitiesUpcoming extends Component {
 const styles = {
   headerDrawerButton: {
     color: '#fff',
+    backgroundColor: "black",
     fontSize: 24,
     marginLeft: 20,
   },
@@ -89,6 +121,12 @@ const styles = {
     color: '#fff',
     fontSize: 24,
     marginRight: 20,
+  },
+  leftCol: {
+    width: '70%', 
+    display: 'flex',
+    flexDirection:'column', 
+    justifyContent:'flex-start'
   },
   container: {
     flexGrow: 1,
@@ -98,18 +136,29 @@ const styles = {
     padding: 20,
   },
   card: {
-    padding: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
     width: '100%',
     backgroundColor: '#fff',
     marginBottom: 25,
     borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.11,
+    display: 'flex',
     shadowOffset: {
       height: 5,
       width: 0,
     },
     shadowColor: '#000',
+  },
+  cardView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
   activityStatus(status) {
     let color;
@@ -124,7 +173,6 @@ const styles = {
         color = 'green';
         break;
     }
-
     return {
       position: 'absolute',
       color,
@@ -134,23 +182,16 @@ const styles = {
       fontWeight: '700',
     }
   },
-  activityWhen: {
-    position: 'absolute',
-    fontSize: 14,
-    color: '#9090a5',
-    top: 15,
-    left: 20,
-  },
   activityForWhoLabel: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#334',
     fontWeight: '900',
     letterSpacing: 1,
     marginTop: 20,
   },
   activityForWho: {
-    fontSize: 20,
-    color: '#002',
+    fontSize: 18,
+    color: '#0E3A53',
     fontWeight: '200',
     letterSpacing: 0.5,
     marginTop: 5,
@@ -164,9 +205,12 @@ const styles = {
   },
   activityType: {
     fontSize: 14,
-    color: '#334',
+    color: '#C5AE91',
     fontWeight: '900',
     letterSpacing: 1,
-    marginTop: 35,
   },
+  activityWhen: {
+    fontSize: 12,
+    color: '#0E3A53',
+  }
 }

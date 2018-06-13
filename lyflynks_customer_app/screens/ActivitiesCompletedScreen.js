@@ -5,12 +5,14 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Moment from 'moment';
 
@@ -19,9 +21,20 @@ import Moment from 'moment';
   const { member_account } = store.auth;
   return { member_account, completed, isFetching, error };
 })
+
 export default class ActivitiesCompleted extends Component {
   static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Completed',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+        headerLeft: (
+          <TouchableOpacity onPress={() => this.navigateScreen()} >
+            <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
+          </TouchableOpacity>
+        ),
   })
 
   componentDidMount() {
@@ -34,6 +47,9 @@ export default class ActivitiesCompleted extends Component {
   }
 
   render() {
+    navigateScreen = () => {
+      NavigatorService.navigate('DrawerToggle')
+    }
     const { completed } = this.props;
     let activities;
 
@@ -47,21 +63,34 @@ export default class ActivitiesCompleted extends Component {
                     ? activity.who
                     : activity.who
 
-        const when = Moment(activity.when).format('MMM D YYYY, h:mm A');
+        const whenDate = Moment(activity.when).format('MMM D YYYY');
+        const whenTime = Moment(activity.when).format('h:mm A');
 
         return (
           <TouchableOpacity key={index} style={styles.card}>
-            <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
-            </Text>
-            <Text style={styles.activityStatus(activity.status)}>
-              {activity.status.toUpperCase()}
-            </Text>
-            <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-            <Text style={styles.activityWho}>{who}</Text>
-            <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-            <Text style={styles.activityForWho}>{for_who}</Text>
+            <View style={styles.cardView}>
+              <View style={styles.leftCol}>
+                <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+                <Text style={styles.activityForWho}>{for_who}</Text>
+              </View>
+              <View style={styles.rightCol}>
+                <Text style={styles.activityWhen}>{whenDate}</Text>
+                <Text style={styles.activityWhen}>{whenTime}</Text>
+              </View>
+            </View>
           </TouchableOpacity>
+          // <TouchableOpacity key={index} style={styles.card}>
+          //   <Text style={styles.activityWhen}>
+          //     <FontAwesome name='calendar-o'/> {when}
+          //   </Text>
+          //   <Text style={styles.activityStatus(activity.status)}>
+          //     {activity.status.toUpperCase()}
+          //   </Text>
+          //   <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+          //   <Text style={styles.activityWho}>{who}</Text>
+          //   <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
+          //   <Text style={styles.activityForWho}>{for_who}</Text>
+          // </TouchableOpacity>
         )
       });
     }
@@ -93,21 +122,43 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#f0f0f9',
-    padding: 20,
+  },
+  leftCol: {
+    width: '70%', 
+    display: 'flex',
+    flexDirection:'column', 
+    justifyContent:'flex-start'
+  },
+  rightCol: {
+    width: '20%', 
+    display: 'flex',
+    flexDirection:'column', 
+    justifyContent:'flex-start'
   },
   card: {
-    padding: 20,
-    width: '100%',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '90%',
     backgroundColor: '#fff',
-    marginBottom: 25,
+    marginTop: 25,
     borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.11,
+    display: 'flex',
     shadowOffset: {
       height: 5,
       width: 0,
     },
     shadowColor: '#000',
+  },
+  cardView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
   activityStatus(status) {
     let color;
@@ -119,7 +170,6 @@ const styles = {
         color = 'red';
         break;
     }
-
     return {
       position: 'absolute',
       color,
@@ -129,13 +179,6 @@ const styles = {
       fontWeight: '700',
     }
   },
-  activityWhen: {
-    position: 'absolute',
-    fontSize: 14,
-    color: '#9090a5',
-    top: 15,
-    left: 20,
-  },
   activityForWhoLabel: {
     fontSize: 14,
     color: '#334',
@@ -144,8 +187,8 @@ const styles = {
     marginTop: 20,
   },
   activityForWho: {
-    fontSize: 20,
-    color: '#002',
+    fontSize: 18,
+    color: '#0E3A53',
     fontWeight: '200',
     letterSpacing: 0.5,
     marginTop: 5,
@@ -159,9 +202,12 @@ const styles = {
   },
   activityType: {
     fontSize: 14,
-    color: '#334',
+    color: '#C5AE91',
     fontWeight: '900',
     letterSpacing: 1,
-    marginTop: 35,
   },
+  activityWhen: {
+    fontSize: 12,
+    color: '#0E3A53',
+  }
 }

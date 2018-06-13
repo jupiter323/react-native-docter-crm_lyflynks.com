@@ -1,50 +1,83 @@
-import React from "react";
-import { View, Text, StyleSheet, Picker, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import React, { Component } from 'react';
+import { View, 
+  ScrollView, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Picker,
+} from 'react-native';
+import { ListItem, Card, Text, Button } from "react-native-elements";
 import { connect } from "react-redux";
-
 import { Input } from "../../UI";
-import { validator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
+import activitiesFields from "./activitiesFieldsConfig.json";
 import Roles from "./rolesConfig.json";
 import {
   updateMemberFormField,
   updateErrorMessage
 } from "../../../actions/member_form";
 
+import _ from "lodash";
+import { updateEntity } from "../../../actions/member_form";
+
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
 
 @connect(mapStateToProps)
-class RegistrationForm extends React.Component {
+export default class NewMemberWizardForm extends Component {
+
   render() {
+    this.state = {
+      checked: false,
+    }
     const { instructions, renderInstructions, proceedAhead } = this.props;
-      return (
-        <ScrollView
-          contentContainerStyle={styles.scrollViewContainer}
-          showsVerticalScrollIndicator={false}
-        >
+    debugger;
+    return (
+      <ScrollView>
+        <View style={styles.formFieldsContainer}>
           {renderInstructions(instructions)}
-          <View style={styles.formFieldsContainer}>
-            {this.renderInputFields()}
-            <Text style={styles.pickerLabel}>Select your Role</Text>
+          <Text style={styles.label}>Describe your relationship with {this.props.username} </Text>
+          <View style={styles.picker}>
             {this.renderPicker()}
-            <Button
+          </View>
+          <Text style={styles.label}>Now tell us a little about the caregiving activities that you are able to provide for {this.props.username}</Text>
+          {this.renderActivitiesList()}
+          <Button
               large
               raised
-              iconRight={{ name: "trending-flat" }}
-              title="Next"
+              title="Done"
               backgroundColor="#00A68C"
               onPress={proceedAhead}
-              disabled={this.disableNextButton()}
             />
-          </View>
-        </ScrollView>
+        </View>
+      </ScrollView>
     );
   }
 
-  renderInputFields() {
+
+  renderActivitiesList() {
+    const { activities } = this.props;
+    return _.map(activities, (activity, key) => {
+      return (
+        <ListItem
+          key={key}
+          title={activity.title}
+          switchButton
+          hideChevron
+          switched={activity.selected}
+          onSwitch={this.updateEntity.bind(this, "activities", key, activity)}
+        />
+      );
+    });
+  }
+
+
+  updateEntity(entityType, key, entity) {
+    const { dispatch } = this.props;
+    dispatch(updateEntity({ entityType, key, selected: !entity.selected }));
+  }
+
+  renderInputFields(){
     const { dispatch } = this.props;
     return InputFields.map((input, index) => {
       return (
@@ -52,19 +85,12 @@ class RegistrationForm extends React.Component {
           <Input
             value={this.props[input.id]}
             placeholder={input.placeholder}
-            setReference={this.bindReferenceToInputFields.bind(this, input)}
-            focusNextInput={this.focusNextInput.bind(this, InputFields, index)}
             onChangeText={this.updateInputFieldValue.bind(this, input.id)}
-            onBlur={this.updateErrorMessage.bind(this, input)}
           />
-          <Text style={styles.errorMessage}>
-            {this.props.errors[input.errorId]}
-          </Text>
         </View>
       );
     });
   }
-
   bindReferenceToInputFields(inputField, inputElement) {
     this[inputField.id] = inputElement;
   }
@@ -104,8 +130,9 @@ class RegistrationForm extends React.Component {
     );
   }
 
+
   renderPickerItems(roles) {
-    return roles.map(role => {
+  return roles.map(role => {
       return <Picker.Item label={role} value={role} key={role} />;
     });
   }
@@ -140,6 +167,8 @@ class RegistrationForm extends React.Component {
   }
 }
 
+
+
 const ROLES = Roles["roles"];
 
 const styles = StyleSheet.create({
@@ -148,7 +177,37 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   formFieldsContainer: {
-    width: "100%"
+    width: "100%",
+  },
+  label: {
+    fontSize: 12,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  picker: {
+    width: '90%',
+    borderColor: "#0E3A53",
+    borderWidth: 2,
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  button: {
+    backgroundColor: '#00A68C',
+    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 60,
+    marginLeft: '10%',
+    borderWidth: 2,
+    borderRadius: 50,
+    borderColor: '#00A68C',
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#fff',
   },
   errorMessage: {
     color: "red",
@@ -159,5 +218,3 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 });
-
-export { RegistrationForm };

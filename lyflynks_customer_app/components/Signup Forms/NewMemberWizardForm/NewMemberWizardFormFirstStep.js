@@ -1,10 +1,14 @@
-import React from "react";
-import { View, Text, StyleSheet, Picker, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import React, { Component } from 'react';
+import { View, 
+  Text, 
+  ScrollView, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Picker,
+  Button
+} from 'react-native';
 import { connect } from "react-redux";
-
 import { Input } from "../../UI";
-import { validator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
 import Roles from "./rolesConfig.json";
 import {
@@ -17,34 +21,31 @@ const mapStateToProps = state => {
 };
 
 @connect(mapStateToProps)
-class RegistrationForm extends React.Component {
+export default class NewMemberWizardForm extends Component {
   render() {
-    const { instructions, renderInstructions, proceedAhead } = this.props;
-      return (
-        <ScrollView
-          contentContainerStyle={styles.scrollViewContainer}
-          showsVerticalScrollIndicator={false}
-        >
+  const { instructions, renderInstructions, proceedAhead } = this.props;
+    debugger;
+    return (
+      <ScrollView>
+        <View style={styles.formFieldsContainer}>
           {renderInstructions(instructions)}
-          <View style={styles.formFieldsContainer}>
-            {this.renderInputFields()}
-            <Text style={styles.pickerLabel}>Select your Role</Text>
-            {this.renderPicker()}
-            <Button
+          {this.renderInputFields()}
+          <Text style={styles.label}>Describe your relationship with {this.props.username} </Text>
+          <Button
               large
               raised
               iconRight={{ name: "trending-flat" }}
               title="Next"
               backgroundColor="#00A68C"
               onPress={proceedAhead}
-              disabled={this.disableNextButton()}
             />
-          </View>
-        </ScrollView>
+        </View>
+      </ScrollView>
     );
   }
 
-  renderInputFields() {
+
+  renderInputFields(){
     const { dispatch } = this.props;
     return InputFields.map((input, index) => {
       return (
@@ -52,19 +53,12 @@ class RegistrationForm extends React.Component {
           <Input
             value={this.props[input.id]}
             placeholder={input.placeholder}
-            setReference={this.bindReferenceToInputFields.bind(this, input)}
-            focusNextInput={this.focusNextInput.bind(this, InputFields, index)}
             onChangeText={this.updateInputFieldValue.bind(this, input.id)}
-            onBlur={this.updateErrorMessage.bind(this, input)}
           />
-          <Text style={styles.errorMessage}>
-            {this.props.errors[input.errorId]}
-          </Text>
         </View>
       );
     });
   }
-
   bindReferenceToInputFields(inputField, inputElement) {
     this[inputField.id] = inputElement;
   }
@@ -104,8 +98,9 @@ class RegistrationForm extends React.Component {
     );
   }
 
+
   renderPickerItems(roles) {
-    return roles.map(role => {
+  return roles.map(role => {
       return <Picker.Item label={role} value={role} key={role} />;
     });
   }
@@ -140,6 +135,8 @@ class RegistrationForm extends React.Component {
   }
 }
 
+
+
 const ROLES = Roles["roles"];
 
 const styles = StyleSheet.create({
@@ -148,7 +145,37 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   formFieldsContainer: {
-    width: "100%"
+    width: "100%",
+  },
+  label: {
+    fontSize: 12,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  picker: {
+    width: '90%',
+    borderColor: "#0E3A53",
+    borderWidth: 2,
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  button: {
+    backgroundColor: '#00A68C',
+    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 60,
+    marginLeft: '10%',
+    borderWidth: 2,
+    borderRadius: 50,
+    borderColor: '#00A68C',
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#fff',
   },
   errorMessage: {
     color: "red",
@@ -159,5 +186,3 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 });
-
-export { RegistrationForm };

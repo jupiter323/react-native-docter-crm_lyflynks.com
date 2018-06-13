@@ -16,4 +16,8 @@ export default {
   async forgot_username(data) {
     return makeRequest([base, auth.forgot], 'POST', data)
   },
+  async member_logout(data) {
+    debugger;
+    return makeRequest([base, auth.logout], 'POST', data)
+  },
 }

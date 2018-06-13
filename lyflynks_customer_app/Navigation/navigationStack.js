@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native';
+import { Button, Platform } from 'react-native';
 import {
   StackNavigator,
   TabNavigator,
@@ -15,6 +15,7 @@ import LoginHelpScreen from '../screens/LoginHelpScreen';
 import MemberInviteScreen from '../screens/MemberInviteScreen';
 import NewMemberWizard from '../screens/NewMemberWizard';
 import SignupScreen from "../screens/SignupScreen";
+import ResetPasswordScreen from "../screens/ResetPasswordScreen";
 
 export const ActivityLog = TabNavigator({
     Upcoming: {
@@ -48,31 +49,35 @@ const DrawerStack = DrawerNavigator({
   Activities: { 
     screen: ActivityLog,
     navigationOptions: {
-    title: 'Activity Log',
+      title: 'Activity Log',
+      headerTitleStyle: {
+        color: "#fff",
+        fontSize: 24,
+        fontWeight: "600"
+      }
     }, 
   },
   MemberInvite: { 
     screen: MemberInviteScreen, 
     navigationOptions: {
       title: 'Invite Member',
-    },
-  },
-  NewMemberWizard: { 
-    screen: NewMemberWizard, 
-    navigationOptions: {
-      title: 'New Member Wizard',
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
     },
   },
 })
 
 const Navigation = StackNavigator(
   {
-    // MemberLogin: {
-    //   screen: MemberLoginScreen,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
+    MemberLogin: {
+      screen: MemberLoginScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {
@@ -89,6 +94,7 @@ const Navigation = StackNavigator(
       screen: DrawerStack,
       navigationOptions: {
         headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
           backgroundColor: '#0E3A53',
           shadowRadius: 5,
           shadowOpacity: 0.11,
@@ -104,7 +110,53 @@ const Navigation = StackNavigator(
           fontWeight: "600"
         }
       }
-    }
+    },
+    NewMemberWizard: { 
+      screen: NewMemberWizard, 
+      navigationOptions: {
+        title: 'New Member Wizard',
+        headerLeft: null,
+        headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+      },
+    },
+    ResetPassword: {
+      screen: ResetPasswordScreen,
+      navigationOptions: {
+        title: 'Reset Password',
+        headerLeft: null,
+        headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+      },
+    },
   },
   {
     headerMode: "screen"

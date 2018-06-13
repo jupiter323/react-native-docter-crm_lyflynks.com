@@ -10,6 +10,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
+import { Input, Button } from "../components/UI";
 import { list } from '../actions/members_accounts';
 import { member_account } from '../actions/auth';
 
@@ -109,11 +110,18 @@ export default class MemberAccountLogin extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#f0f0f5',
     padding: 20,
+  },
+  resetForm: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   card: {
     padding: 20,

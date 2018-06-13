@@ -11,9 +11,10 @@ export async function makeRequest(route, method, data, token) {
       headers: getHeader(token)
     });
   } catch (err) {
+    debugger
     console.log(err);
   }
-
+  debugger
   return req.json();
 }
 
@@ -40,7 +41,7 @@ export const toQueryString = obj => {
   );
 };
 
-export const domain = 'http://192.168.0.4:5002';
+export const domain = 'http://192.168.1.230:5002';
 
 export const accounts = {
   root: "/accounts",
@@ -58,11 +59,16 @@ export const auth = {
   members: "/members",
   members_accounts: "/members/accounts",
   forgot: "/forgot",
-  reset: "/reset"
+  reset: "/reset",
+  logout: "/logout"
 };
 
 export const members = {
   root: "/members"
+};
+
+export const memberInvitation = {
+  root: "/send-mail"
 };
 
 export const members_accounts = {

@@ -4,17 +4,18 @@ import NavigatorService from '../Navigation/service/navigator';
 import DefaultInput from '../components/UI/DefaultInput';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { memberInvite } from '../actions/members_accounts';
+import { inviteMember } from '../actions/email_invitations';
 
 
-export default class MemberInviteScreen extends Component {
-  @connect(store => {
-    const { email } = store.members_accounts;
-    return {
-      email
-    }
-  })
+@connect(store => {
+  const { member} = store.auth;
+  return {
+    member
+  }
+})
 
+
+class MemberInviteScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Drawer',
     tabBarOptions: {
@@ -32,11 +33,19 @@ export default class MemberInviteScreen extends Component {
 	constructor(props) {
     super(props);
     this.state = { email: '' };
+
   }
 
   invite = (emailText) => {
-    const { dispatch, email } = this.props;
-    dispatch(memberInvite(emailText))
+    const { email, inviteMember } = this.props;
+    debugger;
+    inviteMember({id: this.props.member.message, email:emailText});
+  }
+
+
+  componentDidMount() {
+    const { dispatch, member } = this.props;
+    console.log(member)
   }
 
 	render() {
@@ -62,6 +71,8 @@ export default class MemberInviteScreen extends Component {
 		);
 	}
 }
+
+export default connect(null,{inviteMember})(MemberInviteScreen)
 
 const styles = {
 	container: {

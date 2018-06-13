@@ -11,6 +11,8 @@ export const MEMBER_ACCOUNT_LOGIN = "MEMBER_ACCOUNT_LOGIN";
 export const MEMBER_ACCOUNT_LOGIN_SUCCESS = "MEMBER_ACCOUNT_LOGIN_SUCCESS";
 export const MEMBER_ACCOUNT_LOGIN_FAILURE = "MEMBER_ACCOUNT_LOGIN_FAILURE";
 
+export const MEMBER_ACCOUNT_LOGOUT = "MEMBER_ACCOUNT_LOGOUT";
+
 export function updateLoginForm(text, field) {
   return dispatch => {
     if (field === "username") {
@@ -22,7 +24,6 @@ export function updateLoginForm(text, field) {
 }
 
 export function member(data) {
-  debugger;
   return async dispatch => {
     dispatch(authMember());
     try {
@@ -34,9 +35,20 @@ export function member(data) {
   };
 }
 
+export function memberLogout(data) {
+  return async dispatch => {
+    dispatch(authMemberLogout());
+    try {
+      dispatch(await auth.member_logout(data));
+    } catch (err) {
+      debugger;
+      dispatch(authMemberFailure(err));
+    }
+  };
+}
+
 export function member_account(data, token) {
   return async dispatch => {
-    dispatch(authMemberAccount());
     try {
       dispatch(
         authMemberAccountSuccess(await auth.member_account(data, token))
@@ -70,6 +82,10 @@ function authMemberFailure(error) {
 
 function authMemberAccount() {
   return { type: MEMBER_ACCOUNT_LOGIN };
+}
+
+function authMemberLogout() {
+  return { type: MEMBER_ACCOUNT_LOGOUT };
 }
 
 function authMemberAccountSuccess(data) {

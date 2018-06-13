@@ -2,7 +2,8 @@ import {
   UPDATE_FORM_VALUE,
   UPDATE_ERROR_MESSAGE,
   UPDATE_PREFERRED_DAYS,
-  UPDATE_PREFERRED_TIME
+  UPDATE_PREFERRED_TIME,
+  UPDATE_ACTIVITIES
 } from "../actions/member_form";
 
 export const INITIAL_STATE = {
@@ -27,6 +28,11 @@ export const INITIAL_STATE = {
     morning: { title: "Morning", selected: false },
     earlyAfternoon: { title: "Early Afternoon", selected: false },
     evening: { title: "Evening", selected: false }
+  },
+  activities: {
+    transportation: { title: "Transportation", selected: false},
+    checkins: { title: "Checkins", selected: false},
+    medicalScheduling: { title: "Medical Scheduling", selected: false}
   },
   errors: {
     firstNameErrorMessage: true,
@@ -64,6 +70,15 @@ export default (state = INITIAL_STATE, action) => {
         [action.payload.key]: updatedTime
       };
       return { ...state, preferredTime: updatedpreferredTime };
+    case UPDATE_ACTIVITIES:
+      debugger;
+      const activityToEdit = state.activities[action.payload.key];
+      const updatedActivity = { ...activityToEdit, selected: action.payload.selected };
+      const updatedActivities = {
+        ...state.activities,
+        [action.payload.key]: updatedActivity
+      };
+      return { ...state, activities: updatedActivities };
     default:
       return state;
   }

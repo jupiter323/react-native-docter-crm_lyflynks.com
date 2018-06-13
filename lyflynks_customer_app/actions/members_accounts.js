@@ -3,7 +3,6 @@ import { members_accounts } from '../api/LyfLynks_API';
 export const MEMBERS_ACCOUNTS_LIST = 'MEMBERS_ACCOUNTS_LIST';
 export const MEMBERS_ACCOUNTS_LIST_SUCCESS = 'MEMBERS_ACCOUNTS_LIST_SUCCESS';
 export const MEMBERS_ACCOUNTS_LIST_FAILURE = 'MEMBERS_ACCOUNTS_LIST_FAILURE';
-export const MEMBERS_INVITE = 'MEMBERS_INVITE';
 
 export function list(token) {
   return async (dispatch) => {
@@ -31,9 +30,6 @@ export function memberInvite(email) {
   }
 }
 
-function memberInvites(email) {
-  return { type: MEMBERS_INVITE, email}
-}
 function membersAccountsList() {
   return { type: MEMBERS_ACCOUNTS_LIST };
 }
