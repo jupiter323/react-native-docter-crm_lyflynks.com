@@ -7,6 +7,8 @@ import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
 import ActivitiesCompletedScreen from "../screens/ActivitiesCompletedScreen";
 import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
+import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
+import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
 
 export const ActivityLog = TabNavigator(
   {
@@ -25,16 +27,31 @@ export const ActivityLog = TabNavigator(
 
 const Navigation = StackNavigator(
   {
-    // MemberLogin: {
-    //   screen: MemberLoginScreen,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {
         header: null
+      }
+    },
+    MemberLogin: {
+      screen: MemberLoginScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    SignUpComplete: {
+      screen: SignupComplete,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    EmailInvite: {
+      screen: InviteOthersForm,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
       }
     },
     LoginHelp: {
