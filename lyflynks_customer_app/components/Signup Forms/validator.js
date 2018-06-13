@@ -9,3 +9,13 @@ export const validator = (inputElementName, value) => {
     ? ""
     : errorMessage[inputElementName][0];
 };
+
+export const emailInviteValidator = (emailInvite, value) => {
+  if (value == "") return "";
+  else {
+    const errorMessage = validate({ emailInvite: value }, CONSTRAINTS);
+    return errorMessage[emailInvite] === undefined
+      ? ""
+      : errorMessage[emailInvite][0];
+  }
+};
