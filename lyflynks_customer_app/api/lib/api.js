@@ -4,7 +4,6 @@ export async function makeRequest(route, method, data, token) {
   let req;
 
   try {
-    debugger;
     req = await fetch(url, {
       method,
       body,
@@ -13,7 +12,6 @@ export async function makeRequest(route, method, data, token) {
   } catch (err) {
     console.log(err);
   }
-
   return req.json();
 }
 
@@ -67,4 +65,8 @@ export const members = {
 
 export const members_accounts = {
   root: "/members_accounts"
+};
+
+export const memberInvite = {
+  root: "/send-mail"
 };
