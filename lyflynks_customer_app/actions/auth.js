@@ -22,13 +22,11 @@ export function updateLoginForm(text, field) {
 }
 
 export function member(data) {
-  debugger;
   return async dispatch => {
     dispatch(authMember());
     try {
       dispatch(authMemberSuccess(await auth.member(data)));
     } catch (err) {
-      debugger;
       dispatch(authMemberFailure(err));
     }
   };
@@ -79,19 +77,3 @@ function authMemberAccountSuccess(data) {
 function authMemberAccountFailure(error) {
   return { type: MEMBER_ACCOUNT_LOGIN_FAILURE, error };
 }
-
-const normalizeEntities = entities =>
-  _.filter(entities, entity => {
-    if (entity["selected"] === true) {
-      return entity["title"];
-    }
-  });
-
-export const createMember = memberDetails => {
-  const normalizedPreferredDays = normalizeEntities(
-    memberDetails.preferredDays
-  );
-  const normalizedPreferredTime = normalizeEntities(
-    memberDetails.preferredTime
-  );
-};
