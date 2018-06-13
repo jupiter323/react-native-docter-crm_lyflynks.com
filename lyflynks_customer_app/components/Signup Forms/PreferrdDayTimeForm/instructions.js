@@ -1,4 +1,4 @@
-export const TEXT_FOR_PREFERRED_DAY_TIME_FORM =
+export const INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM =
   "LyfLynks knows about family caregivers juggle" +
   "multiple responsibilities, we combine the power of technology with 24/7 staff support." +
   "\n" +
