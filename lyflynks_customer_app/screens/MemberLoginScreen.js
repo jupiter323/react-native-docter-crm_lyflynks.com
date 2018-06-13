@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
-
+import { Button as ReactButton } from "react-native-elements";
 import { connect } from "react-redux";
 
 import LoginForm from "../components/LoginForm";
@@ -37,17 +37,19 @@ export default class MemberLogin extends Component {
           Help me log in
         </Text>
         <View style={styles.signupContainer}>
-          <Text style={{ textAlign: "center" }}>
-            Interested in joining the Lyflynks{"\n"}community and spending more{
-              "\n"
-            }meaningful time with your aging family{"\n"} members?
+          <Text style={styles.signUpText}>
+            Interested in joining the Lyflynks{"\n"}
+            community and spending more{"\n"}
+            meaningful time with your aging family{"\n"} members?
           </Text>
-          <Button
-            style={styles.signupButton}
+          <ReactButton
+            raised
+            title="Sign Up for a New Account"
+            containerViewStyle={styles.signupButton}
+            backgroundColor="#00A68C"
+            containerViewStyle={styles.inviteButton}
             onPress={() => this.props.navigation.navigate("Signup")}
-          >
-            Signup
-          </Button>
+          />
         </View>
       </KeyboardAvoidingView>
     );
@@ -63,18 +65,23 @@ const styles = StyleSheet.create({
     padding: 0
   },
   signupContainer: {
-    marginTop: 20,
+    marginTop: 40,
     marginBottom: 10,
     alignItems: "center"
   },
+  signUpText: {
+    textAlign: "center",
+    marginBottom: 20
+  },
   signupButton: {
-    borderRadius: 5,
-    width: 150,
-    marginTop: 20
+    position: "absolute",
+    bottom: 15,
+    alignSelf: "center",
+    width: 180
   },
   logo: {
     height: 100,
-    width: 100,
+    width: 200,
     bottom: 40
   },
   loginHelpText: {
