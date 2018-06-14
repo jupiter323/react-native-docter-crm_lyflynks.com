@@ -8,7 +8,7 @@ import {
 const INITITAL_STATE = {
   count: 1,
   invitations: {
-    id1: { id: "id1", email: "" }
+    id1: { id: "id1", email: "", error: "" }
   }
 };
 
@@ -26,7 +26,7 @@ describe("Email Invitations Reducer", () => {
       count: 2,
       invitations: {
         ...INITITAL_STATE.invitations,
-        id2: { id: "id2", email: "" }
+        id2: { id: "id2", email: "", error: "" }
       }
     };
     expect(email_invitations(INITITAL_STATE, email)).toEqual(expectedState);
@@ -45,7 +45,7 @@ describe("Email Invitations Reducer", () => {
       count: 1,
       invitations: {
         ...INITITAL_STATE.invitations,
-        id1: { id: "id1", email: "life@lyn.com" }
+        id1: { id: "id1", email: "life@lyn.com", error: "" }
       }
     };
     expect(email_invitations(INITITAL_STATE, email)).toEqual(expectedState);
