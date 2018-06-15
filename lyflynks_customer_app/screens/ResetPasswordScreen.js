@@ -23,6 +23,7 @@ export default class ResetPasswordScreen extends Component {
           underlineColorAndroid="transparent"
           value={this.state.oldPassword}
           placeholder='New Password'
+          secureTextEntry={true}
         />
 				<Input 
           onChangeText={(confirmPassword) => this.setState({confirmPassword})}
