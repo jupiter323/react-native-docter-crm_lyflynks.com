@@ -11,6 +11,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 import { upcoming } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
@@ -21,7 +22,17 @@ import Moment from 'moment';
 })
 export default class ActivitiesUpcoming extends Component {
   static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Upcoming'
+    tabBarLabel: 'Upcoming',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+    headerRight: (
+      <TouchableOpacity onPress={() => this.logOut()} >
+        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+      </TouchableOpacity>
+    ),
   })
 
   componentDidMount() {
@@ -36,6 +47,12 @@ export default class ActivitiesUpcoming extends Component {
   render() {
     const { upcoming } = this.props;
     let activities;
+
+    logOut = () => {
+      const { dispatch } = this.props;
+      this.props.navigation.navigate('MemberLogin')
+      dispatch(memberLogout(this.props.member_account.data));
+    }
 
     if (upcoming.success) {
       activities = upcoming.data.map((activity, index) => {

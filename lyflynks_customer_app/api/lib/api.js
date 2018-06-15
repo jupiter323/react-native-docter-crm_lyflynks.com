@@ -53,6 +53,7 @@ export const auth = {
   members_accounts: '/members/accounts',
   forgot: '/forgot',
   reset: '/reset',
+  logout: "/logout"
 }
 
 export const members = {

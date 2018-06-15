@@ -11,6 +11,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
@@ -22,6 +23,16 @@ import Moment from 'moment';
 export default class ActivitiesCompleted extends Component {
   static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Completed',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+    headerRight: (
+      <TouchableOpacity onPress={() => this.logOut()} >
+        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+      </TouchableOpacity>
+    ),
   })
 
   componentDidMount() {
@@ -35,6 +46,13 @@ export default class ActivitiesCompleted extends Component {
 
   render() {
     const { completed } = this.props;
+    
+    logOut = () => {
+      const { dispatch } = this.props;
+      this.props.navigation.navigate('MemberLogin')
+      dispatch(memberLogout(this.props.member_account.data));
+    }
+
     let activities;
 
     if (completed.success) {
