@@ -18,7 +18,7 @@ import SignupScreen from "../screens/SignupScreen";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
 import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
-
+  
 export const ActivityLog = TabNavigator({
     Upcoming: {
       screen: ActivitiesUpcomingScreen
@@ -74,17 +74,17 @@ const DrawerStack = DrawerNavigator({
 
 const Navigation = StackNavigator(
   {
-    Signup: {
-      screen: SignupScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
     MemberLogin: {
       screen: MemberLoginScreen,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
+      }
+    },
+    Signup: {
+      screen: SignupScreen,
+      navigationOptions: {
+        header: null
       }
     },
     SignUpComplete: {
