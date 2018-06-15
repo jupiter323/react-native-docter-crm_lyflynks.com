@@ -17,7 +17,6 @@ const normalizeEntities = entities => {
 
 export const signUp = memberDetails => {
   return dispatch => {
-    debugger;
     dispatch({ type: CREATING_ACCOUNT });
     const normalizedPreferredDays = normalizeEntities(
       memberDetails.preferredDays
@@ -26,7 +25,7 @@ export const signUp = memberDetails => {
       memberDetails.preferredTime
     );
     const { errors, ...memberWithoutErrors } = memberDetails;
-    debugger;
+
     const normalizedMember = {
       fname: memberWithoutErrors["firstName"],
       lname: memberWithoutErrors["lastName"],
@@ -38,12 +37,10 @@ export const signUp = memberDetails => {
       preferredDays: normalizedPreferredDays,
       preferredTime: normalizedPreferredTime
     };
-    console.log(memberWithoutErrors["lastname"]);
-    console.log(normalizedMember);
+
     accounts
       .createAccount(normalizedMember)
       .then(function(response) {
-        console.log(response);
         if (response.success == true) {
           dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
         } else {

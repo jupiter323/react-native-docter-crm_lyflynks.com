@@ -27,17 +27,17 @@ export const ActivityLog = TabNavigator(
 
 const Navigation = StackNavigator(
   {
-    Signup: {
-      screen: SignupScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
     MemberLogin: {
       screen: MemberLoginScreen,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
+      }
+    },
+    Signup: {
+      screen: SignupScreen,
+      navigationOptions: {
+        header: null
       }
     },
     SignUpComplete: {
