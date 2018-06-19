@@ -45,6 +45,7 @@ export function memberLogout() {
 
 export function member_account(data, token) {
   return async dispatch => {
+    dispatch(authMemberAccount());
     try {
       dispatch(
         authMemberAccountSuccess(await auth.member_account(data, token))
