@@ -60,7 +60,9 @@ const Navigation = StackNavigator(
     },
   }, {
     headerMode: 'screen',
+    initialRouteName:'MemberLogin',
   }
 );
+
 
 export default Navigation;

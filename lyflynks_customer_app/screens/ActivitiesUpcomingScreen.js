@@ -6,6 +6,9 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  NavigationActions
+ } from 'react-navigation';
 
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -45,13 +48,20 @@ export default class ActivitiesUpcoming extends Component {
   }
 
   render() {
-    const { upcoming } = this.props;
+    const { upcoming, dispatch } = this.props;
     let activities;
 
     logOut = () => {
-      const { dispatch } = this.props;
-      this.props.navigation.navigate('MemberLogin')
-      dispatch(memberLogout(this.props.member_account.data));
+      dispatch(memberLogout());
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MemberLogin',
+          }),
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
     }
 
     if (upcoming.success) {

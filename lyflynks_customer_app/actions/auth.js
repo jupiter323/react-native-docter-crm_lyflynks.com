@@ -13,6 +13,8 @@ export const MEMBER_ACCOUNT_LOGIN_FAILURE = "MEMBER_ACCOUNT_LOGIN_FAILURE";
 
 export const MEMBER_ACCOUNT_LOGOUT = "MEMBER_ACCOUNT_LOGOUT";
 
+export const MEMBER_LOGOUT = "MEMBER_LOGOUT";
+
 export function updateLoginForm(text, field) {
   return dispatch => {
     if (field === "username") {
@@ -34,15 +36,10 @@ export function member(data) {
   };
 }
 
-export function memberLogout(data) {
+export function memberLogout() {
   return async dispatch => {
+    dispatch(memberAccountLogout());
     dispatch(authMemberLogout());
-    try {
-      dispatch(await auth.member_logout(data));
-    } catch (err) {
-      debugger;
-      dispatch(authMemberFailure(err));
-    }
   };
 }
 
@@ -83,8 +80,13 @@ function authMemberAccount() {
   return { type: MEMBER_ACCOUNT_LOGIN };
 }
 
-function authMemberLogout() {
+function memberAccountLogout() {
   return { type: MEMBER_ACCOUNT_LOGOUT };
+}
+
+function authMemberLogout() {
+  debugger;
+  return { type: MEMBER_LOGOUT };
 }
 
 function authMemberAccountSuccess(data) {
