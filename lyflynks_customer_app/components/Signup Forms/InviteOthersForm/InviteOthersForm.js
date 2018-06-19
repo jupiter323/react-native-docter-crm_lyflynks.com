@@ -126,7 +126,7 @@ class InviteOthersForm extends React.Component {
       >
         <View style={styles.modalContainer}>
           <Text h2 style={styles.modalHeading}>
-            We will contact them shortly.
+            We will contact you shortly.
           </Text>
           {this.renderErrorEmails()}
           <Button

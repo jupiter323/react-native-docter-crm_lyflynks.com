@@ -46,7 +46,6 @@ export const ActivityLog = TabNavigator({
     animationEnabled: true,
 });
 
-
 const DrawerStack = DrawerNavigator({
   Activities: { 
     screen: ActivityLog,

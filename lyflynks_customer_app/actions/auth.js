@@ -71,7 +71,6 @@ function authMember() {
 }
 
 function authMemberSuccess(data) {
-  debugger;
   return { type: MEMBER_LOGIN_SUCCESS, data };
 }
 
