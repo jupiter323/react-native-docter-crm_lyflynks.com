@@ -1,16 +1,19 @@
-import { domain, members, makeRequest } from './api';
+import { domain, members, makeRequest, memberInvite } from "./api";
 
 const base = domain + members.root;
-
+const baseForMemberInvite = domain + memberInvite.root;
 // data is the JSON request body
 export default {
   async detail(memberID, token) {
-    return makeRequest([base, `/${memberID}`], 'GET', data, token)
+    return makeRequest([base, `/${memberID}`], "GET", data, token);
   },
   async create(data) {
-    return makeRequest([base], 'POST', data, token)
+    return makeRequest([base], "POST", data, token);
   },
   async update(data) {
-    return makeRequest([base], 'PATCH', data, token)
+    return makeRequest([base], "PATCH", data, token);
   },
-}
+  sendInvites(invites) {
+    return makeRequest([baseForMemberInvite], "POST", invites);
+  }
+};
