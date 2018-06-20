@@ -7,6 +7,7 @@ import {
   MEMBER_ACCOUNT_LOGIN,
   MEMBER_ACCOUNT_LOGIN_SUCCESS,
   MEMBER_ACCOUNT_LOGIN_FAILURE,
+  MEMBER_ACCOUNT_LOGOUT,
 } from '../actions/auth';
 
 const initialState = {
@@ -76,6 +77,16 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error,
+      }
+      
+    case MEMBER_ACCOUNT_LOGOUT:
+      return {
+        ...state,
+        isFetching: false,
+        member_account: {},
+        member: {},
+        username: '',
+        password: '',
       }
 
     default:
