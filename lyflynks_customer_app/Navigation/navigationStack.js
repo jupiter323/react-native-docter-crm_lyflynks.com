@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Platform } from 'react-native';
 import { StackNavigator, TabNavigator } from "react-navigation";
 
 import MemberLoginScreen from "../screens/MemberLoginScreen";
@@ -9,6 +10,7 @@ import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
 import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
+import NewMemberWizardScreen from '../screens/NewMemberWizard';
 
 export const ActivityLog = TabNavigator(
   {
@@ -81,10 +83,33 @@ const Navigation = StackNavigator(
           fontWeight: "600"
         }
       }
-    }
+    },
+    NewMemberWizard: { 
+      screen: NewMemberWizardScreen, 
+      navigationOptions: {
+        title: 'New Member Wizard',
+        headerLeft: null,
+        headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+      },
+    },
   },
   {
-    headerMode: "screen"
+    headerMode: "screen",
     initialRouteName:'MemberLogin',
   }
 );
