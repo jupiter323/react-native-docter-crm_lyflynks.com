@@ -13,9 +13,11 @@ import { Button } from "../components/UI";
   return { member, username, password, isFetching, error };
 })
 export default class MemberLogin extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.member.success && !this.props.member.success) {
-      this.props.navigation.navigate("MemberAccountLogin");
+  componentDidUpdate(prevProps) {
+    if (prevProps.member.success != this.props.member.success) {
+      if(this.props.member.success){
+        this.props.navigation.navigate('MemberAccountLogin');
+      }
     }
   }
 
