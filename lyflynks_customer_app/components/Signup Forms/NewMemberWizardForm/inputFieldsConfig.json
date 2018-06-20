@@ -1,0 +1,28 @@
+[
+  {
+    "id": "firstName",
+    "placeholder": "First Name *",
+    "errorId": "firstNameErrorMessage"
+  },
+  {
+    "id": "lastName",
+    "placeholder": "Last Name *",
+    "ref": "lastName",
+    "errorId": "lastNameErrorMessage"
+  },
+  {
+    "id": "email",
+    "placeholder": "Email Address *",
+    "errorId": "emailErrorMessage"
+  },
+  {
+    "id": "primaryPhoneNumber",
+    "placeholder": "Primary Phone Number *",
+    "errorId": "primaryPhoneNumberErrorMessage"
+  },
+  {
+    "id": "secondaryPhoneNumber",
+    "placeholder": "Secondary Phone Number",
+    "errorId": "secondaryPhoneNumberErrorMessage"
+  },
+]

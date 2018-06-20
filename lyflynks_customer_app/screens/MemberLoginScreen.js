@@ -15,8 +15,11 @@ import { Button } from "../components/UI";
 export default class MemberLogin extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.member.success != this.props.member.success) {
-      if(this.props.member.success){
+      const firstLogin = false;
+      if(this.props.member.success && firstLogin){
         this.props.navigation.navigate('MemberAccountLogin');
+      }else {
+        this.props.navigation.navigate('NewMemberWizard');
       }
     }
   }

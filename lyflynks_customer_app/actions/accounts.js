@@ -52,3 +52,37 @@ export const signUp = memberDetails => {
       });
   };
 };
+
+export const signUpAccount = memberDetails => {
+  return dispatch => {
+    dispatch({ type: CREATING_ACCOUNT });
+    const normalizedActivities = normalizeEntities(
+      memberDetails.activities
+    );
+
+    const { errors, ...memberWithoutErrors } = memberDetails;
+
+    const normalizedMember = {
+      fname: memberWithoutErrors["firstName"],
+      lname: memberWithoutErrors["lastName"],
+      email: memberWithoutErrors["email"],
+      primaryPhoneNumber: memberWithoutErrors["primaryPhoneNumber"],
+      secondaryPhoneNumber: memberWithoutErrors["secondaryPhoneNumber"],
+      relationship: memberWithoutErrors["relationship"],
+      activities: normalizedActivities
+    };
+
+    accounts
+      .createMemberAccount(normalizedMember)
+      .then(function(response) {
+        if (response.success == true) {
+          dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
+        } else {
+          dispatch({ type: ACCOUNT_CREATION_FAILURE });
+        }
+      })
+      .catch(function(error) {
+        dispatch({ type: ACCOUNT_CREATION_FAILURE });
+      });
+  };
+};
