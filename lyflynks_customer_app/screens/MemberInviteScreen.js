@@ -3,13 +3,13 @@ import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 import { Input } from '../components/UI/Input';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { inviteMember } from '../actions/email_invitations';
+import { sendAccountInvite } from '../actions/email_invitations';
 
 
 @connect(store => {
-  const { member} = store.auth;
+  const { member, member_account} = store.auth;
   return {
-    member
+    member, member_account
   }
 })
 
@@ -36,9 +36,9 @@ class MemberInviteScreen extends Component {
   }
 
   invite = (emailText) => {
-    const { email, inviteMember } = this.props;
+    const { email, sendAccountInvite, member_account } = this.props;
     debugger;
-    inviteMember({id: this.props.member.message, email:emailText});
+    sendAccountInvite({token: this.props.member_account.data, email:emailText});
   }
 
 
@@ -70,7 +70,7 @@ class MemberInviteScreen extends Component {
 	}
 }
 
-export default connect(null,{inviteMember})(MemberInviteScreen)
+export default connect(null,{sendAccountInvite})(MemberInviteScreen)
 
 const styles = {
 	container: {

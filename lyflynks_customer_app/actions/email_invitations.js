@@ -16,6 +16,16 @@ const normalizeEmailInvitations = emailInvitaions => {
   return emails;
 };
 
+export const sendAccountInvite = (data) => {
+  return dispatch => {
+    try{
+    dispatch(members.sendInvites(data))
+    }catch (err) {
+     dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
+    }
+  }
+}
+
 export const sendEmailInvitations = (emailInvitaions, id) => {
   return dispatch => {
     dispatch({ type: SENDING_EMAIL_INVITATIONS });
