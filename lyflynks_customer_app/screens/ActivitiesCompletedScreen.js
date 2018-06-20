@@ -6,11 +6,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  NavigationActions
+ } from 'react-navigation';
 
 import { FontAwesome } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
@@ -22,6 +26,16 @@ import Moment from 'moment';
 export default class ActivitiesCompleted extends Component {
   static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Completed',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+    headerRight: (
+      <TouchableOpacity onPress={() => this.logOut()} >
+        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+      </TouchableOpacity>
+    ),
   })
 
   componentDidMount() {
@@ -34,7 +48,22 @@ export default class ActivitiesCompleted extends Component {
   }
 
   render() {
-    const { completed } = this.props;
+    const { completed, dispatch } = this.props;
+    
+
+    logOut = () => {
+      dispatch(memberLogout());
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MemberLogin',
+          }),
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
+    }
+
     let activities;
 
     if (completed.success) {

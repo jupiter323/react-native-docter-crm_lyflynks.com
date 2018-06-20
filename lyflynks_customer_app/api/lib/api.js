@@ -52,12 +52,13 @@ export const activities = {
 };
 
 export const auth = {
-  root: "/auth",
-  members: "/members",
-  members_accounts: "/members/accounts",
-  forgot: "/forgot",
-  reset: "/reset"
-};
+  root: '/auth',
+  members: '/members',
+  members_accounts: '/members/accounts',
+  forgot: '/forgot',
+  reset: '/reset',
+  logout: '/logout',
+}
 
 export const members = {
   root: "/members"
