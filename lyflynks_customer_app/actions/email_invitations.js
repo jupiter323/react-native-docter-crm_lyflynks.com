@@ -16,12 +16,11 @@ const normalizeEmailInvitations = emailInvitaions => {
   return emails;
 };
 
-const sendInvites = members.sendInvites;
 
 export const sendAccountInvite = (data) => {
-  return dispatch => {
+  return async dispatch => {
     try{
-    dispatch(sendInvites(data))
+    dispatch(memberAccountSuccess(await members.sendInvites(data)));
     }catch (err) {
      dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
     }
@@ -83,3 +82,12 @@ export const updateEmailErrorMessage = ({ id, error }) => {
     payload: { id, error }
   };
 };
+
+
+
+function memberAccountSuccess(errorEmails) {
+  return { 
+    type: EMAIL_INIVITATIONS_SENT, 
+    payload: errorEmails 
+  };
+}
