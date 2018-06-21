@@ -16,14 +16,14 @@ const normalizeEmailInvitations = emailInvitaions => {
   return emails;
 };
 
-export const sendEmailInvitations = (emailInvitaions, id) => {
+export const sendEmailInvitations = (emailInvitaions, token) => {
   return dispatch => {
     dispatch({ type: SENDING_EMAIL_INVITATIONS });
     const emails = normalizeEmailInvitations(emailInvitaions);
     const errorEmails = [];
     const arrayOfEmailPromises = emails.map(email => {
       return members.sendInvites({
-        id,
+        token,
         email
       });
     });

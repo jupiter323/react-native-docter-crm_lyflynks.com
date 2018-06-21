@@ -228,8 +228,8 @@ class InviteOthersForm extends React.Component {
   }
 
   sendEmailInvitations(emailInvitations) {
-    const { dispatch, accountId } = this.props;
-    dispatch(sendEmailInvitations(emailInvitations, accountId));
+    const { dispatch, token } = this.props;
+    dispatch(sendEmailInvitations(emailInvitations, token));
   }
 }
 

@@ -68,5 +68,5 @@ export const members_accounts = {
 };
 
 export const memberInvite = {
-  root: "/send-mail"
+  root: "/send-invite-mail"
 };
