@@ -14,7 +14,7 @@ import { sendAccountInvite } from '../actions/email_invitations';
 })
 
 
-class MemberInviteScreen extends Component {
+class MemberInviteScreen extends Component {g
 	static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Drawer',
     tabBarOptions: {
@@ -37,8 +37,8 @@ class MemberInviteScreen extends Component {
 
   invite = (emailText) => {
     const { email, sendAccountInvite, member_account } = this.props;
-    debugger;
     sendAccountInvite({token: this.props.member_account.data, email:emailText});
+    this.props.navigation.navigate('Activities');
   }
 
 
