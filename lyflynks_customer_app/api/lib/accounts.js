@@ -8,7 +8,7 @@ export default {
     return makeRequest([base], "POST", member);
   },
 
-  createMemberAccount(memberAcount) {
-    return makeRequest([baseForMemberAccount], "POST", memberAcount);
+  createMemberAccount(memberAcount, userToken) {
+    return makeRequest([baseForMemberAccount], "POST", memberAcount, { headers: {'x-access-token': userToken} });
   }
 };

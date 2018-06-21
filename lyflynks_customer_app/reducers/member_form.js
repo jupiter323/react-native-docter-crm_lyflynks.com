@@ -11,12 +11,17 @@ import {
   ACCOUNT_CREATION_SUCCESS,
   ACCOUNT_CREATION_FAILURE
 } from "../actions/accounts";
+import {
+  SET_USERNAME
+} from "../actions/auth";
 
 export const INITIAL_STATE = {
   firstName: "",
   lastName: "",
   userName: "",
   email: "",
+  password: "",
+  confirmPassword: "",
   primaryPhoneNumber: "",
   secondaryPhoneNumber: "",
   zipCode: "",
@@ -47,7 +52,9 @@ export const INITIAL_STATE = {
     userNameErrorMessage: "",
     emailErrorMessage: "",
     primaryPhoneNumberErrorMessage: "",
-    zipCodeErrorMessage: ""
+    zipCodeErrorMessage: "",
+    passwordErrorMessage: "",
+    confirmPasswordErrorMessage: ""
   },
   creatingAccount: null,
   accountCreated: null,
@@ -56,6 +63,11 @@ export const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SET_USERNAME:
+      return {
+        ...state,
+        userName: action.data
+      };
     case UPDATE_FORM_VALUE:
       return {
         ...state,

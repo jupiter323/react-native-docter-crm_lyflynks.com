@@ -17,6 +17,7 @@ const initialState = {
   member_account: {},
   isFetching: false,
   error: {},
+  newUser: false
 }
 
 export default function authReducer(state = initialState, action) {
@@ -44,6 +45,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         member: action.data,
+        newUser: action.data.data.newUser,
         error: {},
       }
 

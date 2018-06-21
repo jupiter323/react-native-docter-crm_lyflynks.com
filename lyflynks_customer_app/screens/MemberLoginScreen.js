@@ -13,16 +13,16 @@ import { Button } from "../components/UI";
   return { member, username, password, isFetching, error };
 })
 export default class MemberLogin extends Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.member.success != this.props.member.success) {
-      const firstLogin = false;
-      if(this.props.member.success && firstLogin){
-        this.props.navigation.navigate('MemberAccountLogin');
-      }else {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.member.success && !this.props.member.success) {
+      if (nextProps.member.success && nextProps.member.data.newUser) {
         this.props.navigation.navigate('NewMemberWizard');
+      }else {
+        this.props.navigation.navigate('MemberAccountLogin');
       }
     }
   }
+
 
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");

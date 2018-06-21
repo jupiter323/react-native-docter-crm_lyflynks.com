@@ -9,7 +9,7 @@ import { View,
 } from 'react-native';
 import { connect } from "react-redux";
 import { Input } from "../../UI";
-import { validator } from "../index";
+import { validator, confirmPasswordValidator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
 import Roles from "./rolesConfig.json";
 import {
@@ -54,7 +54,21 @@ export default class NewMemberWizardFormFirstStep extends Component {
         return (
           <View key={input.id}>
             <Input
-              value={this.props.username}
+              value={this.props.userName}
+              placeholder={input.placeholder}
+              editable={false}
+              selectTextOnFocus={false}
+            />
+            <Text style={styles.errorMessage}>
+              {this.props.errors[input.errorId]}
+            </Text>
+          </View>
+        )
+      }else if( input.id === 'confirmPassword') {
+        return (
+          <View key={input.id}>
+            <Input
+              value={this.props[input.id]}
               placeholder={input.placeholder}
               onChangeText={this.updateInputFieldValue.bind(this, input.id)}
               setReference={this.bindReferenceToInputFields.bind(this, input)}
@@ -63,7 +77,7 @@ export default class NewMemberWizardFormFirstStep extends Component {
                 InputFields,
                 index
               )}
-              onBlur={this.updateErrorMessage.bind(this, input)}
+              onBlur={this.validateConfirmPasswordValue.bind(this, input)}
             />
             <Text style={styles.errorMessage}>
               {this.props.errors[input.errorId]}
@@ -120,6 +134,20 @@ export default class NewMemberWizardFormFirstStep extends Component {
 
   validateValue(inputElementName, value) {
     return validator(inputElementName, value);
+  }
+
+  validateConfirmPasswordValue(input) {
+    const { dispatch } = this.props;
+    const passwordArray = {
+      password: this.props.password,
+      confirmPassword: this.props.confirmPassword,
+    }
+    dispatch(
+      updateErrorMessage({
+        prop: input.errorId,
+        value: confirmPasswordValidator(passwordArray)
+      })
+    );
   }
 
   updateErrorMessage(inputField) {

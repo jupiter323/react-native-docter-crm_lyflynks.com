@@ -21,7 +21,9 @@ import { updateEntity } from "../../../actions/member_form";
 import { signUpAccount } from "../../../actions/accounts";
 
 const mapStateToProps = state => {
-  return { ...state.member_form };
+  const memberData = state.auth.member.data;
+  const userToken = memberData['token'];
+  return { ...state.member_form, userToken };
 };
 
 @connect(mapStateToProps)
@@ -62,23 +64,26 @@ export default class NewMemberWizardForm extends Component {
     const { dispatch,
       firstName,
       lastName,
-      email,
+      userName,
+      password,
       primaryPhoneNumber,
       secondaryPhoneNumber,
       relationship,
-      activities
+      activities,
+      userToken
     } = this.props;
-
+    debugger;
     const member = {
       firstName,
       lastName,
-      email,
+      userName,
+      password,
       primaryPhoneNumber,
       secondaryPhoneNumber,
       relationship,
       activities
     };
-    dispatch(signUpAccount(member));
+    dispatch(signUpAccount(member, this.props.userToken));
   }
 
 

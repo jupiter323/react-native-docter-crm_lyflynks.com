@@ -11,9 +11,19 @@
     "errorId": "lastNameErrorMessage"
   },
   {
-    "id": "email",
+    "id": "userName",
     "placeholder": "Email Address *",
-    "errorId": "emailErrorMessage"
+    "errorId": "userNameErrorMessage"
+  },
+  {
+    "id": "password",
+    "placeholder": "Enter Password *",
+    "errorId": "passwordErrorMessage"
+  },
+  {
+    "id": "confirmPassword",
+    "placeholder": "Confirm Password *",
+    "errorId": "confirmPasswordErrorMessage"
   },
   {
     "id": "primaryPhoneNumber",

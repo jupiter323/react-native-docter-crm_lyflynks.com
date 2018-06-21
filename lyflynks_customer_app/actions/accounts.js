@@ -53,7 +53,8 @@ export const signUp = memberDetails => {
   };
 };
 
-export const signUpAccount = memberDetails => {
+export const signUpAccount = (memberDetails, userToken) => {
+  debugger
   return dispatch => {
     dispatch({ type: CREATING_ACCOUNT });
     const normalizedActivities = normalizeEntities(
@@ -65,15 +66,17 @@ export const signUpAccount = memberDetails => {
     const normalizedMember = {
       fname: memberWithoutErrors["firstName"],
       lname: memberWithoutErrors["lastName"],
-      email: memberWithoutErrors["email"],
-      primaryPhoneNumber: memberWithoutErrors["primaryPhoneNumber"],
-      secondaryPhoneNumber: memberWithoutErrors["secondaryPhoneNumber"],
+      username: memberWithoutErrors["userName"],
+      email: memberWithoutErrors["userName"],
+      password: memberWithoutErrors["password"],
+      phone_cell: memberWithoutErrors["primaryPhoneNumber"],
+      phone_home: memberWithoutErrors["secondaryPhoneNumber"],
       relationship: memberWithoutErrors["relationship"],
       activities: normalizedActivities
     };
-
+    debugger;
     accounts
-      .createMemberAccount(normalizedMember)
+      .createMemberAccount(normalizedMember, userToken)
       .then(function(response) {
         if (response.success == true) {
           dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
