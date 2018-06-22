@@ -14,7 +14,7 @@ import { sendAccountInvite } from '../actions/email_invitations';
 })
 
 
-class MemberInviteScreen extends Component {g
+class MemberInviteScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Drawer',
     tabBarOptions: {
