@@ -9,6 +9,10 @@ import {
   MEMBER_ACCOUNT_LOGIN_FAILURE,
   MEMBER_ACCOUNT_LOGOUT,
 } from '../actions/auth';
+import {
+  MEMBER_ACCOUNT_CREATION_SUCCESS,
+  UPDATE_USER_CREDENTIALS
+} from '../actions/accounts';
 
 const initialState = {
   username: '',
@@ -17,6 +21,7 @@ const initialState = {
   member_account: {},
   isFetching: false,
   error: {},
+  newUser: false
 }
 
 export default function authReducer(state = initialState, action) {
@@ -44,6 +49,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         member: action.data,
+        newUser: action.data.data.newUser,
         error: {},
       }
 
@@ -87,6 +93,18 @@ export default function authReducer(state = initialState, action) {
         member: {},
         username: '',
         password: '',
+      }
+    case UPDATE_USER_CREDENTIALS:
+      return {
+        ...state,
+        password: action.memberDetails.password,
+      }
+
+
+    case MEMBER_ACCOUNT_CREATION_SUCCESS:
+      return {
+        ...state,
+        member: action.data,
       }
 
     default:

@@ -20,8 +20,8 @@ export const CONSTRAINTS = {
   primaryPhoneNumber: {
     presence: { allowEmpty: false },
     length: {
-      minimum: 10,
-      message: "^Number must be at least 10 digits long"
+      is: 10,
+      message: "^Number should be 10 digits long"
     },
     numericality: true
   },
@@ -32,5 +32,13 @@ export const CONSTRAINTS = {
       message: "^Zip Code must be exact 5 digits long"
     },
     numericality: true
-  }
+  },
+  password:{
+    presence: { allowEmpty: false },
+    length: {
+      minimum: 6,
+      message: "^Password must be at least 6 digits long"
+    },
+  },
+  confirmPassword: { equality: "password" } 
 };

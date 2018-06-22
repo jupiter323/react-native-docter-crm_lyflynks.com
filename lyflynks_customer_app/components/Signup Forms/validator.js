@@ -10,6 +10,12 @@ export const validator = (inputElementName, value) => {
     : errorMessage[inputElementName][0];
 };
 
+export const confirmPasswordValidator = (password) => {
+  const errorMessage = validate(password, CONSTRAINTS)
+  console.log(errorMessage)
+  return errorMessage["confirmPassword"]
+}
+
 export const emailInviteValidator = (emailInvite, value) => {
   if (value == "") return "";
   else {
