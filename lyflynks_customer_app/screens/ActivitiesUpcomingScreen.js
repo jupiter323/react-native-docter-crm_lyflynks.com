@@ -11,6 +11,7 @@ import {
  } from 'react-navigation';
 
 import { FontAwesome } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { upcoming } from '../actions/activities';
@@ -31,6 +32,11 @@ export default class ActivitiesUpcoming extends Component {
          backgroundColor: 'black',
       }
     },
+    headerLeft: (
+      <TouchableOpacity onPress={() => this.toggleDrawer()} >
+        <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
+      </TouchableOpacity>
+    ),
     headerRight: (
       <TouchableOpacity onPress={() => this.logOut()} >
         <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
@@ -62,6 +68,10 @@ export default class ActivitiesUpcoming extends Component {
         ]
       })
       this.props.navigation.dispatch(resetAction)
+    }
+
+    toggleDrawer = () => {
+      this.props.navigation.navigate('DrawerToggle')
     }
 
     if (upcoming.success) {
