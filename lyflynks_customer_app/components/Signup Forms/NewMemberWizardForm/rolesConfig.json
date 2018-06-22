@@ -1,9 +1,9 @@
 {
   "roles": [
-    "Child",
-    "Professional Caregiver",
-    "Other Famlily Member",
-    "Neighbor",
-    "Firend / Other"
+    "child",
+    "professional caregiver",
+    "other family member",
+    "neighbor",
+    "friend / other"
   ]
 }

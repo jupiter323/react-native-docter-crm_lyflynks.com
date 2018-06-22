@@ -5,7 +5,8 @@ import { View,
   StyleSheet, 
   TouchableOpacity, 
   Picker,
-  Button
+  Button,
+  KeyboardAvoidingView
 } from 'react-native';
 import { connect } from "react-redux";
 import { Input } from "../../UI";
@@ -18,7 +19,8 @@ import {
 } from "../../../actions/member_form";
 
 const mapStateToProps = state => {
-  return { ...state.member_form };
+  const { member } = state.auth;
+  return { ...state.member_form, member };
 };
 
 @connect(mapStateToProps)
@@ -27,30 +29,34 @@ export default class NewMemberWizardFormFirstStep extends Component {
 
   const { username, instructions, renderInstructions, proceedAhead } = this.props;
     return (
-      <ScrollView>
-        <View style={styles.formFieldsContainer}>
-          <Text style={styles.label}>Describe your relationship with {this.props.username} </Text>
-          {renderInstructions(instructions)}
-          {this.renderInputFields()}
-          <Button
-            large
-            raised
-            iconRight={{ name: "trending-flat" }}
-            title="Next"
-            backgroundColor="#00A68C"
-            onPress={proceedAhead}
-            disabled={this.disableNextButton()}
-          />
+      <KeyboardAvoidingView  behavior="padding">
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={styles.formFieldsContainer}>
+              <Text style={styles.label}>Describe your relationship with {this.props.username} </Text>
+              {renderInstructions(instructions)}
+              {this.renderInputFields()}
+              <Button
+                large
+                raised
+                iconRight={{ name: "trending-flat" }}
+                title="Next"
+                backgroundColor="#00A68C"
+                onPress={proceedAhead}
+                disabled={this.disableNextButton()}
+              />
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 
 
   renderInputFields(){
-    const { dispatch, email } = this.props;
+    const { dispatch, email, member } = this.props;
     return InputFields.map((input, index) => {
-      if( input.id === 'email') {
+      if( input.id === 'userName') {
         return (
           <View key={input.id}>
             <Input
@@ -205,6 +211,9 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     backgroundColor: "white",
     alignItems: "center"
+  },
+  container: {
+    paddingBottom: 50,
   },
   formFieldsContainer: {
     width: "100%",

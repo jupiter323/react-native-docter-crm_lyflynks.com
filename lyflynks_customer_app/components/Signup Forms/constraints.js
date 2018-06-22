@@ -20,8 +20,8 @@ export const CONSTRAINTS = {
   primaryPhoneNumber: {
     presence: { allowEmpty: false },
     length: {
-      minimum: 10,
-      message: "^Number must be at least 10 digits long"
+      is: 10,
+      message: "^Number should be 10 digits long"
     },
     numericality: true
   },

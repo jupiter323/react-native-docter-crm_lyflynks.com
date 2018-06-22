@@ -11,6 +11,7 @@ import {
   ACCOUNT_CREATION_SUCCESS,
   ACCOUNT_CREATION_FAILURE
 } from "../actions/accounts";
+
 import {
   SET_USERNAME
 } from "../actions/auth";
@@ -45,7 +46,7 @@ export const INITIAL_STATE = {
     checkins: { title: "Checkins", selected: false},
     medicalScheduling: { title: "Medical Scheduling", selected: false}
   },
-  relationship: "professional caregiver",
+  relationship: "child",
   errors: {
     firstNameErrorMessage: true,
     lastNameErrorMessage: "",

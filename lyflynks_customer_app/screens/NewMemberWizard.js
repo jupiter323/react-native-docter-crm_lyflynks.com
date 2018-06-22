@@ -8,12 +8,17 @@ import NewMemberWizardFormLastStep from '../components/Signup Forms/NewMemberWiz
 
 
 const mapStateToProps = state => {
-  const { username } = state.auth;
-  return { ...state.member_form, username };
+  const { username, member, password } = state.auth;
+  return { ...state.member_form, username, member, password };
 };
 @connect(mapStateToProps)
 
 export default class NewMemberWizardScreen extends Component {
+componentWillReceiveProps(nextProps) {
+    if (nextProps.member !== this.props.member) {
+      this.props.navigation.navigate('MemberAccountLogin');
+    }
+  }
   constructor() {
     super();
     this.state = { step: 1 };

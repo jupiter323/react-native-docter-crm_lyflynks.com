@@ -3,7 +3,9 @@ import _ from "lodash";
 
 export const CREATING_ACCOUNT = "creating_account";
 export const ACCOUNT_CREATION_SUCCESS = "account_creation_success";
+export const MEMBER_ACCOUNT_CREATION_SUCCESS = "member_account_creation_success";
 export const ACCOUNT_CREATION_FAILURE = "account_creation_failure";
+export const UPDATE_USER_CREDENTIALS = "upadte_user_credentials";
 
 const normalizeEntities = entities => {
   const selectedEntities = [];
@@ -54,12 +56,14 @@ export const signUp = memberDetails => {
 };
 
 export const signUpAccount = (memberDetails, userToken) => {
-  debugger
   return dispatch => {
     dispatch({ type: CREATING_ACCOUNT });
     const normalizedActivities = normalizeEntities(
       memberDetails.activities
     );
+
+
+    dispatch({ type: UPDATE_USER_CREDENTIALS, memberDetails });
 
     const { errors, ...memberWithoutErrors } = memberDetails;
 
@@ -74,12 +78,11 @@ export const signUpAccount = (memberDetails, userToken) => {
       relationship: memberWithoutErrors["relationship"],
       activities: normalizedActivities
     };
-    debugger;
     accounts
       .createMemberAccount(normalizedMember, userToken)
       .then(function(response) {
         if (response.success == true) {
-          dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
+          dispatch({ type: MEMBER_ACCOUNT_CREATION_SUCCESS, data: response });
         } else {
           dispatch({ type: ACCOUNT_CREATION_FAILURE });
         }

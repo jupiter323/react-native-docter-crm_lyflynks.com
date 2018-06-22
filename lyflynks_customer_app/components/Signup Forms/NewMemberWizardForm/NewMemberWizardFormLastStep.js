@@ -72,7 +72,6 @@ export default class NewMemberWizardForm extends Component {
       activities,
       userToken
     } = this.props;
-    debugger;
     const member = {
       firstName,
       lastName,
@@ -105,7 +104,6 @@ export default class NewMemberWizardForm extends Component {
 
 
   updateEntity(entityType, key, entity) {
-    debugger;
     const { dispatch } = this.props;
     dispatch(updateEntity({ entityType, key, selected: !entity.selected }));
   }
