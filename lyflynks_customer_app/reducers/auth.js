@@ -50,7 +50,7 @@ export default function authReducer(state = initialState, action) {
         isFetching: false,
         member: action.data,
         newUser: action.data.data.newUser,
-        error: {},
+        error: action.data.message,
       }
 
     case MEMBER_LOGIN_FAILURE:
