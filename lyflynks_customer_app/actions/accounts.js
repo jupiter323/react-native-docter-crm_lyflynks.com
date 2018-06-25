@@ -61,8 +61,7 @@ export const signUpAccount = (memberDetails, userToken) => {
     const normalizedActivities = normalizeEntities(
       memberDetails.activities
     );
-
-
+    
     dispatch({ type: UPDATE_USER_CREDENTIALS, memberDetails });
 
     const { errors, ...memberWithoutErrors } = memberDetails;
@@ -73,8 +72,8 @@ export const signUpAccount = (memberDetails, userToken) => {
       username: memberWithoutErrors["userName"],
       email: memberWithoutErrors["userName"],
       password: memberWithoutErrors["password"],
-      phone_cell: memberWithoutErrors["primaryPhoneNumber"],
-      phone_home: memberWithoutErrors["secondaryPhoneNumber"],
+      primaryPhoneNumber: memberWithoutErrors["primaryPhoneNumber"],
+      secondaryPhoneNumber: memberWithoutErrors["secondaryPhoneNumber"],
       relationship: memberWithoutErrors["relationship"],
       activities: normalizedActivities
     };

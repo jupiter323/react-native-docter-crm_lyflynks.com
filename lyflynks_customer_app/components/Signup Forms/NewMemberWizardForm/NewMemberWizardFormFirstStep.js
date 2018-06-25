@@ -63,7 +63,6 @@ export default class NewMemberWizardFormFirstStep extends Component {
               value={this.props.userName}
               placeholder={input.placeholder}
               editable={false}
-              selectTextOnFocus={false}
             />
             <Text style={styles.errorMessage}>
               {this.props.errors[input.errorId]}
@@ -84,6 +83,7 @@ export default class NewMemberWizardFormFirstStep extends Component {
                 index
               )}
               onBlur={this.validateConfirmPasswordValue.bind(this, input)}
+              secureTextEntry
             />
             <Text style={styles.errorMessage}>
               {this.props.errors[input.errorId]}
