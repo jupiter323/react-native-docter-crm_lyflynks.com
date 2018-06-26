@@ -22,8 +22,12 @@ import { signUpAccount } from "../../../actions/accounts";
 
 const mapStateToProps = state => {
   const memberData = state.auth.member.data;
-  const userToken = memberData['token'];
-  return { ...state.member_form, userToken };
+  if(memberData === undefined){
+    return { ...state.member_form };
+  }else {
+    const userToken = memberData['token'];
+    return { ...state.member_form, userToken };
+  }
 };
 
 @connect(mapStateToProps)

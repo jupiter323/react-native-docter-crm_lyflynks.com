@@ -38,6 +38,9 @@ export default class MemberLogin extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <LyfLynks_Logo style={styles.logo} />
         <LoginForm logIn={this.logIn} />
+        <Text style={styles.errorMessage}>
+          {this.props.error.message}
+        </Text>
         <Text style={styles.loginHelpText} onPress={this.navToLoginHelpScreen}>
           Help me log in
         </Text>
@@ -62,6 +65,10 @@ export default class MemberLogin extends Component {
 }
 
 const styles = StyleSheet.create({
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
+  },
   container: {
     flexGrow: 1,
     alignItems: "center",
