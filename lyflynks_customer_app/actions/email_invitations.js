@@ -86,6 +86,12 @@ export const updateEmailErrorMessage = ({ id, error }) => {
 
 
 function memberAccountSuccess(errorEmails) {
+  if(errorEmails.success != true) {
+    return {
+      type: EMAIL_INIVITATIONS_FAILURE,
+      payload: errorEmails
+    }
+  }
   return { 
     type: EMAIL_INIVITATIONS_SENT, 
     payload: errorEmails 

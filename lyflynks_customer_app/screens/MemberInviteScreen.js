@@ -8,13 +8,20 @@ import { sendAccountInvite } from '../actions/email_invitations';
 
 @connect(store => {
   const { member, member_account} = store.auth;
+  const { errorMessage, invitationResponse } = store.email_invitations;
   return {
-    member, member_account
+    member, member_account, errorMessage, invitationResponse
   }
 })
 
 
 class MemberInviteScreen extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.invitationResponse === 'success') {
+      this.props.navigation.navigate('Activities');
+    }
+  }
+
 	static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Drawer',
     tabBarOptions: {
@@ -36,9 +43,8 @@ class MemberInviteScreen extends Component {
   }
 
   invite = (emailText) => {
-    const { email, sendAccountInvite, member_account } = this.props;
+    const { email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
     sendAccountInvite({token: this.props.member_account.data, email:emailText});
-    this.props.navigation.navigate('Activities');
   }
 
 
@@ -48,7 +54,6 @@ class MemberInviteScreen extends Component {
   }
 
 	render() {
-
     navigateScreen = () => {
       this.props.navigation.navigate('DrawerToggle')
     }
@@ -65,6 +70,9 @@ class MemberInviteScreen extends Component {
 	      <TouchableOpacity style={styles.button} onPress={() => this.invite(this.state.email)} >
 	        <Text style={styles.buttonText}>Invite Member</Text>
 	      </TouchableOpacity>
+        <Text style={styles.errorMessage}>
+          {this.props.errorMessage}
+        </Text>
 			</View>
 		);
 	}
@@ -96,5 +104,9 @@ const styles = {
   	margin: 15,
   	alignSelf: 'center',
   	fontSize: 18,
-  }
+  },
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
+  },
 }
