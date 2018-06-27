@@ -31,7 +31,6 @@ export default class NewMemberWizardForm extends Component {
       checked: false,
     }
     const { instructions, renderInstructions, proceedAhead } = this.props;
-    debugger;
     return (
       <ScrollView>
         <View style={styles.formFieldsContainer}>

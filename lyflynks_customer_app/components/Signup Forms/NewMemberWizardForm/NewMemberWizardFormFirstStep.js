@@ -24,7 +24,6 @@ const mapStateToProps = state => {
 export default class NewMemberWizardForm extends Component {
   render() {
   const { instructions, renderInstructions, proceedAhead } = this.props;
-    debugger;
     return (
       <ScrollView>
         <View style={styles.formFieldsContainer}>

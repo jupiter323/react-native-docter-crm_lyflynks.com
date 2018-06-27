@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
-import NavigatorService from '../Navigation/service/navigator';
-import DefaultInput from '../components/UI/DefaultInput';
+import { Input } from '../components/UI/Input';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { inviteMember } from '../actions/email_invitations';
+import { sendAccountInvite } from '../actions/email_invitations';
 
 
 @connect(store => {
-  const { member} = store.auth;
+  const { member, member_account} = store.auth;
+  const { errorMessage, invitationResponse } = store.email_invitations;
   return {
-    member
+    member, member_account, errorMessage, invitationResponse
   }
 })
 
 
 class MemberInviteScreen extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.invitationResponse === 'success') {
+      this.props.navigation.navigate('ActivityLog');
+    }
+  }
+
 	static navigationOptions = ({ navigation }) => ({
     tabBarLabel: 'Drawer',
     tabBarOptions: {
@@ -37,9 +43,8 @@ class MemberInviteScreen extends Component {
   }
 
   invite = (emailText) => {
-    const { email, inviteMember } = this.props;
-    debugger;
-    inviteMember({id: this.props.member.message, email:emailText});
+    const { email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
+    sendAccountInvite({token: this.props.member_account.data, email:emailText});
   }
 
 
@@ -49,30 +54,31 @@ class MemberInviteScreen extends Component {
   }
 
 	render() {
-
     navigateScreen = () => {
-      NavigatorService.navigate('DrawerToggle')
+      this.props.navigation.navigate('DrawerToggle')
     }
 		return (
 			<View style={styles.container}>
 				<Text style={styles.infoText}>Inviting another family member to assist with the care of your 
 				aging parent is simple! Enter their email address below and click the invite member button
 				</Text>
-				<DefaultInput 
+				<Input
 	        onChangeText={(email) => this.setState({email})}
-	        underlineColorAndroid="transparent"
 	        value={this.state.email}
 	        placeholder='lyflynks@gmail.com'
 	      />
 	      <TouchableOpacity style={styles.button} onPress={() => this.invite(this.state.email)} >
 	        <Text style={styles.buttonText}>Invite Member</Text>
 	      </TouchableOpacity>
+        <Text style={styles.errorMessage}>
+          {this.props.errorMessage}
+        </Text>
 			</View>
 		);
 	}
 }
 
-export default connect(null,{inviteMember})(MemberInviteScreen)
+export default connect(null,{sendAccountInvite})(MemberInviteScreen)
 
 const styles = {
 	container: {
@@ -98,5 +104,9 @@ const styles = {
   	margin: 15,
   	alignSelf: 'center',
   	fontSize: 18,
-  }
+  },
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
+  },
 }
