@@ -6,11 +6,16 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  NavigationActions
+ } from 'react-navigation';
 
 import { FontAwesome } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { upcoming } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
@@ -21,7 +26,22 @@ import Moment from 'moment';
 })
 export default class ActivitiesUpcoming extends Component {
   static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Upcoming'
+    tabBarLabel: 'Upcoming',
+    tabBarOptions: {
+      style: {
+         backgroundColor: 'black',
+      }
+    },
+    headerLeft: (
+      <TouchableOpacity onPress={() => this.toggleDrawer()} >
+        <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity onPress={() => this.logOut()} >
+        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+      </TouchableOpacity>
+    ),
   })
 
   componentDidMount() {
@@ -34,8 +54,25 @@ export default class ActivitiesUpcoming extends Component {
   }
 
   render() {
-    const { upcoming } = this.props;
+    const { upcoming, dispatch } = this.props;
     let activities;
+
+    logOut = () => {
+      dispatch(memberLogout());
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MemberLogin',
+          }),
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
+    }
+
+    toggleDrawer = () => {
+      this.props.navigation.navigate('DrawerToggle')
+    }
 
     if (upcoming.success) {
       activities = upcoming.data.map((activity, index) => {

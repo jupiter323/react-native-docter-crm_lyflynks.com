@@ -38,7 +38,7 @@ export const toQueryString = obj => {
   );
 };
 
-export const domain = "http://localhost:5002";
+export const domain = 'http://localhost:5002';
 
 export const accounts = {
   root: "/accounts",
@@ -56,7 +56,8 @@ export const auth = {
   members: "/members",
   members_accounts: "/members/accounts",
   forgot: "/forgot",
-  reset: "/reset"
+  reset: "/reset",
+  logout: "/logout"
 };
 
 export const members = {
