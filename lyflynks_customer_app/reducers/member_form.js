@@ -59,7 +59,7 @@ export const INITIAL_STATE = {
   },
   creatingAccount: null,
   accountCreated: null,
-  accountId: null
+  token: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -122,14 +122,14 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         accountCreated: "success",
-        accountId: action.payload,
+        token: action.payload,
         creatingAccount: false
       };
     case ACCOUNT_CREATION_FAILURE:
       return {
         ...state,
         accountCreated: "failure",
-        accountId: null,
+        token: null,
         creatingAccount: false
       };
     case UPDATE_ACTIVITIES:

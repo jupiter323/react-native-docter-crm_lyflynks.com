@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Picker, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Picker,
+  ScrollView,
+  KeyboardAvoidingView
+} from "react-native";
 import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
 
@@ -21,26 +28,30 @@ class RegistrationForm extends React.Component {
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;
     return (
-      <ScrollView
-        contentContainerStyle={styles.scrollViewContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        {renderInstructions(instructions)}
-        <Card containerStyle={styles.formFieldsContainer}>
-          {this.renderInputFields()}
-          <Text style={styles.pickerLabel}>Select your Role</Text>
-          {this.renderPicker()}
-          <Button
-            large
-            raised
-            iconRight={{ name: "trending-flat" }}
-            title="Next"
-            backgroundColor="#00A68C"
-            onPress={proceedAhead}
-            disabled={this.disableNextButton()}
-          />
-        </Card>
-      </ScrollView>
+      <KeyboardAvoidingView behavior="padding" enabled>
+        <View>
+          <ScrollView
+            contentContainerStyle={styles.scrollViewContainer}
+            showsVerticalScrollIndicator={false}
+          >
+            {renderInstructions(instructions)}
+            <Card containerStyle={styles.formFieldsContainer}>
+              {this.renderInputFields()}
+              <Text style={styles.pickerLabel}>Select your Role</Text>
+              {this.renderPicker()}
+              <Button
+                large
+                raised
+                iconRight={{ name: "trending-flat" }}
+                title="Next"
+                backgroundColor="#00A68C"
+                onPress={proceedAhead}
+                disabled={this.disableNextButton()}
+              />
+            </Card>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -153,7 +164,6 @@ const ROLES = Roles["roles"];
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    backgroundColor: "#0E3A53",
     alignItems: "center"
   },
   input: {

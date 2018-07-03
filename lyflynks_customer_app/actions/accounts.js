@@ -44,7 +44,10 @@ export const signUp = memberDetails => {
       .createAccount(normalizedMember)
       .then(function(response) {
         if (response.success == true) {
-          dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
+          dispatch({
+            type: ACCOUNT_CREATION_SUCCESS,
+            payload: response.data
+          });
         } else {
           dispatch({ type: ACCOUNT_CREATION_FAILURE });
         }
