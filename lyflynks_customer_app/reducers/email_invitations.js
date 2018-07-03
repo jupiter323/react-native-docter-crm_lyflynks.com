@@ -15,7 +15,8 @@ const INITITAL_STATE = {
   },
   sendingInvitations: false,
   invitationResponse: null,
-  errorEmails: []
+  errorEmails: [],
+  errorMessage: ''
 };
 
 export default (state = INITITAL_STATE, action) => {
@@ -77,6 +78,8 @@ export default (state = INITITAL_STATE, action) => {
     case EMAIL_INIVITATIONS_FAILURE:
       return {
         ...state,
+        invitationResponse: action.payload.success,
+        errorMessage: action.payload.message,
         sendingInvitations: false
       };
 

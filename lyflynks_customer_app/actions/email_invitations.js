@@ -16,6 +16,17 @@ const normalizeEmailInvitations = emailInvitaions => {
   return emails;
 };
 
+
+export const sendAccountInvite = (data) => {
+  return async dispatch => {
+    try{
+    dispatch(memberAccountSuccess(await members.sendInvites(data)));
+    }catch (err) {
+     dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
+    }
+  }
+}
+
 export const sendEmailInvitations = (emailInvitaions, id) => {
   return dispatch => {
     dispatch({ type: SENDING_EMAIL_INVITATIONS });
@@ -71,3 +82,18 @@ export const updateEmailErrorMessage = ({ id, error }) => {
     payload: { id, error }
   };
 };
+
+
+
+function memberAccountSuccess(errorEmails) {
+  if(errorEmails.success != true) {
+    return {
+      type: EMAIL_INIVITATIONS_FAILURE,
+      payload: errorEmails
+    }
+  }
+  return { 
+    type: EMAIL_INIVITATIONS_SENT, 
+    payload: errorEmails 
+  };
+}

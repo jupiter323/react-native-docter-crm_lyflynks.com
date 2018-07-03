@@ -15,9 +15,14 @@ import { Button } from "../components/UI";
 export default class MemberLogin extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.member.success && !this.props.member.success) {
-      this.props.navigation.navigate("MemberAccountLogin");
+      if (nextProps.member.success && nextProps.member.data.newUser) {
+        this.props.navigation.navigate('NewMemberWizard');
+      }else {
+        this.props.navigation.navigate('MemberAccountLogin');
+      }
     }
   }
+
 
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");
@@ -33,6 +38,9 @@ export default class MemberLogin extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <LyfLynks_Logo style={styles.logo} />
         <LoginForm logIn={this.logIn} />
+        <Text style={styles.errorMessage}>
+          {this.props.error.message}
+        </Text>
         <Text style={styles.loginHelpText} onPress={this.navToLoginHelpScreen}>
           Help me log in
         </Text>
@@ -57,6 +65,10 @@ export default class MemberLogin extends Component {
 }
 
 const styles = StyleSheet.create({
+  errorMessage: {
+    color: "red",
+    alignSelf: "center"
+  },
   container: {
     flexGrow: 1,
     alignItems: "center",

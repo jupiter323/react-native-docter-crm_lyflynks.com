@@ -14,7 +14,7 @@ const initialState = {
   error: {},
 }
 
-export default function authReducer(state = initialState, action) {
+export default function activitiesReducer(state = initialState, action) {
   switch (action.type) {
     case UPCOMING_ACTIVITIES:
       return {

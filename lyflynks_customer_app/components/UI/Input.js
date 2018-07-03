@@ -9,7 +9,8 @@ export class Input extends React.Component {
       placeholder,
       focusNextInput,
       setReference,
-      onBlur
+      onBlur,
+      secureTextEntry
     } = this.props;
     return (
       <TextInput
@@ -25,6 +26,7 @@ export class Input extends React.Component {
         onSubmitEditing={focusNextInput}
         onBlur={onBlur}
         underlineColorAndroid="transparent"
+        secureTextEntry={this.props.secureTextEntry}
       />
     );
   }

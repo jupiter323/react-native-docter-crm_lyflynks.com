@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StackNavigator, TabNavigator } from "react-navigation";
-
+import { Platform } from 'react-native';
+import { StackNavigator, TabNavigator, DrawerNavigator } from "react-navigation";
 import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
@@ -9,6 +9,8 @@ import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
 import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
+import NewMemberWizardScreen from '../screens/NewMemberWizard';
+import MemberInviteScreen from '../screens/MemberInviteScreen';
 
 export const ActivityLog = TabNavigator(
   {
@@ -24,6 +26,31 @@ export const ActivityLog = TabNavigator(
     animationEnabled: true
   }
 );
+
+const DrawerStack = DrawerNavigator({
+  Activities: { 
+    screen: ActivityLog,
+    navigationOptions: {
+      title: 'Activity Log',
+      headerTitleStyle: {
+        color: "#fff",
+        fontSize: 24,
+        fontWeight: "600"
+      }
+    }, 
+  },
+  MemberInvite: { 
+    screen: MemberInviteScreen, 
+    navigationOptions: {
+      title: 'Invite Member',
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+    },
+  },
+})
 
 const Navigation = StackNavigator(
   {
@@ -61,12 +88,11 @@ const Navigation = StackNavigator(
       screen: MemberAccountLoginScreen
     },
     ActivityLog: {
-      screen: ActivityLog,
+      screen: DrawerStack,
       navigationOptions: {
-        title: "Activity Log",
-        headerLeft: null,
         headerStyle: {
-          backgroundColor: "#2196F3",
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
           shadowRadius: 5,
           shadowOpacity: 0.11,
           shadowOffset: {
@@ -81,11 +107,36 @@ const Navigation = StackNavigator(
           fontWeight: "600"
         }
       }
-    }
+    },
+    NewMemberWizard: { 
+      screen: NewMemberWizardScreen, 
+      navigationOptions: {
+        title: 'New Member Wizard',
+        headerLeft: null,
+        headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+      },
+    },
   },
   {
-    headerMode: "screen"
+    headerMode: "screen",
+    initialRouteName:'MemberLogin',
   }
 );
+
 
 export default Navigation;

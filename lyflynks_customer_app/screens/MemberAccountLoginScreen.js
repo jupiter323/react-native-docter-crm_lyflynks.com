@@ -44,12 +44,7 @@ export default class MemberAccountLogin extends Component {
       fontSize: 24,
       fontWeight: '600',
     },
-    headerLeft: <FontAwesome
-      name={'chevron-left'}
-      style={styles.headerBackButton}
-      onPress={() => {
-        navigation.navigate('ActivityLog')
-      }}/>,
+    headerLeft: null,
   })
 
   componentWillReceiveProps(nextProps) {
