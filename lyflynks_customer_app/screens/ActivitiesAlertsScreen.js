@@ -1,180 +1,89 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Button } from "react-native";
-
-import { FontAwesome } from "@expo/vector-icons";
-import NavigatorService from "../Navigation/service/navigator";
-import Icon from "react-native-vector-icons/FontAwesome";
-import _ from "lodash";
-import { connect } from "react-redux";
-import { completed } from "../actions/activities";
-
-import { NavigationEvents } from "react-navigation";
-import Moment from "moment";
+import React, { Component } from 'react';
+import {
+  FlatList,
+  View,
+  Text,
+  Button
+} from 'react-native';
+import ListItem from '../components/ListItem';
+import Styles from '../styles/CommonStyles'
+import { alerts } from '../actions/activities'
+import { connect } from 'react-redux'
 
 @connect(store => {
-  const { completed, isFetching, error } = store.activities;
+  const { isFetching, error, alerts } = store.activities
   const { member_account } = store.auth;
-  const { notifications } = store;
-  return { member_account, completed, isFetching, error, notifications };
+  return { isFetching, error, alerts, member_account }
 })
-export default class ActivitiesAlertsScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Alerts",
-    headerLeft: (
-      <TouchableOpacity onPress={() => this.navigateScreen()}>
-        <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <View style={styles.headerActionsRight}>
-        <TouchableOpacity
-          onPress={() => navigation.getParam("navigateToNofications")()}
-          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
-            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={{ flex: 0.3, marginRight: 10 }}>
-          <TouchableOpacity onPress={() => this.logOut()}>
-            <FontAwesome name="sign-out" size={35} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
-  });
-
-  constructor() {
-    super();
-    this.state = { expand: false };
+export default class AcitiviesAlerts extends Component {
+  constructor (props) {
+    super(props)
+    this._handleClickListDoctorsItem = this._handleClickListDoctorsItem.bind(this);
+    this._renderItem = this._renderItem.bind(this);
+    this.loadActivities = this.loadActivities.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
+    this.state = { refreshing: false }
+  }
+  _handleClickListDoctorsItem (item) {
+    // send view to inspect item
   }
 
-  componentDidMount() {
+  loadActivities (page = 1) {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
-    this.props.navigation.setParams({
-      navigateToNofications: this.navigateToNofications.bind(this)
-    });
-    dispatch(
-      completed(
-        {
-          limit: 3
-        },
-        token
-      )
-    );
+    dispatch(alerts({
+      limit: 2,
+      page
+    }, token));
   }
 
-  navigateToNofications() {
-    this.props.navigation.navigate("Alerts");
+  componentDidMount () {
+    this.loadActivities();
   }
 
-  render() {
-    navigateScreen = () => {
-      NavigatorService.navigate("DrawerToggle");
-    };
+  _onRefresh () {
+    this.setState({
+      refreshing: true
+    })
+    // this.loadActivities();
+  }
+
+  _renderItem ({ item }) {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <TouchableOpacity style={styles.notificationContainer}>
-          <View style={styles.leftContainer}>
-            <FontAwesome name="user-plus" size={30} color="white" />
-          </View>
-          <View style={styles.rightContainer}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.activityAlertDescription}> A new member invited </Text>
-              <FontAwesome name="times" size={15} color="grey" style={styles.dismiss} />
-            </View>
-            <Text style={styles.activityWhen}>Detained Info Here</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.notificationContainer}>
-          <View style={styles.leftContainer}>
-            <FontAwesome name="user-plus" size={30} color="white" />
-          </View>
-          <View style={styles.rightContainer}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.activityAlertDescription}> A new member invited </Text>
-              <FontAwesome name="times" size={15} color="grey" style={styles.dismiss} />
-            </View>
-            <Text style={styles.activityWhen}>Detained Info Here</Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-    );
+      <ListItem
+      key={item.id}
+      image={{
+        url: item.image.url,
+        width: item.image.width,
+        height: item.image.height,
+      }}
+      header={item.name}
+      subText={item.career}
+        bottomText={item.distance}
+        isSpecial={item.isSpecial}
+        onPressButton={() => this._handleClickListDoctorsItem(item)}
+      />
+    )
   }
-}
-
-const styles = {
-  headerActionsRight: {
-    display: "flex",
-    flexDirection: "row",
-    flex: 0.2
-  },
-  notificationContainer: {
-    flexDirection: "row",
-    width: "100%",
-    height: 100,
-    marginBottom: 25,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10
-  },
-  leftContainer: {
-    flex: 0.2,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#00a68c"
-  },
-  rightContainer: {
-    flex: 0.8,
-    backgroundColor: "white",
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10
-  },
-  cardHeader: {
-    flexDirection: "row"
-  },
-  headerDrawerButton: {
-    color: "#fff",
-    fontSize: 24,
-    marginLeft: 20
-  },
-  headerSettingsButton: {
-    color: "#fff",
-    fontSize: 24,
-    marginRight: 20
-  },
-  container: {
-    flexGrow: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    backgroundColor: "#f0f0f9",
-    padding: 20
-  },
-  cardFolded: {
-    height: 100
-  },
-  cardExpanded: {
-    height: 200
-  },
-  dismiss: { flex: 0.1, marginTop: 10 },
-  activityAlertDescription: {
-    fontWeight: "700",
-    fontSize: 16,
-    flex: 0.9,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 7
-  },
-  activityWhen: {
-    color: "#AFB1B4",
-    fontWeight: "700",
-    fontSize: 14,
-    marginLeft: 10
+  _keyExtractor = (item, index) => item.id;
+  _renderContent () {
+   let { error } = this.props
+   if (error) return <View><Text>we have problems, please try later</Text></View>
+   return (
+      <FlatList
+      data={this.props.alerts.data}
+      keyExtractor={this._keyExtractor}
+      renderItem={this._renderItem}
+      onRefresh={this._onRefresh}
+      refreshing={this.state.refreshing}
+    />
+   )
+  }
+  render () {
+    return (
+      <View style={{ marginBottom: 50 }}>
+       {this._renderContent()}
+      </View>
+    );
   }
 };
