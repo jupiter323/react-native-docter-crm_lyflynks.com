@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path } = Svg;
+
 
 const BurgerIcon = props => (
   <Svg {...props} width={props.width || 20} height={props.height || 21} viewBox="0 0 20 21">

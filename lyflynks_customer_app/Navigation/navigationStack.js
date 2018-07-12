@@ -5,6 +5,7 @@ import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
 import ActivitiesCompletedScreen from "../screens/ActivitiesCompletedScreen";
+import ActivityLogScreen from "../screens/ActivityLogScreen";
 import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
@@ -108,6 +109,13 @@ const Navigation = StackNavigator(
         }
       }
     },
+    ActivityLogScreen: {
+      screen: ActivityLogScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
     NewMemberWizard: { 
       screen: NewMemberWizardScreen, 
       navigationOptions: {
@@ -134,7 +142,7 @@ const Navigation = StackNavigator(
   },
   {
     headerMode: "screen",
-    initialRouteName:'MemberLogin',
+    initialRouteName: 'ActivityLogScreen',
   }
 );
 

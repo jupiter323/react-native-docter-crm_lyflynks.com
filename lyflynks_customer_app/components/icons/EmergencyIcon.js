@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G } = Svg;
+
 
 const EmergencyIcon = props => (
   <Svg {...props} width={props.style.width || 20} height={props.style.height || 25} viewBox="0 0 20 25">

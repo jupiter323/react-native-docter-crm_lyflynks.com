@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G, Use } = Svg;
+
 
 const CloseIcon = props => (
   <Svg {...props} width={props.width || 28} height={props.height || 28} viewBox="0 0 28 28">

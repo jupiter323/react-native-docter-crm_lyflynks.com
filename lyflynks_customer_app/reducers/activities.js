@@ -5,10 +5,17 @@ import {
   COMPLETED_ACTIVITIES,
   COMPLETED_ACTIVITIES_SUCCESS,
   COMPLETED_ACTIVITIES_FAILURE,
+  ALERT_ACTIVITIES,
+  ALERT_ACTIVITIES_SUCCESS,
+  ALERT_ACTIVITIES_FAILURE
 } from '../actions/activities';
 
 const initialState = {
-  upcoming: {},
+  upcoming: {
+    data: []
+  },
+  alerts: {
+  },
   completed: {},
   isFetching: false,
   error: {},
@@ -57,6 +64,23 @@ export default function activitiesReducer(state = initialState, action) {
         error: action.error,
       }
 
+      case ALERT_ACTIVITIES:
+        return {
+          ...state,
+          isFetching: true
+        }
+      case ALERT_ACTIVITIES_SUCCESS:
+        return {
+          ...state,
+          isFetching: false,
+          alerts: action.data
+        }
+      case ALERT_ACTIVITIES_FAILURE:
+        return {
+          ...state,
+          isFetching: false,
+          error: action.error
+        }
     default:
       return state;
   }

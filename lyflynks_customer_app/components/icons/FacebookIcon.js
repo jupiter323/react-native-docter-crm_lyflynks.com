@@ -1,5 +1,6 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, G, Circle } = Svg;
 
 const FacebookIcon = props => (
   <Svg {...props} width={props.width || 23} height={props.height || 23} viewBox="0 0 23 23">

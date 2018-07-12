@@ -12,17 +12,14 @@ import Swipeout from 'react-native-swipeout';
 
 import CommonStyles from '../styles/CommonStyles';
 import {
-  deviceWidth,
-  deviceHeight,
-  colors,
   fontFamily,
   fontSize,
+  colorSwatch,
 } from '../styles/Theme';
 import AlertDialog from './styleguide/AlertDialog';
 import SwipeoutButton from './SwipeoutButton';
 import AlertDeleteDlMessage from './list-item/AlertDeleteDlMessage';
 import AlertDeleteDlTitle from './list-item/AlertDeleteDlTitle';
-import MoreModal from './list-item/MoreModal';
 
 export default class ListItem extends Component {
   constructor(props) {
@@ -31,7 +28,6 @@ export default class ListItem extends Component {
       modalVisible: false,
       visible: false,
     }
-    this.toggleMoreModal = this.toggleMoreModal.bind(this);
   }
 
   render() {
@@ -60,7 +56,7 @@ export default class ListItem extends Component {
                     />
                     {
                       (() => {
-                        if (this.props.isSpecial) {
+                        if (this.props.isSpecial && false) {
                           return (
                             <LinearGradient
                               start={{x: 0.4, y: 0.5}} end={{x: 1.0, y: 1.0}}
@@ -75,42 +71,23 @@ export default class ListItem extends Component {
                     <Text style={styles.header}>{this.props.header}</Text>
                     <Text style={styles.subText}>{this.props.subText}</Text>
                     <View style={styles.leftBottom}>
-                      <Image
+                      {/* <Image
                         source={require('../assets/images/placeholder.png')}
                         style={{width: 13, height: 16}}
                       /> 
-                      <Text style={styles.leftBottomTxt}>{this.props.bottomText} km away</Text>
+                      <Text style={styles.leftBottomTxt}>{this.props.bottomText} km away</Text> */}
                     </View>
                   </View>
                 </View>
-                <View style={styles.right}>
+                {/* <View style={styles.right}>
                   <Image
                     source={require('../assets/images/star.png')}
                     style={{width: 16, height: 15.3}}
                   /> 
                   <Text style={styles.ranking}>5.0</Text>
-                </View>
+                </View> */}
               </View>
             </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={'transparent'}
-              style={styles.moreBtn}
-              onPress={this.toggleMoreModal}
-            >
-              <Image
-                source={require('../assets/images/more.png')}
-                style={{width: 7, height: 27}}
-              /> 
-            </TouchableHighlight>
-            <MoreModal
-              visible={this.state.visible}
-              onPressCloseButton={() => {
-                this.setState({
-                  modalVisible: false,
-                  visible: false,
-                });
-              }}
-            />
           </View>
         </Swipeout>
         <AlertDialog
@@ -153,14 +130,6 @@ export default class ListItem extends Component {
       visible: false,
     });
   }
-
-  // Hide and show MoreModal
-  toggleMoreModal() {
-    this.setState({
-      modalVisible: this.state.modalVisible,
-      visible: true
-    });
-  }
 }
 
 const styles = StyleSheet.create({
@@ -187,12 +156,12 @@ const styles = StyleSheet.create({
   },
   header: {
     marginTop: -5,
-    color: colors.black,
+    color: colorSwatch.codGray,
     fontSize: fontSize.itemHeader,
     fontFamily: fontFamily.medium,
   },
   subText: {
-    color: colors.lightgrey,
+    color: colorSwatch.bombayGray,
     fontSize: fontSize.small,
     fontFamily: fontFamily.regular,
     lineHeight: 23,
@@ -204,7 +173,7 @@ const styles = StyleSheet.create({
   },
   leftBottomTxt: {
     paddingLeft: 6,
-    color: colors.grey,
+    color: colorSwatch.dustyGray,
     fontFamily: fontFamily.regular,
     fontSize: 14,
   },
@@ -212,7 +181,7 @@ const styles = StyleSheet.create({
     marginTop: -5,
     marginLeft: 5,
     fontSize: fontSize.header,
-    color: colors.darkSkyBlue,
+    color: colorSwatch.bostonBlue,
     fontFamily: fontFamily.regular,
   },
   specialCir: {

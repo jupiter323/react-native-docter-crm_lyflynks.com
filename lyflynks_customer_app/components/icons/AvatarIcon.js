@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G, Circle, Use } = Svg;
+
 
 const AvatarIcon = props => (
   <Svg {...props} width={props.width || 37} height={props.height || 37} viewBox="0 0 37 37">

@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G, Circle, Use } = Svg;
+
 
 const NotificationIcon = props => (
   <Svg {...props} width={props.width || 26} height={props.height || 29} viewBox="0 0 26 29">

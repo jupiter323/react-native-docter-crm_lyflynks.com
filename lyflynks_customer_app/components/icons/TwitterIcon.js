@@ -1,5 +1,8 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import Svg, { Path, Defs, G, Circle, Use } from "expo";
+import {Svg} from "expo";
+const { Path, Defs, G, Circle, Use } = Svg;
+
 
 const TwitterIcon = props => (
   <Svg {...props} width={props.width || 23} height={props.height || 23} viewBox="0 0 23 23">

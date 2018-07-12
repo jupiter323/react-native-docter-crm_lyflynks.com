@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G, Circle, Use } = Svg;
+
 
 const MemberIcon = props => (
   <Svg {...props} width={props.style.width || 18} height={props.style.height || 22} viewBox="0 0 18 22">

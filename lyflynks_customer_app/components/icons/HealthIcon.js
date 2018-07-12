@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G } = Svg;
+
 
 const HealthIcon = props => (
   <Svg {...props} width={props.style.width || 25} height={props.style.height || 24} viewBox="0 0 25 24">

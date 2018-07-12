@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path, Defs, G, Circle, Use } = Svg;
+
 
 const SettingsIcon = props => (
   <Svg {...props} width={props.width || 21} height={props.height || 21} viewBox="0 0 21 21">

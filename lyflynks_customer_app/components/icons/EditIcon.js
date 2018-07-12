@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path } = Svg;
+
 
 const EditIcon = props => (
   <Svg {...props} width={props.width || 23} height={props.height || 22} viewBox="0 0 23 22">

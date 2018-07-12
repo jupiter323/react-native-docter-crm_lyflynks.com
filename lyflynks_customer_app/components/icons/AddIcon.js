@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path } from "react-native-svg";
+import {Svg} from "expo";
+const { Path } = Svg;
+
 
 const AddIcon = props => (
   <Svg {...props} width={props.width || 23} height={props.height || 23} viewBox="0 0 23 23">

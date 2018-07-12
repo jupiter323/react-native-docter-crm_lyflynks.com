@@ -1,5 +1,7 @@
 import React from "react";
-import Svg, { Path, Defs, G, Circle, Use } from "react-native-svg";
+import {Svg} from "expo";
+const { Path } = Svg;
+
 
 const CompanionIcon = props => (
   <Svg {...props} width={props.style.width || 23} height={props.style.height || 23} viewBox="0 0 23 23">
