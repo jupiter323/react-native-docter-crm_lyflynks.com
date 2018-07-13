@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Modal, TouchableOpacity, Text as PlainText } from "react-native";
+import {
+  View,
+  Modal,
+  TouchableOpacity,
+  Text as PlainText,
+  ScrollView
+} from "react-native";
 import { Button, Icon, Text } from "react-native-elements";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -45,18 +51,25 @@ class InviteOthersForm extends React.Component {
           Would you like to add any other members to your account once it has
           been activated?
         </Text>
-        {this.renderEmails()}
-        {this.renderModal()}
-        {this.renderTryAgain()}
-        <Button
-          raised
-          icon={{ name: "send" }}
-          title="Finish"
-          disabled={this.checkForInvalidFields()}
-          backgroundColor="#00A68C"
-          containerViewStyle={styles.inviteButton}
-          onPress={this.sendEmailInvitations.bind(this, invitations)}
-        />
+        <ScrollView
+          style={styles.scrollViewContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          {this.renderEmails()}
+          {this.renderModal()}
+          {this.renderTryAgain()}
+        </ScrollView>
+        <View style={{ flex: 0.15 }}>
+          <Button
+            raised
+            icon={{ name: "send" }}
+            title="Finish"
+            disabled={this.checkForInvalidFields()}
+            backgroundColor="#00A68C"
+            containerViewStyle={styles.finishButton}
+            onPress={this.sendEmailInvitations.bind(this, invitations)}
+          />
+        </View>
         <Icon
           raised
           name="add"
@@ -217,8 +230,8 @@ class InviteOthersForm extends React.Component {
   }
 
   sendEmailInvitations(emailInvitations) {
-    const { dispatch, accountId } = this.props;
-    dispatch(sendEmailInvitations(emailInvitations, accountId));
+    const { dispatch, token } = this.props;
+    dispatch(sendEmailInvitations(emailInvitations, token));
   }
 }
 
@@ -231,12 +244,17 @@ const styles = {
     marginRight: 10,
     alignItems: "center"
   },
+  scrollViewContainer: {
+    width: "100%",
+    flex: 0.8
+  },
   heading: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
     color: "#0E3A53",
-    margin: 10
+    margin: 10,
+    flex: 0.15
   },
   addButton: {
     position: "absolute",
@@ -248,20 +266,11 @@ const styles = {
     flexDirection: "row",
     width: "100%"
   },
-  errorMessage: {
-    color: "red",
-    alignSelf: "center"
-  },
   finishButton: {
     position: "absolute",
     bottom: 15,
     alignSelf: "center",
     width: 180
-  },
-  skipButton: {
-    position: "absolute",
-    bottom: 20,
-    alignSelf: "center"
   },
   input: {
     height: 40,
