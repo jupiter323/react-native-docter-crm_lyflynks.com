@@ -57,6 +57,7 @@ export const INITIAL_STATE = {
     passwordErrorMessage: "",
     confirmPasswordErrorMessage: ""
   },
+  errorMessage: null,
   creatingAccount: null,
   accountCreated: null,
   accountId: null
@@ -120,7 +121,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, creatingAccount: true };
     case ACCOUNT_CREATION_SUCCESS:
       return {
-        ...state,
+        ...INITIAL_STATE,
         accountCreated: "success",
         accountId: action.payload,
         creatingAccount: false
@@ -129,7 +130,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         accountCreated: "failure",
-        accountId: null,
+        errorMessage:
+          action.payload == "Validation error"
+            ? "Email already in use."
+            : "Seems like a network problem. Please try again later",
+        token: null,
         creatingAccount: false
       };
     case UPDATE_ACTIVITIES:
