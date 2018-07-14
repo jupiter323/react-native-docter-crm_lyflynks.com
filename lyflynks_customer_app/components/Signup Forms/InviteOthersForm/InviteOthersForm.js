@@ -185,9 +185,11 @@ class InviteOthersForm extends React.Component {
   }
 
   renderTryAgain() {
-    const { invitationResponse } = this.props;
+    const { invitationResponse, errorMessage } = this.props;
     return invitationResponse == "failure" ? (
-      <PlainText>Try Again</PlainText>
+      <PlainText style={styles.errorMessage}>
+        Seems like a network problem. Please try again later
+      </PlainText>
     ) : null;
   }
 

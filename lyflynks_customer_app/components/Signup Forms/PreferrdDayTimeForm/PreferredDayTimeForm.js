@@ -68,7 +68,7 @@ class PrefferedDayTimeForm extends React.Component {
 
   renderErrorMessage() {
     if (this.props.accountCreated === "failure") {
-      return <Text style={styles.errorMessage}>Please Try Again</Text>;
+      return <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>;
     }
   }
 

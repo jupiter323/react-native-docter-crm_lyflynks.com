@@ -12,9 +12,7 @@ import {
   ACCOUNT_CREATION_FAILURE
 } from "../actions/accounts";
 
-import {
-  SET_USERNAME
-} from "../actions/auth";
+import { SET_USERNAME } from "../actions/auth";
 
 export const INITIAL_STATE = {
   firstName: "",
@@ -42,9 +40,9 @@ export const INITIAL_STATE = {
     evening: { title: "Evening", selected: false }
   },
   activities: {
-    transportation: { title: "Transportation", selected: false},
-    checkins: { title: "Checkins", selected: false},
-    medicalScheduling: { title: "Medical Scheduling", selected: false}
+    transportation: { title: "Transportation", selected: false },
+    checkins: { title: "Checkins", selected: false },
+    medicalScheduling: { title: "Medical Scheduling", selected: false }
   },
   relationship: "child",
   errors: {
@@ -57,6 +55,7 @@ export const INITIAL_STATE = {
     passwordErrorMessage: "",
     confirmPasswordErrorMessage: ""
   },
+  errorMessage: null,
   creatingAccount: null,
   accountCreated: null,
   token: null
@@ -120,7 +119,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, creatingAccount: true };
     case ACCOUNT_CREATION_SUCCESS:
       return {
-        ...state,
+        ...INITIAL_STATE,
         accountCreated: "success",
         token: action.payload,
         creatingAccount: false
@@ -129,12 +128,19 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         accountCreated: "failure",
+        errorMessage:
+          action.payload == "Validation error"
+            ? "Email already in use."
+            : "Seems like a network problem. Please try again later",
         token: null,
         creatingAccount: false
       };
     case UPDATE_ACTIVITIES:
       const activityToEdit = state.activities[action.payload.key];
-      const updatedActivity = { ...activityToEdit, selected: action.payload.selected };
+      const updatedActivity = {
+        ...activityToEdit,
+        selected: action.payload.selected
+      };
       const updatedActivities = {
         ...state.activities,
         [action.payload.key]: updatedActivity
