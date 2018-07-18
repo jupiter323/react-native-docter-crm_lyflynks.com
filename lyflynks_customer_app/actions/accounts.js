@@ -44,9 +44,15 @@ export const signUp = memberDetails => {
       .createAccount(normalizedMember)
       .then(function(response) {
         if (response.success == true) {
-          dispatch({ type: ACCOUNT_CREATION_SUCCESS, payload: response.data });
+          dispatch({
+            type: ACCOUNT_CREATION_SUCCESS,
+            payload: response.data
+          });
         } else {
-          dispatch({ type: ACCOUNT_CREATION_FAILURE });
+          dispatch({
+            type: ACCOUNT_CREATION_FAILURE,
+            payload: response.message
+          });
         }
       })
       .catch(function(error) {
@@ -58,10 +64,8 @@ export const signUp = memberDetails => {
 export const signUpAccount = (memberDetails, userToken) => {
   return dispatch => {
     dispatch({ type: CREATING_ACCOUNT });
-    const normalizedActivities = normalizeEntities(
-      memberDetails.activities
-    );
-    
+    const normalizedActivities = normalizeEntities(memberDetails.activities);
+
     dispatch({ type: UPDATE_USER_CREDENTIALS, memberDetails });
 
     const { errors, ...memberWithoutErrors } = memberDetails;
