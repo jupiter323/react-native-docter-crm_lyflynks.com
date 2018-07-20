@@ -16,6 +16,7 @@ export default async () => {
       return;
     }
     let token = await Notifications.getExpoPushTokenAsync();
+    console.log(token);
     body = { token: { token } };
     let response = await fetch(PUSH_ENDPOINT, {
       method: "POST",

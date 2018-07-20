@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Provider, connect, Alert } from "react-redux";
+import { Provider, connect } from "react-redux";
 import { addNavigationHelpers } from "react-navigation";
 import Expo, { Notifications } from "expo";
+import { Alert } from "react-native";
 
 import Navigation from "./Navigation/navigationStack";
 import store from "./store";
@@ -11,6 +12,7 @@ export default class LyfLynks_App extends Component {
   componentDidMount() {
     registerForNotifications();
     Notifications.addListener(notification => {
+      debugger;
       const {
         data: { text },
         origin
