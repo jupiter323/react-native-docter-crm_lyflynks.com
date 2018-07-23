@@ -1,4 +1,5 @@
 import { auth } from "../api/LyfLynks_API";
+import { sendPushNotificationToken, generatePushNotificationToken } from "../services/pushNotifications";
 
 export const MEMBER_UPDATE_USERNAME = "MEMBER_UPDATE_USERNAME";
 export const MEMBER_UPDATE_PASSWORD = "MEMBER_UPDATE_PASSWORD";
@@ -31,7 +32,15 @@ export function member(data) {
   return async dispatch => {
     dispatch(authMember());
     try {
-      dispatch(authMemberSuccess(await auth.member(data)));
+      const response = await auth.member(data);
+      debugger;
+      if (response.success == true) {
+        const pushNotificationToken = generatePushNotificationToken();
+        if (pushNotificationToken != null) {
+          sendPushNotificationToken(response.data);
+        }
+      }
+      dispatch(authMemberSuccess(response));
     } catch (err) {
       console.log(err);
     }

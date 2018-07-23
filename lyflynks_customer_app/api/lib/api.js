@@ -71,3 +71,7 @@ export const members_accounts = {
 export const memberInvite = {
   root: "/send-invite-mail"
 };
+
+export const pushNotifications = {
+  root: "/allow_push_notification"
+};
