@@ -7,7 +7,8 @@ import {
   Button,
 } from 'react-native';
 
-import { FontAwesome } from '@expo/vector-icons';
+// import { FontAwesome } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -33,7 +34,7 @@ export default class LoginHelpScreen extends Component {
       fontSize: 24,
       fontWeight: 'bold',
     },
-    headerLeft: <FontAwesome
+    headerLeft: <Icon
       name={'chevron-left'}
       style={styles.headerBackButton}
       onPress={() => {

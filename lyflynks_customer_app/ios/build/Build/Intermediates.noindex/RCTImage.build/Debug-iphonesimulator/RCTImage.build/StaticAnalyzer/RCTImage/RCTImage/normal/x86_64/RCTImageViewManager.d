@@ -1,0 +1,33 @@
+dependencies: \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/Libraries/Image/RCTImageViewManager.m \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/Libraries/Image/RCTImageViewManager.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTViewManager.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/Libraries/Image/RCTImageLoader.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTResizeMode.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTURLRequestHandler.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTURLRequestDelegate.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/Libraries/Image/RCTImageShadowView.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/Libraries/Image/RCTImageView.h

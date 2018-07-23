@@ -1,0 +1,28 @@
+dependencies: \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTBridge.m \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTJSEnvironment.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTModuleData.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/node_modules/react-native/React/Base/RCTReloadCommand.h
