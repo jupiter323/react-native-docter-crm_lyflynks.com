@@ -14,10 +14,12 @@ export class Input extends React.Component {
     } = this.props;
     return (
       <TextInput
+        secureTextEntry={this.props.secureTextEntry}
         ref={setReference}
         style={[styles.textInput, this.props.style]}
         placeholderTextColor="#c2c2c2"
         autoCapitalize="none"
+        underlineColorAndroid="transparent"
         autoCorrect={false}
         returnKeyType="next"
         placeholder={placeholder}

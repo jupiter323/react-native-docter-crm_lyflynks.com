@@ -9,4 +9,8 @@ export default {
   async update(data, token) {
     return makeRequest([base], 'PATCH', data, token)
   },
+  
+  async memberInvite(data) {
+    return makeRequest([base], 'POST', data)
+  },
 }

@@ -77,6 +77,15 @@ export default function authReducer(state = initialState, action) {
         username: '',
         password: '',
       }
+    case MEMBER_ACCOUNT_LOGOUT:
+      return {
+        ...state,
+        isFetching: false,
+        member_account: {},
+        member: {},
+        username: '',
+        password: '',
+      }
 
     case MEMBER_ACCOUNT_LOGIN_FAILURE:
       return {

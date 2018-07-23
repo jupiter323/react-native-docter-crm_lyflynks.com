@@ -51,10 +51,7 @@ export default (state = INITITAL_STATE, action) => {
       return { ...state, invitations: updatedInvitations };
 
     case DELETE_EMAIL:
-      const {
-        [action.payload.id]: email,
-        ...nextInvitations
-      } = state.invitations;
+      const { [action.payload.id]: email, ...nextInvitations } = state.invitations;
 
       return {
         ...state,

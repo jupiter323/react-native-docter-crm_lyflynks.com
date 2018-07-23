@@ -33,7 +33,7 @@ export function member(data) {
     try {
       dispatch(authMemberSuccess(await auth.member(data)));
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 }
@@ -47,13 +47,10 @@ export function memberLogout() {
 
 export function member_account(data, token) {
   return async dispatch => {
-    dispatch(authMemberAccount());
     try {
-      dispatch(
-        authMemberAccountSuccess(await auth.member_account(data, token))
-      );
+      dispatch(authMemberAccountSuccess(await auth.member_account(data, token)));
     } catch (err) {
-     console.log(err)
+      console.log(err);
     }
   };
 }
@@ -75,8 +72,8 @@ function setUsername(data) {
 }
 
 function authMemberSuccess(data) {
-  if(data.success != true){
-    return authMemberFailure(data)
+  if (data.success != true) {
+    return authMemberFailure(data);
   }
   return { type: MEMBER_LOGIN_SUCCESS, data };
 }

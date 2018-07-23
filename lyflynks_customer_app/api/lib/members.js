@@ -13,6 +13,9 @@ export default {
   async update(data) {
     return makeRequest([base], "PATCH", data, token);
   },
+  async memberInvite(data) {
+    return makeRequest([memberInvite], 'POST', data)
+  },
   sendInvites(invites) {
     return makeRequest([baseForMemberInvite], "POST", invites);
   }

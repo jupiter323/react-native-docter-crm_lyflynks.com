@@ -4,9 +4,10 @@ import { addNavigationHelpers } from "react-navigation";
 import Expo, { Notifications } from "expo";
 import { Alert } from "react-native";
 
-import Navigation from "./Navigation/navigationStack";
 import store from "./store";
 import registerForNotifications from "./services/pushNotifications";
+import NavigatorService from "./Navigation/service/navigator";
+import Navigation from "./Navigation/navigationStack";
 
 export default class LyfLynks_App extends Component {
   componentDidMount() {
@@ -26,7 +27,11 @@ export default class LyfLynks_App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Navigation />
+        <Navigation
+          ref={navigatorRef => {
+            NavigatorService.setContainer(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }

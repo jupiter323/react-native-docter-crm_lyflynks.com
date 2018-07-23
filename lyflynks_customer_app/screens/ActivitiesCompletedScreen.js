@@ -1,22 +1,15 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {
-  NavigationActions
- } from 'react-navigation';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "react-native";
+import { NavigationActions } from "react-navigation";
 
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 
-import { connect } from 'react-redux';
-import { completed } from '../actions/activities';
-import { memberLogout } from '../actions/auth';
+import { connect } from "react-redux";
+import { completed } from "../actions/activities";
+import { memberLogout } from "../actions/auth";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-import Moment from 'moment';
+import Moment from "moment";
 
 @connect(store => {
   const { completed, isFetching, error } = store.activities;
@@ -25,31 +18,35 @@ import Moment from 'moment';
 })
 export default class ActivitiesCompleted extends Component {
   static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Completed',
+    tabBarLabel: "Completed",
     tabBarOptions: {
       style: {
-         backgroundColor: 'black',
+        backgroundColor: "black"
       }
     },
     headerRight: (
-      <TouchableOpacity onPress={() => this.logOut()} >
-        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+      <TouchableOpacity onPress={() => this.logOut()}>
+        <Text style={{ marginRight: 15, color: "#fff" }}>LOGOUT</Text>
       </TouchableOpacity>
-    ),
-  })
+    )
+  });
 
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
 
-    dispatch(completed({
-      limit: 3,
-    }, token));
+    dispatch(
+      completed(
+        {
+          limit: 3
+        },
+        token
+      )
+    );
   }
 
   render() {
     const { completed, dispatch } = this.props;
-    
 
     logOut = () => {
       dispatch(memberLogout());
@@ -57,140 +54,163 @@ export default class ActivitiesCompleted extends Component {
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName: 'MemberLogin',
-          }),
+            routeName: "MemberLogin"
+          })
         ]
-      })
-      this.props.navigation.dispatch(resetAction)
-    }
+      });
+      this.props.navigation.dispatch(resetAction);
+    };
 
     let activities;
 
     if (completed.success) {
       activities = completed.data.map((activity, index) => {
-        const for_who = activity.type === 'medical appointment'
-                        ? activity.for_who
-                        : activity.for_who
+        const for_who = activity.type === "medical appointment" ? activity.for_who : activity.for_who;
 
-        const who = activity.type === 'medical appointment'
-                    ? activity.who
-                    : activity.who
+        const who = activity.type === "medical appointment" ? activity.who : activity.who;
 
-        const when = Moment(activity.when).format('MMM D YYYY, h:mm A');
+        const whenDate = Moment(activity.when).format("MMM D YYYY");
+        const whenTime = Moment(activity.when).format("h:mm A");
 
         return (
           <TouchableOpacity key={index} style={styles.card}>
-            <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
-            </Text>
-            <Text style={styles.activityStatus(activity.status)}>
-              {activity.status.toUpperCase()}
-            </Text>
-            <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-            <Text style={styles.activityWho}>{who}</Text>
-            <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-            <Text style={styles.activityForWho}>{for_who}</Text>
+            <View style={styles.cardView}>
+              <View style={styles.leftCol}>
+                <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+                <Text style={styles.activityForWho}>{for_who}</Text>
+              </View>
+              <View style={styles.rightCol}>
+                <Text style={styles.activityWhen}>{whenDate}</Text>
+                <Text style={styles.activityWhen}>{whenTime}</Text>
+              </View>
+            </View>
           </TouchableOpacity>
-        )
+          // <TouchableOpacity key={index} style={styles.card}>
+          //   <Text style={styles.activityWhen}>
+          //     <FontAwesome name='calendar-o'/> {when}
+          //   </Text>
+          //   <Text style={styles.activityStatus(activity.status)}>
+          //     {activity.status.toUpperCase()}
+          //   </Text>
+          //   <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+          //   <Text style={styles.activityWho}>{who}</Text>
+          //   <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
+          //   <Text style={styles.activityForWho}>{for_who}</Text>
+          // </TouchableOpacity>
+        );
       });
     }
 
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>
-        {activities}
-      </ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>{activities}</ScrollView>
     );
   }
 }
 
-
 const styles = {
   headerDrawerButton: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
-    marginLeft: 20,
+    marginLeft: 20
   },
   headerSettingsButton: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
-    marginRight: 20,
+    marginRight: 20
   },
   container: {
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#f0f0f9',
-    padding: 20,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#f0f0f9"
+  },
+  leftCol: {
+    width: "70%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start"
+  },
+  rightCol: {
+    width: "20%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start"
   },
   card: {
-    padding: 20,
-    width: '100%',
-    backgroundColor: '#fff',
-    marginBottom: 25,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: "90%",
+    backgroundColor: "#fff",
+    marginTop: 25,
     borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.11,
+    display: "flex",
     shadowOffset: {
       height: 5,
-      width: 0,
+      width: 0
     },
-    shadowColor: '#000',
+    shadowColor: "#000"
+  },
+  cardView: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "stretch"
   },
   activityStatus(status) {
     let color;
-    switch(status) {
-      case 'completed':
-        color = 'orange';
+    switch (status) {
+      case "completed":
+        color = "orange";
         break;
-      case 'cancelled':
-        color = 'red';
+      case "cancelled":
+        color = "red";
         break;
     }
-
     return {
-      position: 'absolute',
+      position: "absolute",
       color,
       right: 20,
       top: 15,
       fontSize: 14,
-      fontWeight: '700',
-    }
-  },
-  activityWhen: {
-    position: 'absolute',
-    fontSize: 14,
-    color: '#9090a5',
-    top: 15,
-    left: 20,
+      fontWeight: "700"
+    };
   },
   activityForWhoLabel: {
     fontSize: 14,
-    color: '#334',
-    fontWeight: '900',
+    color: "#334",
+    fontWeight: "900",
     letterSpacing: 1,
-    marginTop: 20,
+    marginTop: 20
   },
   activityForWho: {
-    fontSize: 20,
-    color: '#002',
-    fontWeight: '200',
+    fontSize: 18,
+    color: "#0E3A53",
+    fontWeight: "200",
     letterSpacing: 0.5,
-    marginTop: 5,
+    marginTop: 5
   },
   activityWho: {
     fontSize: 20,
-    color: '#002',
-    fontWeight: '200',
+    color: "#002",
+    fontWeight: "200",
     letterSpacing: 0.5,
-    marginTop: 5,
+    marginTop: 5
   },
   activityType: {
     fontSize: 14,
-    color: '#334',
-    fontWeight: '900',
-    letterSpacing: 1,
-    marginTop: 35,
+    color: "#C5AE91",
+    fontWeight: "900",
+    letterSpacing: 1
   },
-}
+  activityWhen: {
+    fontSize: 12,
+    color: "#0E3A53"
+  }
+};
