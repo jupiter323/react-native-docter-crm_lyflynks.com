@@ -72,13 +72,27 @@ export default class ActivityLogTimeline extends Component {
       case 'medication':
         activity_icon = <EmergencyIcon style={{ width: 16, height: 16 }} />
         break;
+      case 'medical appointment':
+        activity_icon = <HealthIcon style={{ width: 16, height: 16 }} />
+        break
+      case 'lawncare':
+        activity_icon = <CompanionIcon style={{ width: 16, height: 16 }} />
+        break;
+      case 'emergency':
+        activity_icon = <EmergencyIcon style={{ width: 16, height: 16 }} />
+        break;
+      case 'check in':
+        activity_icon = <CompanionIcon style={{ width: 16, height: 16 }} />
+        break;
+      default:
+        activity_icon = <CompanionIcon style={{ width: 16, height: 16 }} />
     }
 
     let title = (
       <View style={styles.activityTitleContainer}>
         <View style={styles.activityTitleIcon}>
           { activity_icon }
-          <Text style={[styles.title]}>{rowData.title}</Text>
+          <Text style={[styles.title]}>{rowData.title || rowData.type}</Text>
         </View>
         <View style={styles.activityTitleDatetime}>
           <Text style={[styles.date]}>{rowData.date + '/' + rowData.time}</Text>
@@ -86,7 +100,7 @@ export default class ActivityLogTimeline extends Component {
       </View>
     )
     var desc = null
-    if (rowData.description && rowData.type == 'medical_appointment') {
+    if (rowData.description && (rowData.type == 'medical_appointment' || rowData.type === 'medical_appointment' )) {
       desc = (
         <View style={styles.descriptionContainer}>
           <Image source={rowData.imageUrl} style={styles.image}/>

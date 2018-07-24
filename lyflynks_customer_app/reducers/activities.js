@@ -12,7 +12,6 @@ import {
 
 const initialState = {
   upcoming: {
-    data: []
   },
   alerts: {
   },
@@ -67,12 +66,14 @@ export default function activitiesReducer(state = initialState, action) {
       case ALERT_ACTIVITIES:
         return {
           ...state,
-          isFetching: true
+          isFetching: true,
+          error: {}
         }
       case ALERT_ACTIVITIES_SUCCESS:
         return {
           ...state,
           isFetching: false,
+          error: {},
           alerts: action.data
         }
       case ALERT_ACTIVITIES_FAILURE:

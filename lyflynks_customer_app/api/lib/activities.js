@@ -12,7 +12,7 @@ export default {
     params = toQueryString(params);
     return makeRequest([base, activities.completed, params], 'GET', null, token);
   },
-  async completed(params, token) {
+  async alerts(params, token) {
     params = toQueryString(params);
     return makeRequest([base, activities.alerts, params], 'GET', null, token);
   },

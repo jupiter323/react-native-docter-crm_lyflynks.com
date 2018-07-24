@@ -39,13 +39,13 @@ export function completed(params, token) {
 
 export function alerts (params, token) {
   return async (dispatch) => {
-   dispatch(activitiesAlertsUpcoming())
+   dispatch(activitiesAlerts());
     try {
-      dispatch(activitiesAlertsUpcomingSuccess(
+      dispatch(activitiesAlertsSuccess(
         await activities.alerts(params, token)
       ))
     } catch (err) {
-      dispatch(activitiesAlertsUpcomingError(err));
+      dispatch(activitiesAlertsError(err));
     }
   }
 }
@@ -79,9 +79,11 @@ function activitiesAlerts () {
 }
 
 function activitiesAlertsSuccess (data) {
-  return { type: ALERT_ACTIVITIES_SUCCESS, data };
+  console.log('activity alerts sucess')
+  // return { type: ALERT_ACTIVITIES_SUCCESS, data };
 }
 
 function activitiesAlertsError (error) {
-  return { type: ALERT_ACTIVITIES_FAILURE, error };
+  console.log('activities alerts error', error)
+  // return { type: ALERT_ACTIVITIES_FAILURE, error };
 }

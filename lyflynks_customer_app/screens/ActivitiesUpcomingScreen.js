@@ -21,26 +21,33 @@ import Moment from 'moment';
 
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;
-  const { member_account } = store.auth;
-  return { member_account, upcoming, isFetching, error };
+  const { member } = store.auth;
+  return { member, upcoming, isFetching, error };
 })
 export default class ActivitiesUpcoming extends Component {
   componentDidMount() {
-    const { dispatch, member_account } = this.props;
-    const token = member_account.data;
-
+    const { dispatch, member } = this.props;
+    const token = member.data;
     dispatch(upcoming({
       limit: 15,
     }, token));
   }
 
+  _renderContent () {
+    let { error, upcoming } = this.props
+    if (upcoming.success) {
+      return <ACtivitiesTimeline data={upcoming.data}/>
+    }
+    // if (error) return <View><Text>we have problems, please try later</Text></View>
+  }
   render() {
-
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
       <View>
-        <ACtivitiesTimeline  />
+        {
+           this._renderContent()
+          }
       </View>
     );
   }

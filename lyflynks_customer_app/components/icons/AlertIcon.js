@@ -4,7 +4,7 @@ const { Path, Defs, G } = Svg;
 
 
 const AlertIcon = props => (
-  <Svg {...props} width={props.width || 22} height={props.height || 22} viewBox="0 0 22 22">
+  <Svg {...props} width={props.style.width || 22} height={props.style.height || 22} viewBox="0 0 22 22">
     <Defs fill={props.color || undefined}>
       <Path id="a" d="M0 .04h21.96V22H0z" fill={props.color || undefined}></Path>
     </Defs>

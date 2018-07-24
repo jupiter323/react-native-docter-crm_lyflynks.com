@@ -21,7 +21,7 @@ import {
   fontSize,
   fontFamily,
 } from '../../styles/Theme';
-
+import { showMenu } from '../../actions/menu'
 export default class GradientNavigationBar extends Component {
   constructor(props) {
     super(props);
@@ -115,7 +115,10 @@ export default class GradientNavigationBar extends Component {
 
   // Handle click menu button
   _onClickMenuButton() {
-    this.props.navigation.openDrawer()
+    // this.props.navigation.navigate.openDrawer()
+    // console.log(this.props)
+    this.props.actionMenu()
+    // this.props.navigation.dispatch(DrawerActions.openDrawer());
   }
 
   // Handle click back button
@@ -137,10 +140,10 @@ const styles = StyleSheet.create({
         shadowColor: 'rgba(0,0,0,0.1)',
         shadowOffset: {
           width: 0,
-          height: 12 
+          height: 12
         },
         shadowRadius: 5,
-        shadowOpacity: 0.3 
+        shadowOpacity: 0.3
       },
       android: {
         height: NAV_HEIGHT,
