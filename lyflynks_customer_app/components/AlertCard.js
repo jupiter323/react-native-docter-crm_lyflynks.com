@@ -6,7 +6,10 @@ export const AlertCard = props => {
   const { key, expand } = props;
 
   return (
-    <TouchableOpacity key="1" style={[styles.card, expand ? styles.cardExpanded : styles.cardFolded]}>
+    <TouchableOpacity
+      key="1"
+      style={[styles.card, expand ? styles.cardExpanded : styles.cardFolded]}
+    >
       <Text style={styles.activityAlertDescription}> A new member invited </Text>
       <Text style={styles.activityWhen}>
         <FontAwesome name="calendar-o" />
@@ -53,3 +56,37 @@ const styles = StyleSheet.create({
     textAlign: "right"
   }
 });
+
+{
+  /* <TouchableOpacity key="1" style={this.state.expand ? styles.cardExpanded : styles.card}>
+          <Text style={styles.activityAlertDescription}> A new member invited </Text>
+          <Text style={styles.activityWhen}>
+            <FontAwesome name="calendar-o" />
+            <Text>12 may 2018, 8:30 pm</Text>
+          </Text>
+          <Button title="expand" onPress={this.expandCard.bind(this)} />
+        </TouchableOpacity> */
+}
+
+{
+  /* <TouchableOpacity key="2" style={styles.card}>
+          <Text style={styles.activityAlertDescription}>
+            {" "}
+            Billyj@gmail.com has joined your account{" "}
+          </Text>
+          <Text style={styles.activityWhen}>
+            <FontAwesome name="calendar-o" />
+            <Text>12 may 2018, 8:30 pm</Text>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity key="3" style={styles.card}>
+          <Text style={styles.activityAlertDescription}>
+            {" "}
+            Reminder to book an medical appointment{" "}
+          </Text>
+          <Text style={styles.activityWhen}>
+            <FontAwesome name="calendar-o" />
+            <Text>12 may 2018, 8:30 pm</Text>
+          </Text>
+        </TouchableOpacity> */
+}

@@ -4,17 +4,19 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Button } from "re
 import { FontAwesome } from "@expo/vector-icons";
 import NavigatorService from "../Navigation/service/navigator";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import _ from "lodash";
 import { connect } from "react-redux";
 import { completed } from "../actions/activities";
-
+import { reduceUnreadNotifications } from "../actions/notifications";
+import { NavigationEvents } from "react-navigation";
 import Moment from "moment";
 import { AlertCard } from "../components/AlertCard";
 
 @connect(store => {
   const { completed, isFetching, error } = store.activities;
   const { member_account } = store.auth;
-  return { member_account, completed, isFetching, error };
+  const { notifications } = store;
+  return { member_account, completed, isFetching, error, notifications };
 })
 export default class ActivitiesAlertsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -31,10 +33,15 @@ export default class ActivitiesAlertsScreen extends Component {
     this.state = { expand: false };
   }
 
+  componentDidUpdate(prevPros) {
+    if (this.props.notifications.unread > 0) {
+      this.props.dispatch(reduceUnreadNotifications());
+    }
+  }
+
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
-
     dispatch(
       completed(
         {
@@ -43,6 +50,7 @@ export default class ActivitiesAlertsScreen extends Component {
         token
       )
     );
+    dispatch(reduceUnreadNotifications());
   }
 
   expandCard() {
@@ -51,43 +59,30 @@ export default class ActivitiesAlertsScreen extends Component {
     });
   }
 
+  renderAlerts() {
+    const { notifications } = this.props;
+    return _.map(notifications.byId, notification => {
+      return (
+        <TouchableOpacity
+          key={notification.id}
+          style={this.state.expand ? styles.cardExpanded : styles.card}
+        >
+          <Text style={styles.activityAlertDescription}> A new member invited </Text>
+          <Text style={styles.activityWhen}>
+            <FontAwesome name="calendar-o" />
+            <Text>{notification.text}</Text>
+          </Text>
+          <Button title="expand" onPress={this.expandCard.bind(this)} />
+        </TouchableOpacity>
+      );
+    });
+  }
+
   render() {
     navigateScreen = () => {
       NavigatorService.navigate("DrawerToggle");
     };
-    const { alerts } = this.props;
-    let activities;
-
-    return (
-      // TODO: on scroll, dispatch request for next page of activities
-      // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>
-        <TouchableOpacity key="1" style={this.state.expand ? styles.cardExpanded : styles.card}>
-          <Text style={styles.activityAlertDescription}> A new member invited </Text>
-          <Text style={styles.activityWhen}>
-            <FontAwesome name="calendar-o" />
-            <Text>12 may 2018, 8:30 pm</Text>
-          </Text>
-          <Button title="expand" onPress={this.expandCard.bind(this)} />
-        </TouchableOpacity>
-
-        <TouchableOpacity key="2" style={styles.card}>
-          <Text style={styles.activityAlertDescription}> Billyj@gmail.com has joined your account </Text>
-          <Text style={styles.activityWhen}>
-            <FontAwesome name="calendar-o" />
-            <Text>12 may 2018, 8:30 pm</Text>
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity key="3" style={styles.card}>
-          <Text style={styles.activityAlertDescription}> Reminder to book an medical appointment </Text>
-          <Text style={styles.activityWhen}>
-            <FontAwesome name="calendar-o" />
-            <Text>12 may 2018, 8:30 pm</Text>
-          </Text>
-        </TouchableOpacity>
-        <AlertCard expand={false} />
-      </ScrollView>
-    );
+    return <ScrollView contentContainerStyle={styles.container}>{this.renderAlerts()}</ScrollView>;
   }
 }
 
@@ -141,7 +136,8 @@ const styles = {
   },
   activityWhen: {
     color: "#AFB1B4",
+    fontWeight: "700",
     fontSize: 14,
-    textAlign: "right"
+    textAlign: "left"
   }
 };

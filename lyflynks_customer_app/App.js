@@ -7,26 +7,23 @@ import store from "./store";
 import { registerForPushNotifications } from "./services/pushNotifications";
 import NavigatorService from "./Navigation/service/navigator";
 import Navigation from "./Navigation/navigationStack";
+import { saveNotification } from "./actions/notifications";
 
 export default class LyfLynks_App extends Component {
-  constructor() {
-    super();
-    this.state = { appState: AppState.currentState };
-  }
-
   componentDidMount() {
     registerForPushNotifications();
-    AppState.addEventListener("change", this.handleAppStateChange);
     Notifications.addListener(notification => {
       debugger;
-      this.state.appState === "active"
-        ? this.displayNotifications(notification)
-        : this.displayNotifications(notification);
-    });
-  }
+      const {
+        data: { text },
+        origin
+      } = notification;
 
-  componentWillUnmount() {
-    AppState.removeEventListener("change", this._handleAppStateChange);
+      if (origin === "received" && text) {
+        store.dispatch(saveNotification(notification));
+        //Alert.alert("New", text, [{ text: "Ok" }]);
+      }
+    });
   }
 
   render() {
@@ -40,25 +37,40 @@ export default class LyfLynks_App extends Component {
       </Provider>
     );
   }
-
-  handleAppStateChange = nextAppState => {
-    if (this.state.appState.match(/inactive|background/) && nextAppState === "active") {
-      //TODO call saveNotifications();
-    }
-    this.setState({ appState: nextAppState });
-  };
-
-  saveNotifications(notification) {}
-
-  displayNotifications(notification) {
-    debugger;
-    const {
-      data: { text },
-      origin
-    } = notification;
-
-    if (origin === "received" && text) {
-      Alert.alert("New", text, [{ text: "Ok" }]);
-    }
-  }
 }
+
+// const mapStateToProps = (state, ownProps) => {
+//   debugger;
+//   const { notifications } = state;
+//   return {
+//     notifications,
+//     props: ownProps
+//   };
+// };
+// export default connect(
+//   mapStateToProps,
+//   {
+//     saveNotification
+//   }
+// )(Provider);
+
+// handleAppStateChange = nextAppState => {
+//   if (this.state.appState.match(/inactive|background/) && nextAppState === "active") {
+//     //TODO call saveNotifications();
+//   }
+//   this.setState({ appState: nextAppState });
+// };
+
+// saveNotifications(notification) {}
+
+// displayNotifications(notification) {
+//   debugger;
+//   const {
+//     data: { text },
+//     origin
+//   } = notification;
+
+//   if (origin === "received" && text) {
+//     Alert.alert("New", text, [{ text: "Ok" }]);
+//   }
+// }

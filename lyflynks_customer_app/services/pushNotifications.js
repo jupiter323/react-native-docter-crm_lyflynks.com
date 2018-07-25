@@ -1,40 +1,45 @@
 import { Permissions, Notifications } from "expo";
 import { AsyncStorage } from "react-native";
 import { pushNotifications } from "../api/LyfLynks_API";
-const PUSH_ENDPOINT = "http://rallycoding.herokuapp.com/api/tokens";
 
-export const registerForPushNotifications = async () => {
-  const isPushNotificationsPermissionGranted = await AsyncStorage.getItem("PushNotificationsPermission");
-  if (isPushNotificationsPermissionGranted == undefined) {
+export async function registerForPushNotifications() {
+  const pushNotificationToken = await AsyncStorage.getItem("pushNotificationToken");
+  console.log("existing", pushNotificationToken);
+  if (pushNotificationToken) {
     debugger;
-    Permissions.askAsync(Permissions.NOTIFICATIONS).then(function({ status }) {
-      debugger;
-      AsyncStorage.setItem("PushNotificationsPermission", status);
-    });
+    return;
   }
-};
-
-export const generatePushNotificationToken = async () => {
-  const isPushNotificationsPermissionGranted = await AsyncStorage.getItem("PushNotificationsPermission");
+  console.log(3);
+  const hasPermissionForPushNotificationsBeenAskedBefore = await AsyncStorage.getItem(
+    "hasPermissionForPushNotificationsBeenAskedBefore"
+  );
+  console.log(
+    "hasPermissionForPushNotificationsBeenAskedBefore",
+    hasPermissionForPushNotificationsBeenAskedBefore
+  );
   debugger;
-  console.log("PushNotificationsPermission", isPushNotificationsPermissionGranted);
-  if (isPushNotificationsPermissionGranted != "granted") {
-    return null;
+  const { status: existingPermissionStatus } = await Permissions.getAsync(
+    Permissions.REMOTE_NOTIFICATIONS
+  );
+  console.log("existingPermissionStatus", existingPermissionStatus);
+  if (!hasPermissionForPushNotificationsBeenAskedBefore && existingPermissionStatus != "granted") {
+    const { status } = await askForPermission();
+    if (status != "granted") {
+      return;
+    }
+    let token = await Notifications.getExpoPushTokenAsync();
+    AsyncStorage.setItem("hasPermissionForPushNotificationsBeenAskedBefore", "true");
+    AsyncStorage.setItem("pushNotificationToken", token);
   }
-  let previousToken = await AsyncStorage.getItem("PushNotificationToken");
-  console.log("previousToken", previousToken);
-  if (previousToken) {
-    return null;
-  }
-  let token = await Notifications.getExpoPushTokenAsync();
-  console.log("Newtoken", token);
-  AsyncStorage.setItem("PushNotificationToken", token);
-  return token;
-};
+}
+
+export async function askForPermission() {
+  return Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
+}
 
 export const sendPushNotificationToken = async userToken => {
   debugger;
-  let pushNotificationToken = await AsyncStorage.getItem("PushNotificationToken");
+  let pushNotificationToken = await AsyncStorage.getItem("pushNotificationToken");
   console.log("user Token", userToken);
   console.log("device token", pushNotificationToken);
   pushNotifications
@@ -47,7 +52,7 @@ export const sendPushNotificationToken = async userToken => {
     });
 };
 
-// let previousToken = await AsyncStorage.getItem("pushtoken");
+// let previousToken = await AsyncStorage.gketItem("pushtoken");
 // console.log(previousToken);
 // if (previousToken) {
 //   return;
@@ -66,3 +71,21 @@ export const sendPushNotificationToken = async userToken => {
 //   });
 //   AsyncStorage.setItem("pushtoken", token);
 // }
+
+// export const generatePushNotificationToken = async () => {
+//   const isPushNotificationsPermissionGranted = await AsyncStorage.getItem("PushNotificationsPermission");
+//   debugger;
+//   console.log("PushNotificationsPermission", isPushNotificationsPermissionGranted);
+//   if (isPushNotificationsPermissionGranted != "granted") {
+//     return null;
+//   }
+//   let previousToken = await AsyncStorage.getItem("PushNotificationToken");
+//   console.log("previousToken", previousToken);
+//   if (previousToken) {
+//     return null;
+//   }
+//   let token = await Notifications.getExpoPushTokenAsync();
+//   console.log("Newtoken", token);
+//   AsyncStorage.setItem("PushNotificationToken", token);
+//   return token;
+// };

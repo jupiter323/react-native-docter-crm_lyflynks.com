@@ -10,11 +10,14 @@ import { upcoming } from "../actions/activities";
 import { memberLogout } from "../actions/auth";
 
 import Moment from "moment";
+import { Badge } from "react-native-elements";
 
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;
   const { member_account } = store.auth;
-  return { member_account, upcoming, isFetching, error };
+  const { unread } = store.notifications;
+  debugger;
+  return { member_account, upcoming, isFetching, error, unread };
 })
 export default class ActivitiesUpcoming extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -31,13 +34,28 @@ export default class ActivitiesUpcoming extends Component {
     ),
     headerRight: (
       <TouchableOpacity onPress={() => this.logOut()}>
-        <Text style={{ marginRight: 15, color: "#fff" }}>LOGOUT</Text>
+        <View style={{ display: "flex" }}>
+          <Badge value={3} textStyle={{ color: "orange" }} />
+          <FontAwesome name="bell" />
+          <Text style={{ color: "white" }}>{navigation.getParam("unread")}</Text>
+          <Text style={{ marginRight: 15, color: "#fff" }}>LOGOUT</Text>
+        </View>
       </TouchableOpacity>
     )
   });
 
+  componentDidUpdate(prevPros) {
+    debugger;
+    console.log("prevPros.unread", prevPros.unread);
+    console.log("this.props.unread", this.props.unread);
+    if (prevPros.unread != this.props.unread) {
+      this.props.navigation.setParams({ unread: this.props.unread });
+    }
+  }
   componentDidMount() {
-    const { dispatch, member_account } = this.props;
+    debugger;
+    const { dispatch, member_account, unread } = this.props;
+    this.props.navigation.setParams({ unread });
     const token = member_account.data;
 
     dispatch(
@@ -74,11 +92,14 @@ export default class ActivitiesUpcoming extends Component {
     if (upcoming.success) {
       activities = upcoming.data.map((activity, index) => {
         console.log(activity);
-        const for_who = activity.type === "medical appointment" ? activity.for_who : activity.for_who.join("\n");
+        const for_who =
+          activity.type === "medical appointment" ? activity.for_who : activity.for_who.join("\n");
 
-        const who = activity.type === "medical appointment" ? activity.who : activity.who.join("\n");
+        const who =
+          activity.type === "medical appointment" ? activity.who : activity.who.join("\n");
 
-        const when = activity.when === "TBD" ? "Pending" : Moment(activity.when).format("MMM D YYYY, h:mm A");
+        const when =
+          activity.when === "TBD" ? "Pending" : Moment(activity.when).format("MMM D YYYY, h:mm A");
 
         return (
           <TouchableOpacity key={index} style={styles.card}>
