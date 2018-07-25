@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Modal,
-  TouchableOpacity,
-  Text as PlainText,
-  ScrollView
-} from "react-native";
+import { View, Modal, TouchableOpacity, Text as PlainText, ScrollView } from "react-native";
 import { Button, Icon, Text } from "react-native-elements";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -32,29 +26,18 @@ class InviteOthersForm extends React.Component {
     const { invitationResponse } = this.props;
     const { modalVisible } = this.state;
     if (invitationResponse !== prevProps.invitationResponse) {
-      invitationResponse === "success"
-        ? this.setState({ modalVisible: !modalVisible })
-        : "";
+      invitationResponse === "success" ? this.setState({ modalVisible: !modalVisible }) : "";
     }
   }
 
   render() {
-    const {
-      instructions,
-      renderInstructions,
-      invitationResponse,
-      invitations
-    } = this.props;
+    const { instructions, renderInstructions, invitationResponse, invitations } = this.props;
     return (
       <View style={styles.container}>
         <Text h4 style={styles.heading}>
-          Would you like to add any other members to your account once it has
-          been activated?
+          Would you like to add any other members to your account once it has been activated?
         </Text>
-        <ScrollView
-          style={styles.scrollViewContainer}
-          showsVerticalScrollIndicator={false}
-        >
+        <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
           {this.renderEmails()}
           {this.renderModal()}
           {this.renderTryAgain()}
@@ -63,7 +46,7 @@ class InviteOthersForm extends React.Component {
           <Button
             raised
             icon={{ name: "send" }}
-            title="Finish"
+            title="Next"
             disabled={this.checkForInvalidFields()}
             backgroundColor="#00A68C"
             containerViewStyle={styles.finishButton}
@@ -105,9 +88,7 @@ class InviteOthersForm extends React.Component {
             />
           </View>
           <View>
-            <Text style={{ alignSelf: "center", color: "red" }}>
-              {invite.error}
-            </Text>
+            <Text style={{ alignSelf: "center", color: "red" }}>{invite.error}</Text>
           </View>
         </View>
       );
@@ -145,8 +126,8 @@ class InviteOthersForm extends React.Component {
           <Button
             raised
             backgroundColor="#00A68C"
-            iconRight={{ name: "done" }}
-            title="Done"
+            icon={{ name: "send" }}
+            title="Next"
             onPress={this.navigateToSignUpComplete.bind(this)}
           />
         </View>
@@ -158,9 +139,7 @@ class InviteOthersForm extends React.Component {
     if (this.props.errorEmails.length != 0) {
       return (
         <View>
-          <PlainText style={{ alignSelf: "center" }}>
-            Following emails couldn't be send
-          </PlainText>
+          <PlainText style={{ alignSelf: "center" }}>Following emails couldn't be send</PlainText>
           {this.getErrorEmails()}
         </View>
       );
