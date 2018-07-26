@@ -1974,7 +1974,14 @@ public final class R {
     public static final int abc_textfield_search_activated_mtrl_alpha=0x7f06003b;
     public static final int abc_textfield_search_default_mtrl_alpha=0x7f06003c;
     public static final int abc_textfield_search_material=0x7f06003d;
-    public static final int notification_template_icon_bg=0x7f06003e;
+    public static final int img_lyflynks=0x7f06003e;
+    public static final int node_modules_reactnativeelements_src_rating_images_bell=0x7f06003f;
+    public static final int node_modules_reactnativeelements_src_rating_images_heart=0x7f060040;
+    public static final int node_modules_reactnativeelements_src_rating_images_rocket=0x7f060041;
+    public static final int node_modules_reactnativeelements_src_rating_images_star=0x7f060042;
+    public static final int node_modules_reactnavigation_src_views_assets_backicon=0x7f060043;
+    public static final int node_modules_reactnavigation_src_views_assets_backiconmask=0x7f060044;
+    public static final int notification_template_icon_bg=0x7f060045;
   }
   public static final class id {
     public static final int action0=0x7f070000;
