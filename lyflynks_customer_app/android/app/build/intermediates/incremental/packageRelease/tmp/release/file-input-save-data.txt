@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Jul 25 18:30:07 IST 2018
+#Thu Jul 26 16:33:13 IST 2018
 5.base=/Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/android/app/build/intermediates/transforms/mergeJniLibs/release/0
 22.path=fonts/SimpleLineIcons.ttf
 32.set=ASSET
