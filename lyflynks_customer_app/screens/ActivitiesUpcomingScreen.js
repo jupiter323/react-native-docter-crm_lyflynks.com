@@ -28,34 +28,42 @@ export default class ActivitiesUpcoming extends Component {
       }
     },
     headerLeft: (
-      <TouchableOpacity onPress={() => this.toggleDrawer()}>
+      <TouchableOpacity onPress={() => this.toggleDrawer()} style={{ flex: 0.1 }}>
         <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
       </TouchableOpacity>
     ),
     headerRight: (
-      <TouchableOpacity onPress={() => this.logOut()}>
-        <View style={{ display: "flex" }}>
-          <Badge value={3} textStyle={{ color: "orange" }} />
-          <FontAwesome name="bell" />
-          <Text style={{ color: "white" }}>{navigation.getParam("unread")}</Text>
-          <Text style={{ marginRight: 15, color: "#fff" }}>LOGOUT</Text>
+      <View style={styles.headerActionsRight}>
+        <TouchableOpacity
+          onPress={() => navigation.getParam("navigateToNofications")()}
+          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
+            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ flex: 0.3, marginRight: 10 }}>
+          <TouchableOpacity onPress={() => this.logOut()}>
+            <FontAwesome name="sign-out" size={35} color="white" />
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     )
   });
 
   componentDidUpdate(prevPros) {
-    debugger;
-    console.log("prevPros.unread", prevPros.unread);
-    console.log("this.props.unread", this.props.unread);
     if (prevPros.unread != this.props.unread) {
       this.props.navigation.setParams({ unread: this.props.unread });
     }
   }
+
   componentDidMount() {
-    debugger;
     const { dispatch, member_account, unread } = this.props;
     this.props.navigation.setParams({ unread });
+    this.props.navigation.setParams({
+      navigateToNofications: this.navigateToNofications.bind(this)
+    });
     const token = member_account.data;
 
     dispatch(
@@ -66,6 +74,10 @@ export default class ActivitiesUpcoming extends Component {
         token
       )
     );
+  }
+
+  navigateToNofications() {
+    this.props.navigation.navigate("Alerts");
   }
 
   render() {
@@ -124,6 +136,11 @@ export default class ActivitiesUpcoming extends Component {
 }
 
 const styles = {
+  headerActionsRight: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 0.2
+  },
   headerDrawerButton: {
     color: "#fff",
     backgroundColor: "black",

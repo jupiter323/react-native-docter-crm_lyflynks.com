@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
   id: 0,
-  byId: {},
+  byId: {
+    text: "hello"
+  },
   unread: 0
 };
 

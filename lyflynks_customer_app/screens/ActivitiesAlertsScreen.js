@@ -25,6 +25,24 @@ export default class ActivitiesAlertsScreen extends Component {
       <TouchableOpacity onPress={() => this.navigateScreen()}>
         <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
       </TouchableOpacity>
+    ),
+    headerRight: (
+      <View style={styles.headerActionsRight}>
+        <TouchableOpacity
+          onPress={() => navigation.getParam("navigateToNofications")()}
+          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
+            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ flex: 0.3, marginRight: 10 }}>
+          <TouchableOpacity onPress={() => this.logOut()}>
+            <FontAwesome name="sign-out" size={35} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
     )
   });
 
@@ -42,6 +60,9 @@ export default class ActivitiesAlertsScreen extends Component {
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
+    this.props.navigation.setParams({
+      navigateToNofications: this.navigateToNofications.bind(this)
+    });
     dispatch(
       completed(
         {
@@ -51,6 +72,10 @@ export default class ActivitiesAlertsScreen extends Component {
       )
     );
     dispatch(reduceUnreadNotifications());
+  }
+
+  navigateToNofications() {
+    this.props.navigation.navigate("Alerts");
   }
 
   expandCard() {
@@ -82,11 +107,70 @@ export default class ActivitiesAlertsScreen extends Component {
     navigateScreen = () => {
       NavigatorService.navigate("DrawerToggle");
     };
-    return <ScrollView contentContainerStyle={styles.container}>{this.renderAlerts()}</ScrollView>;
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <TouchableOpacity style={styles.notificationContainer}>
+          <View style={styles.leftContainer}>
+            <FontAwesome name="user-plus" size={30} color="white" />
+          </View>
+          <View style={styles.rightContainer}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.activityAlertDescription}> A new member invited </Text>
+              <FontAwesome name="times" size={15} color="grey" style={styles.dismiss} />
+            </View>
+            <Text style={styles.activityWhen}>Detained Info Here</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.notificationContainer}>
+          <View style={styles.leftContainer}>
+            <FontAwesome name="user-plus" size={30} color="white" />
+          </View>
+          <View style={styles.rightContainer}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.activityAlertDescription}> A new member invited </Text>
+              <FontAwesome name="times" size={15} color="grey" style={styles.dismiss} />
+            </View>
+            <Text style={styles.activityWhen}>Detained Info Here</Text>
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
+    );
   }
 }
 
 const styles = {
+  headerActionsRight: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 0.2
+  },
+  notificationContainer: {
+    flexDirection: "row",
+    width: "100%",
+    height: 100,
+    marginBottom: 25,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10
+  },
+  leftContainer: {
+    flex: 0.2,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#00a68c"
+  },
+  rightContainer: {
+    flex: 0.8,
+    backgroundColor: "white",
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10
+  },
+  cardHeader: {
+    flexDirection: "row"
+  },
   headerDrawerButton: {
     color: "#fff",
     fontSize: 24,
@@ -105,39 +189,25 @@ const styles = {
     backgroundColor: "#f0f0f9",
     padding: 20
   },
-  card: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
-    width: "100%",
-    backgroundColor: "#fff",
-    marginTop: 25,
-    borderRadius: 10,
-    shadowRadius: 5,
-    shadowOpacity: 0.11,
-    display: "flex",
-    shadowOffset: {
-      height: 5,
-      width: 0
-    },
-    shadowColor: "#000"
-  },
   cardFolded: {
     height: 100
   },
   cardExpanded: {
     height: 200
   },
+  dismiss: { flex: 0.1, marginTop: 10 },
   activityAlertDescription: {
     fontWeight: "700",
     fontSize: 16,
-    marginBottom: 10
+    flex: 0.9,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 7
   },
   activityWhen: {
     color: "#AFB1B4",
     fontWeight: "700",
     fontSize: 14,
-    textAlign: "left"
+    marginLeft: 10
   }
 };

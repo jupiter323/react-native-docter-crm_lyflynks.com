@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { StackNavigator, TabNavigator, DrawerNavigator } from "react-navigation";
 import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
@@ -14,34 +14,44 @@ import NewMemberWizardScreen from "../screens/NewMemberWizard";
 import MemberInviteScreen from "../screens/MemberInviteScreen";
 import ActivitiesAlertsScreen from "../screens/ActivitiesAlertsScreen";
 
-export const ActivityLog = TabNavigator(
-  {
-    Upcoming: {
-      screen: ActivitiesUpcomingScreen
+const tabNavigatorConfig = {
+  tabBarPosition: "top",
+  tabBarOptions: {
+    activeTintColor: "#e91e63",
+    inactiveTintColor: "gray",
+    labelStyle: {
+      fontSize: 12,
+      fontWeight: "700",
+      marginBottom: 10,
+      width: "100%"
     },
-    Completed: {
-      screen: ActivitiesCompletedScreen
+    activeBackgroundColor: "white",
+    inactiveBackgroundColor: "white",
+    style: {
+      height: 50,
+      backgroundColor: "white"
     },
-    Alerts: {
-      screen: ActivitiesAlertsScreen
+    indicatorStyle: {
+      backgroundColor: "white"
     }
   },
-  {
-    tabBarPosition: "top",
-    tabBarOptions: {
-      indicatorStyle: { backgroundColor: "#0E3A53" },
-      labelStyle: {
-        fontSize: 14,
-        color: "#fff"
-      },
-      style: {
-        backgroundColor: "#00a68c"
-      }
-    },
-    order: ["Upcoming", "Completed", "Alerts"],
-    animationEnabled: true
+  order: ["Upcoming", "Completed", "Alerts"],
+  animationEnabled: true
+};
+
+const tabRouteConfig = {
+  Upcoming: {
+    screen: ActivitiesUpcomingScreen
+  },
+  Completed: {
+    screen: ActivitiesCompletedScreen
+  },
+  Alerts: {
+    screen: ActivitiesAlertsScreen
   }
-);
+};
+
+export const ActivityLog = TabNavigator(tabRouteConfig, tabNavigatorConfig);
 
 const DrawerStack = DrawerNavigator({
   Activities: {
@@ -107,7 +117,8 @@ const Navigation = StackNavigator(
       screen: DrawerStack,
       navigationOptions: {
         headerStyle: {
-          marginTop: Platform.OS === "android" ? 24 : 0,
+          display: "flex",
+          marginTop: Platform.OS === "android" ? 25 : 0,
           backgroundColor: "#0E3A53",
           shadowRadius: 5,
           shadowOpacity: 0.11,
@@ -120,7 +131,8 @@ const Navigation = StackNavigator(
         headerTitleStyle: {
           color: "#fff",
           fontSize: 24,
-          fontWeight: "600"
+          fontWeight: "600",
+          flex: 0.8
         }
       }
     },

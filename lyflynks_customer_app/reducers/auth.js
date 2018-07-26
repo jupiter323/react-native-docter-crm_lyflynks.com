@@ -7,42 +7,39 @@ import {
   MEMBER_ACCOUNT_LOGIN,
   MEMBER_ACCOUNT_LOGIN_SUCCESS,
   MEMBER_ACCOUNT_LOGIN_FAILURE,
-  MEMBER_ACCOUNT_LOGOUT,
-} from '../actions/auth';
-import {
-  MEMBER_ACCOUNT_CREATION_SUCCESS,
-  UPDATE_USER_CREDENTIALS
-} from '../actions/accounts';
+  MEMBER_ACCOUNT_LOGOUT
+} from "../actions/auth";
+import { MEMBER_ACCOUNT_CREATION_SUCCESS, UPDATE_USER_CREDENTIALS } from "../actions/accounts";
 
 const initialState = {
-  username: '',
-  password: '',
+  username: "billyj",
+  password: "bjpassword",
   member: {},
   member_account: {},
   isFetching: false,
   error: {},
   newUser: false
-}
+};
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case MEMBER_UPDATE_USERNAME:
       return {
         ...state,
-        username: action.text,
-      }
+        username: action.text
+      };
 
     case MEMBER_UPDATE_PASSWORD:
       return {
         ...state,
-        password: action.text,
-      }
+        password: action.text
+      };
 
     case MEMBER_LOGIN:
       return {
         ...state,
-        isFetching: true,
-      }
+        isFetching: true
+      };
 
     case MEMBER_LOGIN_SUCCESS:
       return {
@@ -50,71 +47,70 @@ export default function authReducer(state = initialState, action) {
         isFetching: false,
         member: action.data,
         newUser: action.data.data.newUser,
-        error: action.data.message,
-      }
+        error: action.data.message
+      };
 
     case MEMBER_LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-        username: '',
-        password: '',
-      }
+        username: "",
+        password: ""
+      };
 
     case MEMBER_ACCOUNT_LOGIN:
       return {
         ...state,
         isFetching: true,
-        member_account: {},
-      }
+        member_account: {}
+      };
 
     case MEMBER_ACCOUNT_LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
         member_account: action.data,
-        username: '',
-        password: '',
-      }
+        username: "",
+        password: ""
+      };
     case MEMBER_ACCOUNT_LOGOUT:
       return {
         ...state,
         isFetching: false,
         member_account: {},
         member: {},
-        username: '',
-        password: '',
-      }
+        username: "",
+        password: ""
+      };
 
     case MEMBER_ACCOUNT_LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.error,
-      }
-      
+        error: action.error
+      };
+
     case MEMBER_ACCOUNT_LOGOUT:
       return {
         ...state,
         isFetching: false,
         member_account: {},
         member: {},
-        username: '',
-        password: '',
-      }
+        username: "",
+        password: ""
+      };
     case UPDATE_USER_CREDENTIALS:
       return {
         ...state,
-        password: action.memberDetails.password,
-      }
-
+        password: action.memberDetails.password
+      };
 
     case MEMBER_ACCOUNT_CREATION_SUCCESS:
       return {
         ...state,
-        member: action.data,
-      }
+        member: action.data
+      };
 
     default:
       return state;

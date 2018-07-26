@@ -25,16 +25,31 @@ export default class ActivitiesCompleted extends Component {
       }
     },
     headerRight: (
-      <TouchableOpacity onPress={() => this.logOut()}>
-        <Text style={{ marginRight: 15, color: "#fff" }}>LOGOUT</Text>
-      </TouchableOpacity>
+      <View style={styles.headerActionsRight}>
+        <TouchableOpacity
+          onPress={() => navigation.getParam("navigateToNofications")()}
+          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
+            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ flex: 0.3, marginRight: 10 }}>
+          <TouchableOpacity onPress={() => this.logOut()}>
+            <FontAwesome name="sign-out" size={35} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
     )
   });
 
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
-
+    this.props.navigation.setParams({
+      navigateToNofications: this.navigateToNofications.bind(this)
+    });
     dispatch(
       completed(
         {
@@ -43,6 +58,10 @@ export default class ActivitiesCompleted extends Component {
         token
       )
     );
+  }
+
+  navigateToNofications() {
+    this.props.navigation.navigate("Alerts");
   }
 
   render() {
@@ -65,7 +84,8 @@ export default class ActivitiesCompleted extends Component {
 
     if (completed.success) {
       activities = completed.data.map((activity, index) => {
-        const for_who = activity.type === "medical appointment" ? activity.for_who : activity.for_who;
+        const for_who =
+          activity.type === "medical appointment" ? activity.for_who : activity.for_who;
 
         const who = activity.type === "medical appointment" ? activity.who : activity.who;
 
@@ -110,6 +130,11 @@ export default class ActivitiesCompleted extends Component {
 }
 
 const styles = {
+  headerActionsRight: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 0.2
+  },
   headerDrawerButton: {
     color: "#fff",
     fontSize: 24,
