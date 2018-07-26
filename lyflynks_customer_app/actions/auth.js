@@ -37,14 +37,6 @@ export function member(data) {
     dispatch(authMember());
     try {
       const response = await auth.member(data);
-      debugger;
-      if (response.success == true) {
-        const pushNotificationToken = await AsyncStorage.getItem("pushNotificationToken");
-        console.log("pushNotificationToken", pushNotificationToken);
-        if (pushNotificationToken != null) {
-          sendPushNotificationToken(response.data);
-        }
-      }
       dispatch(authMemberSuccess(response));
     } catch (err) {
       console.log(err);

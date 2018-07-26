@@ -2,7 +2,6 @@ export async function makeRequest(route, method, data, token) {
   const url = route.reduce((a, b) => a.concat(b));
   const body = data ? JSON.stringify(data) : null;
   let req;
-  console.log("body", body);
   try {
     req = await fetch(url, {
       method,
@@ -22,7 +21,6 @@ const getHeader = token => {
   if (token) {
     headers.append("x-access-token", token);
   }
-  console.log("headers", headers.get("x-access-token"));
   return headers;
 };
 
@@ -38,7 +36,7 @@ export const toQueryString = obj => {
   );
 };
 
-export const domain = "http://192.168.1.210:5002";
+export const domain = "http://localhost:5002";
 
 export const accounts = {
   root: "/accounts",
@@ -70,8 +68,4 @@ export const members_accounts = {
 
 export const memberInvite = {
   root: "/send-invite-mail"
-};
-
-export const pushNotifications = {
-  root: "/allow_push_notification"
 };

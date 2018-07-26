@@ -15,9 +15,7 @@ import { Badge } from "react-native-elements";
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;
   const { member_account } = store.auth;
-  const { unread } = store.notifications;
-  debugger;
-  return { member_account, upcoming, isFetching, error, unread };
+  return { member_account, upcoming, isFetching, error };
 })
 export default class ActivitiesUpcoming extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -103,7 +101,6 @@ export default class ActivitiesUpcoming extends Component {
 
     if (upcoming.success) {
       activities = upcoming.data.map((activity, index) => {
-        console.log(activity);
         const for_who =
           activity.type === "medical appointment" ? activity.for_who : activity.for_who.join("\n");
 

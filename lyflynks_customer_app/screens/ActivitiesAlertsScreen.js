@@ -7,10 +7,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { completed } from "../actions/activities";
-import { reduceUnreadNotifications } from "../actions/notifications";
+
 import { NavigationEvents } from "react-navigation";
 import Moment from "moment";
-import { AlertCard } from "../components/AlertCard";
 
 @connect(store => {
   const { completed, isFetching, error } = store.activities;
@@ -51,12 +50,6 @@ export default class ActivitiesAlertsScreen extends Component {
     this.state = { expand: false };
   }
 
-  componentDidUpdate(prevPros) {
-    if (this.props.notifications.unread > 0) {
-      this.props.dispatch(reduceUnreadNotifications());
-    }
-  }
-
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
@@ -71,36 +64,10 @@ export default class ActivitiesAlertsScreen extends Component {
         token
       )
     );
-    dispatch(reduceUnreadNotifications());
   }
 
   navigateToNofications() {
     this.props.navigation.navigate("Alerts");
-  }
-
-  expandCard() {
-    this.setState(prevState => {
-      return { expand: !prevState.expand };
-    });
-  }
-
-  renderAlerts() {
-    const { notifications } = this.props;
-    return _.map(notifications.byId, notification => {
-      return (
-        <TouchableOpacity
-          key={notification.id}
-          style={this.state.expand ? styles.cardExpanded : styles.card}
-        >
-          <Text style={styles.activityAlertDescription}> A new member invited </Text>
-          <Text style={styles.activityWhen}>
-            <FontAwesome name="calendar-o" />
-            <Text>{notification.text}</Text>
-          </Text>
-          <Button title="expand" onPress={this.expandCard.bind(this)} />
-        </TouchableOpacity>
-      );
-    });
   }
 
   render() {

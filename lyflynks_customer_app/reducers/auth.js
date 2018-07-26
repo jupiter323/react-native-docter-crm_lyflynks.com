@@ -12,8 +12,8 @@ import {
 import { MEMBER_ACCOUNT_CREATION_SUCCESS, UPDATE_USER_CREDENTIALS } from "../actions/accounts";
 
 const initialState = {
-  username: "billyj",
-  password: "bjpassword",
+  username: "",
+  password: "",
   member: {},
   member_account: {},
   isFetching: false,
