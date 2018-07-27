@@ -11,7 +11,7 @@ import {
  } from 'react-navigation';
 
 import { FontAwesome } from '@expo/vector-icons';
-
+import ACtivitiesTimeline from '../components/ActivityLogTimeline'
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
 import { memberLogout } from '../actions/auth';
@@ -20,87 +20,95 @@ import Moment from 'moment';
 
 @connect(store => {
   const { completed, isFetching, error } = store.activities;
-  const { member_account } = store.auth;
-  return { member_account, completed, isFetching, error };
+  const { member } = store.auth;
+  return { member, completed, isFetching, error };
 })
 export default class ActivitiesCompleted extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Completed',
-    tabBarOptions: {
-      style: {
-         backgroundColor: 'black',
-      }
-    },
-    headerRight: (
-      <TouchableOpacity onPress={() => this.logOut()} >
-        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
-      </TouchableOpacity>
-    ),
-  })
+  // static navigationOptions = ({ navigation }) => ({
+  //   tabBarLabel: 'Completed',
+  //   tabBarOptions: {
+  //     style: {
+  //        backgroundColor: 'black',
+  //     }
+  //   },
+  //   headerRight: (
+  //     <TouchableOpacity onPress={() => this.logOut()} >
+  //       <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
+  //     </TouchableOpacity>
+  //   ),
+  // })
 
   componentDidMount() {
-    const { dispatch, member_account } = this.props;
-    const token = member_account.data;
+    const { dispatch, member } = this.props;
+    const token = member.data;
 
     dispatch(completed({
       limit: 3,
     }, token));
   }
-
-  render() {
-    const { completed, dispatch } = this.props;
-    
-
-    logOut = () => {
-      dispatch(memberLogout());
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'MemberLogin',
-          }),
-        ]
-      })
-      this.props.navigation.dispatch(resetAction)
-    }
-
-    let activities;
-
+  _renderContent () {
+    let { error, completed } = this.props
     if (completed.success) {
-      activities = completed.data.map((activity, index) => {
-        const for_who = activity.type === 'medical appointment'
-                        ? activity.for_who
-                        : activity.for_who
-
-        const who = activity.type === 'medical appointment'
-                    ? activity.who
-                    : activity.who
-
-        const when = Moment(activity.when).format('MMM D YYYY, h:mm A');
-
-        return (
-          <TouchableOpacity key={index} style={styles.card}>
-            <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
-            </Text>
-            <Text style={styles.activityStatus(activity.status)}>
-              {activity.status.toUpperCase()}
-            </Text>
-            <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-            <Text style={styles.activityWho}>{who}</Text>
-            <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-            <Text style={styles.activityForWho}>{for_who}</Text>
-          </TouchableOpacity>
-        )
-      });
+      return <ACtivitiesTimeline data={completed.data}/>
     }
+  }
+  render() {
+    // const { completed, dispatch } = this.props;
+
+
+    // logOut = () => {
+    //   dispatch(memberLogout());
+    //   const resetAction = NavigationActions.reset({
+    //     index: 0,
+    //     actions: [
+    //       NavigationActions.navigate({
+    //         routeName: 'MemberLogin',
+    //       }),
+    //     ]
+    //   })
+    //   this.props.navigation.dispatch(resetAction)
+    // }
+
+    // let activities;
+
+    // if (completed.success) {
+    //   activities = completed.data.map((activity, index) => {
+    //     const for_who = activity.type === 'medical appointment'
+    //                     ? activity.for_who
+    //                     : activity.for_who
+
+    //     const who = activity.type === 'medical appointment'
+    //                 ? activity.who
+    //                 : activity.who
+
+    //     const when = Moment(activity.when).format('MMM D YYYY, h:mm A');
+
+    //     return (
+    //       <TouchableOpacity key={index} style={styles.card}>
+    //         <Text style={styles.activityWhen}>
+    //           <FontAwesome name='calendar-o'/> {when}
+    //         </Text>
+    //         <Text style={styles.activityStatus(activity.status)}>
+    //           {activity.status.toUpperCase()}
+    //         </Text>
+    //         <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
+    //         <Text style={styles.activityWho}>{who}</Text>
+    //         <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
+    //         <Text style={styles.activityForWho}>{for_who}</Text>
+    //       </TouchableOpacity>
+    //     )
+    //   });
+    // }
 
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>
-        {activities}
-      </ScrollView>
+      <View>
+        {
+          // activities
+          this._renderContent()
+        }
+      </View>
     );
   }
 }

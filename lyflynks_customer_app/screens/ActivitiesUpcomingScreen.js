@@ -12,7 +12,7 @@ import {
 
 import { FontAwesome } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import ACtivitiesTimeline from '../components/ActivityLogTimeline'
 import { connect } from 'react-redux';
 import { upcoming } from '../actions/activities';
 import { memberLogout } from '../actions/auth';
@@ -21,96 +21,34 @@ import Moment from 'moment';
 
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;
-  const { member_account } = store.auth;
-  return { member_account, upcoming, isFetching, error };
+  const { member } = store.auth;
+  return { member, upcoming, isFetching, error };
 })
 export default class ActivitiesUpcoming extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: 'Upcoming',
-    tabBarOptions: {
-      style: {
-         backgroundColor: 'black',
-      }
-    },
-    headerLeft: (
-      <TouchableOpacity onPress={() => this.toggleDrawer()} >
-        <Icon style={{ marginLeft:15,color:'#fff' }} name={'bars'} size={25} />
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <TouchableOpacity onPress={() => this.logOut()} >
-        <Text style={{ marginRight:15,color:'#fff' }}>LOGOUT</Text>
-      </TouchableOpacity>
-    ),
-  })
-
   componentDidMount() {
-    const { dispatch, member_account } = this.props;
-    const token = member_account.data;
-
+    const { dispatch, member } = this.props;
+    const token = member.data;
     dispatch(upcoming({
-      limit: 3,
+      limit: 15,
     }, token));
   }
 
-  render() {
-    const { upcoming, dispatch } = this.props;
-    let activities;
-
-    logOut = () => {
-      dispatch(memberLogout());
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'MemberLogin',
-          }),
-        ]
-      })
-      this.props.navigation.dispatch(resetAction)
-    }
-
-    toggleDrawer = () => {
-      this.props.navigation.navigate('DrawerToggle')
-    }
-
+  _renderContent () {
+    let { error, upcoming } = this.props
     if (upcoming.success) {
-      activities = upcoming.data.map((activity, index) => {
-        const for_who = activity.type === 'medical appointment'
-                        ? activity.for_who
-                        : activity.for_who.join('\n')
-
-        const who = activity.type === 'medical appointment'
-                    ? activity.who
-                    : activity.who.join('\n')
-
-        const when = activity.when === 'TBD'
-                     ? 'Pending'
-                     : Moment(activity.when).format('MMM D YYYY, h:mm A');
-
-        return (
-          <TouchableOpacity key={index} style={styles.card}>
-            <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
-            </Text>
-            <Text style={styles.activityStatus(activity.status)}>
-              {activity.status.toUpperCase()}
-            </Text>
-            <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-            <Text style={styles.activityWho}>{who}</Text>
-            <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-            <Text style={styles.activityForWho}>{for_who}</Text>
-          </TouchableOpacity>
-        )
-      });
+      return <ACtivitiesTimeline data={upcoming.data}/>
     }
-
+    // if (error) return <View><Text>we have problems, please try later</Text></View>
+  }
+  render() {
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>
-        {activities}
-      </ScrollView>
+      <View>
+        {
+           this._renderContent()
+          }
+      </View>
     );
   }
 }
