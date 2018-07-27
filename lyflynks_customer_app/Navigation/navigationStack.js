@@ -5,8 +5,6 @@ import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
 import ActivitiesCompletedScreen from "../screens/ActivitiesCompletedScreen";
-import ActivityLogScreen from "../screens/ActivityLogScreen";
-import MainMenuScreen from "../screens/MainMenuScreen";
 import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
@@ -29,12 +27,30 @@ export const ActivityLog = TabNavigator(
   }
 );
 
-// const DrawerStack = DrawerNavigator({
-//   contentComponent:MainMenuScreen,
-//   Activities: ActivityLogScreen
-// }, {
-//   initialRouteName: "Activities",
-// })
+const DrawerStack = DrawerNavigator({
+  Activities: { 
+    screen: ActivityLog,
+    navigationOptions: {
+      title: 'Activity Log',
+      headerTitleStyle: {
+        color: "#fff",
+        fontSize: 24,
+        fontWeight: "600"
+      }
+    }, 
+  },
+  MemberInvite: { 
+    screen: MemberInviteScreen, 
+    navigationOptions: {
+      title: 'Invite Member',
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+    },
+  },
+})
 
 const Navigation = StackNavigator(
   {
@@ -71,43 +87,29 @@ const Navigation = StackNavigator(
     MemberAccountLogin: {
       screen: MemberAccountLoginScreen
     },
-    // ActivityLog: {
-    //   screen: ActivityLog,
-    //   navigationOptions: {
-    //     headerStyle: {
-    //       marginTop: Platform.OS === 'android' ? 24 : 0,
-    //       backgroundColor: '#0E3A53',
-    //       shadowRadius: 5,
-    //       shadowOpacity: 0.11,
-    //       shadowOffset: {
-    //         height: 5,
-    //         width: 0
-    //       },
-    //       shadowColor: "#000"
-    //     },
-    //     headerTitleStyle: {
-    //       color: "#fff",
-    //       fontSize: 24,
-    //       fontWeight: "600"
-    //     }
-    //   }
-    // },
-    ActivityLogScreen: {
-      screen: ActivityLogScreen,
+    ActivityLog: {
+      screen: DrawerStack,
       navigationOptions: {
-        header: null,
-        gesturesEnabled: false
+        headerStyle: {
+          marginTop: Platform.OS === 'android' ? 24 : 0,
+          backgroundColor: '#0E3A53',
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
       }
     },
-    MainMenuScreen: {
-      screen: MainMenuScreen,
-      navigationOptions: {
-        header: null,
-        gesturesEnabled: false
-      }
-    },
-    NewMemberWizard: {
-      screen: NewMemberWizardScreen,
+    NewMemberWizard: { 
+      screen: NewMemberWizardScreen, 
       navigationOptions: {
         title: 'New Member Wizard',
         headerLeft: null,
@@ -132,7 +134,7 @@ const Navigation = StackNavigator(
   },
   {
     headerMode: "screen",
-    initialRouteName: 'MemberLogin',
+    initialRouteName:'MemberLogin',
   }
 );
 

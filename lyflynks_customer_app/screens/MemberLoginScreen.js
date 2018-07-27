@@ -18,7 +18,7 @@ export default class MemberLogin extends Component {
       if (nextProps.member.success && nextProps.member.data.newUser) {
         this.props.navigation.navigate('NewMemberWizard');
       }else {
-        this.props.navigation.navigate('ActivityLogScreen');
+        this.props.navigation.navigate('MemberAccountLogin');
       }
     }
   }

@@ -78,7 +78,6 @@ function authMemberSuccess(data) {
   if(data.success != true){
     return authMemberFailure(data)
   }
-  console.log(data)
   return { type: MEMBER_LOGIN_SUCCESS, data };
 }
 
