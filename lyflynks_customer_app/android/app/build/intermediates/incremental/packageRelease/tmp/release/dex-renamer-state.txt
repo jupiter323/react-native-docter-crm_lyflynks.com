@@ -1,4 +1,0 @@
-#Thu Jul 26 16:33:13 IST 2018
-base.0=/Users/satish.mavani/Documents/Projects/LyfLynksMotif/lyflynks_customer_app/lyflynks_customer_app/android/app/build/intermediates/transforms/dexMerger/release/0
-path.0=classes.dex
-renamed.0=classes.dex
