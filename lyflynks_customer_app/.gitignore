@@ -6,6 +6,10 @@
 # OSX
 #
 .DS_Store
+yarn.lock
+../sketch
+
+
 
 # Xcode
 #
