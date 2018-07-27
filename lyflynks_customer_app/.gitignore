@@ -3,6 +3,9 @@
 # expo
 .expo/
 
+# OSX
+#
+.DS_Store
 
 # Xcode
 #
@@ -35,6 +38,13 @@ local.properties
 *.iml
 
 
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+
+# Bundle artifact
+*.jsbundle
 
 # dependencies
 /node_modules
