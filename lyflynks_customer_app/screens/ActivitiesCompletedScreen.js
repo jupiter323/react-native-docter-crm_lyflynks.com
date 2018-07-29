@@ -10,7 +10,8 @@ import {
   NavigationActions
  } from 'react-navigation';
 
-import { FontAwesome } from '@expo/vector-icons';
+// import { FontAwesome } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
@@ -81,7 +82,7 @@ export default class ActivitiesCompleted extends Component {
         return (
           <TouchableOpacity key={index} style={styles.card}>
             <Text style={styles.activityWhen}>
-              <FontAwesome name='calendar-o'/> {when}
+              <Icon name='calendar-o'/> {when}
             </Text>
             <Text style={styles.activityStatus(activity.status)}>
               {activity.status.toUpperCase()}

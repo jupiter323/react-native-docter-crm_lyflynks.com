@@ -38,7 +38,8 @@ export const toQueryString = obj => {
   );
 };
 
-export const domain = 'http://localhost:5002';
+
+export const domain = 'http://ec2-18-191-191-221.us-east-2.compute.amazonaws.com';
 
 export const accounts = {
   root: "/accounts",
