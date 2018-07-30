@@ -8,6 +8,16 @@ export const SENDING_EMAIL_INVITATIONS = "sending_email_invitations";
 export const EMAIL_INIVITATIONS_SENT = "email_invitations_sent";
 export const EMAIL_INIVITATIONS_FAILURE = "email_invitations_failure";
 
+export const sendAccountInvite = data => {
+  return async dispatch => {
+    try {
+      dispatch(memberAccountSuccess(await members.sendInvites(data)));
+    } catch (err) {
+      dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
+    }
+  };
+};
+
 const normalizeEmailInvitations = emailInvitaions => {
   const emails = [];
   _.forEach(emailInvitaions, emailInvite => {
