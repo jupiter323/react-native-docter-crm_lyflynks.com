@@ -4,5 +4,7 @@
     "slug": "lyflynks-customer-app",
     "sdkVersion": "23.0.0",
     "privacy": "public"
-  }
+  },
+  "name": "LYN",
+  "displayName": "LYN"
 }

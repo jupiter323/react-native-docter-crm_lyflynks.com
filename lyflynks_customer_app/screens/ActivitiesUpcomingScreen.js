@@ -10,7 +10,6 @@ import { upcoming } from "../actions/activities";
 import { memberLogout } from "../actions/auth";
 
 import Moment from "moment";
-import { Badge } from "react-native-elements";
 
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;

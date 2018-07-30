@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "
 import { NavigationActions } from "react-navigation";
 
 import { FontAwesome } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { connect } from "react-redux";
 import { completed } from "../actions/activities";
