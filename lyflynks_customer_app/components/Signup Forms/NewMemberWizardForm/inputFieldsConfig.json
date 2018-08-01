@@ -34,5 +34,5 @@
     "id": "secondaryPhoneNumber",
     "placeholder": "Secondary Phone Number",
     "errorId": "secondaryPhoneNumberErrorMessage"
-  },
+  }
 ]

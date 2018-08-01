@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import LoginForm from "../components/LoginForm";
 import LyfLynks_Logo from "../components/LyfLynks_Logo";
 import { member } from "../actions/auth";
-import { Button } from "../components/UI";
 
 @connect(store => {
   const { member, username, password, isFetching, error } = store.auth;
@@ -16,13 +15,12 @@ export default class MemberLogin extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.member.success && !this.props.member.success) {
       if (nextProps.member.success && nextProps.member.data.newUser) {
-        this.props.navigation.navigate('NewMemberWizard');
-      }else {
-        this.props.navigation.navigate('MemberAccountLogin');
+        this.props.navigation.navigate("NewMemberWizard");
+      } else {
+        this.props.navigation.navigate("MemberAccountLogin");
       }
     }
   }
-
 
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");
@@ -38,9 +36,7 @@ export default class MemberLogin extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <LyfLynks_Logo style={styles.logo} />
         <LoginForm logIn={this.logIn} />
-        <Text style={styles.errorMessage}>
-          {this.props.error.message}
-        </Text>
+        <Text style={styles.errorMessage}>{this.props.error.message}</Text>
         <Text style={styles.loginHelpText} onPress={this.navToLoginHelpScreen}>
           Help me log in
         </Text>

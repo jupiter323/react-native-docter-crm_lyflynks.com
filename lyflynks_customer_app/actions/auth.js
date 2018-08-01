@@ -1,4 +1,9 @@
 import { auth } from "../api/LyfLynks_API";
+import { AsyncStorage } from "react-native";
+import {
+  sendPushNotificationToken,
+  generatePushNotificationToken
+} from "../services/pushNotifications";
 
 export const MEMBER_UPDATE_USERNAME = "MEMBER_UPDATE_USERNAME";
 export const MEMBER_UPDATE_PASSWORD = "MEMBER_UPDATE_PASSWORD";
@@ -31,9 +36,10 @@ export function member(data) {
   return async dispatch => {
     dispatch(authMember());
     try {
-      dispatch(authMemberSuccess(await auth.member(data)));
+      const response = await auth.member(data);
+      dispatch(authMemberSuccess(response));
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 }
@@ -47,13 +53,10 @@ export function memberLogout() {
 
 export function member_account(data, token) {
   return async dispatch => {
-    dispatch(authMemberAccount());
     try {
-      dispatch(
-        authMemberAccountSuccess(await auth.member_account(data, token))
-      );
+      dispatch(authMemberAccountSuccess(await auth.member_account(data, token)));
     } catch (err) {
-     console.log(err)
+      console.log(err);
     }
   };
 }
@@ -75,8 +78,8 @@ function setUsername(data) {
 }
 
 function authMemberSuccess(data) {
-  if(data.success != true){
-    return authMemberFailure(data)
+  if (data.success != true) {
+    return authMemberFailure(data);
   }
   return { type: MEMBER_LOGIN_SUCCESS, data };
 }

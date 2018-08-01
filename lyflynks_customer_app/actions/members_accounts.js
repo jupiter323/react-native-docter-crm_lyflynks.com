@@ -17,6 +17,19 @@ export function list(token) {
   }
 }
 
+export function memberInvite(email) {
+  return async (dispatch) => {
+    dispatch(memberInvite());
+    try {
+      dispatch(memberInvites(
+        await members_accounts.memberInvite(email)
+      ));
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 function membersAccountsList() {
   return { type: MEMBERS_ACCOUNTS_LIST };
 }

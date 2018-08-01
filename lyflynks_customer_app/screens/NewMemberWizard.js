@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Card } from "../components/UI";
-import { connect } from 'react-redux';
-import { member_account } from '../actions/auth';
-import NewMemberWizardFormFirstStep from '../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormFirstStep'
-import NewMemberWizardFormLastStep from '../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormLastStep'
-
+import { connect } from "react-redux";
+import { member_account } from "../actions/auth";
+import NewMemberWizardFormFirstStep from "../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormFirstStep";
+import NewMemberWizardFormLastStep from "../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormLastStep";
 
 const mapStateToProps = state => {
   const { username, member, password } = state.auth;
   return { ...state.member_form, username, member, password };
 };
 @connect(mapStateToProps)
-
 export default class NewMemberWizardScreen extends Component {
-componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.member !== this.props.member) {
-      this.props.navigation.navigate('MemberAccountLogin');
+      this.props.navigation.navigate("MemberAccountLogin");
     }
   }
   constructor() {
@@ -38,18 +36,12 @@ componentWillReceiveProps(nextProps) {
     this.setState({ step: step + 1 });
   }
 
-
-  createAccount(data){
-    console.log(data)
+  createAccount(data) {
+    console.log(data);
   }
 
-
   render() {
-    return (
-      <View style={{ flex: 1, marginTop: 25 }}>
-        {this.getScreenForCurrentStep()}
-      </View>
-    );
+    return <View style={{ flex: 1, marginTop: 25 }}>{this.getScreenForCurrentStep()}</View>;
   }
 
   getScreenForCurrentStep() {
@@ -83,13 +75,11 @@ componentWillReceiveProps(nextProps) {
   }
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   instructionContainer: {
     backgroundColor: "#2196F3"

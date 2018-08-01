@@ -2,7 +2,6 @@ export async function makeRequest(route, method, data, token) {
   const url = route.reduce((a, b) => a.concat(b));
   const body = data ? JSON.stringify(data) : null;
   let req;
-
   try {
     req = await fetch(url, {
       method,
@@ -22,7 +21,6 @@ const getHeader = token => {
   if (token) {
     headers.append("x-access-token", token);
   }
-
   return headers;
 };
 
@@ -38,8 +36,7 @@ export const toQueryString = obj => {
   );
 };
 
-
-export const domain = 'http://ec2-18-191-191-221.us-east-2.compute.amazonaws.com';
+export const domain = "http://ec2-18-191-191-221.us-east-2.compute.amazonaws.com";
 
 export const accounts = {
   root: "/accounts",

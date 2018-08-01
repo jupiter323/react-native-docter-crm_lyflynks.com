@@ -6,11 +6,7 @@ import {
   UPDATE_ACTIVITIES
 } from "../actions/member_form";
 
-import {
-  CREATING_ACCOUNT,
-  ACCOUNT_CREATION_SUCCESS,
-  ACCOUNT_CREATION_FAILURE
-} from "../actions/accounts";
+import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "../actions/accounts";
 
 import { SET_USERNAME } from "../actions/auth";
 
@@ -110,7 +106,6 @@ export default (state = INITIAL_STATE, action) => {
         ...state.preferredTime,
         [action.payload.key]: updatedTime
       };
-
       return {
         ...state,
         preferredTime: updatedpreferredTime
