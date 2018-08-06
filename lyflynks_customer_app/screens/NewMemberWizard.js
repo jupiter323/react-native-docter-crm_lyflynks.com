@@ -7,6 +7,8 @@ import NewMemberWizardFormFirstStep from '../components/Signup Forms/NewMemberWi
 import NewMemberWizardFormLastStep from '../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormLastStep'
 
 
+
+
 const mapStateToProps = state => {
   const { username, member, password } = state.auth;
   return { ...state.member_form, username, member, password };
@@ -19,11 +21,16 @@ componentWillReceiveProps(nextProps) {
       this.props.navigation.navigate('MemberAccountLogin');
     }
   }
+
+
+  //pushnotification
   constructor() {
     super();
     this.state = { step: 1 };
     this.renderNextScreen = this.renderNextScreen.bind(this);
   }
+
+
 
   renderInstructions(instructions) {
     return (
@@ -42,7 +49,6 @@ componentWillReceiveProps(nextProps) {
   createAccount(data){
     console.log(data)
   }
-
 
   render() {
     return (

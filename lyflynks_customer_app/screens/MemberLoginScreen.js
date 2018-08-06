@@ -7,6 +7,11 @@ import LoginForm from "../components/LoginForm";
 import LyfLynks_Logo from "../components/LyfLynks_Logo";
 import { member } from "../actions/auth";
 import { Button } from "../components/UI";
+import {Platform} from 'react-native';
+
+//pushnotification
+import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
+//import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
 
 @connect(store => {
   const { member, username, password, isFetching, error } = store.auth;
@@ -22,6 +27,31 @@ export default class MemberLogin extends Component {
       }
     }
   }
+
+   //pushnotification
+  //  constructor() {
+  //   super();
+
+  //   if (Platform.OS === 'ios'){
+  //     console.log("in the constructor");
+
+  //   NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+  //   NotificationsIOS.requestPermissions();
+
+  //   NotificationsIOS.consumeBackgroundQueue();
+
+  //   NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
+  //   NotificationsIOS.registerPushKit();
+  //   }
+  // } 
+
+  // onPushRegistered(deviceToken) {
+  //   console.log("Device Token Received: " + deviceToken);
+  // }
+
+  // onPushKitRegistered(deviceToken) {
+  //   console.log("PushKit Token Received: " + deviceToken);
+  // }
 
 
   navToLoginHelpScreen = () => {
