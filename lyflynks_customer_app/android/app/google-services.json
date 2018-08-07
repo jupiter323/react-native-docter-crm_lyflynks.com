@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "163694976694",
+    "firebase_url": "https://lyflynks-4a5dc.firebaseio.com",
+    "project_id": "lyflynks-4a5dc",
+    "storage_bucket": "lyflynks-4a5dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163694976694:android:654ace32b427dee9",
+        "android_client_info": {
+          "package_name": "com.LyfLynks.lyn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163694976694-p6s4lcj665qua6m6h5kgsaooidai93v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAYe_aqH_hu7bRH9QZbQpO3mYFhBgd8-c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
