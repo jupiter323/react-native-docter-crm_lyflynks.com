@@ -1,5 +1,6 @@
 package com.lyn;
 
+import com.wix.reactnativenotifications.RNNotificationsPackage;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new FIRMessagingPackage(),
            new VectorIconsPackage()
+              new RNNotificationsPackage(MainApplication.this)
       );
     }
 
