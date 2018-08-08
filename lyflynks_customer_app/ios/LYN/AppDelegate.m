@@ -8,10 +8,9 @@
  */
 
 #import "AppDelegate.h"
-
+#import "RNFIRMessaging.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RNNotifications.h"
 
 @implementation AppDelegate
 
@@ -32,33 +31,39 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [FIRApp configure];
+  [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+  
   return YES;
 }
 
-// Required to register for notifications
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 {
-  [RNNotifications didRegisterUserNotificationSettings:notificationSettings];
+  [RNFIRMessaging willPresentNotification:notification withCompletionHandler:completionHandler];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+#if defined(__IPHONE_11_0)
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
-  [RNNotifications didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  [RNFIRMessaging didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
 }
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-  [RNNotifications didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
-// Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
-  [RNNotifications didReceiveRemoteNotification:notification];
-}
-
-// Required for the localNotification event.
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+#else
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler
 {
-  [RNNotifications didReceiveLocalNotification:notification];
+  [RNFIRMessaging didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
 }
+#endif
+
+//You can skip this method if you don't want to use local notification
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  [RNFIRMessaging didReceiveLocalNotification:notification];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+  [RNFIRMessaging didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+
 
 @end

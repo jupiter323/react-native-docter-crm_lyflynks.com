@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 
-import { FontAwesome } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
+// import { FontAwesome } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import { completed } from "../actions/activities";
 import { memberLogout } from "../actions/auth";
-import Icon from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Moment from "moment";
 

@@ -1,9 +1,11 @@
 package com.lyn;
 
-import com.wix.reactnativenotifications.RNNotificationsPackage;
+
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,7 +30,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new FIRMessagingPackage(),
            new VectorIconsPackage()
-              new RNNotificationsPackage(MainApplication.this)
       );
     }
 

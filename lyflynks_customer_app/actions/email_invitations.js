@@ -95,12 +95,3 @@ function memberAccountSuccess(errorEmails) {
   };
 }
 
-export const sendAccountInvite = data => {
-  return async dispatch => {
-  try {
-  dispatch(memberAccountSuccess(await members.sendInvites(data)));
-  } catch (err) {
-  dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
-  }
-  };
-  };

@@ -152,11 +152,9 @@ android {
 }
 
 dependencies {
+
     // Google's GCM.
-    implementation 'com.google.android.gms:play-services-gcm:10.0.1'
-    implementation project(':reactnativenotifications')
     implementation project(':react-native-vector-icons')
-    //noinspection GradleCompatible
     implementation project(':react-native-fcm')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.0'

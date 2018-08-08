@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Button } from "react-native";
 
-import { FontAwesome } from "@expo/vector-icons";
+// import { FontAwesome } from "@expo/vector-icons";
 import NavigatorService from "../Navigation/service/navigator";
-import Icon from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { completed } from "../actions/activities";
@@ -22,7 +22,7 @@ export default class ActivitiesAlertsScreen extends Component {
     tabBarLabel: "Alerts",
     headerLeft: (
       <TouchableOpacity onPress={() => this.navigateScreen()}>
-        <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
+        <FontAwesome style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
       </TouchableOpacity>
     ),
     headerRight: (

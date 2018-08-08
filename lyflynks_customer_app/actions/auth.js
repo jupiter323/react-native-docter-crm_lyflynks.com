@@ -1,9 +1,6 @@
 import { auth } from "../api/LyfLynks_API";
 import { AsyncStorage } from "react-native";
-import {
-  sendPushNotificationToken,
-  generatePushNotificationToken
-} from "../services/pushNotifications";
+
 
 export const MEMBER_UPDATE_USERNAME = "MEMBER_UPDATE_USERNAME";
 export const MEMBER_UPDATE_PASSWORD = "MEMBER_UPDATE_PASSWORD";

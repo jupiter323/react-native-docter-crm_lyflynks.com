@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Button } from "react-native";
 import { NavigationActions } from "react-navigation";
 
-import { FontAwesome } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
+// import { FontAwesome } from "@expo/vector-icons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { connect } from "react-redux";
 import { upcoming } from "../actions/activities";

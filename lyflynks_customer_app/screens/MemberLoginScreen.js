@@ -7,17 +7,6 @@ import LoginForm from "../components/LoginForm";
 import LyfLynks_Logo from "../components/LyfLynks_Logo";
 import { member } from "../actions/auth";
 
-import { StackNavigator } from "react-navigation";
-import FCM, { NotificationActionType } from "react-native-fcm";
-import { registerKilledListener, registerAppListener } from "./Listeners";
-import firebaseClient from "./FirebaseClient";
-import { Button } from "../components/UI";
-import {Platform} from 'react-native';
-
-//pushnotification
-import NotificationsIOS, { NotificationAction, NotificationCategory } from 'react-native-notifications';
-//import {NotificationsAndroid, PendingNotifications} from 'react-native-notifications';
-
 @connect(store => {
   const { member, username, password, isFetching, error } = store.auth;
   return { member, username, password, isFetching, error };
@@ -33,32 +22,6 @@ export default class MemberLogin extends Component {
     }
   }
 
-   //pushnotification
-  //  constructor() {
-  //   super();
-
-  //   if (Platform.OS === 'ios'){
-  //     console.log("in the constructor");
-
-  //   NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-  //   NotificationsIOS.requestPermissions();
-
-  //   NotificationsIOS.consumeBackgroundQueue();
-
-  //   NotificationsIOS.addEventListener('pushKitRegistered', this.onPushKitRegistered.bind(this));
-  //   NotificationsIOS.registerPushKit();
-  //   }
-  // } 
-
-  // onPushRegistered(deviceToken) {
-  //   console.log("Device Token Received: " + deviceToken);
-  // }
-
-  // onPushKitRegistered(deviceToken) {
-  //   console.log("PushKit Token Received: " + deviceToken);
-  // }
-
-
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");
   };
@@ -67,47 +30,6 @@ export default class MemberLogin extends Component {
     const { dispatch, username, password } = this.props;
     dispatch(member({ username, password }));
   };
-
-  componentDidMount() {
-       FCM.createNotificationChannel({
-      id: 'default',
-      name: 'Default',
-      description: 'used for example',
-      priority: 'high'
-    })
-    registerAppListener(this.props.navigation);
-    FCM.getInitialNotification().then(notif => {
-      this.setState({
-        initNotif: notif
-      });
-      if (notif && notif.targetScreen === "detail") {
-        setTimeout(() => {
-          this.props.navigation.navigate("Detail");
-        }, 500);
-      }
-    });
-
-    try {
-      let result = await FCM.requestPermissions({
-        badge: false,
-        sound: true,
-        alert: true
-      });
-    } catch (e) {
-      console.error(e);
-    }
-
-    FCM.getFCMToken().then(token => {
-      console.log("TOKEN bharat (getFCMToken)", token);
-      this.setState({ token: token || "" });
-    });
-
-    if (Platform.OS === "ios") {
-      FCM.getAPNSToken().then(token => {
-        console.log("APNS TOKEN (getFCMToken)", token);
-      });
-    }
-  }
 
   render() {
     return (
