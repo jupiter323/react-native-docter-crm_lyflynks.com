@@ -26,7 +26,7 @@ export default class ActivitiesUpcoming extends Component {
     },
     headerLeft: (
       <TouchableOpacity onPress={() => this.toggleDrawer()} style={{ flex: 0.1 }}>
-        <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
+        <FontAwesome style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
       </TouchableOpacity>
     ),
     headerRight: (

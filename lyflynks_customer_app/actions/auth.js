@@ -1,7 +1,7 @@
 import { auth } from "../api/LyfLynks_API";
 import { AsyncStorage } from "react-native";
 
-
+import FCM, { NotificationActionType } from "react-native-fcm";
 export const MEMBER_UPDATE_USERNAME = "MEMBER_UPDATE_USERNAME";
 export const MEMBER_UPDATE_PASSWORD = "MEMBER_UPDATE_PASSWORD";
 
@@ -34,6 +34,17 @@ export function member(data) {
     dispatch(authMember());
     try {
       const response = await auth.member(data);
+      if(response.success === true) {
+        const has_device_token_been_posted = await AsyncStorage.getItem('has_device_token_been_posted');
+        if(has_device_token_been_posted == 'false') {
+          const deviceToken = await AsyncStorage.getItem('device_token');
+          const postedDeviceTokenSuccess = await auth.send_device_id(deviceToken, response.data);
+          if(postedDeviceTokenSuccess.success === true) {
+            await AsyncStorage.setItem('has_device_token_been_posted', 'true');
+          }
+          AsyncStorage.setItem('user_token', response.data);
+        }
+      }
       dispatch(authMemberSuccess(response));
     } catch (err) {
       console.log(err);
@@ -74,12 +85,13 @@ function setUsername(data) {
   return { type: SET_USERNAME, data };
 }
 
-function authMemberSuccess(data) {
+async function authMemberSuccess(data) {
   if (data.success != true) {
-    return authMemberFailure(data);
+  return authMemberFailure(data);
   }
+  
   return { type: MEMBER_LOGIN_SUCCESS, data };
-}
+  }
 
 function authMemberFailure(error) {
   return { type: MEMBER_LOGIN_FAILURE, error };

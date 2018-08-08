@@ -9,6 +9,9 @@ target 'LYN' do
 
  pod 'Firebase'
  pod 'Firebase/Messaging'
+ pod 'Firebase/Core'
+
+
 
   target 'LYN-tvOSTests' do
     inherit! :search_paths

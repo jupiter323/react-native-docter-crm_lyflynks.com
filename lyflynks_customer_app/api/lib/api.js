@@ -36,7 +36,8 @@ export const toQueryString = obj => {
   );
 };
 
-export const domain = "http://ec2-18-191-191-221.us-east-2.compute.amazonaws.com";
+// export const domain = "http://ec2-18-191-191-221.us-east-2.compute.amazonaws.com";
+export const domain = "http://192.168.1.210:5002";
 
 export const accounts = {
   root: "/accounts",
@@ -69,3 +70,7 @@ export const members_accounts = {
 export const memberInvite = {
   root: "/send-invite-mail"
 };
+
+export const pushNotification = {
+  root: "/allow_push_notification"
+}

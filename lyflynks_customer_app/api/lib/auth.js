@@ -1,4 +1,4 @@
-import { domain, auth, makeRequest } from "./api";
+import { domain, auth, makeRequest, pushNotification } from "./api";
 
 const base = domain + auth.root;
 
@@ -18,5 +18,8 @@ export default {
   },
   async member_logout(data) {
     return makeRequest([base, auth.logout], "POST", data);
+  },
+  async send_device_id(device_token, user_token) {
+    return makeRequest([`${domain+pushNotification.root}`], "POST", { device_token }, user_token);
   }
 };

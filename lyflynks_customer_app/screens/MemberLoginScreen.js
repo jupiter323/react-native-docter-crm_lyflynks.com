@@ -48,7 +48,7 @@ export default class MemberLogin extends Component {
           </Text>
           <ReactButton
             raised
-            title="Sign Up for a New Account"
+            title="Sign Up for a new Account"
             containerViewStyle={styles.signupButton}
             backgroundColor="#00A68C"
             containerViewStyle={styles.inviteButton}
