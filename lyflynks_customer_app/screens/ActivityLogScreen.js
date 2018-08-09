@@ -42,7 +42,6 @@ export default class ActivityLogScreen extends Component {
     super(props);
     this.state = {
       fontLoaded: false,
-      isOpen: false,
       doctorsList: [
         {
           id: 0,
@@ -124,12 +123,7 @@ export default class ActivityLogScreen extends Component {
   }
 
   showMenu = () => {
-    // let { dispatch } = this.props
-    // dispatch(showMenu())
     this.props.navigation.navigate('MainMenuScreen')
-    // todo go main menu screen, in menu screen shoul be have a x icon to go back
-
-    this.setState({ isOpen: true })
   }
   render() {
     if (this.state.fontLoaded != true) {

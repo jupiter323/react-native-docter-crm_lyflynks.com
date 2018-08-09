@@ -2887,7 +2887,7 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-iconv-lite@0.4.11, iconv-lite@^0.4.8:
+iconv-lite@0.4.11:
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.11.tgz#2ecb42fd294744922209a2e7c404dac8793d8ade"
 
@@ -4136,7 +4136,7 @@ min-document@^2.19.0:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@0.0.8, minimist@~0.0.1:
+minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
@@ -4252,33 +4252,6 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
-
-native-base-shoutem-theme@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/native-base-shoutem-theme/-/native-base-shoutem-theme-0.2.2.tgz#5823310455fe391adf72236469c039fd44f56a20"
-  dependencies:
-    hoist-non-react-statics "^1.0.5"
-    lodash "^4.10.1"
-    prop-types "^15.5.10"
-
-native-base@^2.7.0:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/native-base/-/native-base-2.7.2.tgz#682bc2bc9f9e4d3b27a8c58ad4b5994222ad0ebd"
-  dependencies:
-    blueimp-md5 "^2.5.0"
-    clamp "^1.0.1"
-    color "~1.0.3"
-    fs-extra "^2.0.0"
-    jest-react-native "^18.0.0"
-    lodash "4.17.0"
-    native-base-shoutem-theme "0.2.2"
-    print-message "^2.1.0"
-    prop-types "^15.5.10"
-    react-native-easy-grid "0.2.0"
-    react-native-keyboard-aware-scroll-view "0.5.0"
-    react-native-vector-icons "4.6.0"
-    react-tween-state "^0.1.5"
-    tween-functions "^1.0.1"
 
 native-base-shoutem-theme@0.2.2:
   version "0.2.2"
@@ -5179,14 +5152,6 @@ react-native-swipeout@^2.3.1:
 react-native-vector-icons@4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.5.0.tgz#6b95619e64f62f05f579f74a01fe5640df95158b"
-  dependencies:
-    lodash "^4.0.0"
-    prop-types "^15.5.10"
-    yargs "^8.0.2"
-
-react-native-vector-icons@4.6.0, react-native-vector-icons@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.6.0.tgz#e4014311ffa6de397d914ffc31b7097a874cc8d5"
   dependencies:
     lodash "^4.0.0"
     prop-types "^15.5.10"
@@ -6469,7 +6434,7 @@ uuid@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.0.tgz#6728fc0459c450d796a99c31837569bdf672d728"
 
-uuid@3.0.1, uuid@^3.0.0, uuid@^3.0.1:
+uuid@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
