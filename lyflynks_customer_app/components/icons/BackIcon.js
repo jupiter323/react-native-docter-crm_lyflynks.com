@@ -10,11 +10,11 @@ const BackIcon = props => (
       <Path d="M29.204 9.134h-3.248c-.78 0-1.419.69-1.419 1.534 0 .844.639 1.534 1.42 1.534h3.247c.789 0 1.42-.69 1.42-1.534 0-.844-.639-1.534-1.42-1.534z" id="d" fill={props.color || undefined}></Path>
     </Defs>
     <G fill={props.color || "none"} fillRule="evenodd">
-      <G transform="translate(4 2.13)" fill={props.color || undefined}>
+      <G transform={{ translateX: 4, translateY: 2.13 }} fill={props.color || undefined}>
         <Use fill={props.color || "#000"} filter="url(#a)"></Use>
         <Use fill={props.color || "#696969"}></Use>
       </G>
-      <G transform="translate(4 2.13)" fill={props.color || undefined}>
+      <G transform={{ translateX: 4, translateY: 2.13 }} fill={props.color || undefined}>
         <Use fill={props.color || "#000"} filter="url(#c)"></Use>
         <Use fill={props.color || "#696969"}></Use>
       </G>
