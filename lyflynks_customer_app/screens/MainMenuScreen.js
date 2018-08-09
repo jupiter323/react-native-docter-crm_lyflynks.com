@@ -34,8 +34,6 @@ export default class MainMenuScreen extends Component {
     this.state = {
       fontLoaded: false,
     }
-
-    this._handleClickListDoctorsItem = this._handleClickListDoctorsItem.bind(this);
   }
 
   async componentDidMount() {

@@ -19,6 +19,7 @@ import {
   EditIcon,
   HealthIcon,
   CompanionIcon,
+  CloseIcon,
   CheckInIcon,
   MemberCenterIcon,
   SettingsIcon,
@@ -69,8 +70,8 @@ export default class GradientBackground extends Component {
           colors={this.props.gradientBgStyle.color}
           style={[styles.outerContainer]}
           >
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{right: 0,position: 'absolute', top: 30, zIndex: 100  }}>
-            <Icon size={40} color='#fff' name='ios-close' style={{padding: 15 }}/>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{right: 30,position: 'absolute', top: 60, zIndex: 100  }}>
+            <CloseIcon {...editIconProps} />
           </TouchableOpacity>
         <ScrollView>
             <View style={styles.avatarContainer}>
@@ -171,8 +172,7 @@ export default class GradientBackground extends Component {
 
   // Handle click menu button
   _onClickMenuButton() {
-    // TODO: Implement Main Menu Screen
-    // this.props.navigation.openDrawer()
+    this.props.navigation.openDrawer()
   }
 
   // Handle click back button
