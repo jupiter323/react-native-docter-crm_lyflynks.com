@@ -115,7 +115,8 @@ export default class GradientNavigationBar extends Component {
 
   // Handle click menu button
   _onClickMenuButton() {
-    this.props.navigation.openDrawer()
+    // TODO: Implement Main Menu Screen
+    // this.props.navigation.openDrawer()
   }
 
   // Handle click back button

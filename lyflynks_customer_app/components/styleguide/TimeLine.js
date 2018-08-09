@@ -390,9 +390,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1
   },
-  detail: { paddingTop: 10, paddingBottom: 10 },
+  detail: { paddingTop: 0, paddingBottom: 10},
   description: {
-    marginTop: 10
+    marginTop: 0,
   },
   separator: {
     height: 1,

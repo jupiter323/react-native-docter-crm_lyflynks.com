@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 
-import { FontAwesome } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
-
-import { connect } from "react-redux";
-import { completed } from "../actions/activities";
-import { memberLogout } from "../actions/auth";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesome } from '@expo/vector-icons';
+import ActivitiesTimeline from '../components/ActivityLogTimeline'
+import { connect } from 'react-redux';
+import { completed } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
 import Moment from "moment";
 
@@ -18,114 +16,33 @@ import Moment from "moment";
   return { member_account, completed, isFetching, error };
 })
 export default class ActivitiesCompleted extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Completed",
-    tabBarOptions: {
-      style: {
-        backgroundColor: "black"
-      }
-    },
-    headerRight: (
-      <View style={styles.headerActionsRight}>
-        <TouchableOpacity
-          onPress={() => navigation.getParam("navigateToNofications")()}
-          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
-            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={{ flex: 0.3, marginRight: 10 }}>
-          <TouchableOpacity onPress={() => this.logOut()}>
-            <FontAwesome name="sign-out" size={35} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
-  });
-
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
-    this.props.navigation.setParams({
-      navigateToNofications: this.navigateToNofications.bind(this)
-    });
-    dispatch(
-      completed(
-        {
-          limit: 3
-        },
-        token
-      )
-    );
+    dispatch(completed({
+      limit: 3,
+    }, token));
   }
 
   navigateToNofications() {
     this.props.navigation.navigate("Alerts");
   }
-
-  render() {
-    const { completed, dispatch } = this.props;
-
-    logOut = () => {
-      dispatch(memberLogout());
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: "MemberLogin"
-          })
-        ]
-      });
-      this.props.navigation.dispatch(resetAction);
-    };
-
-    let activities;
-
+  _renderContent () {
+    let { error, completed } = this.props
     if (completed.success) {
-      activities = completed.data.map((activity, index) => {
-        const for_who =
-          activity.type === "medical appointment" ? activity.for_who : activity.for_who;
-
-        const who = activity.type === "medical appointment" ? activity.who : activity.who;
-
-        const whenDate = Moment(activity.when).format("MMM D YYYY");
-        const whenTime = Moment(activity.when).format("h:mm A");
-
-        return (
-          <TouchableOpacity key={index} style={styles.card}>
-            <View style={styles.cardView}>
-              <View style={styles.leftCol}>
-                <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-                <Text style={styles.activityForWho}>{for_who}</Text>
-              </View>
-              <View style={styles.rightCol}>
-                <Text style={styles.activityWhen}>{whenDate}</Text>
-                <Text style={styles.activityWhen}>{whenTime}</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          // <TouchableOpacity key={index} style={styles.card}>
-          //   <Text style={styles.activityWhen}>
-          //     <FontAwesome name='calendar-o'/> {when}
-          //   </Text>
-          //   <Text style={styles.activityStatus(activity.status)}>
-          //     {activity.status.toUpperCase()}
-          //   </Text>
-          //   <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-          //   <Text style={styles.activityWho}>{who}</Text>
-          //   <Text style={styles.activityForWhoLabel}>MEMBERS</Text>
-          //   <Text style={styles.activityForWho}>{for_who}</Text>
-          // </TouchableOpacity>
-        );
-      });
+      return <ActivitiesTimeline data={completed.data}/>
     }
-
+  }
+  render() {
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>{activities}</ScrollView>
+      <View>
+        {
+          // activities
+          this._renderContent()
+        }
+      </View>
     );
   }
 }
