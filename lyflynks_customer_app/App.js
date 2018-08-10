@@ -24,7 +24,8 @@ export default class LyfLynks_App extends Component {
       currentToken = await FCM.getFCMToken();
     }
     const deviceToken = await AsyncStorage.getItem('device_token');
-    console.log('deviceToken', deviceToken);
+    console.log('deviceToken from async', deviceToken);
+    console.log('current deviceToken from async', currentToken);
     if(deviceToken == null || deviceToken != currentToken ){
       console.log(0);
       AsyncStorage.setItem('device_token', currentToken);
