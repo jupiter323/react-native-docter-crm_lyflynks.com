@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import PrimeButton from '../../components/styleguide/PrimeButton';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
   ActivityLogIcon,
   EmergencyIcon,
@@ -62,7 +61,6 @@ export default class GradientBackground extends Component {
       },
       color: colorSwatch.white,
     }
-    console.log(this.props)
     return (
         <LinearGradient
           start={this.props.gradientBgStyle.start}
@@ -116,7 +114,7 @@ export default class GradientBackground extends Component {
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopRight]}
-                onPress={() => true}>
+                onPress={() => this.props.navigation.navigate('CallOrder')}>
                 <View style={styles.serviceIconCircle}>
                   <MemberCenterIcon {...iconsProps} />
                 </View>

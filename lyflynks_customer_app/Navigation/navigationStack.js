@@ -15,6 +15,7 @@ import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/In
 import NewMemberWizardScreen from "../screens/NewMemberWizard";
 import MemberInviteScreen from "../screens/MemberInviteScreen";
 import ActivitiesAlertsScreen from "../screens/ActivitiesAlertsScreen";
+import CallOrderScreen from '../screens/AccountsCallOrderScreen';
 
 const tabNavigatorConfig = {
   tabBarPosition: "top",
@@ -99,6 +100,13 @@ const Navigation = StackNavigator(
     },
     MainMenuScreen: {
       screen: MainMenuScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    CallOrder: {
+      screen: CallOrderScreen,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
