@@ -60,10 +60,12 @@ export default class CallOrder extends Component {
     let { member_account, account_id } = this.props
     let token = member_account.data
     let { data } = this.props.list
-    let ids = data.map(item => {
-      return item.ll_member.id
-    })
-    this.dispatch(updateList(account_id, token, ids))
+    if (data && data.length > 0) {
+      let ids = data.map(item => {
+        return item.ll_member.id
+      })
+      this.dispatch(updateList(account_id, token, ids))
+    }
   }
 
 
@@ -99,8 +101,22 @@ export default class CallOrder extends Component {
       btnHeight: 40,
       backgroundColor: colorSwatch.indianKhaki,
     }
+
+    let btnContainer = {
+      backgroundColor: colorSwatch.white,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingTop: 15,
+      paddingBottom: 15,
+      bottom: 75,
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      zIndex: 100
+    }
+
     return (
-      <View style={{justifyContent: 'flex-end', alignItems: 'center',bottom: 70, position: 'absolute', left: 0, right: 0, zIndex: 100}}>
+      <View style={btnContainer}>
         <PrimeButton onPressButton={()=> this.updateList()} btnText='Save' setting={settingBtn} />
       </View>
     )
@@ -131,14 +147,16 @@ export default class CallOrder extends Component {
       return (
         <View style={styles.containerList}>
           <SortableListView
-          data={data}
-          order={order}
-          style={{ flex: 1 }}
-          onRowMoved={e => {
-            order.splice(e.to, 0, order.splice(e.from, 1)[0]);
-            this.handleMove(e)
-          }}
-          renderRow={this.renderItem}
+            data={data}
+            order={order}
+            style={{ flex: 1 }}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            onRowMoved={e => {
+              order.splice(e.to, 0, order.splice(e.from, 1)[0]);
+              this.handleMove(e)
+            }}
+            renderRow={this.renderItem}
           />
         </View>
       )
@@ -173,6 +191,7 @@ const styles = StyleSheet.create({
   },
   containerList: {
     padding: 20,
+    paddingBottom: 140,
     flex: 1
   },
   list: {

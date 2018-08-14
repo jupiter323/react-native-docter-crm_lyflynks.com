@@ -42,68 +42,7 @@ export default class ActivityLogScreen extends Component {
     super(props);
     this.state = {
       fontLoaded: false,
-      doctorsList: [
-        {
-          id: 0,
-          image: {
-            url: require('../assets/images/doctor-01.png'),
-            width: 70,
-            height: 70,
-          },
-          name: 'Dr. John send you a message.',
-          career: '30 minutes ago',
-          distance: 0.8,
-          isSpecial: true
-        },
-        {
-          id: 1,
-          image: {
-            url: require('../assets/images/doctor-01.png'),
-            width: 70,
-            height: 70,
-          },
-          name: 'Nurse is heading home.',
-          career: '1 hour ago',
-          distance: 0.8,
-          isSpecial: false
-        },
-        {
-          id: 2,
-          image: {
-            url: require('../assets/images/doctor-01.png'),
-            width: 70,
-            height: 70,
-          },
-          name: 'Emergency Alert',
-          career: 'Yesterday, 2:00 pm',
-          distance: 0.8,
-          isSpecial: true
-        },
-        {
-          id: 3,
-          image: {
-            url: require('../assets/images/doctor-01.png'),
-            width: 70,
-            height: 70,
-          },
-          name: 'Transportation Service',
-          career: 'Friday, 4:55 pm',
-          distance: 0.8,
-          isSpecial: true
-        },
-        {
-          id: 4,
-          image: {
-            url: require('../assets/images/doctor-01.png'),
-            width: 70,
-            height: 70,
-          },
-          name: 'Time to take your pills',
-          career: 'June 15th, 10:00 am',
-          distance: 0.8,
-          isSpecial: true,
-        },
-      ]
+      isOpen: false,
     }
 
     this._handleClickListDoctorsItem = this._handleClickListDoctorsItem.bind(this);

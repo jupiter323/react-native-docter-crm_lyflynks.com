@@ -5,23 +5,22 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Ionicons as Icon} from '@expo/vector-icons';
 
 import {
   colorSwatch,
   fontSize,
   fontFamily,
 } from '../styles/Theme';
-
 export default class SwipeoutButton extends Component {
 
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
-      <View style={styles.btnCont}>
+      <View style={[styles.btnCont]}>
         <Icon
           name="md-close"
           size={30}
@@ -36,17 +35,18 @@ export default class SwipeoutButton extends Component {
 
 const styles = StyleSheet.create({
   btnCont: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'red',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderRadius: 8
   },
   btnText: {
-    marginTop: 10,
     color: colorSwatch.white,
     fontSize: fontSize.itemHeader,
     fontFamily: fontFamily.regular,
-    lineHeight: 29, 
+    lineHeight: 29,
     textAlign: 'center',
   },
 });

@@ -12,7 +12,7 @@ import {
   fontFamily,
   fontSize,
 } from '../styles/Theme';
-import {FontAwesome} from '@expo/vector-icons'
+import { UpDownGreen } from './icons'
 const capilizeWords = (word) => {
   if (word) {
     return word.replace(
@@ -34,7 +34,7 @@ export default ElementCall = props => {
       <Text style={[styles.text, styles.role]}>{capilizeWords(props.roles[0])}</Text>
     </View>
     <View style={{ justifyContent: 'center' }}>
-      <FontAwesome name='sort'  size={30} color={colorSwatch.persianGreen}/>
+      <UpDownGreen height={18} width={18} style={styles.rightIcon}/>
     </View>
   </View>
  )
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
+  },
+  rightIcon: {
+    marginRight: 20
   },
   containerText: {
     justifyContent: 'center',

@@ -38,3 +38,4 @@ export { default as SettingsIcon } from './SettingsIcon.js';
 // export { default as TwitterIcon } from './TwitterIcon.js';
 // export { default as UpdateIcon } from './UpdateIcon.js';
 // export { default as TransportIcon } from './TransportIcon.js';
+export { default as UpDownGreen } from './UpDownGreen.js';
