@@ -7,7 +7,7 @@ import Navigation from "./Navigation/navigationStack";
 
 import { StackNavigator } from "react-navigation";
 
-import FCM, { NotificationActionType } from "react-native-fcm";
+import FCM, {  FCMEvent } from "react-native-fcm";
 
 
 export default class LyfLynks_App extends Component {
@@ -17,30 +17,34 @@ export default class LyfLynks_App extends Component {
   }
 
   async componentDidMount() {
-    let currentToken;
-    if (Platform.OS === "ios") {
-      currentToken = await FCM.getAPNSToken();
-    } else {
-      currentToken = await FCM.getFCMToken();
-    }
-    const deviceToken = await AsyncStorage.getItem('device_token');
-    console.log('deviceToken from async', deviceToken);
-    console.log('current deviceToken from async', currentToken);
-    if(deviceToken == null || deviceToken != currentToken ){
-      console.log(0);
-      AsyncStorage.setItem('device_token', currentToken);
-      AsyncStorage.setItem('has_device_token_been_posted', 'false', (error) => console.log(error));
-    }
+
+    console.log('deviceToken from componentDidMount');  
+
     try {
-    let result = await FCM.requestPermissions({
-      badge: false,
-      sound: true,
-      alert: true
-    });
-    } catch (e) {
-      console.error(e);
-    }
-    }
+      let result = await FCM.requestPermissions({
+        badge: false,
+        sound: true,
+        alert: true
+      });
+      } catch (e) {
+        console.error(e);
+      }
+      
+      FCM.on(FCMEvent.RefreshToken, token => {
+        console.log("Custom Refreshed Token", token)
+      if (Platform.OS === "ios") {
+        AsyncStorage.setItem('device_token', token);
+      } 
+      else {
+         AsyncStorage.setItem('device_token', token);
+      }
+  });
+  
+    
+    
+    AsyncStorage.setItem('has_device_token_been_posted', 'false', (error) => console.log(error));
+
+  }
   
 
   render() {

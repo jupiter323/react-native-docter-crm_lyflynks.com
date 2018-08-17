@@ -10,6 +10,7 @@ target 'LYN' do
  pod 'Firebase'
  pod 'Firebase/Messaging'
  pod 'Firebase/Core'
+ pod 'GoogleToolboxForMac', '~> 2.1'
 
 
 

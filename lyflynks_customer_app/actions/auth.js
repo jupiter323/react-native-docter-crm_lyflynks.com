@@ -37,13 +37,22 @@ export function member(data) {
       dispatch(authMemberSuccess(response));
       if(response.success === true) {
         const has_device_token_been_posted = await AsyncStorage.getItem('has_device_token_been_posted');
-        if(has_device_token_been_posted == 'false') {
-          const deviceToken = await AsyncStorage.getItem('device_token');
+        const deviceToken = await AsyncStorage.getItem('device_token');
+
+        console.log("Get token api call:", AsyncStorage.getItem('device_token'));
+        console.log("Get token await api call:", await AsyncStorage.getItem('device_token'));
+
+        if(has_device_token_been_posted == 'false'&& deviceToken != null) {
+          console.log('token to call API', deviceToken);
           const postedDeviceTokenSuccess = await auth.send_device_id(deviceToken, response.data);
           if(postedDeviceTokenSuccess.success === true) {
             await AsyncStorage.setItem('has_device_token_been_posted', 'true');
           }
           AsyncStorage.setItem('user_token', response.data);
+        }
+        else{
+          console.log('Not calling api as device token is null');
+          
         }
       }
     } catch (err) {
