@@ -4,22 +4,28 @@ import {
   Text,
   View,
   StyleSheet,
-  Image,
   TouchableHighlight,
 } from 'react-native';
-import { LinearGradient } from 'expo';
 import Swipeout from 'react-native-swipeout';
-
+import DoctorCard from '../components/doctorCard'
 import CommonStyles from '../styles/CommonStyles';
 import {
   fontFamily,
   fontSize,
   colorSwatch,
+  colors
 } from '../styles/Theme';
 import AlertDialog from './styleguide/AlertDialog';
 import SwipeoutButton from './SwipeoutButton';
 import AlertDeleteDlMessage from './list-item/AlertDeleteDlMessage';
 import AlertDeleteDlTitle from './list-item/AlertDeleteDlTitle';
+import { Ionicons  as Icon } from '@expo/vector-icons'
+import {
+  EmergencyIcon,
+  TransportIcon,
+  HealthIcon,
+  CompanionIcon,
+} from './icons';
 
 export default class ListItem extends Component {
   constructor(props) {
@@ -27,39 +33,124 @@ export default class ListItem extends Component {
     this.state = {
       modalVisible: false,
       visible: false,
+      slide: false,
+      bgColorIconContainer: {}
     }
   }
 
+  capitalizeText = (word) => {
+    return word.replace(
+        /\w\S*/g,
+        txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+      );
+    }
+
+
+  prepareIcon = (action) => {
+    let {type} = this.props
+    let activity_icon, bgColor = null
+    switch (type) {
+      case 'medical_appointment':
+        bgColor = {backgroundColor: colorSwatch.bostonBlue}
+        activity_icon = <HealthIcon color='#fff' style={styles.icon}  />
+        break;
+      case 'transportation':
+        bgColor = { backgroundColor: colorSwatch.edenBlue}
+        activity_icon = <TransportIcon color='#fff' style={styles.icon} />
+        break;
+      case 'lawn_service':
+        bgColor = {backgroundColor: colorSwatch.bombayGray}
+        activity_icon = <CompanionIcon color='#fff' style={styles.icon} />
+        break;
+      case 'medication':
+        bgColor = {backgroundColor: colorSwatch.persianGreen}
+        activity_icon = <EmergencyIcon color='#fff' style={styles.icon} />
+        break;
+      case 'medical appointment':
+        bgColor = {backgroundColor: colorSwatch.bostonBlue}
+        activity_icon = <HealthIcon color='#fff' style={styles.icon} />
+        break
+      case 'lawncare':
+        bgColor = {backgroundColor:  colorSwatch.bombayGray}
+        activity_icon = <CompanionIcon color='#fff' style={styles.icon} />
+        break;
+      case 'emergency':
+        bgColor = { backgroundColor: colorSwatch.caribbeanGreen }
+        activity_icon = <EmergencyIcon color='#fff' style={styles.icon} />
+        break;
+      case 'check in':
+        bgColor = { backgroundColor: colorSwatch.edenBlue }
+        activity_icon = <CompanionIcon color='#fff' style={styles.icon} />
+        break;
+      default:
+        bgColor = { backgroundColor: colorSwatch.bombayGray }
+        activity_icon = <CompanionIcon color='#fff' style={styles.icon} />
+    }
+    if (action === 'icon') return activity_icon
+    return bgColor
+  }
+
+  toogleSlide = () => {
+    this.setState({ slide: !this.state.slide })
+  }
+
+  renderArrow = () => {
+    let {type} = this.props
+    if (type === 'medical appointment') {
+      return (
+      <Icon
+        size={25}
+        name={this.state.slide ? 'ios-arrow-down' :'ios-arrow-forward'}
+          style={styles.moreBtn} onPress={()=> this.toogleSlide()}/>)
+    } else {
+      return null
+    }
+    if (action === 'icon') return activity_icon
+    return bgColor
+  }
+
+  toogleSlide = () => {
+    this.setState({ slide: !this.state.slide })
+  }
   render() {
     let swipeBtns = [{
-      component: <SwipeoutButton />,
-      onPress: () => {this.toggleAlertDeleteDialog(true)}
+      component: <SwipeoutButton slide={this.state.slide}/>,
+      onPress: () => {this.toggleAlertDeleteDialog(true)},
+      backgroundColor: '#fff'
     }];
+
 
     return (
       <View>
         <Swipeout
           right={swipeBtns}
-          buttonWidth={100}
-          backgroundColor= 'transparent'>
-          <View style={[CommonStyles.itemWhiteBox, {position: 'relative'}]}>
+          buttonWidth={80}
+          sensitivity={200}
+          backgroundColor='#fff'
+          >
+          <View style={[CommonStyles.itemWhiteBox, {position: 'relative',}]}>
             <TouchableHighlight
               underlayColor={'transparent'}
               onPress={this.props.onPressButton}
             >
               <View style={styles.card}>
                 <View style={styles.left}>
-                  <View style={styles.leftAva}>
-                    <Image
-                      source={this.props.image.url}
-                      style={{width: this.props.image.width, height: this.props.image.height}}
-                    />
+                  <View style={[styles.leftAva, this.prepareIcon('color')]}>
+                    {this.prepareIcon('icon')}
                   </View>
-                  <View style={styles.leftInfo}>
-                    <Text style={styles.header}>{this.props.header}</Text>
-                    <Text style={styles.subText}>{this.props.subText}</Text>
-                    <View style={styles.leftBottom}>
-                    </View>
+                  <View style={{ flex: 1, borderBottomRightRadius: 5, borderTopRightRadius: 5  }}>
+                    <View style={styles.leftInfo}>
+                      <Text style={styles.header}>{this.capitalizeText(this.props.type)}</Text>
+                      <Text style={styles.subText}>{this.props.subText}</Text>
+                      </View>
+                      {
+                        this.props.type === 'medical appointment' && this.state.slide?
+                          <View style={styles.containerDoctorCard}>
+                            <DoctorCard {...this.props} capitalizeText = {this.capitalizeText}/>
+                          </View>
+                          : null
+                      }
+                      {this.renderArrow()}
                   </View>
                 </View>
               </View>
@@ -77,14 +168,14 @@ export default class ListItem extends Component {
           dlTitle={{
             component: <AlertDeleteDlTitle
               text='Delete Activity'
-            /> 
+            />
           }}
           dlMessage={{
             component: <AlertDeleteDlMessage
               frontText='Do you want delele this activity'
               highlightText='Activity'
               behindText='on list?'
-            /> 
+            />
           }}
           dismissBtn={{
             text: 'Cancel',
@@ -111,7 +202,9 @@ export default class ListItem extends Component {
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    padding: 15,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    overflow: 'hidden'
   },
   right: {
     width: 52,
@@ -123,11 +216,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   leftAva: {
-    position: 'relative',
-    width: 70,
-    height: 70
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    minHeight: 70,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
   leftInfo: {
+    paddingTop: 15,
     paddingLeft: 15,
   },
   header: {
@@ -140,7 +238,9 @@ const styles = StyleSheet.create({
     color: colorSwatch.bombayGray,
     fontSize: fontSize.small,
     fontFamily: fontFamily.regular,
-    lineHeight: 23,
+     lineHeight: 20,
+    marginTop: -5,
+    textAlignVertical: 'top',
   },
   leftBottom: {
     flexDirection: 'row',
@@ -152,6 +252,10 @@ const styles = StyleSheet.create({
     color: colorSwatch.dustyGray,
     fontFamily: fontFamily.regular,
     fontSize: 14,
+  },
+  icon: {
+    width: 30,
+    height: 30,
   },
   ranking: {
     marginTop: -5,
@@ -170,11 +274,16 @@ const styles = StyleSheet.create({
   },
   moreBtn: {
     position: 'absolute',
-    right: 0,
-    bottom: 0,
-    paddingHorizontal: 15,
-    paddingVertical: 15,
+    right: 8,
+    top: 0,
+    color: 'gray',
+    paddingHorizontal: 8,
+    paddingVertical: 10,
   },
+  containerDoctorCard : {
+    paddingLeft: 10,
+    paddingVertical: 10
+  }
 });
 
 ListItem.propTypes = {
