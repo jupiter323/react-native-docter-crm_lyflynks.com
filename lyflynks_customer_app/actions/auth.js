@@ -17,6 +17,7 @@ export const MEMBER_ACCOUNT_LOGOUT = "MEMBER_ACCOUNT_LOGOUT";
 
 export const MEMBER_LOGOUT = "MEMBER_LOGOUT";
 export const SET_USERNAME = "SET_USERNAME";
+export const SET_ACCOUNT_ID = 'SET_ACCOUNT_ID';
 
 export function updateLoginForm(text, field) {
   return dispatch => {
@@ -70,6 +71,8 @@ export function memberLogout() {
 
 export function member_account(data, token) {
   return async dispatch => {
+    dispatch(authMemberAccount());
+    dispatch(setAccountId(data.account_id))
     try {
       dispatch(authMemberAccountSuccess(await auth.member_account(data, token)));
     } catch (err) {
@@ -125,3 +128,6 @@ function authMemberAccountFailure(error) {
   return { type: MEMBER_ACCOUNT_LOGIN_FAILURE, error };
 }
 
+function setAccountId (account_id) {
+  return { type: SET_ACCOUNT_ID, account_id };
+}

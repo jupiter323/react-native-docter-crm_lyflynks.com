@@ -1,15 +1,25 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Button } from "react-native";
-import { NavigationActions } from "react-navigation";
 
-// import { FontAwesome } from "@expo/vector-icons";
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  NavigationActions
+ } from 'react-navigation';
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ActivitiesTimeline from '../components/ActivityLogTimeline'
+import { connect } from 'react-redux';
+import { upcoming } from '../actions/activities';
+import { memberLogout } from '../actions/auth';
 
-import { connect } from "react-redux";
-import { upcoming } from "../actions/activities";
-import { memberLogout } from "../actions/auth";
+import Moment from 'moment';
 
-import Moment from "moment";
 
 @connect(store => {
   const { upcoming, isFetching, error } = store.activities;
@@ -17,44 +27,6 @@ import Moment from "moment";
   return { member_account, upcoming, isFetching, error };
 })
 export default class ActivitiesUpcoming extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Upcoming",
-    tabBarOptions: {
-      style: {
-        backgroundColor: "black"
-      }
-    },
-    headerLeft: (
-      <TouchableOpacity onPress={() => this.toggleDrawer()} style={{ flex: 0.1 }}>
-        <FontAwesome style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <View style={styles.headerActionsRight}>
-        <TouchableOpacity
-          onPress={() => navigation.getParam("navigateToNofications")()}
-          style={{ flex: 0.7, flexDirection: "row", marginRight: 30 }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <FontAwesome name="bell" size={25} color="white" style={{ marginTop: 7 }} />
-            <Text style={{ color: "white", marginLeft: -3 }}>2</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={{ flex: 0.3, marginRight: 10 }}>
-          <TouchableOpacity onPress={() => this.logOut()}>
-            <FontAwesome name="sign-out" size={35} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
-  });
-
-  componentDidUpdate(prevPros) {
-    if (prevPros.unread != this.props.unread) {
-      this.props.navigation.setParams({ unread: this.props.unread });
-    }
-  }
-
   componentDidMount() {
     const { dispatch, member_account, unread } = this.props;
     this.props.navigation.setParams({ unread });
@@ -63,14 +35,16 @@ export default class ActivitiesUpcoming extends Component {
     });
     const token = member_account.data;
 
-    dispatch(
-      upcoming(
-        {
-          limit: 3
-        },
-        token
-      )
-    );
+    dispatch(upcoming({
+      limit: 15,
+    }, token));
+  }
+
+  _renderContent () {
+    let { error, upcoming } = this.props
+    if (upcoming.success) {
+      return <ActivitiesTimeline data={upcoming.data}/>
+    }
   }
 
   navigateToNofications() {
@@ -78,55 +52,15 @@ export default class ActivitiesUpcoming extends Component {
   }
 
   render() {
-    const { upcoming, dispatch } = this.props;
-    let activities;
-
-    logOut = () => {
-      dispatch(memberLogout());
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: "MemberLogin"
-          })
-        ]
-      });
-      this.props.navigation.dispatch(resetAction);
-    };
-
-    toggleDrawer = () => {
-      this.props.navigation.navigate("DrawerToggle");
-    };
-
-    if (upcoming.success) {
-      activities = upcoming.data.map((activity, index) => {
-        const for_who =
-          activity.type === "medical appointment" ? activity.for_who : activity.for_who.join("\n");
-
-        const who =
-          activity.type === "medical appointment" ? activity.who : activity.who.join("\n");
-
-        const when =
-          activity.when === "TBD" ? "Pending" : Moment(activity.when).format("MMM D YYYY, h:mm A");
-
-        return (
-          <TouchableOpacity key={index} style={styles.card}>
-            <View style={styles.cardView}>
-              <View style={styles.leftCol}>
-                <Text style={styles.activityType}>{activity.type.toUpperCase()}</Text>
-                <Text style={styles.activityForWho}>{who}</Text>
-              </View>
-              <Text style={styles.activityWhen}>{when}</Text>
-            </View>
-          </TouchableOpacity>
-        );
-      });
-    }
 
     return (
       // TODO: on scroll, dispatch request for next page of activities
       // append new page to old page
-      <ScrollView contentContainerStyle={styles.container}>{activities}</ScrollView>
+      <View>
+        {
+          this._renderContent()
+        }
+      </View>
     );
   }
 }

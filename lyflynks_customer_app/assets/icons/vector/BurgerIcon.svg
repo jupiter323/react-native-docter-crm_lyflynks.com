@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon Burger settings</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Manual" transform="translate(-55.000000, -3599.000000)" fill="#696969">
+            <g id="Icons" transform="translate(55.000000, 3598.000000)">
+                <path d="M0,1 L20,1 L20,3.88082448 L0,3.88082448 L0,1 Z M0,9.64247344 L14.2857143,9.64247344 L14.2857143,12.5232979 L0,12.5232979 L0,9.64247344 Z M0,18.2849469 L20,18.2849469 L20,21.1657714 L0,21.1657714 L0,18.2849469 Z" id="Icon-Burger-settings"></path>
+            </g>
+        </g>
+    </g>
+</svg>

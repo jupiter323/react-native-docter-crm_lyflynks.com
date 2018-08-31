@@ -1,4 +1,5 @@
 import {
+  SET_ACCOUNT_ID,
   MEMBER_UPDATE_USERNAME,
   MEMBER_UPDATE_PASSWORD,
   MEMBER_LOGIN,
@@ -18,6 +19,8 @@ const initialState = {
   member_account: {},
   isFetching: false,
   error: {},
+  account_id: null,
+  account_list: {},
   newUser: false
 };
 
@@ -111,7 +114,11 @@ export default function authReducer(state = initialState, action) {
         ...state,
         member: action.data
       };
-
+    case SET_ACCOUNT_ID:
+      return {
+        ...state,
+        account_id: action.account_id
+      }
     default:
       return state;
   }

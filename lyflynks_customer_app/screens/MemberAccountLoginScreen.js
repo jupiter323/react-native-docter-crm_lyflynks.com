@@ -50,7 +50,7 @@ export default class MemberAccountLogin extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.member_account.success) {
-      this.props.navigation.navigate('ActivityLog');
+      this.props.navigation.navigate('ActivityLogScreen');
     }
   }
 
