@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import {Ionicons as Icon} from '@expo/vector-icons';
+import { Ionicons as Icon } from 'react-native-vector-icons';
 
 import {
   colorSwatch,

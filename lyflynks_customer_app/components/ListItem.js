@@ -19,7 +19,8 @@ import AlertDialog from './styleguide/AlertDialog';
 import SwipeoutButton from './SwipeoutButton';
 import AlertDeleteDlMessage from './list-item/AlertDeleteDlMessage';
 import AlertDeleteDlTitle from './list-item/AlertDeleteDlTitle';
-import { Ionicons  as Icon } from '@expo/vector-icons'
+import { Ionicons as Icon } from 'react-native-vector-icons';
+
 import {
   EmergencyIcon,
   TransportIcon,

@@ -7,8 +7,7 @@ import {
   Button,
 } from 'react-native';
 
-// import { FontAwesome } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons as Icon } from 'react-native-vector-icons';
 
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';

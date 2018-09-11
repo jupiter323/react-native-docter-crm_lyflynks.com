@@ -7,8 +7,6 @@ import {
   ScrollView,
 } from 'react-native';
 
-// import { FontAwesome } from '@expo/vector-icons';
-
 import { connect } from 'react-redux';
 import { Input, Button } from "../components/UI";
 import { list } from '../actions/members_accounts';

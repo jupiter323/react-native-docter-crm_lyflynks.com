@@ -1,6 +1,9 @@
 import React from "react";
-import {Svg} from 'expo';
+import {Svg} from "react-native-svg";
+
 const { Path, Defs, G, Circle, Use } = Svg;
+
+
 
 const CheckInIcon = props => (
   <Svg width={props.style.width || 23} height={props.style.height || 23} viewBox="0 0 23 23">

@@ -10,7 +10,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { Svg } from 'expo';
+import Svg,{
+  Circle,
+  Ellipse,
+  G,
+  LinearGradient,
+  RadialGradient,
+  Line,
+  Path,
+  Polygon,
+  Polyline,
+  Rect,
+  Symbol,
+  Use,
+  Defs,
+  Stop
+} from 'react-native-svg';
 
 import { 
   colorSwatch,

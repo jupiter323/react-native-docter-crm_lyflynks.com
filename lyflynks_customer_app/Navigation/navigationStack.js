@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform, Text, View } from "react-native";
-import { StackNavigator, TabNavigator, DrawerNavigator } from "react-navigation";
+import { StackNavigator, TabNavigator, DrawerNavigator } from "react-native-deprecated-custom-components";
 import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";

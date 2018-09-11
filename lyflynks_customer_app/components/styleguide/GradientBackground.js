@@ -9,7 +9,7 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import { LinearGradient } from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import PrimeButton from '../../components/styleguide/PrimeButton';
 import {
   ActivityLogIcon,

@@ -3,7 +3,7 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import { Constants } from 'expo';
+import Constants from 'react-native-basic-constants';
 import {
   NAV_HEIGHT,
   TAB_HEIGHT,

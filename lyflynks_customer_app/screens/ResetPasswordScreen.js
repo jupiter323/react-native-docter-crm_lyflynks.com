@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import NavigatorService from '../Navigation/service/navigator';
 import { Input, Button } from "../components/UI";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';

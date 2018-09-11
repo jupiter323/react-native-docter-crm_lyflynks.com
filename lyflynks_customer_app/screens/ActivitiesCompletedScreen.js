@@ -2,20 +2,11 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 
-<<<<<<< HEAD
-// import { FontAwesome } from "@expo/vector-icons";
 
-import { connect } from "react-redux";
-import { completed } from "../actions/activities";
-import { memberLogout } from "../actions/auth";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-=======
-import { FontAwesome } from '@expo/vector-icons';
 import ActivitiesTimeline from '../components/ActivityLogTimeline'
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
 import { memberLogout } from '../actions/auth';
->>>>>>> develop
 
 import Moment from "moment";
 

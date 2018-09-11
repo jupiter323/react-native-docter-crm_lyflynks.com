@@ -5,7 +5,9 @@ import store from "./store";
 import NavigatorService from "./Navigation/service/navigator";
 import Navigation from "./Navigation/navigationStack";
 
-import { StackNavigator } from "react-navigation";
+
+//import { NavigatorService } from "react-native-deprecated-custom-components";
+
 
 import FCM, {  FCMEvent } from "react-native-fcm";
 

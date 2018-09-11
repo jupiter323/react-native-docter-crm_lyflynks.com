@@ -1,5 +1,6 @@
 import React from "react";
-import {Svg} from "expo";
+import {Svg} from "react-native-svg";
+
 const { Path, Defs, G } = Svg;
 
 

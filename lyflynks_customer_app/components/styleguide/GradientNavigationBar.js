@@ -8,8 +8,8 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import { LinearGradient } from 'expo';
-import { Ionicons as Icon } from '@expo/vector-icons';
+import LinearGradient from 'react-native-linear-gradient';
+import { Ionicons as Icon } from 'react-native-vector-icons';
 
 import {
   deviceWidth,

@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableHighlight
 } from 'react-native'
-import { Font } from 'expo';
+import Font from "react-native-vector-icons/FontAwesome";
 import GradientNavigationBar from '../components/styleguide/GradientNavigationBar';
 
 import SortableListView from 'react-native-sortable-listview'

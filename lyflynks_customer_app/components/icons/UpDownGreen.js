@@ -1,5 +1,5 @@
 import React from "react";
-import {Svg} from "expo";
+import {Svg} from "react-native-svg";
 const { G, Path } = Svg;
 
 const UpDownGreen = props => (
