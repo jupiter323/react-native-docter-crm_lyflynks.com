@@ -41,6 +41,26 @@ build/
 local.properties
 *.iml
 
+# Gradle
+
+/build/
+
+/RNTester/android/app/build/
+
+/RNTester/android/app/gradle/
+
+/RNTester/android/app/gradlew
+
+/RNTester/android/app/gradlew.bat
+
+/ReactAndroid/build/
+
+# Buck
+.buckd
+buck-out
+/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
+/ReactAndroid/src/main/jni/prebuilt/lib/x86/
+/ReactAndroid/src/main/gen
 
 # BUCK
 buck-out/
