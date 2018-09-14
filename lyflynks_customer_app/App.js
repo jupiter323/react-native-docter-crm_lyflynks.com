@@ -53,9 +53,9 @@ export default class LyfLynks_App extends Component {
     return (
       <Provider store={store}>
         <Navigation
-          // ref={navigatorRef => {
-          //   NavigatorService.setContainer(navigatorRef);
-          // }}
+          ref={navigatorRef => {
+            NavigatorService.setContainer(navigatorRef);
+          }}
         />
       </Provider>
     );
