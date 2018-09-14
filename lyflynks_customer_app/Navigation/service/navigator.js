@@ -1,5 +1,5 @@
-import { NavigationActions } from 'react-navigation';
-import type { NavigationParams, NavigationRoute } from 'react-navigation';
+import { NavigationActions } from 'react-native-custom-components'
+import type { NavigationParams, NavigationRoute } from 'react-native-custom-components';
 
 let _container; // eslint-disable-line
 
