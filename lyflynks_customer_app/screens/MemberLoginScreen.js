@@ -7,11 +7,12 @@ import LoginForm from "../components/LoginForm";
 import LyfLynks_Logo from "../components/LyfLynks_Logo";
 import { member } from "../actions/auth";
 
-@connect(store => {
+const stateMap = (store) => {
   const { member, username, password, isFetching, error } = store.auth;
   return { member, username, password, isFetching, error };
-})
-export default class MemberLogin extends Component {
+};
+
+class MemberLogin extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.member.success && !this.props.member.success) {
       if (nextProps.member.success && nextProps.member.data.newUser) {
@@ -97,3 +98,5 @@ const styles = StyleSheet.create({
     color: "#359"
   }
 });
+
+export default connect(stateMap)(MemberLogin);

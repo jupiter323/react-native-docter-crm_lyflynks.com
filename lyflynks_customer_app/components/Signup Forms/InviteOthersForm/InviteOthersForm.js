@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import { View, Modal, TouchableOpacity, Text as PlainText, ScrollView } from "react-native";
 import { Button, Icon, Text } from "react-native-elements";
 import { connect } from "react-redux";
@@ -15,7 +15,7 @@ import {
 const mapStateToProps = state => {
   return { ...state.email_invitations, ...state.member_form };
 };
-@connect(mapStateToProps)
+
 class InviteOthersForm extends React.Component {
   constructor() {
     super();
@@ -270,4 +270,5 @@ const styles = {
     textAlign: "center"
   }
 };
-export { InviteOthersForm };
+
+export default connect(mapStateToProps)(InviteOthersForm);

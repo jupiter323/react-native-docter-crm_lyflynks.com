@@ -29,12 +29,13 @@ Array.prototype.move = function (from, to ) {
   return this
 }
 
-@connect(store => {
+const stateMap = (store) => {
   const { member_account, account_id } = store.auth;
   const { isFetching, list, error } = store.member_call;
   return { isFetching, list, error, member_account, account_id }
-})
-export default class CallOrder extends Component {
+};
+
+class CallOrder extends Component {
   constructor (props) {
     super(props);
       this.state = {
@@ -223,3 +224,4 @@ const styles = StyleSheet.create({
   }
 })
 
+export default connect(stateMap)(CallOrder);

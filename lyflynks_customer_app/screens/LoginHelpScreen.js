@@ -10,12 +10,14 @@ import {
 import { Ionicons as Icon } from 'react-native-vector-icons';
 
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 
-@connect(store => {
+
+
+const stateMap = (store) => {
   return {};
-})
-export default class LoginHelpScreen extends Component {
+};
+
+class LoginHelpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Login Help',
     headerStyle: {
@@ -65,3 +67,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   }
 });
+
+export default connect(stateMap)(LoginHelpScreen);

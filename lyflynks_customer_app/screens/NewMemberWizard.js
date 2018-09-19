@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Card } from "../components/UI";
 import { connect } from "react-redux";
-import { member_account } from "../actions/auth";
 import NewMemberWizardFormFirstStep from "../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormFirstStep";
 import NewMemberWizardFormLastStep from "../components/Signup Forms/NewMemberWizardForm/NewMemberWizardFormLastStep";
 
@@ -12,8 +11,8 @@ const mapStateToProps = state => {
   const { username, member, password } = state.auth;
   return { ...state.member_form, username, member, password };
 };
-@connect(mapStateToProps)
-export default class NewMemberWizardScreen extends Component {
+
+class NewMemberWizardScreen extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.member !== this.props.member) {
       this.props.navigation.navigate("MemberAccountLogin");
@@ -96,3 +95,6 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
+
+
+export default connect(mapStateToProps)(NewMemberWizardScreen);

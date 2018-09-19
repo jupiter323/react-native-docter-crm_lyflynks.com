@@ -11,13 +11,15 @@ import Styles from '../styles/CommonStyles'
 import { alerts } from '../actions/activities'
 import { connect } from 'react-redux'
 
-@connect(store => {
+
+
+const stateMap = (store) => {
   const { isFetching, error, alerts } = store.activities
   const { member_account } = store.auth;
   return { isFetching, error, alerts, member_account }
-})
+};
 
-export default class AcitiviesAlerts extends Component {
+class AcitiviesAlerts extends Component {
   constructor (props) {
     super(props)
     this._handleClickListDoctorsItem = this._handleClickListDoctorsItem.bind(this);
@@ -161,3 +163,5 @@ export default class AcitiviesAlerts extends Component {
     );
   }
 };
+
+export default connect(stateMap)(AcitiviesAlerts);

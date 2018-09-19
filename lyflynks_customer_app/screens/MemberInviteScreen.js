@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Input } from "../components/UI/Input";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
 import { sendAccountInvite } from "../actions/email_invitations";
 
-@connect(store => {
+const stateMap = (store) => {
   const { member, member_account } = store.auth;
   const { errorMessage, invitationResponse } = store.email_invitations;
   return {
@@ -14,7 +14,9 @@ import { sendAccountInvite } from "../actions/email_invitations";
     errorMessage,
     invitationResponse
   };
-})
+};
+
+
 class MemberInviteScreen extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.invitationResponse === "success") {
@@ -75,10 +77,7 @@ class MemberInviteScreen extends Component {
   }
 }
 
-export default connect(
-  null,
-  { sendAccountInvite }
-)(MemberInviteScreen);
+// export default connect(null, { sendAccountInvite })(MemberInviteScreen);
 
 const styles = {
   container: {
@@ -110,3 +109,5 @@ const styles = {
     alignSelf: "center"
   }
 };
+
+export default connect(stateMap)(MemberInviteScreen);

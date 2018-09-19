@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity, Picker } from "react-native";
-import { ListItem, Card, Text, Button } from "react-native-elements";
+import { View, ScrollView, StyleSheet, Picker } from "react-native";
+import { ListItem, Text, Button } from "react-native-elements";
 import { connect } from "react-redux";
-import { Input } from "../../UI";
-import InputFields from "./inputFieldsConfig.json";
-import activitiesFields from "./activitiesFieldsConfig.json";
 import Roles from "./rolesConfig.json";
 import { updateMemberFormField, updateErrorMessage } from "../../../actions/member_form";
 
@@ -22,8 +19,7 @@ const mapStateToProps = state => {
   }
 };
 
-@connect(mapStateToProps)
-export default class NewMemberWizardForm extends Component {
+class NewMemberWizardForm extends Component {
   render() {
     this.state = {
       checked: false
@@ -201,3 +197,5 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 });
+
+export default connect(mapStateToProps)(NewMemberWizardForm);

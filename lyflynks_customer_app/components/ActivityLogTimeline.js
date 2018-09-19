@@ -34,11 +34,15 @@
 
 	import Timeline from '../components/styleguide/TimeLine';
 	import { connect } from 'react-redux'
-	@connect(store => {
-	  const { upcoming } = store.activities;
+
+
+
+	const stateMap = (store) => {
+		const { upcoming } = store.activities;
 	  return {upcoming};
-	})
-	export default class ActivityLogTimeline extends Component {
+	};
+
+	class ActivityLogTimeline extends Component {
 	  constructor(props){
 		super(props)
 		this.onEventPress = this.onEventPress.bind(this);
@@ -366,3 +370,5 @@
 		fontFamily: fontFamily.medium,
 	  },
 	});
+
+	export default connect(stateMap)(ActivityLogTimeline);

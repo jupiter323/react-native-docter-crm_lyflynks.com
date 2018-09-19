@@ -26,18 +26,18 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+    return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
             new FIRMessagingPackage(),
-           new VectorIconsPackage()
-      );
-    }
+            new VectorIconsPackage()
+    );
+  }
 
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
+  @Override
+  protected String getJSMainModuleName() {
+    return "index";
+  }
+};
 
   @Override
   public ReactNativeHost getReactNativeHost() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import {
   Text,
@@ -28,7 +28,18 @@ import {
   CompanionIcon,
 } from './icons';
 
-export default class ListItem extends Component {
+export default class ListItem extends React.Component {
+  static propTypes = {
+    imageUrl: PropTypes.string,
+    itemTitle: PropTypes.any,
+    careerText: PropTypes.any,
+    distanceText: PropTypes.number,
+    imageWidth: PropTypes.number,
+    imageHeight: PropTypes.number,
+    onPressButton: PropTypes.func,
+    isSpecial: PropTypes.bool
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -287,13 +298,4 @@ const styles = StyleSheet.create({
   }
 });
 
-ListItem.propTypes = {
-  imageUrl: PropTypes.number,
-  itemTitle: PropTypes.string,
-  careerText: PropTypes.string,
-  distanceText: PropTypes.number,
-  imageWidth: PropTypes.number,
-  imageHeight: PropTypes.number,
-  onPressButton: PropTypes.func,
-  isSpecial: PropTypes.bool,
-};
+

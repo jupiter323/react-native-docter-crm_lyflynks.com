@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -23,7 +23,6 @@ const mapStateToProps = state => {
   return { ...state.member_form };
 };
 
-@connect(mapStateToProps)
 class RegistrationForm extends React.Component {
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;
@@ -192,7 +191,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export { RegistrationForm };
+// export { RegistrationForm };
+
+export default connect(mapStateToProps)(RegistrationForm);
 
 // import {
 //   FormLabel,

@@ -28,7 +28,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-export default class SwitchButton extends Component {
+export default class SwitchButton extends React.Component {
 
   static propTypes = {
     onValueChange: PropTypes.func

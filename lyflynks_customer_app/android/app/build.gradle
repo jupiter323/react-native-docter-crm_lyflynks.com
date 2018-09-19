@@ -106,9 +106,7 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
-
     compileSdkVersion 27
-
     defaultConfig {
         applicationId 'com.LyfLynks.lyn'
         minSdkVersion 16
@@ -118,6 +116,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        signingConfig signingConfigs.config
     }
     splits {
         abi {
@@ -131,6 +130,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.config
+        }
+        debug {
             signingConfig signingConfigs.config
         }
     }
@@ -149,6 +151,7 @@ android {
     }
     productFlavors {
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -170,5 +173,5 @@ apply plugin: 'com.google.gms.google-services'
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
-    into 'libs'
+into 'libs'
 }

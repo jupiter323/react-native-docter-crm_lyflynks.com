@@ -3,7 +3,7 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import Constants from 'react-native-basic-constants';
+// import Constants from 'react-native-basic-constants';
 import {
   NAV_HEIGHT,
   TAB_HEIGHT,
@@ -25,9 +25,9 @@ export default CommonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colorSwatch.white,
     ...Platform.select({
-      android: {
-        marginBottom: Constants.statusBarHeight,
-      },
+      // android: {
+      //   marginBottom: Constants.statusBarHeight,
+      // },
     }),
   },
   normalSinglePage: {
@@ -35,9 +35,9 @@ export default CommonStyles = StyleSheet.create({
     height: deviceHeight,
     backgroundColor: colorSwatch.white,
     ...Platform.select({
-      android: {
-        marginBottom: Constants.statusBarHeight,
-      },
+      // android: {
+      //   marginBottom: Constants.statusBarHeight,
+      // },
     }),
   },
   wrapperBox: {

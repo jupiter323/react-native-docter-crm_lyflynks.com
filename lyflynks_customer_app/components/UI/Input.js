@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
 export class Input extends React.Component {

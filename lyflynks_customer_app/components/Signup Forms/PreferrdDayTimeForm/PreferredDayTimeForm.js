@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from "react-native";
 import { ListItem, Card, Text, Button } from "react-native-elements";
 import { connect } from "react-redux";
@@ -10,7 +10,6 @@ import { signUp } from "../../../actions/accounts";
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
-@connect(mapStateToProps)
 class PrefferedDayTimeForm extends React.Component {
   componentDidUpdate(prevProps) {
     const { accountCreated, navigation } = this.props;
@@ -163,3 +162,5 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
+
+export default connect(mapStateToProps)(PrefferedDayTimeForm);

@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   Picker,
   Button,
   KeyboardAvoidingView
@@ -16,13 +15,13 @@ import InputFields from "./inputFieldsConfig.json";
 import Roles from "./rolesConfig.json";
 import { updateMemberFormField, updateErrorMessage } from "../../../actions/member_form";
 
-const mapStateToProps = state => {
+const stateMap = (store) => {
   const { member } = state.auth;
   return { ...state.member_form, member };
 };
 
-@connect(mapStateToProps)
-export default class NewMemberWizardFormFirstStep extends Component {
+// @connect(mapStateToProps)
+class NewMemberWizardFormFirstStep extends Component {
   render() {
     const { username, instructions, renderInstructions, proceedAhead } = this.props;
     return (
@@ -223,3 +222,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 });
+
+
+export default connect(stateMap)(NewMemberWizardFormFirstStep);
+
+// export default connect(mapStateToProps)(InviteOthersForm);

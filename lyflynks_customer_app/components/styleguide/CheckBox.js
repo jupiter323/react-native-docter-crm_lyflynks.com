@@ -18,7 +18,7 @@ import {
 const CB_ENABLED_IMAGE = require('./cb_enabled.png');
 const CB_DISABLED_IMAGE = require('./cb_disabled.png');
 
-export default class CheckBox extends Component {
+export default class CheckBox extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,6 +28,30 @@ export default class CheckBox extends Component {
 
     this.onChange = this.onChange.bind(this);
   }
+
+  static propTypes = {
+    label: PropTypes.string,
+    labelBefore: PropTypes.bool,
+    labelStyle: PropTypes.any,
+    labelLines: PropTypes.number,
+    checkboxStyle: PropTypes.any,
+    containerStyle: PropTypes.any,
+    checked: PropTypes.bool,
+    checkedImage: PropTypes.number,
+    uncheckedImage: PropTypes.number,
+    underlayColor: PropTypes.string,
+    onChange: PropTypes.func
+  };
+  
+  static defaultProps = {
+    label: 'Label',
+    labelLines: 1,
+    labelBefore: false,
+    checked: null,
+    checkedImage: CB_ENABLED_IMAGE,
+    uncheckedImage: CB_DISABLED_IMAGE,
+    underlayColor: 'white'
+  };
 
   onChange() {
     if (this.props.onChange &&  typeof this.props.checked === 'boolean') {
@@ -134,26 +158,4 @@ const styles = StyleSheet.create({
   }
 });
 
-CheckBox.propTypes = {
-  label: PropTypes.string,
-  labelBefore: PropTypes.bool,
-  labelStyle: PropTypes.any,
-  labelLines: PropTypes.number,
-  checkboxStyle: PropTypes.any,
-  containerStyle: PropTypes.any,
-  checked: PropTypes.bool,
-  checkedImage: PropTypes.number,
-  uncheckedImage: PropTypes.number,
-  underlayColor: PropTypes.string,
-  onChange: PropTypes.func
-};
 
-CheckBox.defaultProps = {
-  label: 'Label',
-  labelLines: 1,
-  labelBefore: false,
-  checked: null,
-  checkedImage: CB_ENABLED_IMAGE,
-  uncheckedImage: CB_DISABLED_IMAGE,
-  underlayColor: 'white'
-};

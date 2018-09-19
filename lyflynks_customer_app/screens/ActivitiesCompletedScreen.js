@@ -1,21 +1,19 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from "react-native";
-import { NavigationActions } from "react-navigation";
+import {  View } from "react-native";
 
 
 import ActivitiesTimeline from '../components/ActivityLogTimeline'
 import { connect } from 'react-redux';
 import { completed } from '../actions/activities';
-import { memberLogout } from '../actions/auth';
 
-import Moment from "moment";
-
-@connect(store => {
+const stateMap = (store) => {
   const { completed, isFetching, error } = store.activities;
   const { member_account } = store.auth;
   return { member_account, completed, isFetching, error };
-})
-export default class ActivitiesCompleted extends Component {
+};
+
+
+class ActivitiesCompleted extends Component {
   componentDidMount() {
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
@@ -157,3 +155,6 @@ const styles = {
     color: "#0E3A53"
   }
 };
+
+export default connect(stateMap)(ActivitiesCompleted);
+

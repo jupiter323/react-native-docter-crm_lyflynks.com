@@ -28,11 +28,13 @@ import { showMenu, toogleMenu } from '../actions/menu'
 import { connect } from 'react-redux'
 
 
-@connect(store => {
+const stateMap = (store) => {
   const { isActiveMenu } = store.menu;
   return { isActiveMenu }
-})
-export default class ActivityLogScreen extends Component {
+};
+
+
+ class ActivityLogScreen extends Component {
   static navigationOptions = {
     title: 'Activity Log',
     tabBarVisible: false
@@ -143,3 +145,5 @@ export default class ActivityLogScreen extends Component {
 // ActivityLogScreen.navigationOptions = {
 //   tabBarVisible: false
 // }
+
+export default connect(stateMap)(ActivityLogScreen);

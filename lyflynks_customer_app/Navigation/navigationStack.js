@@ -1,6 +1,5 @@
-import React, { Component } from "react";
 import { Platform, Text, View } from "react-native";
-import { StackNavigator, TabNavigator, DrawerNavigator } from "react-native-deprecated-custom-components";
+import { StackNavigator, TabNavigator } from "react-navigation";
 import MemberLoginScreen from "../screens/MemberLoginScreen";
 import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
@@ -11,9 +10,8 @@ import LoginHelpScreen from "../screens/LoginHelpScreen";
 import SignupScreen from "../screens/SignupScreen";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
 import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
-import { InviteOthersForm } from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
+import  InviteOthersForm  from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
 import NewMemberWizardScreen from "../screens/NewMemberWizard";
-import MemberInviteScreen from "../screens/MemberInviteScreen";
 import ActivitiesAlertsScreen from "../screens/ActivitiesAlertsScreen";
 import CallOrderScreen from '../screens/AccountsCallOrderScreen';
 

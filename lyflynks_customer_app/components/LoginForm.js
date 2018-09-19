@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
-  AsyncStorage,
   StyleSheet,
-  Alert,
   TextInput,
   TouchableHighlight,
   Text,
@@ -10,16 +8,16 @@ import {
 } from "react-native";
 
 import { connect } from "react-redux";
-import { NavigationActions } from "react-navigation";
 import { updateLoginForm } from "../actions/auth";
 
 import colors from "../styles/colors";
 
-@connect(store => {
+const stateMap = (store) => {
   const { username, password } = store.auth;
   return { username, password };
-})
-export default class LoginForm extends Component {
+};
+
+class LoginForm extends Component {
   updateUsername = username => {
     this.props.dispatch(updateLoginForm(username, "username"));
   };
@@ -104,3 +102,5 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+export default connect(stateMap)(LoginForm);

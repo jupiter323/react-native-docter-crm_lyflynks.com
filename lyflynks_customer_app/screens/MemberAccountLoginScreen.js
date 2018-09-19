@@ -12,7 +12,8 @@ import { Input, Button } from "../components/UI";
 import { list } from '../actions/members_accounts';
 import { member_account } from '../actions/auth';
 
-@connect(store => {
+
+const stateMap = (store) => {
   const { member, member_account, username, password } = store.auth;
   const { account_list, isFetching, error } = store.members_accounts;
   return {
@@ -24,8 +25,9 @@ import { member_account } from '../actions/auth';
     username,
     password
   }
-})
-export default class MemberAccountLogin extends Component {
+};
+
+class MemberAccountLogin extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Select Account',
     headerStyle: {
@@ -138,3 +140,5 @@ const styles = StyleSheet.create({
     fontWeight: '200',
   }
 });
+
+export default connect(stateMap)(MemberAccountLogin);

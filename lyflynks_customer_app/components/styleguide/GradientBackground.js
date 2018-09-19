@@ -36,10 +36,78 @@ import {
   fontFamily,
 } from '../../styles/Theme';
 
-export default class GradientBackground extends Component {
+export default class GradientBackground extends React.Component{
   constructor(props) {
     super(props);
   }
+
+  static propTypes = {
+    titleText: PropTypes.string,
+    titleImg: PropTypes.number,
+    centerChildren: PropTypes.any,
+    leftChildren: PropTypes.any,
+    rightChildren: PropTypes.any,
+  
+    // Styles
+    outerContainerStyle: PropTypes.any,
+    innerContainerStyle: PropTypes.any,
+    gradientBgStyle: PropTypes.any,
+    leftBtnStyle: PropTypes.any,
+    rightBtnStyle: PropTypes.any,
+    titleTextStyle: PropTypes.any,
+    titleImgStyle: PropTypes.any,
+    backIconStyle: PropTypes.any,
+  };
+
+  static defaultProps = {
+    statusBarProps: {
+      translucent: true,
+      barStyle: "light-content",
+      backgroundColor: colorSwatch.edenBlue,
+    },
+    outerContainerStyle: {
+      backgroundColor: colorSwatch.white,
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      alignItems: 'flex-start'
+    },
+    innerContainerStyle: {
+      backgroundColor: colorSwatch.white,
+      // position: 'absolute',
+      // flex: 1,
+      top: 0,
+      bottom: 0,
+      left: 0,
+      height: deviceHeight,
+      right: 0
+    },
+    gradientBgStyle: {
+      color: blueGradient.colors,
+      start: {x: 0.2, y: 0.4},
+      end: {x: 1.2, y: 1.0},
+    },
+    titleTextStyle: {
+      color: colorSwatch.white,
+      textAlign: 'center',
+      fontSize: 18,
+      fontFamily: fontFamily.semiBold,
+    },
+    backIconStyle: {
+      size: 28,
+      color: colorSwatch.white,
+    },
+    leftBtnStyle: {
+      height: NAV_HEIGHT,
+      paddingHorizontal: 15,
+    },
+    rightBtnStyle: {
+      height: NAV_HEIGHT,
+      paddingHorizontal: 7.5,
+    },
+  };
 
   render() {
     const shadowOpt = {
@@ -347,70 +415,6 @@ const styles = StyleSheet.create({
   }
 });
 
-GradientBackground.propTypes = {
-  titleText: PropTypes.string,
-  titleImg: PropTypes.number,
-  centerChildren: PropTypes.any,
-  leftChildren: PropTypes.any,
-  rightChildren: PropTypes.any,
 
-  // Styles
-  outerContainerStyle: View.propTypes.style,
-  innerContainerStyle: View.propTypes.style,
-  gradientBgStyle: PropTypes.any,
-  leftBtnStyle: View.propTypes.style,
-  rightBtnStyle: View.propTypes.style,
-  titleTextStyle: Text.propTypes.style,
-  titleImgStyle: PropTypes.any,
-  backIconStyle: PropTypes.any,
-};
 
-GradientBackground.defaultProps = {
-  statusBarProps: {
-    translucent: true,
-    barStyle: "light-content",
-    backgroundColor: colorSwatch.edenBlue,
-  },
-  outerContainerStyle: {
-    backgroundColor: colorSwatch.white,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    alignItems: 'flex-start'
-  },
-  innerContainerStyle: {
-    backgroundColor: colorSwatch.white,
-    // position: 'absolute',
-    // flex: 1,
-    top: 0,
-    bottom: 0,
-    left: 0,
-    height: deviceHeight,
-    right: 0
-  },
-  gradientBgStyle: {
-    color: blueGradient.colors,
-    start: {x: 0.2, y: 0.4},
-    end: {x: 1.2, y: 1.0},
-  },
-  titleTextStyle: {
-    color: colorSwatch.white,
-    textAlign: 'center',
-    fontSize: 18,
-    fontFamily: fontFamily.semiBold,
-  },
-  backIconStyle: {
-    size: 28,
-    color: colorSwatch.white,
-  },
-  leftBtnStyle: {
-    height: NAV_HEIGHT,
-    paddingHorizontal: 15,
-  },
-  rightBtnStyle: {
-    height: NAV_HEIGHT,
-    paddingHorizontal: 7.5,
-  },
-};
+

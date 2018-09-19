@@ -24,10 +24,29 @@ import {
   MemberIcon
 } from '../icons';
 
-export default class BottomNavigationBar extends Component {
+export default class BottomNavigationBar extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  static propTypes = {
+    outerContainerStyle: PropTypes.any,
+    innerContainerStyle: PropTypes.any,
+    tabHomeBtn: PropTypes.any,
+    tabOneBtn: PropTypes.any,
+    tabTwoBtn: PropTypes.any,
+    tabThreeBtn: PropTypes.any,
+    tabFourBtn: PropTypes.any,
+  };
+  
+  static defaultProps = {
+    innerContainerStyle: {
+      backgroundColor: '#F0EDE5',
+      borderTopWidth: 1,
+      borderTopColor: 'rgba(229,229,229,0.4)',
+      borderStyle: 'solid',
+    },
+  };
 
   render() {
     return (
@@ -140,21 +159,4 @@ const styles = StyleSheet.create({
   }
 });
 
-BottomNavigationBar.propTypes = {
-  outerContainerStyle: View.propTypes.style,
-  innerContainerStyle: View.propTypes.style,
-  tabHomeBtn: PropTypes.any,
-  tabOneBtn: PropTypes.any,
-  tabTwoBtn: PropTypes.any,
-  tabThreeBtn: PropTypes.any,
-  tabFourBtn: PropTypes.any,
-};
 
-BottomNavigationBar.defaultProps = {
-  innerContainerStyle: {
-    backgroundColor: '#F0EDE5',
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(229,229,229,0.4)',
-    borderStyle: 'solid',
-  },
-};

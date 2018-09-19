@@ -8,10 +8,17 @@ import {
 
 import { deviceWidth, deviceHeight } from '../../styles/Theme';
 
-export default class PrimeModal extends Component {
+export default class PrimeModal extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  static propTypes = {
+    onRequestClose: PropTypes.func,
+    modalVisible: PropTypes.bool,
+    containerStyle: PropTypes.any,
+    innerContainerStyle: PropTypes.any,
+  };
 
   render() {
     return (
@@ -42,9 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-PrimeModal.propTypes = {
-  onRequestClose: PropTypes.func,
-  modalVisible: PropTypes.bool,
-  containerStyle: View.propTypes.style,
-  innerContainerStyle: View.propTypes.style,
-};
+

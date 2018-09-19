@@ -20,13 +20,14 @@ import { memberLogout } from '../actions/auth';
 
 import Moment from 'moment';
 
-
-@connect(store => {
+const stateMap = (store) => {
   const { upcoming, isFetching, error } = store.activities;
   const { member_account } = store.auth;
   return { member_account, upcoming, isFetching, error };
-})
-export default class ActivitiesUpcoming extends Component {
+};
+
+
+class ActivitiesUpcoming extends Component {
   componentDidMount() {
     const { dispatch, member_account, unread } = this.props;
     this.props.navigation.setParams({ unread });
@@ -174,3 +175,5 @@ const styles = {
     color: "#0E3A53"
   }
 };
+
+export default connect(stateMap)(ActivitiesUpcoming);

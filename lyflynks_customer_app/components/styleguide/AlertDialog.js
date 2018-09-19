@@ -18,7 +18,45 @@ import {
 } from '../../styles/Theme';
 import PrimeModal from './PrimeModal';
 
-export default class AlertDialog extends Component {
+export default class AlertDialog extends React.Component {
+  static propTypes = {
+    onRequestClose: PropTypes.func,
+    modalVisible: PropTypes.bool,
+    dlTitle: PropTypes.any,
+    dlMessage: PropTypes.any,
+    dismissBtnStyle: PropTypes.any,
+    acceptBtnStyle: PropTypes.any,
+    dismissLabelStyle: PropTypes.any,
+    acceptLabelStyle: PropTypes.any,
+    dismissBtn: PropTypes.any,
+    acceptBtn: PropTypes.any,
+  };
+
+  static defaultProps = {
+    dismissBtnStyle: {
+      width: (deviceWidth - 60) /2,
+      height: 44,
+      borderBottomLeftRadius: 10,
+      backgroundColor: colorSwatch.bostonBlue,
+    },
+    acceptBtnStyle: {
+      width: (deviceWidth - 60) /2,
+      height: 44,
+      borderBottomRightRadius: 10,
+      backgroundColor: colorSwatch.white,
+    },
+    dismissLabelStyle: {
+      color: colorSwatch.white,
+      fontSize: fontSize.itemHeader,
+      fontFamily: fontFamily.regular,
+    },
+    acceptLabelStyle: {
+      color: colorSwatch.codGray,
+      fontSize: fontSize.itemHeader,
+      fontFamily: fontFamily.regular,
+    }
+  };
+
   constructor(props) {
     super(props);
   }
@@ -93,40 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AlertDialog.propTypes = {
-  onRequestClose: PropTypes.func,
-  modalVisible: PropTypes.bool,
-  dlTitle: PropTypes.any,
-  dlMessage: PropTypes.any,
-  dismissBtnStyle: View.propTypes.style,
-  acceptBtnStyle: View.propTypes.style,
-  dismissLabelStyle: Text.propTypes.style,
-  acceptLabelStyle: Text.propTypes.style,
-  dismissBtn: PropTypes.any,
-  acceptBtn: PropTypes.any,
-};
 
-AlertDialog.defaultProps = {
-  dismissBtnStyle: {
-    width: (deviceWidth - 60) /2,
-    height: 44,
-    borderBottomLeftRadius: 10,
-    backgroundColor: colorSwatch.bostonBlue,
-  },
-  acceptBtnStyle: {
-    width: (deviceWidth - 60) /2,
-    height: 44,
-    borderBottomRightRadius: 10,
-    backgroundColor: colorSwatch.white,
-  },
-  dismissLabelStyle: {
-    color: colorSwatch.white,
-    fontSize: fontSize.itemHeader,
-    fontFamily: fontFamily.regular,
-  },
-  acceptLabelStyle: {
-    color: colorSwatch.codGray,
-    fontSize: fontSize.itemHeader,
-    fontFamily: fontFamily.regular,
-  }
-};
