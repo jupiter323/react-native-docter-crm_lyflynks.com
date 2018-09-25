@@ -1,6 +1,7 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { G, Path } = Svg;
+
+
+import Svg,{ Path,G }from 'react-native-svg';
 
 const UpDownGreen = props => (
 <Svg width={props.width || 55} height={props.height || 51} viewBox="0 0 55 51">

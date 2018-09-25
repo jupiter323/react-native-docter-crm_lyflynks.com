@@ -11,7 +11,6 @@ const stateMap = (store) => {
   const { member, username, password, isFetching, error } = store.auth;
   return { member, username, password, isFetching, error };
 };
-
 class MemberLogin extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.member.success && !this.props.member.success) {

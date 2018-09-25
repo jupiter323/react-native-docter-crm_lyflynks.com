@@ -1,6 +1,5 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path, Defs, G, Use } = Svg;
+import Svg, { Path, Defs, G, Use }   from 'react-native-svg';
 
 
 const CloseIcon = props => (

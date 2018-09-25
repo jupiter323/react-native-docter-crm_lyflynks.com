@@ -48,7 +48,7 @@ export default class MainMenuScreen extends Component {
   }
 
   render() {
-    if (this.state.fontLoaded != true) {
+    if (this.state.fontLoaded == true) {
       return (
         <View />
       )

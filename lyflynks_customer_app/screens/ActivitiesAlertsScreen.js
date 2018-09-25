@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React  from 'react';
 import {
   FlatList,
   View,
@@ -19,14 +19,16 @@ const stateMap = (store) => {
   return { isFetching, error, alerts, member_account }
 };
 
-class AcitiviesAlerts extends Component {
+class AcitiviesAlerts extends React.Component {
   constructor (props) {
     super(props)
+    console.log("log 1");
     this._handleClickListDoctorsItem = this._handleClickListDoctorsItem.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this.loadActivities = this.loadActivities.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
     this.state = { refreshing: false }
+    console.log("log 2");
     this.data = [
       {
         id: 0,
@@ -106,6 +108,7 @@ class AcitiviesAlerts extends Component {
   }
 
   loadActivities (page = 1) {
+    console.log("log 3");
     const { dispatch, member_account } = this.props;
     const token = member_account.data;
     dispatch(alerts({
@@ -115,10 +118,12 @@ class AcitiviesAlerts extends Component {
   }
 
   componentDidMount () {
+    console.log("log 4");
     this.loadActivities();
   }
 
   _onRefresh () {
+    console.log("log 5");
     this.setState({
       refreshing: true
     })
@@ -145,6 +150,7 @@ class AcitiviesAlerts extends Component {
   }
   _keyExtractor = (item, index) => item.id;
   _renderContent () {
+    console.log("log 7");
    return (
       <FlatList
       data={this.data}
@@ -156,6 +162,7 @@ class AcitiviesAlerts extends Component {
    )
   }
   render () {
+    console.log("log 8");
     return (
       <View style={{ marginBottom: 50 }}>
        {this._renderContent()}

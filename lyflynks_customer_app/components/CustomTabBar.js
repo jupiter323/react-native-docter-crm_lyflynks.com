@@ -5,6 +5,7 @@ import BottomNavigationBar from '../components/styleguide/BottomNavigationBar';
 
 export default class CustomTabBar extends Component {
   constructor(props) {
+    console.log("custom tabbar constructor",BottomNavigationBar);
     super(props);
   }
 

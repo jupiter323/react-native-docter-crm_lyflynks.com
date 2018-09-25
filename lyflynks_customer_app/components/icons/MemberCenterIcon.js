@@ -1,6 +1,7 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path, Defs, G, Circle, Use } = Svg;
+
+
+import Svg,{ Path }from 'react-native-svg';
 
 const MemberCenterIcon = props => (
   <Svg width={props.style.width || 22} height={props.style.height || 22} viewBox="0 0 22 22">

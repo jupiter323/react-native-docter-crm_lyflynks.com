@@ -1,7 +1,5 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-
-const { Path, Defs, G, Use } = Svg;
+import Svg,{ Path, Defs, G, Use  } from 'react-native-svg';
 
 const ActivityLogIcon = props => (
   <Svg {...props} width={props.style.width || 19} height={props.style.height || 22} viewBox="0 0 19 22">

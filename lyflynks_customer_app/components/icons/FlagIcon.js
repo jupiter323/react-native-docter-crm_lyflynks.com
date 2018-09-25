@@ -1,6 +1,5 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path, Defs, G, Use } = Svg;
+import Svg,{ Path, Defs, G, Use } from 'react-native-svg';
 
 const FlagIcon = props => (
   <Svg width={props.style.width || 27} height={props.style.height || 33} viewBox="0 0 27 33">

@@ -25,9 +25,9 @@ export default CommonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colorSwatch.white,
     ...Platform.select({
-      // android: {
-      //   marginBottom: Constants.statusBarHeight,
-      // },
+      android: {
+        marginBottom: 30,
+      },
     }),
   },
   normalSinglePage: {
@@ -35,9 +35,9 @@ export default CommonStyles = StyleSheet.create({
     height: deviceHeight,
     backgroundColor: colorSwatch.white,
     ...Platform.select({
-      // android: {
-      //   marginBottom: Constants.statusBarHeight,
-      // },
+      android: {
+        marginBottom: 30,
+      },
     }),
   },
   wrapperBox: {

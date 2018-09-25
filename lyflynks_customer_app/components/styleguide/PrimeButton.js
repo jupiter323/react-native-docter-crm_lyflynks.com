@@ -35,6 +35,8 @@ import {
 
 export default class PrimeButton extends Component {
   render = () => {
+
+    console.log("settings:",this.props);
     const {
       setting: {
         btnWidth = 0,
@@ -49,6 +51,8 @@ export default class PrimeButton extends Component {
       onPressButton,
       btnText,
     } = this.props;
+
+    
 
     // Define button style
     const styles = StyleSheet.create({

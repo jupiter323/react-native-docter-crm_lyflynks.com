@@ -1,7 +1,7 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path, Defs, G, Circle, Use } = Svg;
 
+
+import Svg,{ Path, Defs, G, Circle, Use }from 'react-native-svg';
 
 const NextIcon = props => (
   <Svg {...props} width={props.style.width || 19} height={props.style.height || 29} viewBox="0 0 19 29">

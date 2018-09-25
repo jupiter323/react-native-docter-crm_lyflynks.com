@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, StatusBar } from "react-native";
-import { Card } from "react-native-elements";
+import RegistrationForm from '../components/Signup Forms/RegistrationForm/RegistrationForm';
+import INSTRUCTIONS_FOR_REGISTRATION_FORM from '../components/Signup Forms/RegistrationForm/instructions';
+import PrefferedDayTimeForm from '../components/Signup Forms/PreferrdDayTimeForm/PreferredDayTimeForm';
+import INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM from '../components/Signup Forms/PreferrdDayTimeForm/instructions'
+import INSTRUCTIONS_FOR_INVITATION_FORM from '../components/Signup Forms/InviteOthersForm/instructions'
+import InviteOthersForm from '../components/Signup Forms/InviteOthersForm/InviteOthersForm'
 
-import {
-  RegistrationForm,
-  PrefferedDayTimeForm,
-  InviteOthersForm,
-  INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM,
-  INSTRUCTIONS_FOR_REGISTRATION_FORM,
-  INSTRUCTIONS_FOR_INVITATION_FORM
-} from "../components/Signup Forms";
 
 class SignupScreen extends React.Component {
   constructor() {

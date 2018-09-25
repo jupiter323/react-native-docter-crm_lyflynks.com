@@ -6,7 +6,7 @@ import {
   View,
   Image,
   Platform,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 import CommonStyles from '../../styles/CommonStyles';
@@ -22,10 +22,11 @@ import {
   HealthIcon,
   CompanionIcon,
   MemberIcon
-} from '../icons';
+} from '../icons/index.js';
 
 export default class BottomNavigationBar extends React.Component {
   constructor(props) {
+    console.log("bootom navigation constructor", EmergencyIcon);
     super(props);
   }
 

@@ -1,6 +1,5 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path } = Svg;
+import Svg,{ Path }  from 'react-native-svg';
 
 
 const BurgerIcon = props => (

@@ -19,7 +19,7 @@ import AlertDialog from './styleguide/AlertDialog';
 import SwipeoutButton from './SwipeoutButton';
 import AlertDeleteDlMessage from './list-item/AlertDeleteDlMessage';
 import AlertDeleteDlTitle from './list-item/AlertDeleteDlTitle';
-import { Ionicons as Icon } from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   EmergencyIcon,

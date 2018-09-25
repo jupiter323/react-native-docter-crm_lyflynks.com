@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Input } from "../components/UI/Input";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { sendAccountInvite } from "../actions/email_invitations";
 
@@ -17,7 +17,7 @@ const stateMap = (store) => {
 };
 
 
-class MemberInviteScreen extends Component {
+class MemberInviteScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.invitationResponse === "success") {
       this.props.navigation.navigate("Activities");
@@ -39,6 +39,7 @@ class MemberInviteScreen extends Component {
   });
 
   constructor(props) {
+    console.log("member invitescreen");
     super(props);
     this.state = { email: "" };
   }
@@ -77,7 +78,6 @@ class MemberInviteScreen extends Component {
   }
 }
 
-// export default connect(null, { sendAccountInvite })(MemberInviteScreen);
 
 const styles = {
   container: {
@@ -110,4 +110,7 @@ const styles = {
   }
 };
 
-export default connect(stateMap)(MemberInviteScreen);
+// export default connect(stateMap,{ sendAccountInvite })(MemberInviteScreen);
+
+export default connect(stateMap, { sendAccountInvite })(MemberInviteScreen);
+

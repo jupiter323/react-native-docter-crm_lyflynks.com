@@ -49,7 +49,9 @@ class MemberAccountLogin extends Component {
   })
 
   componentWillReceiveProps(nextProps) {
+    console.log("activity log aa gaya");
     if (nextProps.member_account.success) {
+      console.log("anubhav aaya");
       this.props.navigation.navigate('ActivityLogScreen');
     }
   }

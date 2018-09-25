@@ -7,10 +7,15 @@ import Navigation from "./Navigation/navigationStack";
 
 import FCM, {  FCMEvent } from "react-native-fcm";
 
+import {YellowBox} from 'react-native';
+
+
+
 
 export default class LyfLynks_App extends Component {
 
   constructor(props) {
+    YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
     super(props);
   }
 

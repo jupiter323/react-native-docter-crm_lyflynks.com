@@ -1,6 +1,7 @@
 import React from "react";
-import {Svg} from "react-native-svg";
-const { Path, Defs, G, Circle, Use } = Svg;
+
+
+import Svg,{ Path } from 'react-native-svg';
 
 
 const MailIcon = props => (

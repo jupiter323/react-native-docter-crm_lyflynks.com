@@ -17,7 +17,7 @@ class NewMemberWizardScreen extends Component {
     if (nextProps.member !== this.props.member) {
       this.props.navigation.navigate("MemberAccountLogin");
     }
-  }
+ }
 
 
   //pushnotification

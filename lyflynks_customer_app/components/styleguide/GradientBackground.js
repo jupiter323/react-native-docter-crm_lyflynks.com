@@ -229,7 +229,8 @@ export default class GradientBackground extends React.Component{
               <PrimeButton
                 setting={shadowOpt}
                 btnText="Invite Member"
-              />
+                onPressButton={() => this.props.navigation.navigate('MemberInviteScreen')}>
+              </PrimeButton>
             </View>
           </ScrollView>
         </LinearGradient>

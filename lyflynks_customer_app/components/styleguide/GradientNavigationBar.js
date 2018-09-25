@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Ionicons as Icon } from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   deviceWidth,
