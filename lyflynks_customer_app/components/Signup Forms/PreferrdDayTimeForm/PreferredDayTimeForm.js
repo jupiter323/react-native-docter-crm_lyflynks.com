@@ -6,6 +6,7 @@ import _ from "lodash";
 
 import { updateEntity } from "../../../actions/member_form";
 import { signUp } from "../../../actions/accounts";
+import ImageButton from "../../../components/ImageButton";
 
 const mapStateToProps = state => {
   return { ...state.member_form };
@@ -28,13 +29,14 @@ class PrefferedDayTimeForm extends React.Component {
       proceedAhead,
       creatingAccount
     } = this.props;
+    //    {renderInstructions(instructions)}
     return (
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
       >
-        {renderInstructions(instructions)}
-        <Text h4 style={styles.heading} />
+    
+        <Text  style={styles.heading} />
         <Card
           title="Select your preferred time"
           dividerStyle={{ marginBottom: 0 }}
@@ -52,13 +54,25 @@ class PrefferedDayTimeForm extends React.Component {
           {this.renderPreferredDays()}
         </Card>
         {this.renderErrorMessage()}
+        <ImageButton/>
         <Button
-          large
-          raised
+          style={styles.nextBtn}
           title="Next"
-          loading={creatingAccount === true}
-          backgroundColor="#00A68C"
-          buttonStyle={styles.nextButton}
+          fontWeight= 'bold'
+          fontFamily='Avenir' 
+          buttonStyle={{
+            backgroundColor: "#00A68C",
+            width: '90%',
+            height: 50,
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 25,
+            // elevation: 3,
+            marginBottom:5,
+            zIndex:0,
+            marginLeft:20
+          }}
+          containerStyle={{ marginTop: 20 }}
           onPress={this.signUp.bind(this)}
         />
       </ScrollView>
@@ -142,6 +156,17 @@ export { PrefferedDayTimeForm };
 const styles = StyleSheet.create({
   scrollViewContainer: {
     backgroundColor: "white"
+  },
+  nextBtn:{
+    borderRadius: 10,
+    shadowOpacity: 5, 
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5, 
+    elevation: 10,
   },
   card: {
     padding: 0,

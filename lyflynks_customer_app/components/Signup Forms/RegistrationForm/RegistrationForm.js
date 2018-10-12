@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import {
   View,
   Text,
   StyleSheet,
   Picker,
   ScrollView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Image
 } from "react-native";
 import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from "../../UI";
 import { validator } from "../index";
 import InputFields from "./inputFieldsConfig.json";
@@ -19,6 +20,8 @@ import {
   updateErrorMessage
 } from "../../../actions/member_form";
 
+import ImageButton from "../../../components/ImageButton";
+
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
@@ -27,30 +30,36 @@ class RegistrationForm extends React.Component {
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;
     return (
-      <KeyboardAvoidingView behavior="padding" enabled>
-        <View>
           <ScrollView
             contentContainerStyle={styles.scrollViewContainer}
             showsVerticalScrollIndicator={false}
-          >
-            {renderInstructions(instructions)}
+          > 
             <Card containerStyle={styles.formFieldsContainer}>
               {this.renderInputFields()}
               <Text style={styles.pickerLabel}>Select your Role</Text>
               {this.renderPicker()}
-              <Button
-                large
-                raised
-                iconRight={{ name: "trending-flat" }}
-                title="Next"
-                backgroundColor="#00A68C"
-                onPress={proceedAhead}
-                disabled={this.disableNextButton()}
-              />
+              <ImageButton/>
+                <Button
+                  style={styles.nextBtn}
+                  title="Next"
+                  fontWeight= 'bold'
+                  fontFamily='Avenir' 
+                  buttonStyle={{
+                    backgroundColor: "#00A68C",
+                    width: '100%',
+                    height: 50,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 25,
+                   // elevation: 3,
+                    marginBottom:5,
+                    zIndex:0
+                  }}
+                  containerStyle={{ marginTop: 20 }}
+                  onPress={proceedAhead} 
+                /> 
             </Card>
-          </ScrollView>
-        </View>
-      </KeyboardAvoidingView>
+          </ScrollView> 
     );
   }
 
@@ -74,14 +83,14 @@ class RegistrationForm extends React.Component {
               onBlur={this.updateErrorMessage.bind(this, input)}
             />
             <Text style={styles.errorMessage}>
-              {this.props.errors[input.errorId]}
+            {this.props.errors[input.errorId]}
             </Text>
           </View>
         </View>
       );
     });
   }
-
+//{this.props.errors[input.errorId]}
   bindReferenceToInputFields(inputField, inputElement) {
     this[inputField.id] = inputElement;
   }
@@ -133,6 +142,7 @@ class RegistrationForm extends React.Component {
     const { dispatch, role } = this.props;
     return (
       <Picker
+      style={styles.Picker}
         selectedValue={role}
         onValueChange={this.setSelectedRole.bind(this)}
       >
@@ -165,17 +175,44 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     alignItems: "center"
   },
+  btnIcon:{
+    position:"absolute",
+    right:0
+  },
+  Picker:{
+    marginLeft:20,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+  },
+  nextBtn:{
+    borderRadius: 10,
+    shadowOpacity: 5, 
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5, 
+    elevation: 10,
+  },
   input: {
-    height: 40,
-    margin: 10,
-    backgroundColor: "#fafafa",
-    borderColor: "#eeeeee",
+    height: 50, 
+    backgroundColor: "#fff",
+    borderColor: "#00A68C",
     borderWidth: 1,
-    width: "100%"
+    width: "90%",
+    color:"#000",
+    shadowRadius: 5, 
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    elevation: 2 ,
+    borderRadius:25
   },
   inputContainer: {
     justifyContent: "center",
-    height: 70,
+    height: 83,
     alignItems: "center"
   },
   formFieldsContainer: {
@@ -183,11 +220,13 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: "red",
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
+    marginLeft:20
   },
   pickerLabel: {
     textAlign: "center",
-    fontSize: 18
+    fontSize: 18,
+    color:'#000'
   }
 });
 

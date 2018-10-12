@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+    elevation: 3,
   }
 });
 

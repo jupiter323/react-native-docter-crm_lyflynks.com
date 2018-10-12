@@ -6,7 +6,8 @@ import PrefferedDayTimeForm from '../components/Signup Forms/PreferrdDayTimeForm
 import INSTRUCTIONS_FOR_PREFERRED_DAY_TIME_FORM from '../components/Signup Forms/PreferrdDayTimeForm/instructions'
 import INSTRUCTIONS_FOR_INVITATION_FORM from '../components/Signup Forms/InviteOthersForm/instructions'
 import InviteOthersForm from '../components/Signup Forms/InviteOthersForm/InviteOthersForm'
-
+import GradientNavigationBar from '../components/styleguide/GradientNavigationBar';
+import CommonStyles from '../styles/CommonStyles';
 
 class SignupScreen extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ class SignupScreen extends React.Component {
     this.state = { step: 1 };
     this.renderNextScreen = this.renderNextScreen.bind(this);
   }
+ 
 
   renderInstructions(instructions) {
     return (
@@ -30,8 +32,11 @@ class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" hidden={false} />
+      <View style={CommonStyles.normalPage}>
+        <GradientNavigationBar
+          navigation={this.props.navigation}
+          titleText='Sign up'
+          /> 
         {this.getScreenForCurrentStep()}
       </View>
     );
@@ -40,12 +45,12 @@ class SignupScreen extends React.Component {
   getScreenForCurrentStep() {
     switch (this.state.step) {
       case 1:
-        return (
+        return ( 
           <RegistrationForm
             instructions={INSTRUCTIONS_FOR_REGISTRATION_FORM}
             renderInstructions={this.renderInstructions}
             proceedAhead={this.renderNextScreen}
-          />
+          /> 
         );
       case 2:
         return (

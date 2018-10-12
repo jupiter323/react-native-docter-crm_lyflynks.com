@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet,Image, Text, View, KeyboardAvoidingView } from "react-native";
 import { Button as ReactButton } from "react-native-elements";
 import { connect } from "react-redux";
 
 import LoginForm from "../components/LoginForm";
 import LyfLynks_Logo from "../components/LyfLynks_Logo";
 import { member } from "../actions/auth";
-
+ 
 const stateMap = (store) => {
   const { member, username, password, isFetching, error } = store.auth;
   return { member, username, password, isFetching, error };
@@ -45,15 +45,29 @@ class MemberLogin extends Component {
             Interested in joining the Lyflynks{"\n"}
             community and spending more{"\n"}
             meaningful time with your aging family{"\n"} members?
-          </Text>
-          <ReactButton
-            raised
-            title="Sign Up for a new Account"
-            containerViewStyle={styles.signupButton}
-            backgroundColor="#00A68C"
-            containerViewStyle={styles.inviteButton}
-            onPress={() => this.props.navigation.navigate("Signup")}
-          />
+          </Text> 
+          <ReactButton  
+              title="Sign Up for a new Account"  
+              fontWeight= 'bold'
+              fontFamily='Avenir' 
+              buttonStyle={{
+                backgroundColor: "#00A68C",
+                width: 'auto',
+                height: 55,
+                borderColor: "transparent",
+                borderWidth: 0,
+                borderRadius: 28,
+                elevation: 2,
+                marginBottom:5,
+                alignItems: 'center', 
+                paddingRight: 50,
+                paddingLeft: 50, 
+            
+              }}
+              containerStyle={{ marginTop: 20 }}
+              onPress={() => this.props.navigation.navigate("Signup")}
+        />
+         
         </View>
       </KeyboardAvoidingView>
     );

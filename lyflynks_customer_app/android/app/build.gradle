@@ -98,7 +98,7 @@ android {
         config {
             keyAlias 'keyalias'
             keyPassword 'motif@123'
-            storeFile file('/Users/satish.mavani/Documents/LyfApkKey/key.jks')
+            storeFile file('/var/www/html/key/key.jks')
             storePassword 'motif@123'
         }
     }
