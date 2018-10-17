@@ -18,8 +18,11 @@ import { member_account } from '../actions/auth';
 
 import GradientNavigationBar from '../components/styleguide/GradientNavigationBar';
 import CommonStyles from '../styles/CommonStyles'; 
+import email_invitations from '../reducers/email_invitations';
 
-const stateMap = (store) => {
+const stateMap = (store) => { 
+  console.log('test store');
+  console.log(store);
   const { member, member_account, username, password } = store.auth;
   const { account_list, isFetching, error } = store.members_accounts;
   return {
@@ -49,17 +52,15 @@ class MemberAccountLogin extends Component {
   }
 
     componentDidMount() {
-    const { dispatch, member } = this.props;
-    const token = member.data;
-
+      console.log("componentDidMount");
+      const { dispatch, member } = this.props;
+      const token = member.data; 
     if (token) dispatch(list(token));
   }
 
-  logIn = (account_id) => {
-    console.log('account_id='+account_id);
+  logIn = (account_id) => { 
     const { dispatch, username, password, member } = this.props;
-    const token = member.data;
-    console.log('token='+token);
+    const token = member.data; 
     dispatch(member_account({
       username,
       password,
@@ -77,29 +78,27 @@ class MemberAccountLogin extends Component {
   render() {
     const { account_list } = this.props;
     let accountList;
-    console.log(account_list);
-
     if (account_list.success) {
-      accountList = account_list.data.map((account_id, index) => {
-      
+      accountList = account_list.data.map((account, index) => {
         return (
             <TouchableOpacity
               key={index}
               style={styles.card}
-              onPress={() => this.logIn(account_id)}
+              onPress={() => this.logIn(account.account_id)}
             >
             <Avatar 
             style={styles.inlineLayout}  
             small
               rounded
-              title="JS" 
+              title={account.shortName} 
               onPress={() => console.log("Works!")} 
             /> 
             <View style={styles.viewLayout} >
-              <Text style={styles.txtcolors}>John {account_id}</Text>
-              <Text style={styles.txtcolors}>john_{account_id}@lyflynks.com</Text>
+              <Text style={styles.txtcolors}>{account.fullName}</Text>
+              <Text style={styles.txtcolors}>{account.email}</Text>
             </View>  
             </TouchableOpacity>
+           
         )
       });
     }

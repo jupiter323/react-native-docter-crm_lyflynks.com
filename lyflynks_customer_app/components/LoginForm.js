@@ -12,7 +12,7 @@ import { updateLoginForm } from "../actions/auth";
 
 import colors from "../styles/colors";
 
-const stateMap = (store) => {
+const stateMap = (store) => { 
   const { username, password } = store.auth;
   return { username, password };
 };

@@ -40,8 +40,8 @@ export const toQueryString = obj => {
 // export const domain = "http://prod-lyflynks-cluster-lb-c26ebae13e18ff67.elb.us-east-2.amazonaws.com";
 // export const domain = "http://192.168.1.40:5002";
 
-export const domain = "http://prod-lyflynks-cluster-lb-c26ebae13e18ff67.elb.us-east-2.amazonaws.com";
-
+//export const domain = "http://prod-lyflynks-cluster-lb-c26ebae13e18ff67.elb.us-east-2.amazonaws.com";
+export const domain = "http://staging-lb-165144095.us-east-2.elb.amazonaws.com";
 
 export const accounts = {
   root: "/accounts",
