@@ -48,24 +48,23 @@ class MemberLogin extends Component {
           </Text> 
           <ReactButton  
               title="Sign Up for a new Account"  
-              fontWeight= 'bold'
-              fontFamily='Avenir' 
               buttonStyle={{
-                backgroundColor: "#00A68C",
-                width: 'auto',
-                height: 55,
+                backgroundColor: "#00A68C", 
                 borderColor: "transparent",
                 borderWidth: 0,
-                borderRadius: 28,
-                elevation: 2,
-                marginBottom:5,
-                alignItems: 'center', 
-                paddingRight: 50,
-                paddingLeft: 50, 
-            
+                borderRadius: 28, 
+                marginTop:5, 
+                width:'98%'
+              }}
+              textStyle={{
+                fontSize:17 , 
+                paddingHorizontal:'10%',
+                paddingVertical:5,
+                fontFamily:'Avenir',
+                fontWeight:'bold'
               }}
               containerStyle={{ marginTop: 20 }}
-              onPress={() => this.props.navigation.navigate("Signup")}
+              onPress={() => this.props.navigation.navigate("Signup")} 
         />
          
         </View>
@@ -87,28 +86,34 @@ const styles = StyleSheet.create({
     padding: 0
   },
   signupContainer: {
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 10,
     alignItems: "center"
   },
   signUpText: {
     textAlign: "center",
-    marginBottom: 20
+    marginBottom: 5
   },
   signupButton: {
     position: "absolute",
     bottom: 15,
     alignSelf: "center",
-    width: 180
+    
   },
   logo: {
     height: 100,
     width: 200,
-    bottom: 40
+    bottom: 20
   },
   loginHelpText: {
     marginTop: 20,
     color: "#359"
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center", 
   }
 });
 

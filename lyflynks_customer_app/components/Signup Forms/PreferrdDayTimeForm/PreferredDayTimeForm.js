@@ -54,7 +54,8 @@ class PrefferedDayTimeForm extends React.Component {
           {this.renderPreferredDays()}
         </Card>
         {this.renderErrorMessage()}
-        <ImageButton/>
+        <ImageButton  
+        />
         <Button
           style={styles.nextBtn}
           title="Next"
@@ -71,6 +72,11 @@ class PrefferedDayTimeForm extends React.Component {
             marginBottom:5,
             zIndex:0,
             marginLeft:20
+          }}
+          textStyle={{
+            fontSize:18 ,  
+            fontFamily:'Avenir',
+            fontWeight:'bold'
           }}
           containerStyle={{ marginTop: 20 }}
           onPress={this.signUp.bind(this)}

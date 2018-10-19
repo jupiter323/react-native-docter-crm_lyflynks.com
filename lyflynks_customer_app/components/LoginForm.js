@@ -39,6 +39,7 @@ class LoginForm extends Component {
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
+            underlineColorAndroid="transparent"
           />
 
           <TextInput
@@ -52,6 +53,7 @@ class LoginForm extends Component {
             autoCorrect={false}
             secureTextEntry
             returnKeyType="go"
+            underlineColorAndroid="transparent"
           />
         </View>
 

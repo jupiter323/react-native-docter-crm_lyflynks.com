@@ -53,7 +53,12 @@ class RegistrationForm extends React.Component {
                     borderRadius: 25,
                    // elevation: 3,
                     marginBottom:5,
-                    zIndex:0
+                    zIndex:0,
+                  }}
+                  textStyle={{
+                    fontSize:18 ,  
+                    fontFamily:'Avenir',
+                    fontWeight:'bold'
                   }}
                   containerStyle={{ marginTop: 20 }}
                   onPress={proceedAhead} 

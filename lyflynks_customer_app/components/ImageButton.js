@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Image
 } from "react-native";
+import {Button } from "react-native-elements";
 
 export default class ImageButton extends React.Component {
 
@@ -22,14 +23,25 @@ export default class ImageButton extends React.Component {
  
 const styles = StyleSheet.create({
  
-  btnIcon:{ 
-    bottom:-37, 
-    right:140, 
+  btnIcon:{  
+    right:'35%',
     position: 'absolute', 
     zIndex: 100,
     width:24,
-    height:24
-    
+    height:24,
+    top:14
   }, 
+
+  nextBtn:{
+    borderRadius: 10,
+    shadowOpacity: 5, 
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5, 
+    elevation: 10,
+  }
    
 });
