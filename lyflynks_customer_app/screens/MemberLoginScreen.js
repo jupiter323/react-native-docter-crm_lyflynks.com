@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet,Image, Text, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet,Image, Text, View, KeyboardAvoidingView,Alert,AsyncStorage } from "react-native";
 import { Button as ReactButton } from "react-native-elements";
 import { connect } from "react-redux";
 
@@ -13,15 +13,31 @@ const stateMap = (store) => {
 };
 class MemberLogin extends Component {
   componentWillReceiveProps(nextProps) {
+    console.log('back1');
     if (nextProps.member.success && !this.props.member.success) {
       if (nextProps.member.success && nextProps.member.data.newUser) {
         this.props.navigation.navigate("NewMemberWizard");
+        
       } else {
+        
         this.props.navigation.navigate("MemberAccountLogin");
       }
     }
   }
+   
+   async componentDidMount() {  
+      
+    AsyncStorage.getItem('isLogin') 
+    .then((res) => { 
+      console.log('res',res);
+      if(res!=null){ 
+        this.props.navigation.navigate("MemberAccountLogin");
+      }else{
+        this.props.navigation.navigate("MemberLogin"); 
+      }
+    }); 
 
+  }
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");
   };

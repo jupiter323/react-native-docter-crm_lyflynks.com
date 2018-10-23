@@ -7,6 +7,8 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -25,6 +27,9 @@ import {
 export default class GradientNavigationBar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      logout: "", 
+    };
   }
 
   static propTypes= {
@@ -78,9 +83,47 @@ export default class GradientNavigationBar extends React.Component {
     },
   };
 
+  async componentDidMount(){
+   
+   let user_token =  await AsyncStorage.getItem('isLogin'); 
+    if(user_token){
+      this.setState(
+        {
+          height: 17,
+          width: 17,
+        }
+        ); 
+    }else{
+      this.setState({
+        height: 0,
+          width: 0,
+      });
+    } 
+  }
+
+  _handleLogout = () => { 
+    console.log('logout');
+    AsyncStorage.clear(); 
+    this.props.navigation.navigate('MemberLogin'); 
+    }
+
   render() {
+ 
+
     return (
       <View style={[styles.outerContainer, this.props.outerContainerStyle]}>
+       <View style={{position:'absolute',right:0,zIndex:1,top:15}}> 
+       <TouchableOpacity
+                onPress={this._handleLogout.bind(this)}
+              >
+          <Image 
+            source={require('../../assets/images/logout.png')} 
+            style={{backgroundColor: 'transparent',width:this.state.width,height:this.state.height}}
+
+            /> 
+      </TouchableOpacity>
+       </View>
+      
         <LinearGradient
           start={this.props.gradientBgStyle.start}
           end={this.props.gradientBgStyle.end}
@@ -146,7 +189,7 @@ export default class GradientNavigationBar extends React.Component {
                     <View style={[styles.rightBtn, this.props.rightBtnStyle && this.props.rightBtnStyle]}>
                       <Image
                         source={button.buttonIcon}
-                        style={{width: button.buttonWidth, height: button.buttonHeight}}
+                        style={{width: button.buttonWidth, height: button.buttonHeight,right:8}}
                       />
                     </View>
                   </TouchableOpacity>

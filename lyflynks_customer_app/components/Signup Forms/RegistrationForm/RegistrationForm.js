@@ -6,7 +6,8 @@ import {
   Picker,
   ScrollView,
   KeyboardAvoidingView,
-  Image
+  Image,
+  AsyncStorage
 } from "react-native";
 import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
@@ -27,6 +28,23 @@ const mapStateToProps = state => {
 };
 
 class RegistrationForm extends React.Component {
+
+  async componentDidMount() {  
+      
+    AsyncStorage.getItem('isLogin') 
+    .then((res) => { 
+      if(res!=null){
+        console.log('logged page');
+      //  this.props.navigation.navigate("MemberLogin");
+      }else{
+       // this.props.navigation.navigate("MemberLogin");
+        console.log('logg in page' );
+      }
+    }); 
+
+  }
+
+
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;
     return (

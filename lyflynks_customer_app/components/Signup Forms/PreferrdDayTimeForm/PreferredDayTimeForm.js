@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from "react-native";
+import { Alert,View, StyleSheet, ScrollView } from "react-native";
 import { ListItem, Card, Text, Button } from "react-native-elements";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -7,12 +7,47 @@ import _ from "lodash";
 import { updateEntity } from "../../../actions/member_form";
 import { signUp } from "../../../actions/accounts";
 import ImageButton from "../../../components/ImageButton";
+import { BackHandler } from "react-native";
 
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
 class PrefferedDayTimeForm extends React.Component {
+  _didFocusSubscription;
+  _willBlurSubscription;
+  
+  constructor(props) {
+    super(props);
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  componentDidMount() { 
+    console.log(1);
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    console.log(2);
+    if (this.isSelectionModeEnabled()) { 
+      this.disableSelectionMode();
+      return true;
+    } else { 
+      return false;
+    }
+  };
+
+  componentWillUnmount() { 
+    console.log(3);
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
+  }
+
   componentDidUpdate(prevProps) {
+    console.log(4);
     const { accountCreated, navigation } = this.props;
     if (
       prevProps.accountCreated != accountCreated &&

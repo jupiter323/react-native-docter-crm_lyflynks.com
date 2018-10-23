@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { AsyncStorage, Platform } from "react-native";
+import { AsyncStorage, Platform ,Alert, BackHandler } from "react-native";
 import store from "./store";
 import NavigatorService from "./Navigation/service/navigator";
 import Navigation from "./Navigation/navigationStack";
@@ -8,20 +8,21 @@ import Navigation from "./Navigation/navigationStack";
 import FCM, {  FCMEvent } from "react-native-fcm";
 
 import {YellowBox} from 'react-native';
-
-
-
+import {AccoutMember} from './screens/MemberAccountLoginScreen'
+import MemberLoginScreen from "./screens/MemberLoginScreen";
 
 export default class LyfLynks_App extends Component {
 
   constructor(props) {
     YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
     super(props);
+     
   }
 
-  async componentDidMount() {
-
-    console.log('deviceToken from componentDidMount');  
+  async componentDidMount() { 
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('Back Pressed');
+    });
 
     try {
       let result = await FCM.requestPermissions({

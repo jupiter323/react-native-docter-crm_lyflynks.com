@@ -32,14 +32,19 @@ export function updateLoginForm(text, field) {
 
 export function member(data) {
   return async dispatch => {
-    dispatch(authMember());
+
+    dispatch(authMember()); 
     try {
       const response = await auth.member(data);
+
+       AsyncStorage.setItem('isLogin', response.data); 
+       AsyncStorage.setItem('allData', response); 
+
       dispatch(authMemberSuccess(response));
       if(response.success === true) {
         const has_device_token_been_posted = await AsyncStorage.getItem('has_device_token_been_posted');
         const deviceToken = await AsyncStorage.getItem('device_token');
-
+        
         console.log("Get token api call:", AsyncStorage.getItem('device_token'));
         console.log("Get token await api call:", await AsyncStorage.getItem('device_token'));
 

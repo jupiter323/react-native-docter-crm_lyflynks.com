@@ -111,6 +111,13 @@ const Navigation = StackNavigator(
         header: null,
         gesturesEnabled: false
       }
+    }, 
+    logout: {
+      screen: MemberLoginScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
     },
     MemberInvite: {
       screen: MemberInviteScreen,

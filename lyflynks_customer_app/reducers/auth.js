@@ -66,14 +66,14 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        member_account: {}
+        // member_account: {}
       };
 
     case MEMBER_ACCOUNT_LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        member_account: action.data,
+         member_account: {'success':true},
         username: "",
         password: ""
       };

@@ -5,8 +5,11 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Image
+  Image, 
+  AsyncStorage,
+  Alert
 } from 'react-native'; 
+
 
 import { Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -18,7 +21,8 @@ import { member_account } from '../actions/auth';
 
 import GradientNavigationBar from '../components/styleguide/GradientNavigationBar';
 import CommonStyles from '../styles/CommonStyles'; 
-import email_invitations from '../reducers/email_invitations';
+import email_invitations from '../reducers/email_invitations'; 
+import {BackHandler} from 'react-native';
 
 const stateMap = (store) => { 
   console.log('test store');
@@ -45,17 +49,34 @@ class MemberAccountLogin extends Component {
   };
  
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {  
     if (nextProps.member_account.success) {
       this.props.navigation.navigate('ActivityLogScreen');
     }
-  }
+  } 
+ 
+  componentDidMount(){  
+ 
+    const { dispatch, member } = this.props;
+        const token = member.data;  
+        if (token) dispatch(list(token));
 
-    componentDidMount() {
-      console.log("componentDidMount");
-      const { dispatch, member } = this.props;
-      const token = member.data; 
-    if (token) dispatch(list(token));
+
+    //   AsyncStorage.getItem('allData') 
+    // .then((res) => { 
+    //   if(res!=null){
+       
+    //     console.log('logged in account_list',res.data);   
+    //     console.log(res);  
+
+    //   }else{
+    //     console.log(this.props);
+
+    //     const { dispatch, member } = this.props;
+    //     const token = member.data;  
+    //     if (token) dispatch(list(token));
+    //   }
+    // });  
   }
 
   logIn = (account_id) => { 
@@ -75,11 +96,17 @@ class MemberAccountLogin extends Component {
   showMenu = () => {
     this.props.navigation.navigate('MainMenuScreen')
   }
+  
+
+
   render() {
-    const { account_list } = this.props;
-    let accountList;
+    const { account_list } = this.props;  
+    let accountList;  
     if (account_list.success) {
       accountList = account_list.data.map((account, index) => {
+       
+        let names = (account.names).join(' & '); 
+        let shortNames = (account.shortNames).join(''); 
         return (
             <TouchableOpacity
               key={index}
@@ -90,12 +117,11 @@ class MemberAccountLogin extends Component {
             style={styles.inlineLayout}  
             small
               rounded
-              title={account.shortName} 
+              title={shortNames} 
               onPress={() => console.log("Works!")} 
             /> 
             <View style={styles.viewLayout} >
-              <Text style={styles.txtcolors}>{account.fullName}</Text>
-              <Text style={styles.txtcolors}>{account.email}</Text>
+              <Text style={styles.txtcolors}>{names}</Text> 
             </View>  
             </TouchableOpacity>
            
@@ -109,7 +135,8 @@ class MemberAccountLogin extends Component {
         navigation={this.props.navigation}
         titleText='Select Account'
         />
-        <ScrollView contentContainerStyle={styles.container}>
+        
+         <ScrollView contentContainerStyle={styles.container}>
           {accountList}
         </ScrollView> 
       </View>
@@ -123,8 +150,14 @@ const styles = StyleSheet.create({
   txtcolors:{
     color:'#fff',
     flexDirection: 'row',
-    flexWrap:'wrap'
-
+    flexWrap:'wrap',
+    marginTop:12
+  }, 
+  logoutBtn:{
+    position: 'absolute',
+    right: 8,
+    top: 40,
+    zIndex: 1000000
   },
   moreBtn: {
     position: 'absolute',
