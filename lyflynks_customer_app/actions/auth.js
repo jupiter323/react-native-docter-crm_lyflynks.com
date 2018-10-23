@@ -32,7 +32,7 @@ export function updateLoginForm(text, field) {
 
 export function member(data) {
   return async dispatch => {
-
+    await AsyncStorage.removeItem('isLogin');
     dispatch(authMember()); 
     try {
       const response = await auth.member(data);

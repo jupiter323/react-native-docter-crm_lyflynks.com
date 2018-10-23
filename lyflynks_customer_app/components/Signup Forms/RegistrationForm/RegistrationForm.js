@@ -31,6 +31,8 @@ class RegistrationForm extends React.Component {
 
   async componentDidMount() {  
       
+    await AsyncStorage.setItem('isLogin', null); 
+
     AsyncStorage.getItem('isLogin') 
     .then((res) => { 
       if(res!=null){

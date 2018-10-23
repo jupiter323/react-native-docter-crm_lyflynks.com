@@ -31,7 +31,7 @@ class MemberLogin extends Component {
     .then((res) => { 
       console.log('res',res);
       if(res!=null){ 
-        this.props.navigation.navigate("MemberAccountLogin");
+        this.props.navigation.navigate("MemberLogin");
       }else{
         this.props.navigation.navigate("MemberLogin"); 
       }

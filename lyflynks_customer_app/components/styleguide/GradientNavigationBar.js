@@ -29,8 +29,10 @@ export default class GradientNavigationBar extends React.Component {
     super(props);
     this.state = {
       logout: "", 
+      login: {}
     };
   }
+
 
   static propTypes= {
     titleText: PropTypes.string,
@@ -101,11 +103,13 @@ export default class GradientNavigationBar extends React.Component {
     } 
   }
 
-  _handleLogout = () => { 
+  _handleLogout = async() => {
     console.log('logout');
     AsyncStorage.clear(); 
+    AsyncStorage.removeItem('isLogin');  
+    AsyncStorage.setItem('isLogin', null); 
     this.props.navigation.navigate('MemberLogin'); 
-    }
+        }
 
   render() {
  
