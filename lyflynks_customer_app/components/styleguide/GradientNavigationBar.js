@@ -97,8 +97,8 @@ export default class GradientNavigationBar extends React.Component {
         ); 
     }else{
       this.setState({
-        height: 22,
-          width: 22,
+        height: 0,
+          width: 0,
       });
     } 
   }
@@ -111,9 +111,7 @@ export default class GradientNavigationBar extends React.Component {
     this.props.navigation.navigate('MemberLogin'); 
         }
 
-  render() {
- 
-
+  render() { 
     return (
       <View style={[styles.outerContainer, this.props.outerContainerStyle]}>
        <View style={{position:'absolute',right:3,zIndex:1,top:12}}> 
@@ -193,7 +191,7 @@ export default class GradientNavigationBar extends React.Component {
                     <View style={[styles.rightBtn, this.props.rightBtnStyle && this.props.rightBtnStyle]}>
                       <Image
                         source={button.buttonIcon}
-                        style={{right:0,zIndex:1}}
+                        style={{marginRight:13,zIndex:1}}
                       />
                     </View>
                   </TouchableOpacity>
@@ -221,6 +219,7 @@ export default class GradientNavigationBar extends React.Component {
     this.props.navigation.goBack();
   }
 }
+
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -282,8 +281,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    zIndex:1,
-    paddingHorizontal: 17,
+    paddingHorizontal: 7.5,
     ...Platform.select({
       ios: {
         paddingTop: STATUSBAR_HEIGHT,
@@ -298,5 +296,3 @@ const styles = StyleSheet.create({
 });
 
  
-
-

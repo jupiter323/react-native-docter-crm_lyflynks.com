@@ -32,14 +32,14 @@ class RegistrationForm extends React.Component {
   async componentDidMount() {  
       
     await AsyncStorage.setItem('isLogin', null); 
-
+ 
     AsyncStorage.getItem('isLogin') 
     .then((res) => { 
       if(res!=null){
         console.log('logged page');
-      //  this.props.navigation.navigate("MemberLogin");
+       this.props.navigation.navigate("MemberInvite");
       }else{
-       // this.props.navigation.navigate("MemberLogin");
+         this.props.navigation.navigate("MemberInvite");
         console.log('logg in page' );
       }
     }); 
