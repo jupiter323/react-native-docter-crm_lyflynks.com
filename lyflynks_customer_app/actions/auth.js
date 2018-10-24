@@ -18,6 +18,13 @@ export const MEMBER_ACCOUNT_LOGOUT = "MEMBER_ACCOUNT_LOGOUT";
 export const MEMBER_LOGOUT = "MEMBER_LOGOUT";
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_ACCOUNT_ID = 'SET_ACCOUNT_ID';
+export const LOGOUT = 'LOGOUT';
+
+export function makeLogout() {
+  return {
+    type: LOGOUT
+  };
+}
 
 export function updateLoginForm(text, field) {
   return dispatch => {
@@ -32,13 +39,14 @@ export function updateLoginForm(text, field) {
 
 export function member(data) {
   return async dispatch => {
-    await AsyncStorage.removeItem('isLogin');
+    AsyncStorage.removeItem('isLogin');
     dispatch(authMember()); 
     try {
       const response = await auth.member(data);
 
-       AsyncStorage.setItem('isLogin', response.data); 
-       AsyncStorage.setItem('allData', response); 
+       //AsyncStorage.setItem('isLogin', response.data); 
+       //AsyncStorage.setItem('allData', response); 
+       
 
       dispatch(authMemberSuccess(response));
       if(response.success === true) {

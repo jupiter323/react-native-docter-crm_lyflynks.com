@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { connect } from 'react-redux';
+import { makeLogout } from '../../actions/auth';
 
 import {
   deviceWidth,
@@ -24,7 +26,7 @@ import {
   fontFamily,
 } from '../../styles/Theme';
 
-export default class GradientNavigationBar extends React.Component {
+class GradientNavigationBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,8 +89,9 @@ export default class GradientNavigationBar extends React.Component {
 
   async componentDidMount(){
    
-   let user_token =  await AsyncStorage.getItem('isLogin'); 
-    if(user_token){
+   let user_token =  this.props.member; 
+
+    if(user_token.success){
       this.setState(
         {
           height: 22,
@@ -108,6 +111,7 @@ export default class GradientNavigationBar extends React.Component {
     AsyncStorage.clear(); 
     AsyncStorage.removeItem('isLogin');  
     AsyncStorage.setItem('isLogin', null); 
+    this.props.makeLogout();
     this.props.navigation.navigate('MemberLogin'); 
         }
 
@@ -219,6 +223,20 @@ export default class GradientNavigationBar extends React.Component {
     this.props.navigation.goBack();
   }
 }
+
+const mapStateToProps = (state) => ({
+  member : state.auth.member
+});
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    makeLogout() {
+      dispatch(makeLogout());
+    }
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(GradientNavigationBar);
 
 
 const styles = StyleSheet.create({

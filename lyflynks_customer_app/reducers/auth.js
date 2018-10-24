@@ -8,7 +8,8 @@ import {
   MEMBER_ACCOUNT_LOGIN,
   MEMBER_ACCOUNT_LOGIN_SUCCESS,
   MEMBER_ACCOUNT_LOGIN_FAILURE,
-  MEMBER_ACCOUNT_LOGOUT
+  MEMBER_ACCOUNT_LOGOUT,
+  LOGOUT
 } from "../actions/auth";
 import { MEMBER_ACCOUNT_CREATION_SUCCESS, UPDATE_USER_CREDENTIALS } from "../actions/accounts";
 
@@ -31,6 +32,8 @@ export default function authReducer(state = initialState, action) {
         ...state,
         username: action.text
       };
+    case LOGOUT:
+      return initialState;
 
     case MEMBER_UPDATE_PASSWORD:
       return {
