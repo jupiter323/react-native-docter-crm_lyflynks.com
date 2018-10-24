@@ -81,7 +81,7 @@ export default class GradientNavigationBar extends React.Component {
     },
     rightBtnStyle: {
       height: NAV_HEIGHT,
-      paddingHorizontal: 7.5,
+      paddingHorizontal: 10.5,
     },
   };
 
@@ -91,14 +91,14 @@ export default class GradientNavigationBar extends React.Component {
     if(user_token){
       this.setState(
         {
-          height: 17,
-          width: 17,
+          height: 22,
+          width: 22,
         }
         ); 
     }else{
       this.setState({
-        height: 0,
-          width: 0,
+        height: 22,
+          width: 22,
       });
     } 
   }
@@ -116,13 +116,13 @@ export default class GradientNavigationBar extends React.Component {
 
     return (
       <View style={[styles.outerContainer, this.props.outerContainerStyle]}>
-       <View style={{position:'absolute',right:0,zIndex:1,top:15}}> 
+       <View style={{position:'absolute',right:3,zIndex:1,top:12}}> 
        <TouchableOpacity
                 onPress={this._handleLogout.bind(this)}
               >
           <Image 
-            source={require('../../assets/images/logout.png')} 
-            style={{backgroundColor: 'transparent',width:this.state.width,height:this.state.height}}
+            source={require('../../assets/images/logout24x24.png')} 
+            style={{width:this.state.width,height:this.state.height}}
 
             /> 
       </TouchableOpacity>
@@ -173,7 +173,7 @@ export default class GradientNavigationBar extends React.Component {
             {this.props.titleImg != null && this.props.titleText == null &&
               <Image
                 source={this.props.titleImg}
-                style={{width: this.props.titleImgStyle.width, height: this.props.titleImgStyle.height}}
+                style={{width: 'auto', height: this.props.titleImgStyle.height}}
               />
             }
             {this.props.titleText != null && this.props.titleImg == null &&
@@ -193,7 +193,7 @@ export default class GradientNavigationBar extends React.Component {
                     <View style={[styles.rightBtn, this.props.rightBtnStyle && this.props.rightBtnStyle]}>
                       <Image
                         source={button.buttonIcon}
-                        style={{width: button.buttonWidth, height: button.buttonHeight,right:8}}
+                        style={{right:0,zIndex:1}}
                       />
                     </View>
                   </TouchableOpacity>
@@ -282,7 +282,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingHorizontal: 7.5,
+    zIndex:1,
+    paddingHorizontal: 17,
     ...Platform.select({
       ios: {
         paddingTop: STATUSBAR_HEIGHT,
