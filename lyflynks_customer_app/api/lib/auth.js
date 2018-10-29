@@ -8,9 +8,11 @@ export default {
     return makeRequest([base, auth.members], "POST", data);
   },
   async member_account(data, token) {
+   
     return makeRequest([base, auth.members_accounts], "GET", data, token);
   },
   async member_account(data, token) {
+    
     return makeRequest([base, auth.members_accounts], "POST", data, token);
   },
   async reset_password(data) {

@@ -66,19 +66,19 @@ export default function authReducer(state = initialState, action) {
       };
 
     case MEMBER_ACCOUNT_LOGIN:
+    console.log(MEMBER_ACCOUNT_LOGIN);
+    console.log(action);
       return {
         ...state,
         isFetching: true,
         // member_account: {}
       };
 
-    case MEMBER_ACCOUNT_LOGIN_SUCCESS:
+    case MEMBER_ACCOUNT_LOGIN_SUCCESS: 
       return {
         ...state,
         isFetching: false,
-         member_account: {'success':true},
-        username: "",
-        password: ""
+         member_account: action.data, 
       };
     case MEMBER_ACCOUNT_LOGOUT:
       return {
@@ -118,6 +118,9 @@ export default function authReducer(state = initialState, action) {
         member: action.data
       };
     case SET_ACCOUNT_ID:
+    console.log('SET_ACCOUNT_ID');
+    console.log(action);
+    
       return {
         ...state,
         account_id: action.account_id

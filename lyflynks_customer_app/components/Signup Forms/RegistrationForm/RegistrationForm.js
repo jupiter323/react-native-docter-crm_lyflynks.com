@@ -25,12 +25,14 @@ import ImageButton from "../../../components/ImageButton";
 
 const mapStateToProps = state => {
   return { ...state.member_form };
-};
+}; 
 
 class RegistrationForm extends React.Component {
 
   async componentDidMount() {  
-      
+    
+    console.log(this.props);
+    
     await AsyncStorage.setItem('isLogin', null); 
  
     AsyncStorage.getItem('isLogin') 
@@ -45,7 +47,6 @@ class RegistrationForm extends React.Component {
     }); 
 
   }
-
 
   render() {
     const { instructions, renderInstructions, proceedAhead } = this.props;

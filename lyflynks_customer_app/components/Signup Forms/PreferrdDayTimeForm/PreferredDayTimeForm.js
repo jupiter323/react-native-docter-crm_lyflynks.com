@@ -23,15 +23,13 @@ class PrefferedDayTimeForm extends React.Component {
     );
   }
 
-  componentDidMount() { 
-    console.log(1);
+  componentDidMount() {  
     this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
       BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
     );
   }
 
-  onBackButtonPressAndroid = () => {
-    console.log(2);
+  onBackButtonPressAndroid = () => { 
     if (this.isSelectionModeEnabled()) { 
       this.disableSelectionMode();
       return true;
@@ -40,14 +38,12 @@ class PrefferedDayTimeForm extends React.Component {
     }
   };
 
-  componentWillUnmount() { 
-    console.log(3);
+  componentWillUnmount() {  
     this._didFocusSubscription && this._didFocusSubscription.remove();
     this._willBlurSubscription && this._willBlurSubscription.remove();
   }
 
-  componentDidUpdate(prevProps) {
-    console.log(4);
+  componentDidUpdate(prevProps) { 
     const { accountCreated, navigation } = this.props;
     if (
       prevProps.accountCreated != accountCreated &&
@@ -64,7 +60,7 @@ class PrefferedDayTimeForm extends React.Component {
       proceedAhead,
       creatingAccount
     } = this.props;
-    //    {renderInstructions(instructions)}
+        {renderInstructions(instructions)}
     return (
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}

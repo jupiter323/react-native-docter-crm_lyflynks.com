@@ -16,7 +16,7 @@ import com.android.build.OutputFile
  *   bundleAssetName: "index.android.bundle",
  *
  *   // the entry file for bundle generation
- *   entryFile: "index.android.js",
+ *   entryFile: "index.andabiFiltersroid.js",
  *
  *   // whether to bundle JS and assets in debug mode
  *   bundleInDebug: false,
@@ -98,7 +98,7 @@ android {
         config {
             keyAlias 'keyalias'
             keyPassword 'motif@123'
-            storeFile file('/var/www/html/key/key.jks')
+            storeFile file('/home/mw59/Desktop/key.jks')
             storePassword 'motif@123'
         }
     }

@@ -20,7 +20,7 @@ class MemberLogin extends Component {
         
       } else {
         
-        this.props.navigation.navigate("MemberAccountLogin");
+        this.props.navigation.navigate("MemberAccountLogin"); 
       }
     }
   }

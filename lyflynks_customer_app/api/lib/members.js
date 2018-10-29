@@ -16,7 +16,11 @@ export default {
   async memberInvite(data) {
     return makeRequest([memberInvite], 'POST', data)
   },
-  sendInvites(invites) {
-    return makeRequest([baseForMemberInvite], "POST", invites);
+  async sendInvites(data) {
+    return makeRequest([baseForMemberInvite], "POST", data);
+  },
+  async sendInvites1(data) {
+    console.log('baseForMemberInvite',baseForMemberInvite);
+    return makeRequest([baseForMemberInvite], "POST", data);
   }
 };

@@ -54,9 +54,16 @@ class MemberAccountLogin extends Component {
       this.props.navigation.navigate('ActivityLogScreen');
     }
   } 
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', function(){
+      return true;
+    });
+  }
  
   componentDidMount(){  
- 
+    
+
     const { dispatch, member } = this.props;
         const token = member.data;  
         if (token) dispatch(list(token));
@@ -81,7 +88,8 @@ class MemberAccountLogin extends Component {
 
   logIn = (account_id) => { 
     const { dispatch, username, password, member } = this.props;
-    const token = member.data; 
+    const token = member.data;  
+
     dispatch(member_account({
       username,
       password,

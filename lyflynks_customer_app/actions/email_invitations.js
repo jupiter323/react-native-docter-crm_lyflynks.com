@@ -8,11 +8,28 @@ export const SENDING_EMAIL_INVITATIONS = "sending_email_invitations";
 export const EMAIL_INIVITATIONS_SENT = "email_invitations_sent";
 export const EMAIL_INIVITATIONS_FAILURE = "email_invitations_failure";
 
-export const sendAccountInvite = data => {
+export const sendAccountInvite = (data) => {
   return async dispatch => {
     try {
+      console.log('function sendAccountInvite called');
       dispatch(memberAccountSuccess(await members.sendInvites(data)));
+      console.log('sendAccountInvite end');
     } catch (err) {
+      console.log(err);
+      dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
+    }
+  };
+};
+ 
+
+export const sendAccountInvite1 = (data,token) => {
+  return async dispatch => {
+    try {
+      console.log('invite member function called');
+      dispatch(memberAccountSuccess(await members.sendInvites(data,token)));
+    } catch (err) {
+      console.log('Error Return');
+      console.log(err);
       dispatch({ type: EMAIL_INIVITATIONS_FAILURE });
     }
   };
@@ -83,6 +100,7 @@ export const updateEmailErrorMessage = ({ id, error }) => {
 };
 
 function memberAccountSuccess(errorEmails) {
+  console.log(errorEmails);
   if (errorEmails.success != true) {
     return {
       type: EMAIL_INIVITATIONS_FAILURE,

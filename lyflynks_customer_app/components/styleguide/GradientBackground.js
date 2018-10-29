@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PrimeButton from '../../components/styleguide/PrimeButton';
@@ -109,6 +110,11 @@ export default class GradientBackground extends React.Component{
     },
   };
 
+InviteMember(){
+  this.props.navigation.navigate('MemberInvite');
+ // Alert.alert('invite member');
+}
+
   render() {
     const shadowOpt = {
       btnWidth: 260,
@@ -129,6 +135,10 @@ export default class GradientBackground extends React.Component{
       },
       color: colorSwatch.white,
     }
+
+     
+    
+
     return (
         <LinearGradient
           start={this.props.gradientBgStyle.start}
@@ -188,7 +198,7 @@ export default class GradientBackground extends React.Component{
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>MEMBER CENTER</Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopLeft]}
                 onPress={() => true}>
@@ -196,8 +206,8 @@ export default class GradientBackground extends React.Component{
                   <CompanionIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>COMPANION SERVICES</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </TouchableOpacity> */}
+              {/* <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopRight]}
                 onPress={() => true}>
@@ -205,8 +215,8 @@ export default class GradientBackground extends React.Component{
                   <HealthIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>MEDICAL APPOINTMENT</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </TouchableOpacity> */}
+              {/* <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerBottomLeft]}
                 onPress={() => true}>
@@ -223,13 +233,13 @@ export default class GradientBackground extends React.Component{
                   <TransportIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>TRANSPORT</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={styles.avatarContainer}>
               <PrimeButton
                 setting={shadowOpt}
                 btnText="Invite Member"
-                onPressButton={() => this.props.navigation.navigate('MemberInviteScreen')}>
+                onPressButton={() => this.InviteMember()}>
               </PrimeButton>
             </View>
           </ScrollView>

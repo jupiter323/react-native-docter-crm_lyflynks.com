@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity,Alert } from "react-native";
 import { Input } from "../components/UI/Input";
 import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
@@ -19,8 +19,17 @@ const stateMap = (store) => {
 
 class MemberInviteScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
+    console.log('invite member function called successfully');
+    console.log(this.props);
+    if(nextProps.invitationResponse !== "success"){
+      this.setState({error:"Member already invited!"}); 
+    }
+
     if (nextProps.invitationResponse === "success") {
-      this.props.navigation.navigate("Activities");
+      Alert.alert("Member successfully invited.");
+
+      this.props.navigation.navigate("ActivityLogScreen");
+      
     }
   }
 
@@ -36,21 +45,40 @@ class MemberInviteScreen extends React.Component {
         <Icon style={{ marginLeft: 15, color: "#fff" }} name={"bars"} size={25} />
       </TouchableOpacity>
     )
-  });
+  }); 
 
   constructor(props) {
     console.log("member invitescreen");
     super(props);
-    this.state = { email: "" };
+    this.state = { email: "",error:"" };
+
+    
   }
 
   invite = emailText => {
-    const { email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
-    sendAccountInvite({ token: this.props.member_account.data, email: emailText });
+    //dispatch
+    Alert.alert(this.props.member_account.data);
+    const {   email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
+     sendAccountInvite({ token: this.props.member_account.data, email: emailText });  
+    console.log('invite token:',this.props.member_account.data); 
+    console.log('invite email:',emailText); 
   };
 
-  componentDidMount() {
+  InviteMember = (emailText) => { 
+    const { email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
+    const token = member_account.data; 
+    console.log('errorMessage',errorMessage);
+    if(!emailText){
+      this.setState({error:"Please enter email id"}); 
+    } 
+    sendAccountInvite({ token: this.props.member_account.data, email: emailText });  
+  }
+
+
+
+  componentDidMount() { 
     const { dispatch, member } = this.props;
+    console.log('member');
     console.log(member);
   }
 
@@ -59,17 +87,19 @@ class MemberInviteScreen extends React.Component {
       this.props.navigation.navigate("DrawerToggle");
     };
     return (
-      <View style={styles.container}>
+      <View style={styles.container}> 
         <Text style={styles.infoText}>
           Inviting another family member to assist with the care of your aging parent is simple! Enter their email
           address below and click the invite member button
         </Text>
         <Input
+        style={{borderRadius:35,borderColor:"#00A68C"}}
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
           placeholder="lyflynks@gmail.com"
         />
-        <TouchableOpacity style={styles.button} onPress={() => this.invite(this.state.email)}>
+       <Text style={{color:"red",margin:5}}> {this.state.error} </Text>
+        <TouchableOpacity style={styles.button} onPress={() => this.InviteMember(this.state.email)}>
           <Text style={styles.buttonText}>Invite Member</Text>
         </TouchableOpacity>
         <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>
@@ -83,7 +113,8 @@ const styles = {
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor:"#FFFFFF"
   },
   button: {
     backgroundColor: "#00A68C",
@@ -100,9 +131,10 @@ const styles = {
     color: "#fff"
   },
   infoText: {
-    margin: 15,
+    margin: 25,
     alignSelf: "center",
-    fontSize: 18
+    fontSize: 18,
+    color:"#000"
   },
   errorMessage: {
     color: "red",

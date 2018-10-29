@@ -40,7 +40,8 @@ const stateMap = (store) => {
 
 
   async componentDidMount() {
-  
+    console.log('activity login screen');  
+  console.log(this.props);
   }
 
   showMenu = () => {
