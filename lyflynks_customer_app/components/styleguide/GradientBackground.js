@@ -198,7 +198,7 @@ InviteMember(){
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>MEMBER CENTER</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity
+              <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopLeft]}
                 onPress={() => true}>
@@ -206,8 +206,8 @@ InviteMember(){
                   <CompanionIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>COMPANION SERVICES</Text>
-              </TouchableOpacity> */}
-              {/* <TouchableOpacity
+              </TouchableOpacity>
+              <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopRight]}
                 onPress={() => true}>
@@ -215,8 +215,8 @@ InviteMember(){
                   <HealthIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>MEDICAL APPOINTMENT</Text>
-              </TouchableOpacity> */}
-              {/* <TouchableOpacity
+              </TouchableOpacity>
+              <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerBottomLeft]}
                 onPress={() => true}>
@@ -233,7 +233,7 @@ InviteMember(){
                   <TransportIcon {...iconsProps} />
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>TRANSPORT</Text>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
             </View>
             <View style={styles.avatarContainer}>
               <PrimeButton
@@ -298,8 +298,8 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 5,
+    marginBottom: 5,
   },
   avatarNameContainer: {
     flexDirection: 'row',
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
   avatarImage: {
     width: 80,
     height: 80,
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   titleCol: {
     flexDirection: 'row',
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   serviceIconWrapper: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: 15
+    padding: 10
   },
   serviceIconCircle: {
     backgroundColor: colorSwatch.indianKhaki,
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 15
+    marginBottom: 10
   },
   serviceIconContainer: {
     width: (deviceWidth - 30) / 2,
