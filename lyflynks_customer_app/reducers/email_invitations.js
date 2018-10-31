@@ -4,7 +4,8 @@ import {
   DELETE_EMAIL,
   SENDING_EMAIL_INVITATIONS,
   EMAIL_INIVITATIONS_SENT,
-  EMAIL_INIVITATIONS_FAILURE
+  EMAIL_INIVITATIONS_FAILURE,
+  EMAIL_INIVITATIONS_UPDATE
 } from "../actions/email_invitations";
 import { updateErrorMessage } from "../actions/member_form";
 
@@ -76,7 +77,15 @@ export default (state = INITITAL_STATE, action) => {
       return {
         ...state,
         invitationResponse: "failure",
-        sendingInvitations: false
+        sendingInvitations: false, 
+      };
+
+      case EMAIL_INIVITATIONS_UPDATE:
+      return {
+        ...state,
+        invitationResponse: null,
+        sendingInvitations: false,
+        errorEmails:[]
       };
 
     case "UPDATE_EMAIL_VALIDATION_MESSAGE":

@@ -111,8 +111,7 @@ export default class GradientBackground extends React.Component{
   };
 
 InviteMember(){
-  this.props.navigation.navigate('MemberInvite');
- // Alert.alert('invite member');
+  this.props.navigation.navigate('MemberInvite'); 
 }
 
   render() {
@@ -149,7 +148,7 @@ InviteMember(){
           <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{right: 30,position: 'absolute', top: 60, zIndex: 100  }}>
             <CloseIcon {...editIconProps} />
           </TouchableOpacity>
-        <ScrollView>
+        <ScrollView style={styles.resetHeight}>
             <View style={styles.avatarContainer}>
               <Text style={[this.props.titleTextStyle, styles.titleText]}>LyfLynks</Text>
               <Image
@@ -234,14 +233,21 @@ InviteMember(){
                 </View>
                 <Text style={[this.props.titleTextStyle, styles.serviceIconText]}>TRANSPORT</Text>
               </TouchableOpacity>
+              <View style={styles.avatarBtnContainer}>
+                <PrimeButton
+                  setting={shadowOpt}
+                  btnText="Invite Member"
+                  onPressButton={() => this.InviteMember()}
+                  >
+                </PrimeButton>
+
+                
+
+
+              </View>
+              
             </View>
-            <View style={styles.avatarContainer}>
-              <PrimeButton
-                setting={shadowOpt}
-                btnText="Invite Member"
-                onPressButton={() => this.InviteMember()}>
-              </PrimeButton>
-            </View>
+           
           </ScrollView>
         </LinearGradient>
     );
@@ -290,6 +296,11 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  resetHeight:{
+   height: deviceHeight-300,
+   flex:1,
+   flexDirection:'column'
+  },
   innerContainer: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -300,6 +311,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
     marginBottom: 5,
+  },
+  avatarBtnContainer: {  
+    marginVertical:10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:'80%',
+    marginRight:'10%',
+    marginLeft:'10%',
+    padding:5
   },
   avatarNameContainer: {
     flexDirection: 'row',
@@ -346,7 +367,8 @@ const styles = StyleSheet.create({
   serviceIconWrapper: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: 10
+    padding: 10,
+    height:deviceHeight-100
   },
   serviceIconCircle: {
     backgroundColor: colorSwatch.indianKhaki,

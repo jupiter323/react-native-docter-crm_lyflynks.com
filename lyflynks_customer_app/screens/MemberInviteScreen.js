@@ -16,20 +16,16 @@ const stateMap = (store) => {
   };
 };
 
-
 class MemberInviteScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log('invite member function called successfully');
-    console.log(this.props);
-    if(nextProps.invitationResponse !== "success"){
-      this.setState({error:"Member already invited!"}); 
-    }
-
+    console.log(nextProps);
+    
     if (nextProps.invitationResponse === "success") {
       Alert.alert("Member successfully invited.");
-
       this.props.navigation.navigate("ActivityLogScreen");
-      
+    }else if(nextProps.invitationResponse === "failure"){
+      this.setState({error:"Member already invited!"});  
     }
   }
 
@@ -50,9 +46,7 @@ class MemberInviteScreen extends React.Component {
   constructor(props) {
     console.log("member invitescreen");
     super(props);
-    this.state = { email: "",error:"" };
-
-    
+    this.state = { email: "",error:"" };  
   }
 
   invite = emailText => {
@@ -65,11 +59,13 @@ class MemberInviteScreen extends React.Component {
   };
 
   InviteMember = (emailText) => { 
+
     const { email, sendAccountInvite, member_account, errorMessage, invitationResponse } = this.props;
     const token = member_account.data; 
     console.log('errorMessage',errorMessage);
     if(!emailText){
       this.setState({error:"Please enter email id"}); 
+      return false;
     } 
     sendAccountInvite({ token: this.props.member_account.data, email: emailText });  
   }

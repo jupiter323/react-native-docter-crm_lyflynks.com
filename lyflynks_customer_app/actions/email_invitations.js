@@ -7,11 +7,13 @@ export const DELETE_EMAIL = "delete_email";
 export const SENDING_EMAIL_INVITATIONS = "sending_email_invitations";
 export const EMAIL_INIVITATIONS_SENT = "email_invitations_sent";
 export const EMAIL_INIVITATIONS_FAILURE = "email_invitations_failure";
+export const EMAIL_INIVITATIONS_UPDATE = "email_invitations_update";
 
 export const sendAccountInvite = (data) => {
   return async dispatch => {
     try {
-      console.log('function sendAccountInvite called');
+      dispatch({ type: EMAIL_INIVITATIONS_UPDATE });
+
       dispatch(memberAccountSuccess(await members.sendInvites(data)));
       console.log('sendAccountInvite end');
     } catch (err) {
@@ -100,6 +102,7 @@ export const updateEmailErrorMessage = ({ id, error }) => {
 };
 
 function memberAccountSuccess(errorEmails) {
+  console.log("==errorEmails==");
   console.log(errorEmails);
   if (errorEmails.success != true) {
     return {
