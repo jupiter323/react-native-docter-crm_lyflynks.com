@@ -16,6 +16,7 @@ import ActivitiesAlertsScreen from "../screens/ActivitiesAlertsScreen";
 import CallOrderScreen from '../screens/AccountsCallOrderScreen';
 import MemberInviteScreen from '../screens/MemberInviteScreen';
 import DatePicker from '../components/DatePicker.js';
+import { CheckInDetailsScreen, CheckInFormScreen } from '../screens/CheckIn';
 
 const tabNavigatorConfig = {
   tabBarPosition: "top",
@@ -58,6 +59,13 @@ export const ActivityLog = TabNavigator(tabRouteConfig, tabNavigatorConfig);
 
 const Navigation = StackNavigator(
   {
+    CheckInFormScreen: {
+      screen: CheckInFormScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
     MemberLogin: {
       screen: MemberLoginScreen,
       navigationOptions: {
@@ -89,7 +97,7 @@ const Navigation = StackNavigator(
       screen: LoginHelpScreen
     },
     MemberAccountLogin: {
-      screen: MemberAccountLoginScreen
+      screen: MemberAccountLoginScreen,
     },
     ActivityLogScreen: {
       screen: ActivityLogScreen,
@@ -100,6 +108,13 @@ const Navigation = StackNavigator(
     },
     MainMenuScreen: {
       screen: MainMenuScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    CheckInDetailsScreen: {
+      screen: CheckInDetailsScreen,
       navigationOptions: {
         header: null,
         gesturesEnabled: false

@@ -110,9 +110,13 @@ export default class GradientBackground extends React.Component{
     },
   };
 
-InviteMember(){
-  this.props.navigation.navigate('MemberInvite'); 
-}
+  InviteMember () {
+    this.props.navigation.navigate('MemberInvite'); 
+  }
+
+  handelOnCheckInPress = () => {
+    this.props.navigation.navigate('CheckInFormScreen');
+  }
 
   render() {
     const shadowOpt = {
@@ -134,9 +138,6 @@ InviteMember(){
       },
       color: colorSwatch.white,
     }
-
-     
-    
 
     return (
         <LinearGradient
@@ -218,7 +219,7 @@ InviteMember(){
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerBottomLeft]}
-                onPress={() => true}>
+                onPress={this.handelOnCheckInPress}>
                 <View style={styles.serviceIconCircle}>
                   <CheckInIcon {...iconsProps} />
                 </View>

@@ -28,7 +28,7 @@ export default class PrimeModal extends React.Component {
         visible={this.props.modalVisible}
         onRequestClose={this.props.onRequestClose}
       >
-        <View style={[this.props.containerStyle, styles.container]}>
+        <View style={[styles.container, this.props.containerStyle,]}>
           <View style={[this.props.innerContainerStyle, styles.innerContainer]}>
             {this.props.body}
           </View>

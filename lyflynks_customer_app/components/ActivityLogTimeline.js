@@ -84,7 +84,8 @@
 		);
 	  }
 	   onEventPress(event, taskId, status){
-		  var data = this.state.data.slice();
+			// console.log(event, taskId, status, 'onEventPress');
+			  var data = this.state.data.slice();
 		var record = data.filter(rec => rec.taskId === taskId)[0];
 		var tasks = this.state.tasks || {};
 		  if (event === 'showdismiss') {
@@ -96,14 +97,21 @@
 		  tasks[taskId] = status;
 		  this.updateTaskMap(tasks);
 		  }
-      
+			
+			
       
 		  this.setState({data : data, 'tasks': tasks});
 	  }
 
 	  updateTaskMap(taskMap) {
 		AsyncStorage.setItem('TASKS', JSON.stringify(taskMap)).then(() => {});
-	  }
+		}
+		
+		onRowPress = (data) => {
+			if (data.type === 'check_in') {
+				this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id || 1002 });
+			}
+		}
 
 	  renderDetail(rowData, sectionID, rowID) {
 		let activity_icon = null;
@@ -270,7 +278,7 @@
 			  innerCircle={'dot'}
 			  separator={true}
 			  dotColor={colorSwatch.persianGreen}
-			  onEventPress={this.onEventPress}
+			  onEventPress={this.onRowPress}
 			  showTime={false}
 			  renderDetail={this.renderDetail}
 			  enableEmptySections

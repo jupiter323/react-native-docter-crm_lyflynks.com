@@ -98,7 +98,7 @@ android {
         config {
             keyAlias 'keyalias'
             keyPassword 'motif@123'
-            storeFile file('/home/mw59/Desktop/key.jks')
+            storeFile file('/home/roxiler/Desktop/key.jks')
             storePassword 'motif@123'
         }
     }

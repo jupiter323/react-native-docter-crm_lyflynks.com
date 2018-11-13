@@ -9,6 +9,7 @@ import {
   ALERT_ACTIVITIES_SUCCESS,
   ALERT_ACTIVITIES_FAILURE
 } from '../actions/activities';
+import { CHECK_IN_ADDED } from '../actions/check_in';
 
 const initialState = {
   upcoming: {},
@@ -17,6 +18,7 @@ const initialState = {
   completed: {},
   isFetching: false,
   error: {},
+  newAddedCheckIn: [],
 }
 
 export default function activitiesReducer(state = initialState, action) {
@@ -33,6 +35,12 @@ export default function activitiesReducer(state = initialState, action) {
         isFetching: false,
         upcoming: action.data,
         error: {},
+      }
+    
+    case CHECK_IN_ADDED:
+      return {
+        ...state,
+        newAddedCheckIn: [...state.newAddedCheckIn, { ...action.payload, type: 'check_in' }]
       }
 
     case UPCOMING_ACTIVITIES_FAILURE:

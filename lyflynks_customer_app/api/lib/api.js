@@ -1,6 +1,8 @@
 export async function makeRequest(route, method, data, token) {
   const url = route.reduce((a, b) => a.concat(b));
   const body = data ? JSON.stringify(data) : null;
+  console.log(token, url);
+
   let req;
   try {
     req = await fetch(url, {
@@ -62,6 +64,13 @@ export const auth = {
   forgot: "/forgot",
   reset: "/reset",
   logout: "/logout"
+};
+
+export const check_in_urls = {
+  fetchMembers: '/accounts/members',
+  members_account: '/members_accounts',
+  postCheckIn: '/activities/check_in',
+  fetchCheckIn: '/activities/',
 };
 
 export const members = {

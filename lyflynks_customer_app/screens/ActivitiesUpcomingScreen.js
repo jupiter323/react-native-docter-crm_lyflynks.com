@@ -21,9 +21,19 @@ import { memberLogout } from '../actions/auth';
 import Moment from 'moment';
 
 const stateMap = (store) => {
-  const { upcoming, isFetching, error } = store.activities;
+  const { upcoming, isFetching, error, newAddedCheckIn } = store.activities;
   const { member_account } = store.auth;
-  return { member_account, upcoming, isFetching, error };
+  return { member_account, upcoming, isFetching, error, newAddedCheckIn };
+};
+
+const fakeCheckInData = {
+  for_who: '',
+  status: 'U',
+  type: 'check_in',
+  when: null,
+  who: '',
+  taskId: '',
+  href: 'http://google.com',
 };
 
 
@@ -42,9 +52,9 @@ class ActivitiesUpcoming extends Component {
   }
 
   _renderContent () {
-    let { error, upcoming } = this.props
+    let { error, upcoming, navigation, newAddedCheckIn } = this.props
     if (upcoming.success) {
-      return <ActivitiesTimeline data={upcoming.data}/>
+      return <ActivitiesTimeline navigation={navigation} data={[ ...newAddedCheckIn.map(n => ({ ...fakeCheckInData, id: n.id })), ...upcoming.data ]}/>
     }
   }
 
