@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Provider } from "react-redux";
 import { AsyncStorage, Platform ,Alert, BackHandler } from "react-native";
 import store from "./store";
-import NavigatorService from "./Navigation/service/navigator";
-import Navigation from "./Navigation/navigationStack";
+import NavigatorService from "./navigationService";
+import Navigation from "./routes";
 
 import FCM, {  FCMEvent } from "react-native-fcm";
 
 import {YellowBox} from 'react-native';
 
-export default class LyfLynks_App extends Component {
+export default class LyfLynks_App extends React.Component {
 
-  constructor(props) {
+  constructor(props: any) {
     YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
     super(props);
   }
@@ -22,32 +22,24 @@ export default class LyfLynks_App extends Component {
     });
 
     try {
-      let result = await FCM.requestPermissions({
-        badge: false,
-        sound: true,
-        alert: true
-      });
+      let result = await FCM.requestPermissions();
       } catch (e) {
         console.error(e);
       }
       
       FCM.on(FCMEvent.RefreshToken, token => {
-        console.log("Custom Refreshed Token", token)
-      if (Platform.OS === "ios") {
-        AsyncStorage.setItem('device_token', token);
-      } 
-      else {
-         AsyncStorage.setItem('device_token', token);
-      }
-  });
-  
-    
+            console.log("Custom Refreshed Token", token)
+        if (Platform.OS === "ios") {
+            AsyncStorage.setItem('device_token', token);
+        } 
+        else {
+            AsyncStorage.setItem('device_token', token);
+        }
+    });
     
     AsyncStorage.setItem('has_device_token_been_posted', 'false', (error) => console.log(error));
-
   }
   
-
   render() {
     return (
       <Provider store={store}>
