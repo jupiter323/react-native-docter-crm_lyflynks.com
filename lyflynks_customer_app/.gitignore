@@ -1,15 +1,6 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# expo
-.expo/
-
 # OSX
 #
 .DS_Store
-yarn.lock
-../sketch
-
-
 
 # Xcode
 #
@@ -31,8 +22,6 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-
-
 # Android/IntelliJ
 #
 build/
@@ -41,44 +30,27 @@ build/
 local.properties
 *.iml
 
-# Gradle
-
-/build/
-
-/RNTester/android/app/build/
-
-/RNTester/android/app/gradle/
-
-/RNTester/android/app/gradlew
-
-/RNTester/android/app/gradlew.bat
-
-/ReactAndroid/build/
-
-# Buck
-.buckd
-buck-out
-/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
-/ReactAndroid/src/main/jni/prebuilt/lib/x86/
-/ReactAndroid/src/main/gen
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
 
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
 
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
 # Bundle artifact
 *.jsbundle
-
-# dependencies
-/node_modules
-
-# misc
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
