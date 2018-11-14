@@ -1,25 +1,17 @@
-import React, { Component } from 'react'; 
+import React from 'react'; 
 import {
   View,
-  Text,
   StyleSheet,
-  Picker,
-  ScrollView,
-  KeyboardAvoidingView,
   Image
 } from "react-native";
-import {Button } from "react-native-elements";
 
-export default class ImageButton extends React.Component {
+const ImageButton = () => (
+  <View> 
+    <Image source={require('images/forwardIcon.png')} style={styles.btnIcon} />
+  </View>
+);
 
-  render() {
-    return (
-        <View> 
-          <Image source={require('../assets/images/forwardIcon.png')} style={styles.btnIcon} />
-        </View>  
-      )
-    } 
-}
+export default ImageButton;
  
 const styles = StyleSheet.create({
  

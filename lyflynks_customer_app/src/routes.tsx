@@ -1,6 +1,6 @@
 import { Platform, Text, View } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
-import { Demo, MemberLogin } from './modules/Auth';
+import { MemberLogin, SignUp, SignupComplete } from './modules/Auth';
 // import MemberLoginScreen from "../screens/MemberLoginScreen";
 // import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 // import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
@@ -74,19 +74,19 @@ const Navigation = StackNavigator(
         gesturesEnabled: false
       }
     },
-    // Signup: {
-    //   screen: SignupScreen,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
-    // SignUpComplete: {
-    //   screen: SignupComplete,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
+    Signup: {
+      screen: SignUp,
+      navigationOptions: {
+        header: null
+      }
+    },
+    SignUpComplete: {
+      screen: SignupComplete,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
     // EmailInvite: {
     //   screen: InviteOthersForm,
     //   navigationOptions: {
@@ -165,13 +165,6 @@ const Navigation = StackNavigator(
     //     }
     //   }
     // }
-    demo: {
-          screen: Demo,
-          navigationOptions: {
-            header: null,
-            gesturesEnabled: false
-          }
-    },
   },
   {
     headerMode: "screen",
