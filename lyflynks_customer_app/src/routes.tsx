@@ -1,6 +1,9 @@
 import { Platform, Text, View } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
-import { MemberLogin, SignUp, SignupComplete } from './modules/Auth';
+import { MemberLogin, SignUp, SignupComplete, NewMemberWizard, MemberAccountLogin } from './modules/Auth';
+import { ActivityLogScreen, MainMenuScreen } from './modules/Activity';
+import { MemberInviteScreen } from './modules/Invite';
+import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
 // import MemberLoginScreen from "../screens/MemberLoginScreen";
 // import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
 // import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
@@ -60,13 +63,13 @@ const tabNavigatorConfig = {
 
 const Navigation = StackNavigator(
   {
-    // CheckInFormScreen: {
-    //   screen: CheckInFormScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
+    CheckInFormScreen: {
+      screen: CheckInFormScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
     MemberLogin: {
       screen: MemberLogin,
       navigationOptions: {
@@ -97,30 +100,30 @@ const Navigation = StackNavigator(
     // LoginHelp: {
     //   screen: LoginHelpScreen
     // },
-    // MemberAccountLogin: {
-    //   screen: MemberAccountLoginScreen,
-    // },
-    // ActivityLogScreen: {
-    //   screen: ActivityLogScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
-    // MainMenuScreen: {
-    //   screen: MainMenuScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
-    // CheckInDetailsScreen: {
-    //   screen: CheckInDetailsScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
+    MemberAccountLogin: {
+      screen: MemberAccountLogin,
+    },
+    ActivityLogScreen: {
+      screen: ActivityLogScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    MainMenuScreen: {
+      screen: MainMenuScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    CheckInDetailsScreen: {
+      screen: CheckInDetailsScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
     // login: {
     //   screen: CallOrderScreen,
     //   navigationOptions: {
@@ -128,43 +131,43 @@ const Navigation = StackNavigator(
     //     gesturesEnabled: false
     //   }
     // }, 
-    // logout: {
-    //   screen: MemberLoginScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
-    // MemberInvite: {
-    //   screen: MemberInviteScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
-    // NewMemberWizard: {
-    //   screen: NewMemberWizardScreen,
-    //   navigationOptions: {
-    //     title: "New Member Wizard",
-    //     headerLeft: null,
-    //     headerStyle: {
-    //       marginTop: Platform.OS === "android" ? 24 : 0,
-    //       backgroundColor: "#0E3A53",
-    //       shadowRadius: 5,
-    //       shadowOpacity: 0.11,
-    //       shadowOffset: {
-    //         height: 5,
-    //         width: 0
-    //       },
-    //       shadowColor: "#000"
-    //     },
-    //     headerTitleStyle: {
-    //       color: "#fff",
-    //       fontSize: 24,
-    //       fontWeight: "600"
-    //     }
-    //   }
-    // }
+    logout: {
+      screen: MemberLogin,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    MemberInvite: {
+      screen: MemberInviteScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    NewMemberWizard: {
+      screen: NewMemberWizard,
+      navigationOptions: {
+        title: "New Member Wizard",
+        headerLeft: null,
+        headerStyle: {
+          marginTop: Platform.OS === "android" ? 24 : 0,
+          backgroundColor: "#0E3A53",
+          shadowRadius: 5,
+          shadowOpacity: 0.11,
+          shadowOffset: {
+            height: 5,
+            width: 0
+          },
+          shadowColor: "#000"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 24,
+          fontWeight: "600"
+        }
+      }
+    }
   },
   {
     headerMode: "screen",

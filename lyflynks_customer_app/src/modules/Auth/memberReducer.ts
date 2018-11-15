@@ -8,7 +8,7 @@ import {
   
   // import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "../actions/accounts";
   
-  import { SET_USERNAME } from "./action";
+  import { SET_USERNAME } from "actions/auth";
   
   export const INITIAL_STATE = {
     firstName: "",

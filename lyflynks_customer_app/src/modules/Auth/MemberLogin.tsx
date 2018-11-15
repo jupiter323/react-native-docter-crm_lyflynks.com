@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import LoginForm from "./components/LoginForm";
 import LyfLynks_Logo from "components/LyfLynks_Logo";
-import { member } from "./action";
+import { member } from "actions/auth";
  
 const stateMap = (store) => {
   const { member, username, password, isFetching, error } = store.auth;

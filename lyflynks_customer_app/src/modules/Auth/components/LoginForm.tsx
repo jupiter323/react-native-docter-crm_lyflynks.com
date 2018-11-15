@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import { connect } from "react-redux";
-import { updateLoginForm } from "../action";
+import { updateLoginForm } from "actions/auth";
 
 import colors from "styles/colors";
 

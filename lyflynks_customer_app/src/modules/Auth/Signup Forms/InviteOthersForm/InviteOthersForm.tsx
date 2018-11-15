@@ -10,7 +10,7 @@ import {
   modifyEmailInvitations,
   sendEmailInvitations,
   updateEmailErrorMessage
-} from "../../emailInvitationAction";
+} from "actions/emailInvitationAction";
 
 const mapStateToProps = state => {
   return { ...state.email_invitations, ...state.member_form };
