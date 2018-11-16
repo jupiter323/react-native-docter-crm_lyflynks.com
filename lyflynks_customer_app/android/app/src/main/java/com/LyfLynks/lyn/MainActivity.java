@@ -1,4 +1,4 @@
-package com.lyn;
+package com.LyfLynks.lyn;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;

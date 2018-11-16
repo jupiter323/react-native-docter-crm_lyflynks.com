@@ -9,7 +9,7 @@ const logger = createLogger({ predicate: (getState, store) => __DEV__ });
 
 const middlewares = [
   thunk,
-  __DEV__ ? logger: null,
+  logger,
   ApiMiddleware,
 ];
 
