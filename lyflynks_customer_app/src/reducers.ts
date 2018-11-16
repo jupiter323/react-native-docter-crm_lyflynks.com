@@ -4,6 +4,7 @@ import { activities } from './modules/Activity';
 import { member_call_reducer as member_call } from './modules/CallOrder';
 import menu from 'reducers/menu';
 import loaders from 'reducers/loader';
+import errors from 'reducers/error';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   menu,
   member_call,
   loaders,
+  errors,
 });

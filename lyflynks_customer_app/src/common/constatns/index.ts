@@ -6,3 +6,5 @@ export const GET = 'GET';
 export const POST = 'POST';
 export const PATCH = 'PATCH';
 export const DELETE = 'DELETE';
+export const SHOW_ERROR = 'SHOW_ERROR';
+export const HIDE_ERROR = 'HIDE_ERROR';

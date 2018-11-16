@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import { BASE_URL, API, SHOW_LOADER, HIDE_LOADER } from 'constants';
+import { BASE_URL, API, SHOW_LOADER, HIDE_LOADER, SHOW_ERROR, HIDE_ERROR } from 'constants';
 
 const apiMiddleware = ({ dispatch }) => next => async (action) => {
     if (action.type !== API) {
