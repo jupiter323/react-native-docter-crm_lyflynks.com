@@ -6,7 +6,7 @@ import {
     EMAIL_INIVITATIONS_SENT,
     EMAIL_INIVITATIONS_FAILURE,
     EMAIL_INIVITATIONS_UPDATE
-  } from "actions/emailInvitationAction";
+  } from "actions/emailInvitation";
   
   const INITITAL_STATE = {
     count: 1,

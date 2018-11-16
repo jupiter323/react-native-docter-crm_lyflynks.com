@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -11,26 +11,18 @@ import {
   fontSize,
   fontFamily,
 } from 'styles/Theme';
-export default class SwipeoutButton extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={[styles.btnCont]}>
-        <Icon
-          name="md-close"
-          size={30}
-          color={'#fff'}
-          style={{backgroundColor: 'transparent'}}
-        />
-        <Text style={styles.btnText}>Delete</Text>
-      </View>
-    );
-  }
-}
+const SwipeoutButton = (props: any) => (
+    <View style={[styles.btnCont]}>
+      <Icon
+        name="md-close"
+        size={30}
+        color={'#fff'}
+        style={{backgroundColor: 'transparent'}}
+      />
+      {props.children}
+    </View>
+);
 
 const styles = StyleSheet.create({
   btnCont: {
@@ -49,3 +41,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default SwipeoutButton;
