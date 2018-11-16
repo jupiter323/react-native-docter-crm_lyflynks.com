@@ -3,6 +3,7 @@ import { AuthReducer, MemberFormReducer, EmaiInvitationReducer, MemberAccountRed
 import { activities } from './modules/Activity';
 import { member_call_reducer as member_call } from './modules/CallOrder';
 import menu from 'reducers/menu';
+import loaders from 'reducers/loader';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -11,5 +12,6 @@ export default combineReducers({
   members_accounts: MemberAccountReducer,
   activities,
   menu,
-  member_call
+  member_call,
+  loaders,
 });

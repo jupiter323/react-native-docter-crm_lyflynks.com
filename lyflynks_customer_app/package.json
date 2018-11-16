@@ -24,7 +24,8 @@
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "postinstall": "sed -i -e 's/props,/props/g' node_modules/react-native-scrollable-tab-view/SceneComponent.js",
-    "debug": "open -g 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
+    "debug": "open -g 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
+    "releaseAndroid": "cd android && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
