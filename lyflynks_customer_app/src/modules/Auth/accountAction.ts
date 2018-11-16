@@ -1,4 +1,4 @@
-import accounts  from "./accountApi";
+import accounts  from "apis/account";
 import _ from "lodash";
 
 export const CREATING_ACCOUNT = "creating_account";

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity,Alert } from "react-native";
 import Input  from "components/Input";
 import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
-import { sendAccountInvite } from "actions/emailInvitationAction";
+import { sendAccountInvite } from "actions/emailInvitation";
 
 const stateMap = (store) => {
   const { member, member_account } = store.auth;

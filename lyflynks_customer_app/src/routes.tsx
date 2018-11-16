@@ -1,65 +1,10 @@
 import { Platform, Text, View } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
-import { MemberLogin, SignUp, SignupComplete, NewMemberWizard, MemberAccountLogin } from './modules/Auth';
+import { MemberLogin, SignUp, SignupComplete, NewMemberWizard, MemberAccountLogin, LoginHelpScreen, InviteOthersForm } from './modules/Auth';
 import { ActivityLogScreen, MainMenuScreen } from './modules/Activity';
 import { MemberInviteScreen } from './modules/Invite';
 import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
-// import MemberLoginScreen from "../screens/MemberLoginScreen";
-// import MemberAccountLoginScreen from "../screens/MemberAccountLoginScreen";
-// import ActivitiesUpcomingScreen from "../screens/ActivitiesUpcomingScreen";
-// import ActivitiesCompletedScreen from "../screens/ActivitiesCompletedScreen";
-// import ActivityLogScreen from "../screens/ActivityLogScreen";
-// import MainMenuScreen from "../screens/MainMenuScreen";
-// import LoginHelpScreen from "../screens/LoginHelpScreen";
-// import SignupScreen from "../screens/SignupScreen";
-// import ResetPasswordScreen from "../screens/ResetPasswordScreen";
-// import { SignupComplete } from "../components/Signup Forms/SignupComplete/SignupComplete";
-// import  InviteOthersForm  from "../components/Signup Forms/InviteOthersForm/InviteOthersForm";
-// import NewMemberWizardScreen from "../screens/NewMemberWizard";
-// import ActivitiesAlertsScreen from "../screens/ActivitiesAlertsScreen";
-// import CallOrderScreen from '../screens/AccountsCallOrderScreen';
-// import MemberInviteScreen from '../screens/MemberInviteScreen';
-// import DatePicker from '../components/DatePicker.js';
-// import { CheckInDetailsScreen, CheckInFormScreen } from '../screens/CheckIn';
-
-const tabNavigatorConfig = {
-  tabBarPosition: "top",
-  tabBarOptions: {
-    activeTintColor: "#e91e63",
-    inactiveTintColor: "gray",
-    labelStyle: {
-      fontSize: 12,
-      fontWeight: "700",
-      marginBottom: 10,
-      width: "100%"
-    },
-    activeBackgroundColor: "white",
-    inactiveBackgroundColor: "white",
-    style: {
-      height: 50,
-      backgroundColor: "white"
-    },
-    indicatorStyle: {
-      backgroundColor: "white"
-    }
-  },
-  order: ["Upcoming", "Completed", "Alerts"],
-  animationEnabled: true
-};
-
-// const tabRouteConfig = {
-//   Upcoming: {
-//     screen: ActivitiesUpcomingScreen
-//   },
-//   Completed: {
-//     screen: ActivitiesCompletedScreen
-//   },
-//   Alerts: {
-//     screen: ActivitiesAlertsScreen
-//   }
-// };
-
-// export const ActivityLog = TabNavigator(tabRouteConfig, tabNavigatorConfig);
+import { AccountCallOrder } from './modules/CallOrder';
 
 const Navigation = StackNavigator(
   {
@@ -90,16 +35,16 @@ const Navigation = StackNavigator(
         gesturesEnabled: false
       }
     },
-    // EmailInvite: {
-    //   screen: InviteOthersForm,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // },
-    // LoginHelp: {
-    //   screen: LoginHelpScreen
-    // },
+    EmailInvite: {
+      screen: InviteOthersForm,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    LoginHelp: {
+      screen: LoginHelpScreen
+    },
     MemberAccountLogin: {
       screen: MemberAccountLogin,
     },
@@ -124,13 +69,13 @@ const Navigation = StackNavigator(
         gesturesEnabled: false
       }
     },
-    // login: {
-    //   screen: CallOrderScreen,
-    //   navigationOptions: {
-    //     header: null,
-    //     gesturesEnabled: false
-    //   }
-    // }, 
+    login: {
+      screen: AccountCallOrder,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    }, 
     logout: {
       screen: MemberLogin,
       navigationOptions: {
