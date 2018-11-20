@@ -8,7 +8,7 @@ const apiMiddleware = ({ dispatch }) => next => async (action) => {
         return;
     }
     
-    let { url, method, loader, token, onSuccess, apiKey } = action.meta;
+    let { url, method, loader, token, onSuccess, apiKey, success, payload } = action.meta;
     const data = action.payload;
     const fullUrl = `${BASE_URL}${url}`;
     if (loader) dispatch({ type : SHOW_LOADER, payload: apiKey });
@@ -26,7 +26,9 @@ const apiMiddleware = ({ dispatch }) => next => async (action) => {
 
         const response = await axios(options);
         
-        console.log('response', response);
+        if (success) {
+            dispatch({ type: success, payload });
+        }
 
         onSuccess && onSuccess(response.data);
         if (loader) dispatch({ type : HIDE_LOADER, payload: apiKey });

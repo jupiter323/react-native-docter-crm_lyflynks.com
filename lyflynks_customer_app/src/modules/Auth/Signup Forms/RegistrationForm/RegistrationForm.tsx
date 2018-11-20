@@ -33,7 +33,7 @@ class RegistrationForm extends React.Component {
 
   async componentDidMount() { 
     console.log(validator, 'validator');   
-    await AsyncStorage.setItem('isLogin', null); 
+    // await AsyncStorage.setItem('isLogin', null); 
  
     AsyncStorage.getItem('isLogin') 
     .then((res) => { 
