@@ -6,7 +6,7 @@ import menu from 'reducers/menu';
 import loaders from 'reducers/loader';
 import errors from 'reducers/error';
 
-export default combineReducers({
+const appReducer = combineReducers({
   auth: AuthReducer,
   member_form: MemberFormReducer,
   email_invitations: EmaiInvitationReducer,
@@ -17,3 +17,13 @@ export default combineReducers({
   loaders,
   errors,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
+export default rootReducer;

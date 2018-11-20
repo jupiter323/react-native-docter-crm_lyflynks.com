@@ -58,7 +58,7 @@ function getDataFromApi(apiData) {
     };
 }
 
-const tempId = 33;
+const tempId = 10;
 
 class CheckInDetail extends React.Component {
 

@@ -5,7 +5,7 @@ const base = domain + auth.root;
 // data is the JSON request body
 export default {
   async member(data) {
-    return makeRequest([base, auth.members], "POST", data);
+    return makeRequest([base, auth.members], "POST", data, undefined, true);
   },
   async member_account(data, token) {
    
