@@ -18,6 +18,7 @@ target 'LYN' do
     'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
     'RCTText',
     'RCTNetwork',
+    'RCTImage',
     'RCTWebSocket', # needed for debugging
     # Add any other subspecs you want to use in your project
   ]
@@ -28,7 +29,8 @@ target 'LYN' do
   # pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   # pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
- pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg/RNSVG.podspec'
 
 
   # target 'LYN-tvOSTests' do
