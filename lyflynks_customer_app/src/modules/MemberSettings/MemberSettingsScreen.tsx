@@ -5,9 +5,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { sendAccountInvite } from "actions/emailInvitation";
 import Screen from "../../common/componentLib/Screen";
-import RegistrationForm from './../Auth/Signup Forms/RegistrationForm/RegistrationForm';
+import MemberSettingsForm from './MemberSettingsForm/MemberSettingsForm';
 import INSTRUCTIONS_FOR_REGISTRATION_FORM from './../Auth/Signup Forms/InviteOthersForm/instructions';
-import CommonStyles from './../../common/assets/styles/CommonStyles';
+import CommonStyles from 'styles/CommonStyles';
 const stateMap = (store) => {
   const { member, member_account } = store.auth;
   const { errorMessage, invitationResponse } = store.email_invitations;
@@ -97,7 +97,7 @@ class MemberSettingsScreen extends React.Component {
         back={true}
       >
         <View style={CommonStyles.normalPage}>
-          <RegistrationForm
+          <MemberSettingsForm
             instructions={INSTRUCTIONS_FOR_REGISTRATION_FORM}
             renderInstructions={this.renderInstructions}
             proceedAhead={this.renderNextScreen}

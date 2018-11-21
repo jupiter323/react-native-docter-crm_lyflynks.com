@@ -86,7 +86,7 @@ class AccountSettingsScreen extends React.Component {
     return (
       <Screen
         navigation={this.props.navigation}
-        title="MEMBER SETTINGS"
+        title="ACCOUNT SETTINGS"
         back={true}
       ></Screen>
     );
