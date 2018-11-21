@@ -174,7 +174,7 @@ export default class GradientBackground extends React.Component{
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopRight]}
-                onPress={() => true}>
+                onPress={() =>this.props.navigation.navigate('MemberSettings')}>
                 <View style={styles.serviceIconCircle}>
                   <SettingsIcon {...iconsProps} />
                 </View>
@@ -183,7 +183,7 @@ export default class GradientBackground extends React.Component{
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopLeft]}
-                onPress={() => true}>
+                onPress={() =>this.props.navigation.navigate('AccountSettings')}>
                 <View style={styles.serviceIconCircle}>
                   <MemberIcon {...iconsProps} />
                 </View>

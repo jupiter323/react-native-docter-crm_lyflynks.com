@@ -5,7 +5,9 @@ import { ActivityLogScreen, MainMenuScreen } from './modules/Activity';
 import { MemberInviteScreen } from './modules/Invite';
 import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
 import { AccountCallOrder } from './modules/CallOrder';
-
+import { MemberSettingsScreen } from './modules/MemberSettings';
+import { AccountSettingsScreen } from './modules/AccountSettings';
+import { Screen } from 'components/Screen';
 const Navigation = StackNavigator(
   {
     CheckInFormScreen: {
@@ -75,7 +77,7 @@ const Navigation = StackNavigator(
         header: null,
         gesturesEnabled: false
       }
-    }, 
+    },
     logout: {
       screen: MemberLogin,
       navigationOptions: {
@@ -111,6 +113,20 @@ const Navigation = StackNavigator(
           fontSize: 24,
           fontWeight: "600"
         }
+      }
+    },   
+    MemberSettings: {
+      screen: MemberSettingsScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    AccountSettings: {
+      screen: AccountSettingsScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
       }
     }
   },

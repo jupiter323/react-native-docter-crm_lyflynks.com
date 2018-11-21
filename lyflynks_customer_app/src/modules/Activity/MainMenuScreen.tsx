@@ -37,10 +37,9 @@ export default class MainMenuScreen extends Component {
       return (
         <View />
       )
-    }
-    
+    }   
     return (
-      <View style={CommonStyles.normalPage}>
+      <View style={CommonStyles.normalPage}>     
         <GradientBackground
           navigation={this.props.navigation}
           titleText='LyfLynks'
