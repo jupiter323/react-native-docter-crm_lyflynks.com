@@ -25,6 +25,8 @@ const initialState = {
   newUser: false
 };
 
+
+
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case MEMBER_UPDATE_USERNAME:
