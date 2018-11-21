@@ -9,7 +9,7 @@ import {
     ALERT_ACTIVITIES_SUCCESS,
     ALERT_ACTIVITIES_FAILURE
   } from './action';
-  import { REMOVE_CHECKIN } from '../CheckIn/action';
+  import { REMOVE_CHECKIN, CHECK_IN_ADDED } from '../CheckIn/action';
   
   const initialState = {
     upcoming: {},
@@ -40,11 +40,11 @@ import {
       // case REMOVE_CHECKIN:
       
       
-      // case CHECK_IN_ADDED:
-      //   return {
-      //     ...state,
-      //     newAddedCheckIn: [...state.newAddedCheckIn, { ...action.payload, type: 'check_in' }]
-      //   }
+      case CHECK_IN_ADDED:
+        return {
+          ...state,
+          newAddedCheckIn: [...state.newAddedCheckIn, { ...action.payload, type: 'check_in' }]
+        }
   
       case UPCOMING_ACTIVITIES_FAILURE:
         return {

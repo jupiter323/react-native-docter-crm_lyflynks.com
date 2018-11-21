@@ -22,7 +22,7 @@ const apiMiddleware = ({ dispatch }) => next => async (action) => {
 
         if (data) options.data = data;
 
-        options.headers = { 'x-access-token': token, 'Content-Type': 'application/json' };
+        options.headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
 
         const response = await axios(options);
         
