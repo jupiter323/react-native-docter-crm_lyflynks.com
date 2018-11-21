@@ -5,9 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { sendAccountInvite } from "actions/emailInvitation";
 import Screen from "../../common/componentLib/Screen";
-import RegistrationForm from './../Auth/Signup Forms/RegistrationForm/RegistrationForm';
-import INSTRUCTIONS_FOR_REGISTRATION_FORM from './../Auth/Signup Forms/InviteOthersForm/instructions';
-import CommonStyles from './../../common/assets/styles/CommonStyles';
+
 const stateMap = (store) => {
   const { member, member_account } = store.auth;
   const { errorMessage, invitationResponse } = store.email_invitations;
@@ -80,12 +78,7 @@ class MemberSettingsScreen extends React.Component {
     console.log('member');
     console.log(member);
   }
-  renderInstructions() {
 
-  }
-  renderNextScreen() {
-
-  }
   render() {
     navigateScreen = () => {
       this.props.navigation.navigate("DrawerToggle");
@@ -95,15 +88,7 @@ class MemberSettingsScreen extends React.Component {
         navigation={this.props.navigation}
         title="MEMBER SETTINGS"
         back={true}
-      >
-        <View style={CommonStyles.normalPage}>
-          <RegistrationForm
-            instructions={INSTRUCTIONS_FOR_REGISTRATION_FORM}
-            renderInstructions={this.renderInstructions}
-            proceedAhead={this.renderNextScreen}
-          />
-        </View>
-      </Screen>
+      ></Screen>
 
     );
   }
@@ -143,7 +128,7 @@ const styles = {
   }
 };
 
-// export default connect(stateMap,{sendAccountInvite})(MemberInviteScreen);
+// export default connect(stateMap,{ sendAccountInvite })(MemberInviteScreen);
 
 export default connect(stateMap, { sendAccountInvite })(MemberSettingsScreen);
 
