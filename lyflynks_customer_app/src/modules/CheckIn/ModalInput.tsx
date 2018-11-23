@@ -18,7 +18,7 @@ const Box = ({ onRequestClose, count, body, height = 300 }) => {
                 </View>
             </View>
             <View style={{height, borderRadius: 10, backgroundColor: '#fff', width: deviceWidth - 60}}>
-                <View style={{ alignSelf: 'flex-end', paddingRight: 16 }}>
+                <View style={{ alignSelf: 'flex-end', paddingRight: 16, paddingTop: 8 }}>
                     <TouchableOpacity onPress={onRequestClose}>
                         <CloseIcon style={{ width: 15 }}/>
                     </TouchableOpacity> 

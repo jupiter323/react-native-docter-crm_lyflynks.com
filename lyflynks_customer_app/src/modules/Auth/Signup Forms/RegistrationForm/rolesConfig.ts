@@ -9,7 +9,7 @@ const obj = {
       "role": "elder"
     },
     {
-      "title": "Member(other famlily/friend)",
+      "title": "Member(other family/friend)",
       "role": "member"
     }
   ]

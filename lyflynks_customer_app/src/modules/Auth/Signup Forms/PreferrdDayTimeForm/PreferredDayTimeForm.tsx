@@ -156,7 +156,12 @@ class PrefferedDayTimeForm extends React.Component {
 
   renderPreferredDays() {
     const { preferredDays } = this.props;
-    return _.map(preferredDays, (day, key) => {
+    console.log(preferredDays);
+
+    const keys = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+    return keys.map((key) => {
+      const day = preferredDays[key];
       return (
         <ListItem
           key={key}
@@ -172,7 +177,9 @@ class PrefferedDayTimeForm extends React.Component {
 
   renderPrefferedTime() {
     const { preferredTime } = this.props;
-    return _.map(preferredTime, (time, key) => {
+    const keys = ['morning', 'earlyAfternoon', 'evening'];
+    return keys.map(key => {
+      const time = preferredTime[key];
       return (
         <ListItem
           key={key}

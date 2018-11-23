@@ -34,15 +34,19 @@ class InviteOthersForm extends React.Component {
     const { instructions, renderInstructions, invitationResponse, invitations } = this.props;
     return (
       <View style={styles.container}>
-        <Text h4 style={styles.heading}>
-          Would you like to add any other members to your account once it has been activated?
-        </Text>
+        <View style={{flex: 1}}>
+          <Text h4 style={styles.heading}>
+            Would you like to add any other members to your account once it has been activated?
+          </Text>
+        </View>
+        <View style={{ flex: 5, width: '100%' }}>
         <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
           {this.renderEmails()}
           {this.renderModal()}
           {this.renderTryAgain()}
         </ScrollView>
-        <View style={{ flex: 0.15 }}>
+        </View>
+        <View style={{ flex: 1 }}>
           <Button
             raised
             icon={{ name: "send" }}
@@ -127,7 +131,7 @@ class InviteOthersForm extends React.Component {
             raised
             backgroundColor="#00A68C"
             icon={{ name: "send" }}
-            title="Next"
+            title="Finish"
             onPress={this.navigateToSignUpComplete.bind(this)}
           />
         </View>
@@ -160,7 +164,7 @@ class InviteOthersForm extends React.Component {
   navigateToSignUpComplete() {
     const { navigation } = this.props;
     this.setState({ modalVisible: false });
-    navigation.navigate("SignUpComplete");
+    navigation.goBack();
   }
 
   renderTryAgain() {
@@ -224,16 +228,16 @@ const styles = {
     alignItems: "center"
   },
   scrollViewContainer: {
-    width: "100%",
-    flex: 0.8
+    // width: "100%",
+    // flex: 5,
+    // backgroundColor: 'red'
   },
   heading: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
     color: "#0E3A53",
-    margin: 10,
-    flex: 0.15
+    margin: 10
   },
   addButton: {
     position: "absolute",

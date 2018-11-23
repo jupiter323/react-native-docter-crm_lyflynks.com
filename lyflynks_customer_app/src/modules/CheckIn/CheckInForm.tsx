@@ -102,8 +102,7 @@ class CheckInForm extends React.Component {
         console.log(response, 'response');
         const options = response.data.length === 1 ? response.data.map(e => ({ ...e, checked: true})) : response.data;
         const elders = this.mergeElders(options.length > 0 ? options : fakeMembers, this.state.elders);
-        console.log(elders, 'elders');
-        this.setState({ elders, visible: true });
+        this.setState({ elders : elders.length === 1 ? elders.map(e => ({ ...e, checked: true })) : elders, visible: true, count: elders.length === 1 ? 2 : 1 });
     }
     
 
@@ -167,7 +166,7 @@ class CheckInForm extends React.Component {
                         members={elders.filter(e => e.checked)} 
                         onEdit={this.handleOnEdit}
                     />
-                    {anyOneCanComplete ? <AnyMemberCanComplete checked={true} /> : <MemberCard
+                    {anyOneCanComplete ? <AnyMemberCanComplete checked={true} onCheck={() => {}} /> : <MemberCard
                         field={2}
                         editable={members.length > 1}
                         message="Please Select Members"

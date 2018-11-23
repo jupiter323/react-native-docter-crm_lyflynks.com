@@ -7,6 +7,7 @@ import {
     colorSwatch,
     deviceWidth
   } from 'styles/Theme';
+// import CustomCard from 'componentsLib/Card';
 
 export const CustomCard = ({ children, height = 70 }) => (
     <Card style={{ height, padding: 8 }}>
@@ -33,7 +34,7 @@ const Edit = ({ onPress }) => (
 
 export const AnyMemberCanComplete = ({ checked, onCheck }) => (
     <View style={{ height: 60, alignItems: 'center', flexDirection: 'row', padding: 8, }}>
-        <View style={{ flex: 2, alignItems: 'flex-start' }}>
+        <View style={{ flex: 5, alignItems: 'flex-start' }}>
             <Subtitle style={{ color: colorSwatch.codGray }}>
                 Any Member Can Complete
             </Subtitle>
