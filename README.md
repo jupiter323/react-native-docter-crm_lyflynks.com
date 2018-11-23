@@ -6,7 +6,8 @@
 1. [Get the API running](https://github.com/LyfLynks/lyflynks_api)
 2. Clone this repo
 3. Install [Yarn](https://yarnpkg.com/en/docs/install)
-4. Run `yarn install`
+4. `cd lyflynks_customer_app/lyflynks_customer_app`
+5. `yarn install`
 
 ## Running the application
 
@@ -16,7 +17,9 @@
 
 1. If you haven't already, install [CocoaPods](https://cocoapods.org/)
 2. In this ios directory, run `pod install`
-3. Open XCode, and run the app on a simulator or your device
+3. Open LYN.xcworkspace in XCode
+4. Clean the build (cmd + shift + k)
+4. Run the app on a simulator or device
 
 ### Running on Android
 
@@ -26,8 +29,8 @@ TODO
 
 Note that the registration process for LyfLynks is a manual process that includes an interview with the user prior to activating their account. Due to this, the API database is seeded with pre-registered users that you can use to interact with the application. One such user is:
 
-username: billyj
-password: bjpassword
+- username: billyj
+- password: bjpassword
 
 This user belongs to two accounts that you should be able to select from after logging in.
 
