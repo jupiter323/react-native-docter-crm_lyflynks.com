@@ -105,10 +105,9 @@ class MemberAccountLogin extends Component {
     const { account_list } = this.props;  
     let accountList;  
     if (account_list.success) {
+      const names = account_list.data.map(a =>a.full_name).join(' & ');
+      const shortNames = account_list.data.map(a =>a.short_name).join(' & ');
       accountList = account_list.data.map((account, index) => {
-       
-        let names = (account.names).join(' & '); 
-        let shortNames = (account.shortNames).join(''); 
         return (
             <TouchableOpacity
               key={index}

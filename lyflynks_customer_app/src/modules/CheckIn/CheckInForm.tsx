@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Screen from 'components/Screen';
 import Button from 'componentsLib/Button';
-import { EditIcon, CalendarIcon, ClockIcon } from 'components/icons';
+import { CalendarIcon, ClockIcon } from 'components/icons';
 import ModalInput from './ModalInput';
 import {
     colorSwatch, deviceWidth,
@@ -41,6 +41,15 @@ function getTimeString (time) {
     return `${getTwoDigitNumber(hrs)}:${getTwoDigitNumber(min)} ${pm ? 'PM': 'AM'}`;
 }
 
+function formatData(data) {
+    return {
+        elder_names: [data.elder_name].map(e => ({ full_name: e })),
+        anybody_flag: data.anybody_flag,
+        notes: data.note,
+        checked_in_with_elder_names: [data.requested_member_name].map(e => ({ full_name: e, checked: true })),
+    };
+}
+
 class CheckInForm extends React.Component {
 
     constructor(props) {
@@ -57,6 +66,17 @@ class CheckInForm extends React.Component {
     componentDidMount = async () => {
       // TODO: fetch Elders
       // TODO: fetch Members
+        const existingData = this.props.navigation.getParam('data');
+        console.log(existingData);
+        if (existingData) {
+            this.setState({
+                anyOneCanComplete: existingData.anybody_flag,
+                notes: existingData.note,
+                elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
+            });
+        }
+
+        // console.log(, 'data');
         const token = this.props.token;
         this.fetchMembers(token);
         this.fetchElders(token);
@@ -69,11 +89,21 @@ class CheckInForm extends React.Component {
         this.setState({ members });
     }
 
+    mergeElders = (apiElders, selectedElders) => {
+        console.log(apiElders, selectedElders);
+        if (selectedElders) {
+            return apiElders.map(e => ({ ...e, checked: selectedElders.find(s => s.full_name === e.full_name) ? true: false}))
+        }
+        return apiElders;
+    }
+
     fetchElders = async (token) => {
         const response = await CheckInAPIs.fetchElders(token);
         console.log(response, 'response');
-        const elders = response.data.length === 1 ? response.data.map(e => ({ ...e, checked: true})) : response.data;
-        this.setState({ elders: elders.length > 0 ? elders : fakeMembers, visible: true });
+        const options = response.data.length === 1 ? response.data.map(e => ({ ...e, checked: true})) : response.data;
+        const elders = this.mergeElders(options.length > 0 ? options : fakeMembers, this.state.elders);
+        console.log(elders, 'elders');
+        this.setState({ elders, visible: true });
     }
     
 
@@ -106,7 +136,7 @@ class CheckInForm extends React.Component {
                         routeName: 'ActivityLogScreen'
                     })
                 ]
-            })
+            });
             this.props.navigation.dispatch(resetAction);
         });
     }
@@ -145,7 +175,6 @@ class CheckInForm extends React.Component {
                         members={members.filter(e => e.checked)} 
                         onEdit={this.handleOnEdit}
                     />}
-                    {/*  */}
                     <InfoCard
                         field={3}
                         onEdit={this.handleOnEdit}
@@ -268,13 +297,13 @@ class CheckInForm extends React.Component {
     renderBody = () => {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ flex : 4}}>
+                <View style={{ flex : 4}}>                
                 {this.renderOption()}
                 </View>
                 <View style={{ flex : 1, flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
+                    {this.state.count !== 1 && <View style={{flex: 1}}>
                         <Button title="Back" onPress={this.handleOnBack} />
-                    </View>
+                    </View>}
                     <View style={{flex: 1}}>
                         <Button title="Next" onPress={this.handleOnNext} />
                     </View>

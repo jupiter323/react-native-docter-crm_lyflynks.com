@@ -1,6 +1,7 @@
 import { BASE_URL } from 'constants';
+import base64 from 'base-64';
 
-export async function makeRequest(route, method, data, token) {
+export async function makeRequest(route, method, data, token, isLogin) {
   const url = route.reduce((a, b) => a.concat(b));
   const body = data ? JSON.stringify(data) : null;
   console.log(token, url);
@@ -10,7 +11,7 @@ export async function makeRequest(route, method, data, token) {
     req = await fetch(url, {
       method,
       body,
-      headers: getHeader(token)
+      headers: getHeader(token, isLogin, data)
     });
   } catch (err) {
     console.log(err);
@@ -18,12 +19,24 @@ export async function makeRequest(route, method, data, token) {
   return req.json();
 }
 
-const getHeader = token => {
+const getHeader = (token, isLogin, data) => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
+  if (isLogin) {
+    const { username, password } = data;
+    headers.append('Authorization', `Basic ` + base64.encode(username + ":" + password) )
+  }
+
+  const account_id = data &&  data.account_id;
+
+  if (data) {
+    delete data.account_id;
+  }
+
   if (token) {
-    headers.append("x-access-token", token);
+    headers.append("Authorization", `Bearer ${token}`);
+    headers.append('account_id', account_id);
   }
   return headers;
 };

@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import reducers from './reducers';
 import { ApiMiddleware } from 'middlewares';
 
-const logger = createLogger({ predicate: (getState, store) => __DEV__ });
+const logger = createLogger({ predicate: () => __DEV__ });
 
 
 const middlewares = [
@@ -13,11 +13,21 @@ const middlewares = [
   ApiMiddleware,
 ];
 
-function configureStore(initState) {
+function configureStore(initState = {}) {
   const enhancer = compose(
     applyMiddleware(...middlewares)
   );
-  return createStore(reducers, initState, enhancer);
+
+  let store = createStore(reducers, initState, enhancer);
+
+  if (module.hot) {
+    module.hot.accept(() => {
+      const nextRootReducer = require('./reducers');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
 }
 
-export default configureStore({});
+export default configureStore;

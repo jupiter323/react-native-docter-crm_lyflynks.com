@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { AsyncStorage, Platform ,Alert, BackHandler } from "react-native";
-import store from "./store";
+// import configureStore from "./store";
 import NavigatorService from "./navigationService";
 import Navigation from "./routes";
 
@@ -41,8 +41,9 @@ export default class LyfLynks_App extends React.Component {
   }
   
   render() {
+    // const store = configureStore(); 
     return (
-      <Provider store={store}>
+      <Provider store={this.props.store}>
         <Navigation
           ref={navigatorRef => {
             NavigatorService.setContainer(navigatorRef);

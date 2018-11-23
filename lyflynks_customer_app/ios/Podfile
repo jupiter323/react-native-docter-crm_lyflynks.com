@@ -1,5 +1,6 @@
+project 'LYN.xcworkspace'
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.2'
 
 target 'LYN' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
@@ -11,25 +12,47 @@ target 'LYN' do
  pod 'Firebase/Messaging'
  pod 'Firebase/Core'
  pod 'GoogleToolboxForMac', '~> 2.1'
+ pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge', # Include this for RN >= 0.47
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTNetwork',
+    'RCTImage',
+    'RCTWebSocket', # needed for debugging
+    # Add any other subspecs you want to use in your project
+  ]
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod "yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
+
+  # # Third party deps podspec link
+  # pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  # pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg/RNSVG.podspec'
 
 
+  # target 'LYN-tvOSTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  #   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  target 'LYN-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  #   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  target 'LYNTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  # end
+
+  # target 'LYNTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
 
 end
 
-target 'LYN-tvOS' do
+# target 'LYN-tvOS' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
   # Pods for LYN-tvOS
 
-end
+# end
