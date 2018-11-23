@@ -26,7 +26,7 @@ export default CommonStyles = StyleSheet.create({
     backgroundColor: colorSwatch.white,
     ...Platform.select({
       android: {
-        marginBottom: 30,
+        marginBottom: 0,
       },
     }),
   },
