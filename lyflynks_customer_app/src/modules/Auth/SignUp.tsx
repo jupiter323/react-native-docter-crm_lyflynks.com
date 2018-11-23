@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { View, Text, StyleSheet, StatusBar, BackHandler } from "react-native";
 import RegistrationForm from './Signup Forms/RegistrationForm/RegistrationForm';
 import { INSTRUCTIONS_FOR_REGISTRATION_FORM }from './Signup Forms/RegistrationForm/instructions';
 import PrefferedDayTimeForm from './Signup Forms/PreferrdDayTimeForm/PreferredDayTimeForm';
@@ -11,10 +11,37 @@ import GradientNavigationBar from 'components/GradientNavigationBar';
 import CommonStyles from 'styles/CommonStyles';
 
 class Signup extends React.Component {
+
+  _didFocusSubscription;
+  _willBlurSubscription;
+
   constructor(props) {
     super(props);
     this.state = { step: 1 };
     this.renderNextScreen = this.renderNextScreen.bind(this);
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    if (this.state.step === 1) {
+      return false;
+    } else {
+      this.setState({ step: this.state.step - 1 });
+      return true;
+    }
+  };
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
   }
  
 
