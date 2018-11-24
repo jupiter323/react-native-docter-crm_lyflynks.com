@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Animated, Easing, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Animated, Easing, StyleSheet, Picker } from 'react-native';
 import PropTypes from 'prop-types';
-
 class DropdownMenu extends Component {
 
   constructor(props, context) {
@@ -38,7 +37,7 @@ class DropdownMenu extends Component {
             style={[
               styles.item_text_style,
               this.props.optionTextStyle,
-              { color: this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor, marginLeft:14 }
+              { color: this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor, marginLeft: 14 }
             ]} >
             {title}
           </Text>
@@ -68,12 +67,12 @@ class DropdownMenu extends Component {
       }
 
       return (
-        <View style={{width:'100%',height:'100%', position: 'absolute', left: 0, right: 0, top: 36, bottom: 0 }}>
+        <View style={[{ height: '100%', position: 'absolute', left: 25, right: 25, top: 46, bottom: 0 },this.props.panelAbsoluteStyle]}>
           <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
             <View style={{ opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
           </TouchableOpacity>
 
-          <ScrollView style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white',shadowRadius: 3, shadowOffset: { width: 0, height: 3 }, elevation: 6,}, heightStyle]} >
+          <ScrollView style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white', shadowRadius: 3, shadowOffset: { width: 0, height: 3 }, elevation: 6 }, heightStyle]} >
             {
               currentTitles.map((title, index) =>
                 <TouchableOpacity key={index} activeOpacity={1} style={{ flex: 1, height: 35 }} onPress={this.itemOnPress.bind(this, index)} >
@@ -143,8 +142,7 @@ class DropdownMenu extends Component {
     ).start();
   }
 
-  itemOnPress(index) {
-    console.warn("pressed");
+  itemOnPress(index) {   
     if (this.state.activityIndex > -1) {
       var selectIndex = this.state.selectIndex;
       selectIndex[this.state.activityIndex] = index;
@@ -164,9 +162,9 @@ class DropdownMenu extends Component {
       <Animated.Image
         source={icon}
         style={{
-          width: 6,
-          height: 4,
-          marginLeft: 8,
+          width: 15,
+          height: 10,
+          marginRight: 5,
           tintColor: (index === this.state.activityIndex) ? (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor) : (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor),
           transform: [{
             rotateZ: this.state.rotationAnims[index].interpolate({
@@ -181,11 +179,11 @@ class DropdownMenu extends Component {
   render() {
 
     return (
-      <View style={{ flexDirection: 'column', flex: 1 }} >
-        <View style={{
+      <View style={[{ flexDirection: 'column', flex: 1 }]} >
+        <View style={[this.props.style, {
           flexDirection: 'row',
           backgroundColor: this.props.bgColor ? this.props.bgColor : this.defaultConfig.bgColor
-        }} >
+        }]} >
           {
             this.props.data.map((rows, index) =>
               <TouchableOpacity
@@ -193,7 +191,7 @@ class DropdownMenu extends Component {
                 onPress={this.openOrClosePanel.bind(this, index)}
                 key={index}
                 style={{ flex: 1, height: 35, alignItems: "flex-start", justifyContent: "center" }} >
-                <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center" }} >
+                <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "space-between",width:"100%" }} >
                   <Text
                     style={[
                       styles.title_style,
@@ -228,7 +226,8 @@ DropdownMenu.propTypes = {
   bannerAction: PropTypes.func,
   optionTextStyle: PropTypes.object,
   titleStyle: PropTypes.object,
-  maxHeight: PropTypes.number
+  maxHeight: PropTypes.number,
+  style: PropTypes.any
 }
 
 const styles = StyleSheet.create({
