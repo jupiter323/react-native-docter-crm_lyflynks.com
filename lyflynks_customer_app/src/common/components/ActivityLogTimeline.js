@@ -1,10 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import moment from 'moment';
+import Timeline from './TimeLine';
+import { connect } from 'react-redux'
+import _ from 'lodash'
 import {
   StyleSheet,
   Image,
@@ -22,12 +20,6 @@ import {
   fontFamily,
   fontSize,
 } from 'styles/Theme';
-
-import moment from 'moment';
-import Timeline from './TimeLine';
-import { connect } from 'react-redux'
-import _ from 'lodash'
-
 
 const stateMap = (store) => {
 	const { upcoming } = store.activities;
