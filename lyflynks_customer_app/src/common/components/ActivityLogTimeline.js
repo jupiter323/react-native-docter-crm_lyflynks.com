@@ -1,183 +1,137 @@
-	/**
-	 * Sample React Native App
-	 * https://github.com/facebook/react-native
-	 * @flow
-	 */
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
 
-	import React, { Component } from 'react';
-	import {
-	  StyleSheet,
-	  Image,
-	  Text,
-	  View,
-	  Button,
-	  AsyncStorage,
-	  TouchableOpacity
-	} from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  Button,
+  AsyncStorage,
+  TouchableOpacity
+} from 'react-native';
 
-	import {
-	  EmergencyIcon,
-	  TransportIcon,
-	  HealthIcon,
-	  CompanionIcon,
-	  MemberIcon
-	} from './icons';
+import {
+  deviceWidth,
+  deviceHeight,
+  colorSwatch,
+  fontFamily,
+  fontSize,
+} from 'styles/Theme';
 
-	import {
-	  deviceWidth,
-	  deviceHeight,
-	  colorSwatch,
-	  fontFamily,
-	  fontSize,
-	} from 'styles/Theme';
-
-	import moment from 'moment';
+import moment from 'moment';
+import Timeline from './TimeLine';
+import { connect } from 'react-redux'
+import _ from 'lodash'
 
 
-	import Timeline from './TimeLine';
-	import { connect } from 'react-redux'
-	import _ from 'lodash'
+const stateMap = (store) => {
+	const { upcoming } = store.activities;
+  return { upcoming };
+};
 
-
-	const stateMap = (store) => {
-		const { upcoming } = store.activities;
-	  return {upcoming};
-	};
-
-	class ActivityLogTimeline extends Component {
-	  constructor(props){
+class ActivityLogTimeline extends Component {
+  constructor(props){
 		super(props)
+
 		this.renderDetail = this.renderDetail.bind(this);
-		this.renderSelected = this.renderSelected.bind(this);
 		this.onRowPress = this.onRowPress.bind(this);
 		let data = this.props.data.slice();
-		data.forEach((record, index) => {
-		  // record.taskId = (new Date().getTime()) + "." + index;
-		  record.taskId = record.for_who + '$' + record.href;
-		  record.status = 'U';
-		});
-		this.state = {'data': data, 'tasks': {}};
-	  }
+		this.state = { 'data': data };
+  }
 
-	  componentDidMount(){
-			let _this = this;
-			AsyncStorage.getItem('TASKS').then(function(tasks){
-			  if (tasks == null) {
-				  tasks = {};
-			  } else {
-				  tasks = JSON.parse(tasks);
-	      }
-	      let state = {};
-			  state.data = (_this.state || {}).data;
-	      state.tasks = tasks;
-	          _this.setState(state);
-			});
-	  }
+  renderTitle = (word) => {
+		return word.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) {
+			return key.toUpperCase()
+			}
+		);
+  }
 
-	  renderSelected(){
-		  if(this.state.selected)
-			return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-	  }
+	onRowPress = (data) => {
+		if (data.type === 'check_in') {
+			this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id });
+		}
+	}
 
-	  renderTitle = (word) => {
-			return word.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) {
-				return key.toUpperCase()
-				}
-			);
-	  }
-
-	  updateTaskMap(taskMap) {
-			AsyncStorage.setItem('TASKS', JSON.stringify(taskMap)).then(() => {});
+	renderWhen(date) {
+		if (date == 'TBD') {
+			return '';
 		}
 
-		onRowPress = (data) => {
-			if (data.type === 'check_in') {
-				this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id });
-			}
-		}
+		return moment(date).format('MMMM D/h:mma');
+	}
 
-		renderWhen(date) {
-			if (date == 'TBD') {
-				return date;
-			}
-
-			return moment(date).format('MMMM D/h:mma');
-		}
-
-	  renderDetail(rowData, sectionID, rowID) {
-			let iconColor = '#55ff55';
-			if (rowData.status == 'R') {
-			  iconColor = '#777777';
-			}
-
-		  let title = (
-			  <View style={styles.activityTitleContainer} >
-					<View>
-					  <Text style={styles.title}>{this.renderTitle(rowData.type)}</Text>
-					</View>
-					<View style={styles.activityTitleDatetime}>
-					  <Text style={styles.date}>{this.renderWhen(rowData.when)}</Text>
-					</View>
-			  </View>
+  renderDetail(rowData, sectionID, rowID) {
+	  let title = (
+		  <View style={styles.activityTitleContainer} >
+				<View>
+				  <Text style={styles.title}>{this.renderTitle(rowData.type)}</Text>
+				</View>
+				<View style={styles.activityTitleDatetime}>
+				  <Text style={styles.date}>{this.renderWhen(rowData.when)}</Text>
+				</View>
+		  </View>
 	  );
 
-			let forWhoItems = [];
-			let whoString = _.toArray(rowData.who).join(', ');
+		let forWhoItems = [];
+		let whoString = _.toArray(rowData.who).join(', ');
 
-			_.each(_.toArray(rowData.for_who), function(value, index) {
-				forWhoItems.push(<Text style={[styles.doctorName]} key={index}>{value} / Elder</Text>);
-			});
+		_.each(_.toArray(rowData.for_who), function(value, index) {
+			forWhoItems.push(<Text style={[styles.doctorName]} key={index}>{value} / Elder</Text>);
+		});
 
-		  if (forWhoItems.length > 0) {
-				desc = (
-				  <View style={styles.descriptionContainer}>
-						<View>
-							{forWhoItems}
-							<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
-						</View>
-				  </View>
-				)
-		  }
-
-		  return (
-				<TouchableOpacity onPress={() => this.onRowPress(rowData)}>
-				  <View style={{flex:1}}>
-						{title}
-						{desc}
-				  </View>
-				</TouchableOpacity>
-			)
-		}
-
-	  render() {
-			let data = this.state.data.slice();
-
-			return (
-			  <View style={styles.container}>
-					<Timeline
-					  style={styles.list}
-					  data={data}
-					  circleSize={18}
-					  circleColor={colorSwatch.persianGreen}
-					  lineColor={colorSwatch.silverSand}
-					  timeContainerStyle={{minWidth:0, marginTop: 0}}
-					  timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:0, borderRadius:13}}
-					  descriptionStyle={{color:'gray'}}
-					  options={{
-							style:{paddingTop:0}
-					  }}
-					  innerCircle={'dot'}
-					  separator={true}
-					  dotColor={colorSwatch.persianGreen}
-					  showTime={false}
-					  renderDetail={this.renderDetail}
-						lineWidth={1}
-					  enableEmptySections
-					/>
+	  if (forWhoItems.length > 0) {
+			desc = (
+			  <View style={styles.descriptionContainer}>
+					<View>
+						{forWhoItems}
+						<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
+					</View>
 			  </View>
-			);
+			)
 	  }
+
+	  return (
+			<TouchableOpacity onPress={() => this.onRowPress(rowData)}>
+			  <View style={{flex:1}}>
+					{title}
+					{desc}
+			  </View>
+			</TouchableOpacity>
+		)
 	}
+
+  render() {
+		let data = this.state.data.slice();
+
+		return (
+		  <View style={styles.container}>
+				<Timeline
+				  style={styles.list}
+				  data={data}
+				  circleSize={18}
+				  circleColor={colorSwatch.persianGreen}
+				  lineColor={colorSwatch.silverSand}
+				  timeContainerStyle={{minWidth:0, marginTop: 0}}
+				  timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:0, borderRadius:13}}
+				  descriptionStyle={{color:'gray'}}
+				  options={{ style:{ paddingTop:0 } }}
+				  innerCircle={'dot'}
+				  separator={true}
+				  dotColor={colorSwatch.persianGreen}
+				  showTime={false}
+				  renderDetail={this.renderDetail}
+					lineWidth={1}
+				  enableEmptySections
+				/>
+		  </View>
+		);
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
