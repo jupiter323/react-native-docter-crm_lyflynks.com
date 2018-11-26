@@ -1,36 +1,54 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import Timeline from './TimeLine';
-import { connect } from 'react-redux'
-import _ from 'lodash'
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  Button,
-  AsyncStorage,
-  TouchableOpacity
-} from 'react-native';
+	/**
+	 * Sample React Native App
+	 * https://github.com/facebook/react-native
+	 * @flow
+	 */
 
-import {
-  deviceWidth,
-  deviceHeight,
-  colorSwatch,
-  fontFamily,
-  fontSize,
-} from 'styles/Theme';
+	import React, { Component } from 'react';
+	import {
+	  StyleSheet,
+	  Image,
+	  Text,
+	  View,
+	  Button,
+	  AsyncStorage,
+	  TouchableOpacity
+	} from 'react-native';
 
-const stateMap = (store) => {
-	const { upcoming } = store.activities;
-  return { upcoming };
-};
+	import {
+	  EmergencyIcon,
+	  TransportIcon,
+	  HealthIcon,
+	  CompanionIcon,
+	  MemberIcon
+	} from './icons';
 
-class ActivityLogTimeline extends Component {
-  constructor(props){
+	import {
+	  deviceWidth,
+	  deviceHeight,
+	  colorSwatch,
+	  fontFamily,
+	  fontSize,
+	} from 'styles/Theme';
+
+	import moment from 'moment';
+
+
+	import Timeline from './TimeLine';
+	import { connect } from 'react-redux'
+	import _ from 'lodash'
+
+
+	const stateMap = (store) => {
+		const { upcoming } = store.activities;
+	  return {upcoming};
+	};
+
+	class ActivityLogTimeline extends Component {
+	  constructor(props){
 		super(props)
-
 		this.renderDetail = this.renderDetail.bind(this);
+		this.renderSelected = this.renderSelected.bind(this);
 		this.onRowPress = this.onRowPress.bind(this);
 		let data = this.props.data.slice();
 		data.forEach((record, index) => {
@@ -58,83 +76,88 @@ class ActivityLogTimeline extends Component {
 		}
 	}
 
-	renderWhen(date) {
-		if (date == 'TBD') {
-			return '';
+		renderWhen(date) {
+			if (date == 'TBD') {
+				return date;
+			}
+
+			return moment(date).format('MMMM D/h:mma');
 		}
 
-		return moment(date).format('MMMM D/h:mma');
-	}
+	  renderDetail(rowData, sectionID, rowID) {
+			let iconColor = '#55ff55';
+			if (rowData.status == 'R') {
+			  iconColor = '#777777';
+			}
 
-  renderDetail(rowData, sectionID, rowID) {
-	  let title = (
-		  <View style={styles.activityTitleContainer} >
-				<View>
-				  <Text style={styles.title}>{rowData.name}</Text>
-				</View>
-				<View style={styles.activityTitleDatetime}>
-				  <Text style={styles.date}>{this.renderWhen(rowData.when)}</Text>
-				</View>
-		  </View>
-	  );
-
-		let forWhoItems = [];
-		let whoString = _.toArray(rowData.who).join(', ');
-
-		_.each(_.toArray(rowData.for_who), function(value, index) {
-			forWhoItems.push(<Text style={[styles.doctorName]} key={index}>{value} / Elder</Text>);
-		});
-
-	  if (forWhoItems.length > 0) {
-			desc = (
-			  <View style={styles.descriptionContainer}>
+		  let title = (
+			  <View style={styles.activityTitleContainer} >
 					<View>
-						{forWhoItems}
-        	  { whoString.length > 0 &&
-  						<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
-            }
+					  <Text style={styles.title}>{this.renderTitle(rowData.type)}</Text>
+					</View>
+					<View style={styles.activityTitleDatetime}>
+					  <Text style={styles.date}>{this.renderWhen(rowData.when)}</Text>
 					</View>
 			  </View>
+	  );
+
+			let forWhoItems = [];
+			let whoString = _.toArray(rowData.who).join(', ');
+
+			_.each(_.toArray(rowData.for_who), function(value, index) {
+				forWhoItems.push(<Text style={[styles.doctorName]} key={index}>{value} / Elder</Text>);
+			});
+
+		  if (forWhoItems.length > 0) {
+				desc = (
+				  <View style={styles.descriptionContainer}>
+						<View>
+							{forWhoItems}
+							<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
+						</View>
+				  </View>
+				)
+		  }
+
+		  return (
+				<TouchableOpacity onPress={() => this.onRowPress(rowData)}>
+				  <View style={{flex:1}}>
+						{title}
+						{desc}
+				  </View>
+				</TouchableOpacity>
 			)
-	  }
+		}
 
-	  return (
-			<TouchableOpacity onPress={() => this.onRowPress(rowData)}>
-			  <View style={{flex:1}}>
-					{title}
-					{desc}
+	  render() {
+			let data = this.state.data.slice();
+
+			return (
+			  <View style={styles.container}>
+					<Timeline
+					  style={styles.list}
+					  data={data}
+					  circleSize={18}
+					  circleColor={colorSwatch.persianGreen}
+					  lineColor={colorSwatch.silverSand}
+					  timeContainerStyle={{minWidth:0, marginTop: 0}}
+					  timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:0, borderRadius:13}}
+					  descriptionStyle={{color:'gray'}}
+					  options={{
+							style:{paddingTop:0}
+					  }}
+					  innerCircle={'dot'}
+					  separator={true}
+					  dotColor={colorSwatch.persianGreen}
+					  showTime={false}
+					  renderDetail={this.renderDetail}
+						lineWidth={1}
+					  enableEmptySections
+					/>
 			  </View>
-			</TouchableOpacity>
-		)
+			);
+	  }
 	}
-
-  render() {
-		let data = this.state.data.slice();
-
-		return (
-		  <View style={styles.container}>
-				<Timeline
-				  style={styles.list}
-				  data={data}
-				  circleSize={18}
-				  circleColor={colorSwatch.persianGreen}
-				  lineColor={colorSwatch.silverSand}
-				  timeContainerStyle={{minWidth:0, marginTop: 0}}
-				  timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:0, borderRadius:13}}
-				  descriptionStyle={{color:'gray'}}
-				  options={{ style:{ paddingTop:0 } }}
-				  innerCircle={'dot'}
-				  separator={true}
-				  dotColor={colorSwatch.persianGreen}
-				  showTime={false}
-				  renderDetail={this.renderDetail}
-					lineWidth={1}
-				  enableEmptySections
-				/>
-		  </View>
-		);
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
