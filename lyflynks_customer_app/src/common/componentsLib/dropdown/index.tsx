@@ -8,7 +8,7 @@ class DropdownMenu extends Component {
 
     var selectIndex = new Array(this.props.data.length);
     for (var i = 0; i < selectIndex.length; i++) {
-      selectIndex[i] = 0;
+      selectIndex[i] = this.props.activeIndex[i];
     }
     this.state = {
       activityIndex: -1,
@@ -227,7 +227,8 @@ DropdownMenu.propTypes = {
   optionTextStyle: PropTypes.object,
   titleStyle: PropTypes.object,
   maxHeight: PropTypes.number,
-  style: PropTypes.any
+  style: PropTypes.any,
+  activeIndex:PropTypes.array
 }
 
 const styles = StyleSheet.create({
