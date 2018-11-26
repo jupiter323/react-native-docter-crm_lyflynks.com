@@ -85,7 +85,7 @@ const stateMap = (store) => {
           tabBarActiveTextColor={'#00A68C'}
           tabBarInactiveTextColor={'#929395'}
           tabBarTextStyle={{
-            fontFamily: 'Avenir-Heavy',
+            fontFamily: 'Avenir-Medium',
             fontSize: 16
           }}
         >
@@ -94,9 +94,6 @@ const stateMap = (store) => {
           </ScrollView>
           <ScrollView heading='COMPLETED'>
             <ActivitiesCompletedScreen />
-          </ScrollView>
-          <ScrollView heading='ALERTS'>
-            <ActivitiesAlertsScreen />
           </ScrollView>
         </Tabs>
         <CustomTabBar

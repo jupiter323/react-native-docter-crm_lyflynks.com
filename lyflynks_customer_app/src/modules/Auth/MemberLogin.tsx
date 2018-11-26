@@ -19,24 +19,19 @@ class MemberLogin extends React.Component {
       if (nextProps.member.success && nextProps.member.data.newUser) {
         this.props.navigation.navigate("NewMemberWizard");
       } else {
-        this.props.navigation.navigate("MemberAccountLogin"); 
+        this.props.navigation.navigate("MemberAccountLogin");
       }
     }
   }
-   
-   async componentDidMount() {  
-      
-    AsyncStorage.getItem('isLogin') 
-    .then((res) => { 
-      console.log('res',res);
-      if(res!=null){ 
-        this.props.navigation.navigate("MemberLogin");
-      }else{
-        this.props.navigation.navigate("MemberLogin"); 
-      }
-    }); 
 
+   async componentDidMount() {
+    AsyncStorage.getItem('isLogin')
+    .then((res) => {
+      console.log('res',res);
+      this.props.navigation.navigate("MemberLogin");
+    });
   }
+
   navToLoginHelpScreen = () => {
     this.props.navigation.navigate("LoginHelp");
   };
