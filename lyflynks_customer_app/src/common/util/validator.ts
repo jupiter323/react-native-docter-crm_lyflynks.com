@@ -10,6 +10,12 @@ export const validator = (inputElementName, value) => {
     : errorMessage[inputElementName][0];
 };
 
+export const secondaryPhonenumberValidator = (inputElementName, value) => {
+  if (value.trim() == "") return null;
+  return validator(inputElementName, value);
+
+}
+
 export const confirmPasswordValidator = (password) => {
   const errorMessage = validate(password, CONSTRAINTS)
   console.log(errorMessage)

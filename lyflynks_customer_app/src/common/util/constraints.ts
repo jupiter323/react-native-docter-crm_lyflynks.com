@@ -22,19 +22,30 @@ export const CONSTRAINTS = {
   },
   primaryPhoneNumber: {
     presence: { allowEmpty: false },
-    length: {
-      is: 10,
-      message: "^Number should be 10 digits long"
+    format: {
+      pattern: /^((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$/,
+      message: 'is xxx-xxx-xxxx format',
     },
-    numericality: true
+    // length: {
+    //   is: 10,
+    //   message: "^Number should be 10 digits long"
+    // },
+    // numericality: true
   },
-  secondaryPhoneNumber: {    
-    length: {
-      is: 10,
-      message: "^Number should be 10 digits long"
+  secondaryPhoneNumber: {
+    presence: {
+      allowEmpty: true,     
     },
-    numericality: true,
-    presence: { allowEmpty: true }
+    format: {
+      pattern: /^((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$/,
+      message: 'is xxx-xxx-xxxx format',
+    }
+    // length: {
+    //   is: 10,
+    //   message: "^Number should be 10 digits long"
+    // },
+    // numericality: true
+
   },
   zipCode: {
     presence: { allowEmpty: false },
