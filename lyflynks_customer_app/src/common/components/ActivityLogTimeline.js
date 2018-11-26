@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 		fontSize: fontSize.medium,
 		paddingTop: 0,
 		color: colorSwatch.codGray,
-		fontFamily: fontFamily.medium
+		fontFamily: fontFamily.medium,
   },
   date:{
 		fontSize: fontSize.small,
