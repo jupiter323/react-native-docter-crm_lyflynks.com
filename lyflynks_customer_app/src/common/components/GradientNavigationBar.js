@@ -118,18 +118,6 @@ class GradientNavigationBar extends React.Component {
   render() { 
     return (
       <View style={[styles.outerContainer, this.props.outerContainerStyle]}>
-       <View style={{position:'absolute',right:3,zIndex:1,top:12}}> 
-       <TouchableOpacity
-                onPress={this._handleLogout.bind(this)}
-              >
-          <Image 
-            source={require('images/logout24x24.png')} 
-            style={{width:this.state.width,height:this.state.height}}
-
-            /> 
-      </TouchableOpacity>
-       </View>
-      
         <LinearGradient
           start={this.props.gradientBgStyle.start}
           end={this.props.gradientBgStyle.end}
@@ -207,6 +195,17 @@ class GradientNavigationBar extends React.Component {
                 {this.props.rightChildren}
               </View>
             }
+          </View>
+          <View style={styles.logoutButton}>
+            <TouchableOpacity
+                onPress={this._handleLogout.bind(this)}
+              >
+              <Image 
+                source={require('images/logout24x24.png')} 
+                style={{width:this.state.width,height:this.state.height}}
+
+                /> 
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>
@@ -293,6 +292,20 @@ const styles = StyleSheet.create({
   leftBtn: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  logoutButton: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingRight: 8,
+    ...Platform.select({
+      ios: {
+        marginTop: 16,
+      }
+    })
+    // paddingHorizontal: 7.5,
   },
   rightCol: {
     flex: 1,

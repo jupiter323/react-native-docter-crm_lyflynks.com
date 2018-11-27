@@ -5,7 +5,7 @@ export const validator = (inputElementName, value) => {
   const validationAttribute = {};
   validationAttribute[inputElementName] = value;
   const errorMessage = validate(validationAttribute, CONSTRAINTS);
-  return errorMessage[inputElementName] === undefined
+  return !errorMessage[inputElementName]
     ? ""
     : errorMessage[inputElementName][0];
 };

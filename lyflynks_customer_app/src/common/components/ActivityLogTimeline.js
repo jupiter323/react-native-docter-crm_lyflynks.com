@@ -109,7 +109,7 @@
 		
 		onRowPress = (data) => {
 			if (data.type === 'check_in') {
-				this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id || 1002 });
+				this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id });
 			}
 		}
 

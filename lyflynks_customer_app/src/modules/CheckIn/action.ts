@@ -1,5 +1,5 @@
 import check_in  from "./api";
-import { API, POST, DELETE } from 'constants';
+import { API, POST, DELETE, PATCH } from 'constants';
 
 export const CHECK_IN_ADDED = 'CHECK_IN_ADDED';
 export const REMOVE_CHECKIN = 'REMOVE_CHECKIN';
@@ -31,4 +31,15 @@ export const cancelCheckIn = (id: string, token: string) => ({
         success: REMOVE_CHECKIN,
         payload: id,
     }
-})
+});
+
+export const updateCheckIn = (id: string, payload: any, token: string, callback: any) => ({
+    type: API,
+    meta: {
+        url: '/activity/check_in/' + id,
+        token,
+        method: PATCH,
+        onSuccess: callback
+    },
+    payload
+});

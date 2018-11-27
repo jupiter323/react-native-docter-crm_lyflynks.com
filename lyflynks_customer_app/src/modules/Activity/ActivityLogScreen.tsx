@@ -80,6 +80,7 @@ const stateMap = (store) => {
           tabBarUnderlineStyle={{
             backgroundColor: '#00A68C'
           }}
+          page={this.state.currentPage || 0}
           tabBarBackgroundColor={'#fff'}
           tabBarActiveTextColor={'#00A68C'}
           tabBarInactiveTextColor={'#929395'}
@@ -108,6 +109,8 @@ const stateMap = (store) => {
 
   // Goto MapScreen
   _handleClickPlaceButton() {
+    console.log('Alert Clicked');
+    this.setState({ currentPage: 2 });
     // this.props.navigation.navigate('MainMenuScreen');
   }
 

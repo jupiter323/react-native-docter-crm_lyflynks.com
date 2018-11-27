@@ -13,7 +13,7 @@ import moment from 'moment';
 import { getHoursAndMinutes } from './util';
 import { connect } from 'react-redux';
 import CheckInAPIs from './api';
-import { checkIn } from './action';
+import { checkIn, updateCheckIn } from './action';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 const fakeMembers = [
@@ -41,12 +41,20 @@ function getTimeString (time) {
     return `${getTwoDigitNumber(hrs)}:${getTwoDigitNumber(min)} ${pm ? 'PM': 'AM'}`;
 }
 
-function formatData(data) {
+function formatData(existingData: any) {
+    const members = existingData.requested_member_names || [];
     return {
-        elder_names: [data.elder_name].map(e => ({ full_name: e })),
-        anybody_flag: data.anybody_flag,
-        notes: data.note,
-        checked_in_with_elder_names: [data.requested_member_name].map(e => ({ full_name: e, checked: true })),
+        anyOneCanComplete: existingData.anybody_flag,
+        notes: existingData.note,
+        elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
+        markedDates: {
+            [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
+                color: "#00A68C",
+                selected: true
+            }
+        },
+        members: members.map(e => ({ full_name: e, checked: true })),
+        time: moment(existingData.check_in_time).format('h,m,A').replace('AM', 'false').replace('PM', 'true')
     };
 }
 
@@ -69,23 +77,27 @@ class CheckInForm extends React.Component {
         const existingData = this.props.navigation.getParam('data');
         console.log(existingData);
         if (existingData) {
-            this.setState({
-                anyOneCanComplete: existingData.anybody_flag,
-                notes: existingData.note,
-                elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
-            });
+            console.log(formatData(existingData), 'formatted');
+            this.setState(formatData(existingData));
         }
 
-        // console.log(, 'data');
         const token = this.props.token;
         this.fetchMembers(token);
         this.fetchElders(token);
     }
 
+    mergeMembers = (apiMembers, selectedMembers) => {
+        if (apiMembers) {
+            return apiMembers.map(e => ({ ...e, checked: selectedMembers.find(s => s.full_name === e.full_name) ? true: false}))
+        }
+        return apiMembers;
+    }
+
     fetchMembers = async (token) => {
         const response = await CheckInAPIs.fetchMembers(token);
-        const filteredMembers = response.data.filter((a, i) => i < 2).map(a => ({ full_name: a.fname + '' + a.lname, email: a.email }));
-        const members = filteredMembers.length === 1 ? filteredMembers.map(m => ({...m, checked: true})) : filteredMembers;
+        const filteredMembers = response.data.map(a => ({ full_name: a.fname + '' + a.lname, email: a.email })).filter((a, i) => i < 2);
+        const options = this.mergeMembers(filteredMembers, this.state.members);
+        const members = options.length === 1 ? options.map(m => ({...m, checked: true})) : options;
         this.setState({ members });
     }
 
@@ -99,7 +111,6 @@ class CheckInForm extends React.Component {
 
     fetchElders = async (token) => {
         const response = await CheckInAPIs.fetchElders(token);
-        console.log(response, 'response');
         const options = response.data.length === 1 ? response.data.map(e => ({ ...e, checked: true})) : response.data;
         const elders = this.mergeElders(options.length > 0 ? options : fakeMembers, this.state.elders);
         this.setState({ elders : elders.length === 1 ? elders.map(e => ({ ...e, checked: true })) : elders, visible: true, count: elders.length === 1 ? 2 : 1 });
@@ -114,7 +125,7 @@ class CheckInForm extends React.Component {
         const { elders, notes, members, anyOneCanComplete, markedDates, time } = this.state;
         const selectedDate = Object.keys(markedDates)[0];
         const [hrs, mins, pm] = getHoursAndMinutes(time);
-        const checkin_time = moment(`${selectedDate} ${hrs}:${mins} ${pm ? 'PM': 'AM'}`, 'YYYY-MM-DD hh:mm A').format('YYYY-MM-DD HH:mm:ss');
+        const check_in_time = moment(`${selectedDate} ${hrs}:${mins} ${pm ? 'PM': 'AM'}`, 'YYYY-MM-DD hh:mm A').format('YYYY-MM-DD HH:mm:ss');
         const payload = {
             elder_names: elders.map(e => e.full_name),
             anybody_flag: anyOneCanComplete ? 't' : 'f',
@@ -123,21 +134,35 @@ class CheckInForm extends React.Component {
             checked_in_with_elder_names: elders.filter(e => e.checked).map(e => e.full_name),
             created_by_id: 2,
             updated_by_id: 2,
-            checkin_time,
+            check_in_time,
             publish_to_app: true
         };
 
-        this.props.checkIn(payload, this.props.token, ()=> {
-            const resetAction = StackActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: 'ActivityLogScreen'
-                    })
-                ]
-            });
-            this.props.navigation.dispatch(resetAction);
+        const patchObject = {
+            activity:{},
+            activity_fin:{},
+            check_in: payload
+        };
+
+        const existingData = this.props.navigation.getParam('data');
+        console.log(existingData);
+        if (existingData) { 
+            this.props.updateCheckIn(existingData.id, patchObject, this.props.token, this.afterSubmit);
+        } else {
+            this.props.checkIn(payload, this.props.token, this.afterSubmit);
+        }
+    }
+
+    afterSubmit = ()=> {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'ActivityLogScreen'
+                })
+            ]
         });
+        this.props.navigation.dispatch(resetAction);
     }
 
     handleOnCancel = () => {
@@ -299,7 +324,7 @@ class CheckInForm extends React.Component {
                 <View style={{ flex : 4}}>                
                 {this.renderOption()}
                 </View>
-                <View style={{ flex : 1, flexDirection: 'row'}}>
+                <View style={{ flex : 1, flexDirection: 'row', paddingHorizontal: 16}}>
                     {this.state.count !== 1 && <View style={{flex: 1}}>
                         <Button title="Back" onPress={this.handleOnBack} />
                     </View>}
@@ -319,6 +344,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProp = (dispatch) => ({
     checkIn(...params) {
         dispatch(checkIn(...params));
+    },
+    updateCheckIn(...params) {
+        dispatch(updateCheckIn(...params))
     }
 });
 

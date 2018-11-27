@@ -9,6 +9,7 @@ import {
   } from 'styles/Theme';
 import Calendar from 'componentsLib/Calendar';
 import Time  from 'componentsLib/TimeInput';
+import Initial from './Initial';
 // import { colors } from 'react-native-elements';
 
 export const CalendarItem = Calendar;
@@ -17,13 +18,16 @@ export const TimeItem = Time;
 
 export const SelectMembers = ({ anyOneCanComplete, onCheck, title, onAnyCheck, members }) => {
     const options = members.map((m, i) => (
-        <View style={{ paddingHorizontal: 32, backgroundColor: anyOneCanComplete || m.checked ? '#F7F4F0' : '#fff',  paddingVertical: 8, height: 50 }}>
+        <View style={{ paddingHorizontal: 32, backgroundColor: anyOneCanComplete || m.checked ? '#F7F4F0' : '#fff', height: 50 }}>
             <TouchableOpacity onPress={() => onCheck(i, !m.checked)}>
-                <View style={{ flexDirection: 'row', borderBottomWidth: anyOneCanComplete || m.checked ? 0 : 1.5, paddingBottom: 21, borderBottomColor: colorSwatch.bombayGray }}>
-                    <View style={{ flex: 6, alignItems: 'flex-start' }}>
+                <View style={{ flexDirection: 'row',  height: 50, borderBottomWidth: anyOneCanComplete || m.checked ? 0 : .8, borderBottomColor: colorSwatch.bombayGray }}>
+                    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'flex-start' }}>
+                        <Initial name={m.full_name} size={36} />
+                    </View>
+                    <View style={{ flex: 4, alignItems: 'flex-start', justifyContent: 'center', paddingLeft: 4 }}>
                         <Subtitle style={{ color: colors.black }}>{m.full_name}</Subtitle>
                     </View>
-                    <View style={{flex:1, alignItems: 'flex-end' }}>
+                    <View style={{flex:1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
                         <CheckBox disabled={anyOneCanComplete} checked={anyOneCanComplete || m.checked} onPress={() => onCheck(i, !m.checked)} color={colorSwatch.caribbeanGreen} />
                     </View>
                 </View>
@@ -39,7 +43,7 @@ export const SelectMembers = ({ anyOneCanComplete, onCheck, title, onAnyCheck, m
                 </Text>
             </View>
             {onAnyCheck && 
-                <View style={{ padding: 8, paddingHorizontal: 16 }}>
+                <View style={{ paddingVertical: 8, paddingHorizontal: 24  }}>
                     <AnyMemberCanComplete checked={anyOneCanComplete} onCheck={onAnyCheck} />
                 </View>}
             {options}

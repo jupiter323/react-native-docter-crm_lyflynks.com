@@ -105,11 +105,11 @@ class RegistrationForm extends React.Component {
                 InputFields,
                 index
               )}
-              onChangeText={this.updateInputFieldValue.bind(this, input.id)}
+              onChangeText={this.updateInputFieldValue.bind(this, input)}
               onBlur={this.updateErrorMessage.bind(this, input)}
             />
             <Text style={styles.errorMessage}>
-            {this.props.errors[input.errorId]}
+              {this.props.errors[input.errorId]}
             </Text>
           </View>
         </View>
@@ -137,16 +137,20 @@ class RegistrationForm extends React.Component {
       : "";
   }
 
-  updateInputFieldValue(inputFieldId, value) {
+  updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    dispatch(updateMemberFormField({ prop: inputFieldId, value }));
+    dispatch(updateMemberFormField({ prop: inputField.id, value }));
+    setTimeout(() => {
+      this.updateErrorMessage(inputField, value);
+    }, 0);
   }
 
   validateValue(inputElementName, value) {
     return validator(inputElementName, value);
   }
 
-  updateErrorMessage(inputField) {
+  updateErrorMessage(inputField, value) {
+    console.log(inputField.id, this.props[inputField.id]);
     const { dispatch } = this.props;
     dispatch(
       updateErrorMessage({
@@ -226,6 +230,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderColor: "#00A68C",
     borderWidth: 1,
+    marginBottom: 0,
     width: "90%",
     color:"#000",
     shadowRadius: 5, 
@@ -247,7 +252,9 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     alignSelf: "flex-start",
-    marginLeft:20
+    marginLeft:20,
+    paddingTop:2,
+    paddingLeft: 8,
   },
   pickerLabel: {
     textAlign: "center",

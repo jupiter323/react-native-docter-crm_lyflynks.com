@@ -6,22 +6,23 @@ import {
     colorSwatch,
     deviceWidth
   } from 'styles/Theme';
-import { Actions, InfoCard } from './components';
+import { Actions, InfoCard, Circle, Initial } from './components';
 import { EditIcon, CalendarIcon, ClockIcon, ActivityLogIcon } from 'components/icons';
 import { CustomCard } from './components/Cards';
 import CheckInAPIs from './api';
 import { connect } from 'react-redux';
 import { cancelCheckIn } from './action';
+import moment from 'moment';
 
 const Member = ({ name }) => (
     <View style={{ padding : 16, alignItems: 'center' }}>
-        <Thumbnail source={ require('images/elder-01.png') } />        
+        <Initial name={name} />
         <Title style={{ color: colorSwatch.codGray }}>{name}</Title>
         <Subtitle style={{ color: colorSwatch.dustyGray }}>Elder</Subtitle>
     </View>
 );
 
-const RequestBy = ({ name }) => (
+const RequestBy = ({ name, createdAt }) => (
     <CustomCard>
         <View style={{flex: 1, alignItems: 'flex-start'}}>
             <Subtitle style={{ color: colorSwatch.dustyGray }}>REQUESTED BY</Subtitle>
@@ -31,7 +32,7 @@ const RequestBy = ({ name }) => (
                 <Subtitle style={{ color: colorSwatch.codGray }}>{ name }</Subtitle>
             </View>
             <View style={{ flex:3, justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 16}}>
-                <Subtitle style={{ color: colorSwatch.codGray }}>August 2, 2018</Subtitle>
+                <Subtitle style={{ color: colorSwatch.codGray }}>{moment(createdAt).format('MMMM D, YYYY')}</Subtitle>
             </View>
         </View>
     </CustomCard>
@@ -55,6 +56,7 @@ function getDataFromApi(apiData) {
         anybody_flag: apiData.anybody_flag,
         requested_member_name: apiData.requested_member_names[0] || apiData.checked_in_with_elder_names[0],
         note: apiData.note,
+        check_in_time: apiData.check_in_time,
     };
 }
 
@@ -71,20 +73,21 @@ class CheckInDetail extends React.Component {
 
     componentDidMount = async () => {
         const { token, navigation } = this.props;
-        // const id = navigation.getParam('id', 10);
-        const result = await CheckInAPIs.fetchCheckIn(tempId, token);
+        const id = navigation.getParam('id', 10);
+        const result = await CheckInAPIs.fetchCheckIn(id, token);
         console.log(JSON.stringify(result.data), 'result');
-        this.setState({ data: getDataFromApi(result.data) });
+        this.setState({ data: getDataFromApi(result.data), result: result.data });
     }
 
     handleOnSubmit = () => {
         const { token, navigation } = this.props;
-        navigation.replace('CheckInFormScreen', { data: this.state.data });
+        navigation.replace('CheckInFormScreen', { data: this.state.result });
     }
 
     cancelCheckIn = () => {
         const { token, navigation } = this.props;
-        this.props.cancelCheckIn(tempId, token);
+        const id = navigation.getParam('id', 10);
+        this.props.cancelCheckIn(id, token);
         navigation.goBack();
     }
 
@@ -92,7 +95,7 @@ class CheckInDetail extends React.Component {
         Alert.alert('Cancel', 'Are you sure?', [
             {text: 'Cancel', onPress: ()=> {  }},
             {text: 'Ok', onPress: ()=> {  this.cancelCheckIn() }}
-        ])
+        ]);
     }
 
     render() {
@@ -118,15 +121,15 @@ class CheckInDetail extends React.Component {
                     field={3}
                     editable={false}
                     icon={<CalendarIcon style={{}} />} 
-                    text={'August 8, 2018'} 
+                    text={moment(data.check_in_time).format('MMMM D, YYYY')} 
                 />
                 <InfoCard
                     field={4}
                     editable={false}
                     icon={<ClockIcon style={{}} />} 
-                    text={'05:40 PM'} 
+                    text={moment(data.check_in_time).format('hh:mm A')} 
                 />
-                <RequestBy name={data.requested_member_name}/>
+                <RequestBy name={data.requested_member_name} createdAt={data.createdAt}/>
                 <Actions 
                     onSubmit={this.handleOnSubmit} 
                     submitText="Update"

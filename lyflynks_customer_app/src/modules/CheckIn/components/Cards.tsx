@@ -7,6 +7,7 @@ import {
     colorSwatch,
     deviceWidth
   } from 'styles/Theme';
+import { Initial } from '.';
 // import CustomCard from 'componentsLib/Card';
 
 export const CustomCard = ({ children, height = 70 }) => (
@@ -33,7 +34,7 @@ const Edit = ({ onPress }) => (
 );
 
 export const AnyMemberCanComplete = ({ checked, onCheck }) => (
-    <View style={{ height: 60, alignItems: 'center', flexDirection: 'row', padding: 8, }}>
+    <View style={{ height: 60, alignItems: 'center', flexDirection: 'row', padding: 8 }}>
         <View style={{ flex: 5, alignItems: 'flex-start' }}>
             <Subtitle style={{ color: colorSwatch.codGray }}>
                 Any Member Can Complete
@@ -51,7 +52,7 @@ export const MemberCard = ({ onEdit, editable = true, field, members, type, mess
             <CustomCard>
                 <View style={{ flexDirection: 'row', flex: 1 }}>
                     <View style={{ flex: 2 }}>
-                        <Thumbnail source={ require('images/elder-01.png') } />
+                        <Initial name={'L'} />
                     </View>
                     <View style={{ flex: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
                         <Subtitle style={{ color: colorSwatch.codGray }}>{message}</Subtitle>
@@ -69,7 +70,7 @@ export const MemberCard = ({ onEdit, editable = true, field, members, type, mess
         <CustomCard key={m.email}>
             <View style={{ flexDirection: 'row', flex: 1 }}>
                 <View style={{ flex: 2 }}>
-                    <Thumbnail source={ require('images/elder-01.png') } />
+                    <Initial name={m.full_name} />
                 </View>
                 <View style={{ flex: 5, alignItems: 'flex-start' }}>
                     <Title style={{ color: colorSwatch.codGray }}>{m.full_name}</Title>
@@ -83,7 +84,7 @@ export const MemberCard = ({ onEdit, editable = true, field, members, type, mess
     ));
 }
 
-export const InfoCard = ({ icon, text, field, onEdit, editable = true }) => (
+export const InfoCard = ({ icon, text, field, onEdit = () => {}, editable = true }) => (
     <CustomCard height={40}>
         <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={{ flex: editable ? 2 : 1, borderRightWidth: 2, borderColor: colorSwatch.bombayGray }}>

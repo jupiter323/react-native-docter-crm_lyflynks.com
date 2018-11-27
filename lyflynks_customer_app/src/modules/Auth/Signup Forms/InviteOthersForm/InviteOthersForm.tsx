@@ -6,6 +6,7 @@ import _ from "lodash";
 
 import { emailInviteValidator } from "util/validator";
 import Input from "components/Input";
+import ImageButton from "components/ImageButton";
 import {
   modifyEmailInvitations,
   sendEmailInvitations,
@@ -34,7 +35,7 @@ class InviteOthersForm extends React.Component {
     const { instructions, renderInstructions, invitationResponse, invitations } = this.props;
     return (
       <View style={styles.container}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, minHeight: 50}}>
           <Text h4 style={styles.heading}>
             Would you like to add any other members to your account once it has been activated?
           </Text>
@@ -46,8 +47,33 @@ class InviteOthersForm extends React.Component {
           {this.renderTryAgain()}
         </ScrollView>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, width: '100%', paddingRight: 16 }}>
+          <ImageButton/>
           <Button
+            style={styles.nextBtn}
+            title="Next"
+            fontWeight= 'bold'
+            fontFamily='Avenir' 
+            buttonStyle={{
+              backgroundColor: "#00A68C",
+              width: '100%',
+              height: 50,
+              borderColor: "transparent",
+              borderWidth: 0,
+              borderRadius: 25,
+              // elevation: 3,
+              marginBottom:5,
+              zIndex:0,
+            }}
+            textStyle={{
+              fontSize:18 ,  
+              fontFamily:'Avenir',
+              fontWeight:'bold'
+            }}
+            containerStyle={{ marginTop: 20 }}
+            onPress={this.sendEmailInvitations.bind(this, invitations)}
+          /> 
+          {/* <Button
             raised
             icon={{ name: "send" }}
             title="Next"
@@ -55,7 +81,7 @@ class InviteOthersForm extends React.Component {
             backgroundColor="#00A68C"
             containerViewStyle={styles.finishButton}
             onPress={this.sendEmailInvitations.bind(this, invitations)}
-          />
+          /> */}
         </View>
         <Icon
           raised
@@ -232,6 +258,17 @@ const styles = {
     // flex: 5,
     // backgroundColor: 'red'
   },
+  nextBtn:{
+    borderRadius: 10,
+    shadowOpacity: 5, 
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5, 
+    elevation: 10,
+  },
   heading: {
     textAlign: "center",
     fontSize: 18,
@@ -241,7 +278,7 @@ const styles = {
   },
   addButton: {
     position: "absolute",
-    bottom: 35,
+    bottom: 75,
     right: 15,
     alignSelf: "flex-end"
   },
