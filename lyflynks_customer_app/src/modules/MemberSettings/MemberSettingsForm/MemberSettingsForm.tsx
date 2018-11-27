@@ -3,13 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  Picker,
   AsyncStorage,
 } from "react-native";
-import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
-import { Content, Right } from 'native-base';
-import { validator } from "util/validator";
+import { Content } from 'native-base';
+import { validator, secondaryPhonenumberValidator } from "util/validator";
 import InputFields from "./inputFieldsConfig";
 import Roles from "./rolesConfig";
 import {
@@ -22,14 +20,11 @@ import {
   NORMAL_STATUS,
   ACTIVE_STATUS
 } from "../../Auth/memberAction";
-import Input from 'componentsLib/Input';
 import { colorSwatch, deviceWidth } from 'styles/Theme';
-import SwitchCustom from 'componentsLib/SwitchCustom';
+import { SwitchCustom, Button, Input, BoundaryLine, DropdownMenu } from 'componentsLib';
 import notificationsConfig from './notificationsConfig';
-import BoundaryLine from 'componentsLib/BoundaryLine';
 import CloseIcon from 'components/icons/CloseIcon';
 import Check from 'components/icons/Check';
-import DropdownMenu from 'componentsLib/dropdown';
 
 const mapStateToProps = state => {
   return { ...state.member_form };
@@ -47,24 +42,12 @@ class MemberSettingsForm extends React.Component {
           <Text style={styles.fieldLabel}>NOTIFICATIN SETTINGS</Text>
           <BoundaryLine style={styles.boundaryLine} />
           {this.renderNotifications()}
-
-          <Button
-            title="Update"
-            fontWeight='bold'
-            fontFamily='Avenir'
-            buttonStyle={styles.BtnStyle}
-            textStyle={styles.BtnTxtStyle}
-            onPress={() => true}
-          />
-
-          <Button
-            buttonStyle={[styles.BtnStyle, { marginTop: 5 }]}
-            title="Reset Password"
-            fontWeight='bold'
-            fontFamily='Avenir'
-            textStyle={styles.BtnTxtStyle}
-            onPress={() => true}
-          />
+          <View style={styles.firstBtnContainer}>
+            <Button primary onPress={() => true} title="UPDATE" btnStyle={styles.BtnStyle} txtStyle={styles.BtnTxtStyle} />
+          </View>
+          <View style={styles.secondBtnContainer}>
+            <Button primary onPress={() => true} title="RESET PASSWORD" btnStyle={styles.BtnStyle} txtStyle={styles.BtnTxtStyle} />
+          </View>
         </View>
       </Content>
     );
@@ -86,7 +69,7 @@ class MemberSettingsForm extends React.Component {
         <View key={input.id}>
           {input.id == "email" ? <Text style={styles.fieldLabel}>MY CONTACT DETAILS</Text> : null}
           <View key={input.id} style={styles.inputContainer}>
-            <View key={input.id} style={styles}>
+            <View key={input.id} style={styles.inputSubContainer}>
               <Input
                 onFocus={this.updateActive.bind(this, input)}
                 value={this.props[input.id]}
@@ -102,24 +85,11 @@ class MemberSettingsForm extends React.Component {
                 onBlur={this.updateErrorMessage.bind(this, input)}
               />
 
-              <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 20,
-                height: 20,
-                position: 'absolute',
-                right: 40,
-                shadowRadius: 8,
-                shadowOffset: {
-                  width: 0,
-                  height: 4
-                },
-                elevation: 4,
-              }}>
-                {this.props.inputStatus[input.statusId] == ERROR_STATUS ? <CloseIcon style={{ width: 20, height: 20, zIndex: 100 }} color='red' /> : this.props.inputStatus[input.statusId] == SUCCESS_STATUS ? <Check style={{ width: 20, height: 20, zIndex: 100 }} color={colorSwatch.persianGreen} /> : null}
+              <View style={styles.inputIconContainerStyle}>
+                {this.props.inputStatus[input.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[input.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
               </View>
             </View>
-            <View style={{ justifyContent: 'center', alignItems: 'flex-start', width: '100%', height: 10, marginTop: 5 }}>
+            <View style={styles.errorContainer}>
               <Text style={styles.errorMessage}>
                 {this.props.inputStatus[input.statusId] == ERROR_STATUS ? this.props.errors[input.errorId] : null}
               </Text>
@@ -130,7 +100,7 @@ class MemberSettingsForm extends React.Component {
       );
     });
   }
-  //{this.props.errors[input.errorId]}
+
   bindReferenceToInputFields(inputField, inputElement) {
     this[inputField.id] = inputElement;
   }
@@ -150,11 +120,13 @@ class MemberSettingsForm extends React.Component {
       ? this[nextInputFieldReference].focus()
       : "";
   }
+
   updateSwitchValue(notificationId, value) {
     const { dispatch } = this.props;
     dispatch(updateMemberNotifications({ prop: notificationId, value }));
 
   }
+
   updateActive(inputField) {
     const { dispatch } = this.props;
     dispatch(updateInputStatus(
@@ -167,17 +139,20 @@ class MemberSettingsForm extends React.Component {
   }
   updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    dispatch(updateMemberFormField({ prop: inputField.id, value }));
-    dispatch(updateInputStatus(
-      {
-        prop: inputField.statusId,
-        value: this.validateValue(inputField.id, this.props[inputField.id]) ? ACTIVE_STATUS : SUCCESS_STATUS
-      }
-    )
-    )
+    dispatch(updateMemberFormField({ prop: inputField.id, value })).then(() => {
+      dispatch(updateInputStatus(
+        {
+          prop: inputField.statusId,
+          value: this.validateValue(inputField.id, this.props[inputField.id]) ? ACTIVE_STATUS : SUCCESS_STATUS
+        }
+      )
+      )
+    })
+
   }
 
   validateValue(inputElementName, value) {
+    if (inputElementName == "secondaryPhoneNumber") return secondaryPhonenumberValidator(inputElementName, value);
     return validator(inputElementName, value);
   }
 
@@ -197,26 +172,18 @@ class MemberSettingsForm extends React.Component {
     );
   }
 
-  renderPickerItems(roles) {
-    return roles.map(role => {
-      return (
-        <Picker.Item label={role.title} value={role.role} key={role.role} />
-      );
-    });
-  }
-
   renderPicker() {
     const { role } = this.props;
-    return (        
+    return (
       <DropdownMenu
         style={styles.Picker}
         bgColor={'white'}
         tintColor={colorSwatch.bombayGray}
         activityTintColor={colorSwatch.persianGreen}
-        titleStyle={{ color: colorSwatch.bombayGray }}     
+        titleStyle={styles.dropdownTitle}
         handler={(selection, row) => this.setSelectedRole(Roles['roles'][selection][row])}
         data={Roles['titles']}
-        panelAbsoluteStyle={{ top: 46 }}
+        panelAbsoluteStyle={styles.dropdownPanelStyle}
         activeIndex={[Roles['roles'][0].indexOf(role)]}
       >
       </DropdownMenu>
@@ -250,11 +217,26 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0
   },
+  dropdownPanelStyle: {
+    top: 46
+  },
+  dropdownTitle: {
+    color: colorSwatch.bombayGray
+  },
   Picker: {
     margin: 25,
     borderBottomColor: colorSwatch.bombayGray,
     borderBottomWidth: 1,
     marginTop: 10,
+  },
+  firstBtnContainer: {
+    flex: 1,
+    marginTop: 25
+  },
+  secondBtnContainer: {
+    flex: 1,
+    marginTop: 20,
+    marginBottom: 30
   },
   BtnStyle: {
     backgroundColor: "#00A68C",
@@ -263,7 +245,6 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 25,
-    marginBottom: 20,
     zIndex: 0,
     shadowOpacity: 5,
     shadowColor: '#000000',
@@ -271,21 +252,19 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3
     },
-    shadowRadius: 2,
-    elevation: 3,
-    marginTop: 20
+    shadowRadius: 1,
+    elevation: 2,
   },
-  BtnTxtStyle:{
-    fontSize: 18,
-    fontFamily: 'Avenir',
-    fontWeight: 'bold'
+  BtnTxtStyle: {
+    fontSize: 17,
+    fontFamily: 'Avenir'
   },
   InputActiveStatus: {
     height: 50,
     backgroundColor: "#fff",
     borderColor: "#00A68C",
     borderWidth: 2,
-    width: "90%",
+    width: "100%",
     color: "#000",
     shadowRadius: 5,
     shadowOffset: {
@@ -299,7 +278,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#fff",
     borderWidth: 0,
-    width: "90%",
+    width: "100%",
     color: "#000",
     shadowRadius: 6,
     shadowOffset: {
@@ -314,7 +293,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderColor: colorSwatch.red,
     borderWidth: 2,
-    width: "90%",
+    width: "100%",
     color: "#000",
     shadowRadius: 5,
     shadowOffset: {
@@ -324,19 +303,51 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderRadius: 25
   },
+  inputIconContainerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    right: 0,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    elevation: 4,
+  },
+  inputIconStyle: {
+    width: 20,
+    height: 20,
+    zIndex: 100
+  },
   inputContainer: {
     justifyContent: 'flex-start',
-    width: '100%',
-    // height: 83,
+    marginTop: 20,
+    marginRight: 25,
     alignItems: "center"
+  },
+  inputSubContainer: {
+    width: '100%',
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'space-between',
+
+  },
+  errorContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: '100%',
+    height: 10,
+    marginTop: 5
   },
   errorMessage: {
     color: "red",
     alignSelf: "flex-start",
     marginLeft: 25,
     marginTop: 0
-    //  paddingTop: 20,
-    //   paddingBottom:0
   },
   fieldLabel: {
     textAlign: "left",
