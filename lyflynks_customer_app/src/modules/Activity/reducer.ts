@@ -44,11 +44,11 @@ import {
           upcoming: { ...state.upcoming, data: state.upcoming.data.filter(d => d.id !== action.payload) }
         }
       
-      case CHECK_IN_ADDED:
-        return {
-          ...state,
-          newAddedCheckIn: [{ ...action.payload, type: 'check_in' }, ...state.newAddedCheckIn]
-        }
+      // case CHECK_IN_ADDED:
+      //   return {
+      //     ...state,
+      //     newAddedCheckIn: [{ ...action.payload, type: 'check_in' }, ...state.newAddedCheckIn]
+      //   }
   
       case UPCOMING_ACTIVITIES_FAILURE:
         return {
