@@ -25,11 +25,18 @@ export const checkIn = (payload: any, token: string, callback: any) => {
 export const cancelCheckIn = (id: string, token: string) => ({
     type: API,
     meta: {
-        url: `/activities/check_in/${id}`,
-        token,
-        method: DELETE,
+        url: `/activity/check_in/${id}`,
+        token: token,
+        method: PATCH,
         success: REMOVE_CHECKIN,
         payload: id,
+    },
+    payload: {
+        activity: {
+            status: 'cancelled'
+        },
+        activity_fin:{},
+        check_in:{}
     }
 });
 

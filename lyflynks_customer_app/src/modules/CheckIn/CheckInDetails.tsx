@@ -148,8 +148,8 @@ const mapDispatchToProp = (dispatch) => ({
     // checkIn(...params) {
     //     dispatch(checkIn(...params));
     // },
-    cancelCheckIn(params) {
-        dispatch(cancelCheckIn(params));
+    cancelCheckIn(...params) {
+        dispatch(cancelCheckIn(...params));
     }
 });
 
