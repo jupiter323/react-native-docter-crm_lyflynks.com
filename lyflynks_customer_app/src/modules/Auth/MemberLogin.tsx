@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet,Image, Text, View, KeyboardAvoidingView,Alert,AsyncStorage } from "react-native";
+import { StyleSheet,Image, Text, View, KeyboardAvoidingView,Alert,AsyncStorage, TouchableOpacity } from "react-native";
 import { Button as ReactButton } from "react-native-elements";
 import { connect } from "react-redux";
 
@@ -61,7 +61,8 @@ class MemberLogin extends React.Component {
             community and spending more{"\n"}
             meaningful time with your aging family{"\n"} members?
           </Text> 
-          <ReactButton  
+
+          {/* <ReactButton  
               title="Sign Up for a new Account"  
               buttonStyle={{
                 backgroundColor: "#00A68C", 
@@ -69,10 +70,12 @@ class MemberLogin extends React.Component {
                 borderWidth: 0,
                 borderRadius: 28, 
                 marginTop:5, 
-                width:'98%'
+                width:'100%'
               }}
               textStyle={{
-                fontSize:17 , 
+                fontSize:17 ,
+                alignItems: 'center',
+                justifyContent: 'center', 
                 paddingHorizontal:'10%',
                 paddingVertical:5,
                 fontFamily:'Avenir',
@@ -80,9 +83,12 @@ class MemberLogin extends React.Component {
               }}
               containerStyle={{ marginTop: 20 }}
               onPress={() => this.props.navigation.navigate("Signup")} 
-        />
+        /> */}
          
         </View>
+        <TouchableOpacity style={styles.signupButton}>
+            <Text style={{ fontFamily:'Avenir', fontSize: 17, color: '#fff', fontWeight:'bold' }}>Sign Up for a new Account</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
@@ -100,6 +106,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 0
   },
+  signupButton: { 
+    height: 56, 
+    marginHorizontal: 32, 
+    marginTop: 5, 
+    borderRadius: 28, 
+    flexDirection: 'row', 
+    alignSelf: 'stretch', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    backgroundColor: '#00A68C' 
+  },
   signupContainer: {
     marginTop: 20,
     marginBottom: 10,
@@ -108,12 +125,6 @@ const styles = StyleSheet.create({
   signUpText: {
     textAlign: "center",
     marginBottom: 5
-  },
-  signupButton: {
-    position: "absolute",
-    bottom: 15,
-    alignSelf: "center",
-    
   },
   logo: {
     height: 100,
