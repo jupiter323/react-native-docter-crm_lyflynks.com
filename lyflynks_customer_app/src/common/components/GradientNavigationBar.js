@@ -107,13 +107,13 @@ class GradientNavigationBar extends React.Component {
   }
 
   _handleLogout = async() => {
-    console.log('logout');
+    // console.log('logout');
     AsyncStorage.clear(); 
-    AsyncStorage.removeItem('isLogin');  
-    AsyncStorage.setItem('isLogin', null); 
+    // AsyncStorage.removeItem('isLogin');  
+    // AsyncStorage.setItem('isLogin', null); 
     this.props.makeLogout();
     this.props.navigation.navigate('MemberLogin'); 
-        }
+  }
 
   render() { 
     return (
