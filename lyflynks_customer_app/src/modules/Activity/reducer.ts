@@ -37,13 +37,17 @@ import {
           error: {},
         }
 
-      // case REMOVE_CHECKIN:
-      
+      case REMOVE_CHECKIN:
+        return {
+          ...state,
+          newAddedCheckIn: state.newAddedCheckIn.filter(n => n.id !== action.payload),
+          upcoming: { ...state.upcoming, data: state.upcoming.data.filter(d => d.id !== action.payload) }
+        }
       
       case CHECK_IN_ADDED:
         return {
           ...state,
-          newAddedCheckIn: [...state.newAddedCheckIn, { ...action.payload, type: 'check_in' }]
+          newAddedCheckIn: [{ ...action.payload, type: 'check_in' }, ...state.newAddedCheckIn]
         }
   
       case UPCOMING_ACTIVITIES_FAILURE:

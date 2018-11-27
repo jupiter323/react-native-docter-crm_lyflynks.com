@@ -29,6 +29,12 @@ const mapStateToProps = state => {
   return { ...state.member_form };
 }; 
 
+function getDashedPhoneNumber(phoneNumber: string = '') {
+	return phoneNumber.replace(/^(\d{3})?(\d{3})?(\d{4})?/, function (data, first = '', second = '', third = '') {
+	  return `${first ? first : ''}${first && '-'}${second || ''}${second && '-'}${third || ''}`
+  });
+}
+
 class RegistrationForm extends React.Component {
 
   async componentDidMount() { 
@@ -96,7 +102,7 @@ class RegistrationForm extends React.Component {
         <View key={input.id}>
           <View key={input.id} style={styles.inputContainer}>
             <Input
-              value={this.props[input.id]}
+              value={input.id === 'primaryPhoneNumber' ? getDashedPhoneNumber(this.props[input.id]) : this.props[input.id]}
               placeholder={input.placeholder}
               style={styles.input}
               setReference={this.bindReferenceToInputFields.bind(this, input)}
@@ -139,7 +145,7 @@ class RegistrationForm extends React.Component {
 
   updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    dispatch(updateMemberFormField({ prop: inputField.id, value }));
+    dispatch(updateMemberFormField({ prop: inputField.id, value: value.replace(/-/g, '') }));
     setTimeout(() => {
       this.updateErrorMessage(inputField, value);
     }, 0);

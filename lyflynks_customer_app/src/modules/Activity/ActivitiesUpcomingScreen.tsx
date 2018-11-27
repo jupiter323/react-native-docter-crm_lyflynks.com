@@ -43,6 +43,7 @@ class ActivitiesUpcoming extends Component {
   _renderContent () {
     let { error, upcoming, navigation, newAddedCheckIn } = this.props
     if (upcoming.success) {
+      console.log(newAddedCheckIn, upcoming.data, 'new Data');
       return <ActivitiesTimeline navigation={navigation} data={[ ...newAddedCheckIn.map(n => ({ ...fakeCheckInData, id: n.id })), ...upcoming.data ]}/>
     }
   }
