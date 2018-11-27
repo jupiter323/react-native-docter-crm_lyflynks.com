@@ -36,13 +36,6 @@ class ActivityLogTimeline extends Component {
 		this.state = { 'data': data };
   }
 
-  renderTitle = (word) => {
-		return word.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) {
-			return key.toUpperCase()
-			}
-		);
-  }
-
 	onRowPress = (data) => {
 		if (data.type === 'check_in') {
 			this.props.navigation.navigate('CheckInDetailsScreen', { id: data.id });
@@ -61,7 +54,7 @@ class ActivityLogTimeline extends Component {
 	  let title = (
 		  <View style={styles.activityTitleContainer} >
 				<View>
-				  <Text style={styles.title}>{this.renderTitle(rowData.type)}</Text>
+				  <Text style={styles.title}>{rowData.name}</Text>
 				</View>
 				<View style={styles.activityTitleDatetime}>
 				  <Text style={styles.date}>{this.renderWhen(rowData.when)}</Text>
@@ -81,7 +74,9 @@ class ActivityLogTimeline extends Component {
 			  <View style={styles.descriptionContainer}>
 					<View>
 						{forWhoItems}
-						<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
+        	  { whoString.length > 0 &&
+  						<Text style={[styles.doctorName]} key='for-who'>With {whoString}</Text>
+            }
 					</View>
 			  </View>
 			)
