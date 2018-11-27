@@ -58,6 +58,36 @@ function formatData(existingData: any) {
         time: moment(existingData.check_in_time).format('h,m,A').replace('AM', 'false').replace('PM', 'true')
     };
 }
+// function getDateString (markedDates = {}) {
+//     const date = Object.keys(markedDates)[0];
+//     return date ? moment(date, 'YYYY-MM-DD').format('MMMM D, YYYY') : 'Please Select a date';
+// }
+
+function getTwoDigitNumber(num) {
+    return num > 9 ? num: `0${num}`;
+}
+
+function getTimeString (time) {
+    const [hrs, min, pm] = getHoursAndMinutes(time);
+    return `${getTwoDigitNumber(hrs)}:${getTwoDigitNumber(min)} ${pm ? 'PM': 'AM'}`;
+}
+
+function formatData(existingData: any) {
+    const members = existingData.requested_member_names || [];
+    return {
+        anyOneCanComplete: existingData.anybody_flag,
+        notes: existingData.note,
+        elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
+        markedDates: {
+            [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
+                color: "#00A68C",
+                selected: true
+            }
+        },
+        members: members.map(e => ({ full_name: e, checked: true })),
+        time: moment(existingData.check_in_time).format('h,m,A').replace('AM', 'false').replace('PM', 'true')
+    };
+}
 
 class CheckInForm extends React.Component {
 
