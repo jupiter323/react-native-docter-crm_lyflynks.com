@@ -33,8 +33,24 @@ class ActivityLogTimeline extends Component {
 		this.renderDetail = this.renderDetail.bind(this);
 		this.onRowPress = this.onRowPress.bind(this);
 		let data = this.props.data.slice();
-		this.state = { 'data': data };
-  }
+		data.forEach((record, index) => {
+		  // record.taskId = (new Date().getTime()) + "." + index;
+		  record.taskId = record.for_who + '$' + record.href;
+		  record.status = 'U';
+		});
+		this.state = {'data': data, 'tasks': {}};
+		}
+		
+		componentWillReceiveProps(nextProps) {
+			if (nextProps.data !== this.props.data) {
+				let data = nextProps.data.slice();
+				data.forEach((record, index) => {
+					record.taskId = record.for_who + '$' + record.href;
+					record.status = 'U';
+				});
+				this.setState({'data': data, 'tasks': {}})
+			}
+		}
 
 	onRowPress = (data) => {
 		if (data.type === 'check_in') {
