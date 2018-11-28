@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { deviceWidth, colorSwatch } from 'styles/Theme';
 import { Switch as InnerSwtich } from 'react-native-switch';
 const styles = StyleSheet.create({
     switchInactiveContainer: {
         position: 'absolute',
-        height: 36.5,
+        height:Platform.OS === "android" ? 36.5 :34,
         width: 62,
-        top: 0.5,
+        top: Platform.OS === "android" ? 0.5:3,
         right: 0,
         borderRadius: 17.5,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: 3 },
-        elevation: 2
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 0 },
+        elevation: 2,
+        backgroundColor: 'white'
     },
 
     notificationContainer: {
@@ -22,6 +24,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingLeft: 1,
+
     }
 });
 

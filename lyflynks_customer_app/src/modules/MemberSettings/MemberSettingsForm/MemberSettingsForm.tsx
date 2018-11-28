@@ -246,13 +246,12 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 25,
     zIndex: 0,
-    shadowOpacity: 5,
-    shadowColor: '#000000',
+    shadowOpacity: 0.5,    
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 4
     },
-    shadowRadius: 1,
+    shadowRadius: 4,
     elevation: 2,
   },
   BtnTxtStyle: {
@@ -266,11 +265,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: "100%",
     color: "#000",
-    shadowRadius: 5,
+    shadowOpacity: 0.3,    
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 0
     },
+    shadowRadius: 4,
     elevation: 3,
     borderRadius: 25
   },
@@ -280,11 +280,12 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     width: "100%",
     color: "#000",
-    shadowRadius: 6,
+    shadowOpacity: 0.3,    
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 0
     },
+    shadowRadius: 4,
     elevation: 4,
     borderRadius: 25
   },
@@ -295,11 +296,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: "100%",
     color: "#000",
-    shadowRadius: 5,
+    shadowOpacity: 0.3,    
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 0
     },
+    shadowRadius: 4,
     elevation: 3,
     borderRadius: 25
   },
@@ -310,10 +312,11 @@ const styles = StyleSheet.create({
     height: 20,
     position: 'absolute',
     right: 0,
-    shadowRadius: 8,
+    shadowRadius: 2,
+    shadowOpacity:0.1,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 0
     },
     elevation: 4,
   },
@@ -341,7 +344,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: '100%',
     height: 10,
-    marginTop: 5
+    marginTop: 5,
+    marginBottom:1
   },
   errorMessage: {
     color: "red",
@@ -354,6 +358,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 25,
     marginTop: 10,
+    zIndex:0,
     color: '#000'
   },
   notificationLabel: {
@@ -361,18 +366,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
     marginLeft: 25
-  },
-  switchContainer: {
-    position: 'absolute',
-    height: 36.5,
-    width: 62,
-    top: 5.3,
-    right: 60,
-    borderRadius: 17.5,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 2
-  },
+  }, 
   notificationContainer: {
     marginTop: 0,
     flexDirection: 'row',

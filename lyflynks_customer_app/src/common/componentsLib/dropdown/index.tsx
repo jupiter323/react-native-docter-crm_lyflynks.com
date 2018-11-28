@@ -67,12 +67,12 @@ class DropdownMenu extends Component {
       }
 
       return (
-        <View style={[{ height: '100%', position: 'absolute', left: 25, right: 25, top: 46, bottom: 0 },this.props.panelAbsoluteStyle]}>
-          <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
+        <View style={[{ height: '100%',shadowRadius: 3, shadowOpacity:0.3,  shadowOffset: { width: 0, height: 3 }, elevation: 6 , zIndex:100, position: 'absolute', left: 25, right: 25, top: 46, bottom: 0},this.props.panelAbsoluteStyle]}>
+          {/* <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
             <View style={{ opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <ScrollView style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white', shadowRadius: 3, shadowOffset: { width: 0, height: 3 }, elevation: 6 }, heightStyle]} >
+          <ScrollView style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white', shadowRadius: 3, shadowOpacity:0.3,  shadowOffset: { width: 0, height: 3 }, elevation: 6 }, heightStyle]} >
             {
               currentTitles.map((title, index) =>
                 <TouchableOpacity key={index} activeOpacity={1} style={{ flex: 1, height: 35 }} onPress={this.itemOnPress.bind(this, index)} >
