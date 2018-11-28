@@ -1,4 +1,4 @@
-export * from "./instructions";
+export * from "./notificationsConfig";
 export * from "./MemberSettingsForm";
-export * from "./rolesConfig.json";
-export * from "./inputFieldsConfig.json";
+export * from "./rolesConfig.ts";
+export * from "./inputFieldsConfig.ts";

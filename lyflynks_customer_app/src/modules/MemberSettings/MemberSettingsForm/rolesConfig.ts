@@ -1,18 +1,18 @@
 const obj = {
+  "titles": [
+    [
+      "Primary Caregiver",
+      "Elder",
+      "Member"
+    ]
+  ],
   "roles": [
-    {
-      "title": "Primary Caregiver",
-      "role": "caregiver"
-    },
-    {
-      "title": "Elder",
-      "role": "elder"
-    },
-    {
-      "title": "Member",
-      "role": "member"
-    }
+    [
+      "caregiver",
+      "elder",
+      "member"
+
+    ]
   ]
 };
-
 export default obj;

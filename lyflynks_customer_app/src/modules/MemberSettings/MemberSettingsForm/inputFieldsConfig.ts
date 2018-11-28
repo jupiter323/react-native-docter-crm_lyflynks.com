@@ -1,33 +1,26 @@
 export default [
   {
-    "id": "firstName",
-    "placeholder": "First name",
-    "errorId": "firstNameErrorMessage"
-  },
-  {
-    "id": "lastName",
-    "placeholder": "Last name",
-    "ref": "lastName",
-    "errorId": "lastNameErrorMessage"
+    "id": "fullName",
+    "placeholder": "Name",
+    "errorId": "fullNameErrorMessage",
+    "statusId":"nameStatus"
   },
   {
     "id": "email",
     "placeholder": "Email address",
-    "errorId": "emailErrorMessage"
+    "errorId": "emailErrorMessage",
+    "statusId":"emailStatus"
   },
   {
     "id": "primaryPhoneNumber",
     "placeholder": "Primary phone number",
-    "errorId": "primaryPhoneNumberErrorMessage"
+    "errorId": "primaryPhoneNumberErrorMessage",
+    "statusId":"primaryPhoneStatus"
   },
   {
     "id": "secondaryPhoneNumber",
-    "placeholder": "Secondary phone number",
-    "errorId": "secondaryPhoneNumberErrorMessage"
-  },
-  {
-    "id": "zipCode",
-    "placeholder": "Elder's zip code",
-    "errorId": "zipCodeErrorMessage"
+    "placeholder": "Alternative phone number",
+    "errorId": "secondaryPhoneNumberErrorMessage",
+    "statusId":"alternativePhoneStatus"
   }
 ];

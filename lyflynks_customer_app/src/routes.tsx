@@ -6,8 +6,10 @@ import { MemberInviteScreen } from './modules/Invite';
 import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
 import { AccountCallOrder } from './modules/CallOrder';
 import { MemberSettingsScreen } from './modules/MemberSettings';
-import { AccountSettingsScreen } from './modules/AccountSettings';
+import { AccountSettingsScreen, CreditCardForm } from './modules/AccountSettings';
+
 import { Screen } from 'components/Screen';
+import ResetPasswordForm from './modules/Auth/Signup Forms/ResetPasswordForm/ResetPasswordForm';
 const Navigation = StackNavigator(
   {
     CheckInFormScreen: {
@@ -128,11 +130,27 @@ const Navigation = StackNavigator(
         header: null,
         gesturesEnabled: false
       }
-    }
+    },
+    CreditCardUpdate: {
+      screen: CreditCardForm,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    
+    ResetPassword: {
+      screen: ResetPasswordForm,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+
   },
   {
     headerMode: "screen",
-    initialRouteName: "MemberLogin"
+    initialRouteName: "MainMenuScreen"
   }
 );
 
