@@ -25,7 +25,7 @@
     "postinstall": "sed -i -e 's/props,/props/g' node_modules/react-native-scrollable-tab-view/SceneComponent.js",
     "debug": "open -g 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
     "releaseAndroid": "cd android && ./gradlew assembleRelease && cd ..",
-    "ios-bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
+    "ios-bundle": "react-native bundle --dev false --entry-file index.js --bundle-output ios/main.jsbundle --platform ios",
     "android-linux": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
   "dependencies": {
