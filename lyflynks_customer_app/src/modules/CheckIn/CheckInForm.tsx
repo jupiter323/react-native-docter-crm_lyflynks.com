@@ -17,6 +17,7 @@ import { checkIn, updateCheckIn } from './action';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { Toast } from 'native-base';
 import CheckInDate from './CheckInDate'
+import { Toast } from 'native-base';
 
 const fakeMembers = [
     {
@@ -77,7 +78,7 @@ function formatData(existingData: any) {
     return {
         anyOneCanComplete: existingData.anybody_flag,
         notes: existingData.note,
-        elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
+        elders: existingData.elder_names.map(e => ({ full_name: e, checked: true })),
         markedDates: {
             [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
                 color: "#00A68C",
