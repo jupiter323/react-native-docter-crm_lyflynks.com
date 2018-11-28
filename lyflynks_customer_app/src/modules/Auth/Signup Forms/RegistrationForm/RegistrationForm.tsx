@@ -118,9 +118,11 @@ class RegistrationForm extends React.Component {
               onChangeText={this.updateInputFieldValue.bind(this, input)}
               onBlur={this.updateErrorMessage.bind(this, input)}
             />
-            <Text style={styles.errorMessage}>
-              {this.props.errors[input.errorId]}
-            </Text>
+            <View style={{ width: '90%'}}>
+              <Text style={styles.errorMessage}>
+                {this.props.errors[input.errorId]}
+              </Text>
+            </View>
           </View>
         </View>
       );
@@ -245,7 +247,7 @@ const styles = StyleSheet.create({
     borderColor: "#00A68C",
     borderWidth: 1,
     marginBottom: 0,
-    width: "90%",
+    // width: "90%",
     color:"#000",
     shadowRadius: 5, 
     shadowOffset: {
@@ -264,12 +266,10 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   errorMessage: {
+    paddingLeft:10,
+    alignSelf: 'flex-start',
     color: "red",
-    alignSelf: "flex-start",
-    marginLeft:8,
-    paddingTop:2,
-    width: "90%",
-    paddingLeft: 12,
+    paddingTop: 4,
   },
   pickerLabel: {
     textAlign: "center",
