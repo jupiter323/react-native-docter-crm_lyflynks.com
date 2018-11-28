@@ -5258,6 +5258,10 @@ react-native-sortable-listview@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/react-native-sortable-listview/-/react-native-sortable-listview-0.2.8.tgz#0d514fa73eb406a46baea96aa38a71e40257af90"
 
+react-native-stripe-api@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-stripe-api/-/react-native-stripe-api-0.1.0.tgz#d1cb21fb0dc7ecc643f53d3e88a18e98e9d81ffd"
+
 react-native-svg@^6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.5.2.tgz#1105896b8873b0856821b18daa0c6898cea6c00c"
