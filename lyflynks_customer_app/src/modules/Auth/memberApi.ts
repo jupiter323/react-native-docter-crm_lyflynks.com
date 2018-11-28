@@ -17,7 +17,9 @@ export default {
     return makeRequest([memberInvite], 'POST', data)
   },
   async sendInvites(data) {
-    return makeRequest([baseForMemberInvite], "POST", data);
+    const { token } = data;
+    delete data.token;
+    return makeRequest([baseForMemberInvite], "POST", data, token);
   },
   async sendInvites1(data) {
     console.log('baseForMemberInvite',baseForMemberInvite);

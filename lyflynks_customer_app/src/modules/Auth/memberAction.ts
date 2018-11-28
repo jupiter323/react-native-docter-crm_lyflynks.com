@@ -3,6 +3,7 @@ export const UPDATE_ERROR_MESSAGE = "update_error_message";
 export const UPDATE_PREFERRED_DAYS = "update_preferred_days";
 export const UPDATE_PREFERRED_TIME = "update_preferred_time";
 export const UPDATE_ACTIVITIES = "update_activities";
+export const RESET_MEMBER_FORM = 'RESET_MEMBER_FORM';
 
 export const updateMemberFormField = ({ prop, value }) => {
   return {
@@ -10,6 +11,10 @@ export const updateMemberFormField = ({ prop, value }) => {
     payload: { prop, value }
   };
 };
+
+export const resetMemberForm = () => ({
+  type: RESET_MEMBER_FORM,
+});
 
 export const updateErrorMessage = ({ prop, value }) => {
   return {

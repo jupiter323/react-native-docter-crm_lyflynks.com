@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import CheckInAPIs from './api';
 import { checkIn, updateCheckIn } from './action';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { Toast } from 'native-base';
 
 const fakeMembers = [
     {
@@ -46,7 +47,7 @@ function formatData(existingData: any) {
     return {
         anyOneCanComplete: existingData.anybody_flag,
         notes: existingData.note,
-        elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
+        elders: existingData.elder_names.map(e => ({ full_name: e, checked: true })),
         markedDates: {
             [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
                 color: "#00A68C",
@@ -121,8 +122,29 @@ class CheckInForm extends React.Component {
         this.setState({ visible: false });
     }
 
+    validate = () => {
+        const { elders, notes, members, anyOneCanComplete, markedDates, time } : any = this.state;
+        let message;
+
+        if (elders.filter(e => e.checked).length === 0) message = 'Please select elders';
+        else if (members.filter(e => e.checked).length === 0 && !anyOneCanComplete) message = 'Please select members';
+        else if (!markedDates) message = 'Please select check in date.';
+        else if (!time) message = 'Please select check in time';
+        else if (!notes) message = 'Please enter notes.';
+
+        if (message) {
+            Toast.show({ text: message, buttonText: 'Okay', duration: 3000 });
+            return false;
+        }
+
+        return true;
+    }
+
     handleOnSubmit = () => {
-        const { elders, notes, members, anyOneCanComplete, markedDates, time } = this.state;
+        const { elders, notes, members, anyOneCanComplete, markedDates, time }: any = this.state;
+        
+        if (!this.validate()) return;
+
         const selectedDate = Object.keys(markedDates)[0];
         const [hrs, mins, pm] = getHoursAndMinutes(time);
         const check_in_time = moment(`${selectedDate} ${hrs}:${mins} ${pm ? 'PM': 'AM'}`, 'YYYY-MM-DD hh:mm A').format('YYYY-MM-DD HH:mm:ss');
@@ -145,7 +167,6 @@ class CheckInForm extends React.Component {
         };
 
         const existingData = this.props.navigation.getParam('data');
-        console.log(existingData);
         if (existingData) { 
             this.props.updateCheckIn(existingData.id, patchObject, this.props.token, this.afterSubmit);
         } else {

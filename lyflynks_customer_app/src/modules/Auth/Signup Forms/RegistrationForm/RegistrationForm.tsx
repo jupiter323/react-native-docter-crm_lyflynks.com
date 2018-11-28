@@ -17,6 +17,8 @@ import Input from "components/Input";
 import { validator } from "util/validator";
 import InputFields from "./inputFieldsConfig";
 import Roles from "./rolesConfig";
+import { resetMemberForm } from '../../memberAction';
+
 
 import {
   updateMemberFormField,
@@ -52,6 +54,7 @@ class RegistrationForm extends React.Component {
       }
     }); 
 
+    this.props.dispatch(resetMemberForm());
   }
 
   render() {
@@ -250,7 +253,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: "center",
     height: 83,
-    alignItems: "center"
+    alignItems: "center",
   },
   formFieldsContainer: {
     width: "100%"
@@ -258,9 +261,10 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     alignSelf: "flex-start",
-    marginLeft:20,
+    marginLeft:8,
     paddingTop:2,
-    paddingLeft: 8,
+    width: "90%",
+    paddingLeft: 12,
   },
   pickerLabel: {
     textAlign: "center",

@@ -12,6 +12,7 @@ import {
   sendEmailInvitations,
   updateEmailErrorMessage
 } from "actions/emailInvitation";
+import AddIcon from 'components/icons/AddIcon';
 
 const mapStateToProps = state => {
   return { ...state.email_invitations, ...state.member_form };
@@ -83,15 +84,23 @@ class InviteOthersForm extends React.Component {
             onPress={this.sendEmailInvitations.bind(this, invitations)}
           /> */}
         </View>
-        <Icon
+        <TouchableOpacity style={{ position: 'absolute', bottom: 80, right: 30, backgroundColor: '#fff', shadowColor: 'rgba(0,0,0, .4)', // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    elevation: 2, // Android
+            height: 50, width: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center' }} onPress={this.addEmail.bind(this, "add")}>
+            <AddIcon style={{ width: 45, height: 45 }}/>
+        </TouchableOpacity>
+        {/* <Icon
           raised
-          name="add"
+          name="delete"
           reverse={true}
           type="material-icon"
           color="#2096f3"
           containerStyle={styles.addButton}
           onPress={this.addEmail.bind(this, "add")}
-        />
+        /> */}
       </View>
     );
   }
@@ -157,7 +166,7 @@ class InviteOthersForm extends React.Component {
             raised
             backgroundColor="#00A68C"
             icon={{ name: "send" }}
-            title="Finish"
+            title="Done"
             onPress={this.navigateToSignUpComplete.bind(this)}
           />
         </View>

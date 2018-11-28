@@ -3,10 +3,11 @@ import {
     UPDATE_ERROR_MESSAGE,
     UPDATE_PREFERRED_DAYS,
     UPDATE_PREFERRED_TIME,
-    UPDATE_ACTIVITIES
+    UPDATE_ACTIVITIES,
+    RESET_MEMBER_FORM,
   } from "./memberAction";
   
-  // import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "../actions/accounts";
+  import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "./accountAction";
   
   import { SET_USERNAME } from "actions/auth";
   
@@ -69,6 +70,9 @@ import {
           ...state,
           [action.payload.prop]: action.payload.value
         };
+      
+      case RESET_MEMBER_FORM:
+        return INITIAL_STATE;
   
       case UPDATE_ERROR_MESSAGE:
         const errors = {
@@ -110,26 +114,26 @@ import {
           ...state,
           preferredTime: updatedpreferredTime
         };
-      // case CREATING_ACCOUNT:
-      //   return { ...state, creatingAccount: true };
-      // case ACCOUNT_CREATION_SUCCESS:
-      //   return {
-      //     ...INITIAL_STATE,
-      //     accountCreated: "success",
-      //     token: action.payload,
-      //     creatingAccount: false
-      //   };
-      // case ACCOUNT_CREATION_FAILURE:
-      //   return {
-      //     ...state,
-      //     accountCreated: "failure",
-      //     errorMessage:
-      //       action.payload == "Validation error"
-      //         ? "Email already in use."
-      //         : "Seems like a network problem. Please try again later",
-      //     token: null,
-      //     creatingAccount: false
-      //   };
+      case CREATING_ACCOUNT:
+        return { ...state, creatingAccount: true };
+      case ACCOUNT_CREATION_SUCCESS:
+        return {
+          ...INITIAL_STATE,
+          accountCreated: "success",
+          token: action.payload,
+          creatingAccount: false
+        };
+      case ACCOUNT_CREATION_FAILURE:
+        return {
+          ...state,
+          accountCreated: "failure",
+          errorMessage:
+            action.payload == "Validation error"
+              ? "Email already in use."
+              : "Seems like a network problem. Please try again later",
+          token: null,
+          creatingAccount: false
+        };
       case UPDATE_ACTIVITIES:
         const activityToEdit = state.activities[action.payload.key];
         const updatedActivity = {

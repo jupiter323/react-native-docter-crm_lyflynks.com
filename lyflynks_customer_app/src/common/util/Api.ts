@@ -3,15 +3,15 @@ import base64 from 'base-64';
 
 export async function makeRequest(route, method, data, token, isLogin) {
   const url = route.reduce((a, b) => a.concat(b));
-  const body = data ? JSON.stringify(data) : null;
   console.log(token, url);
+  const headers = getHeader(token, isLogin, data);
 
   let req;
   try {
     req = await fetch(url, {
       method,
-      body,
-      headers: getHeader(token, isLogin, data)
+      headers,
+      body: data ? JSON.stringify(data) : null,      
     });
   } catch (err) {
     console.log(err);
@@ -36,7 +36,9 @@ const getHeader = (token, isLogin, data) => {
 
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
-    headers.append('account_id', account_id);
+    if (account_id) {
+      headers.append('account_id', account_id);
+    }
   }
   return headers;
 };
