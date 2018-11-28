@@ -7,7 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
@@ -68,7 +69,7 @@ class RegistrationForm extends React.Component {
               {this.renderInputFields()}
               <Text style={styles.pickerLabel}>Select your Role</Text>
               {this.renderPicker()}
-              <ImageButton/>
+              {/* <ImageButton/> */}
                 <Button
                   style={styles.nextBtn}
                   title="Next"
@@ -220,8 +221,12 @@ const styles = StyleSheet.create({
   },
   Picker:{
     marginLeft:20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
+    ...Platform.select({
+      android: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+      }
+    }),
   },
   nextBtn:{
     borderRadius: 10,
