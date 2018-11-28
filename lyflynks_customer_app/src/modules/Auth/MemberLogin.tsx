@@ -86,7 +86,7 @@ class MemberLogin extends React.Component {
         /> */}
          
         </View>
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={() => this.props.navigation.navigate("Signup")} >
             <Text style={{ fontFamily:'Avenir', fontSize: 17, color: '#fff', fontWeight:'bold' }}>Sign Up for a new Account</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
