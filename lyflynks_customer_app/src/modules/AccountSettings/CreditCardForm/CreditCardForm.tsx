@@ -5,6 +5,7 @@ import { Screen, Input, Button } from 'componentsLib';
 import Stripe from 'react-native-stripe-api'
 import { STRIPE_API_KEY } from './apiKey';
 import { deviceWidth } from 'styles/Theme';
+import CommonStyles from 'styles/CommonStyles';
 
 class CreditCardForm extends React.Component {
 
@@ -51,56 +52,73 @@ class CreditCardForm extends React.Component {
         back={true}
       >
 
-        <Content>
-          {/* <View style={{ width: deviceWidth, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{marginRight:25, marginLeft:0,width:deviceWidth -50}}>
-              <Input style={{
-                height: 50, backgroundColor: "#fff", borderWidth: 0, width: "100%", color: "#000", shadowRadius: 6, shadowOffset: {
-                  width: 0,
-                  height: 3
-                },
-                elevation: 4,
-                borderRadius: 25,
-              }} />
+        <Content >
+          <View style={styles.containerStyle}>
+            <Input //name input
+              style={CommonStyles.InputNormalStatus}
+              placeholder="Full Name (As it appears on Card) "
+            />
+
+            <View style={styles.rowContainer}>
+              <View style={styles.rowSubContainerLeft}>
+                <Input
+                  style={[CommonStyles.InputNormalStatus, { marginLeft: 0 }]}
+                  placeholder="Phone Number"
+                />
+              </View>
+              <View style={styles.rowSubContainerRight}>
+                <Input
+                  style={[CommonStyles.InputNormalStatus, { marginRight: 0 }]}
+                  placeholder="Zip"
+                />
+              </View>
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 25, paddingRight: 25 }}>
-              <Input style={{ width: deviceWidth / 3, backgroundColor: 'gray', height: 40, marginLeft: 0 }} />
-              <Input style={{ width: deviceWidth / 3, backgroundColor: 'gray', height: 40, marginRight: 0 }} />
-            </View>
 
+            <View style={CommonStyles.wrapperBox} />
 
-            <View>
-
-            </View> */}
-
-            <Input
-
-              style={{ margin: 25, backgroundColor: 'gray', height: 40 }}
+            <Input // card number input
+              style={CommonStyles.InputNormalStatus}
               onChangeText={(number) => this.setState({ number })}
-              placeholder="4242424242424242"
-
+              placeholder="Card Number"
             />
 
-            <Input style={{ margin: 25, backgroundColor: 'gray', height: 40 }}
-              onChangeText={(expmonth) => this.setState({ expmonth })}
-              placeholder="09"
-            />
-            <Input style={{ margin: 25, backgroundColor: 'gray', height: 40 }}
+
+            <View style={styles.rowContainer}>
+              <View style={styles.rowSubContainerLeft}>
+                <Input //exp month and year input
+                  style={[CommonStyles.InputNormalStatus, { marginLeft: 0 }]}
+                  onChangeText={(expmonth) => this.setState({ expmonth })}
+                  placeholder="MM / YY"
+                />
+
+              </View>
+              <View style={styles.rowSubContainerRight}>
+                <Input //cvc input
+                  style={[CommonStyles.InputNormalStatus, { marginRight: 0 }]}
+                  onChangeText={(cvc) => this.setState({ cvc })}
+                  placeholder="CVV"
+                />
+              </View>
+            </View>
+
+
+            {/* <Input style={{ margin: 25, backgroundColor: 'gray', height: 40 }}
               onChangeText={(expyear) => this.setState({ expyear })}
               placeholder="18"
-            />
-            <Input style={{ margin: 25, backgroundColor: 'gray', height: 40 }}
-              onChangeText={(cvc) => this.setState({ cvc })}
-              placeholder="111"
-            />
+            /> */}
 
             <View style={styles.btnContainer}>
-              <Button primary onPress={this.addCard.bind(this)} title="SAVE" btnStyle={styles.BtnStyle} txtStyle={styles.BtnTxtStyle} />
+              <Button
+                primary
+                onPress={this.addCard.bind(this)}
+                title="SAVE"
+                btnStyle={CommonStyles.BtnStyle}
+                txtStyle={CommonStyles.BtnTxtStyle} />
             </View>
-          {/* </View> */}
+          </View>
         </Content>
 
-      </Screen>
+      </Screen >
 
     );
   }
@@ -108,33 +126,42 @@ class CreditCardForm extends React.Component {
 
 
 const styles = StyleSheet.create({
-  btnContainer: {
-    // flex: 1,
-    marginTop: 20,
-    marginBottom: 30
-  },
-  BtnStyle: {
-    backgroundColor: "#00A68C",
+  containerStyle: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     width: '100%',
+    padding: 25,
+    paddingTop: 30
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: '100%',
+    height: 50
+  },
+  rowSubContainerLeft: {
+    width: '40%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    height: 50
+  },
+  rowSubContainerRight: {
+    width: '40%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    height: 50
+  },
+  btnContainer: {
+    flex: 1,
+    marginTop: 50,
+    width: '60%',
     height: 50,
-    borderColor: "transparent",
-    borderWidth: 0,
-    borderRadius: 25,
-    zIndex: 0,
-    shadowOpacity: 5,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 1,
-    elevation: 2,
-  },
-  BtnTxtStyle: {
-    fontSize: 17,
-    fontFamily: 'Avenir'
-  },
-
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default CreditCardForm;

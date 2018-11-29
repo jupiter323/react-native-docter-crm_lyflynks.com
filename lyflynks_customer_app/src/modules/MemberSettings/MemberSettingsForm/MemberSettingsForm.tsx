@@ -139,6 +139,8 @@ class MemberSettingsForm extends React.Component {
   }
   updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
+    if (value.length == 3 || value.length == 7) value += '-';
+    if(value.length == 13) return; 
     dispatch(updateMemberFormField({ prop: inputField.id, value })).then(() => {
       dispatch(updateInputStatus(
         {
@@ -152,7 +154,7 @@ class MemberSettingsForm extends React.Component {
   }
 
   validateValue(inputElementName, value) {
-    if (inputElementName == "secondaryPhoneNumber") return secondaryPhonenumberValidator(inputElementName, value);
+    if (inputElementName == InputFields[3].id) return secondaryPhonenumberValidator(inputElementName, value);
     return validator(inputElementName, value);
   }
 
@@ -246,7 +248,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 25,
     zIndex: 0,
-    shadowOpacity: 0.5,    
+    shadowOpacity: 0.5,
     shadowOffset: {
       width: 0,
       height: 4
@@ -265,7 +267,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: "100%",
     color: "#000",
-    shadowOpacity: 0.3,    
+    shadowOpacity: 0.3,
     shadowOffset: {
       width: 0,
       height: 0
@@ -280,7 +282,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     width: "100%",
     color: "#000",
-    shadowOpacity: 0.3,    
+    shadowOpacity: 0.3,
     shadowOffset: {
       width: 0,
       height: 0
@@ -296,7 +298,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: "100%",
     color: "#000",
-    shadowOpacity: 0.3,    
+    shadowOpacity: 0.3,
     shadowOffset: {
       width: 0,
       height: 0
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     shadowRadius: 2,
-    shadowOpacity:0.1,
+    shadowOpacity: 0.1,
     shadowOffset: {
       width: 0,
       height: 0
@@ -345,7 +347,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 10,
     marginTop: 5,
-    marginBottom:1
+    marginBottom: 1
   },
   errorMessage: {
     color: "red",
@@ -358,7 +360,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 25,
     marginTop: 10,
-    zIndex:0,
+    zIndex: 0,
     color: '#000'
   },
   notificationLabel: {
@@ -366,7 +368,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
     marginLeft: 25
-  }, 
+  },
   notificationContainer: {
     marginTop: 0,
     flexDirection: 'row',
