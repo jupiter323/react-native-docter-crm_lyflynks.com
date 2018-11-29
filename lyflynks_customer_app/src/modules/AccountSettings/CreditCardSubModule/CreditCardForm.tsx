@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 class CreditCardForm extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props);   
     this.state = {
       number: "5200828282828210",
       expmonth: "09",
