@@ -17,7 +17,6 @@ import { checkIn, updateCheckIn } from './action';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { Toast } from 'native-base';
 import CheckInDate from './CheckInDate'
-import { Toast } from 'native-base';
 
 const fakeMembers = [
     {
@@ -30,34 +29,8 @@ const fakeMembers = [
     }
 ];
 
-function getDateString(date) {
+function getDateString (date) {
     return date ? moment(date, "MM/DD/YYYY hh:mma").format('MMMM D, YYYY hh:mm a') : 'Please Select a date';
-}
-
-function getTwoDigitNumber(num) {
-    return num > 9 ? num: `0${num}`;
-}
-
-function getTimeString (time) {
-    const [hrs, min, pm] = getHoursAndMinutes(time);
-    return `${getTwoDigitNumber(hrs)}:${getTwoDigitNumber(min)} ${pm ? 'PM': 'AM'}`;
-}
-
-function formatData(existingData: any) {
-    const members = existingData.requested_member_names || [];
-    return {
-        anyOneCanComplete: existingData.anybody_flag,
-        notes: existingData.note,
-        elders: existingData.checked_in_with_elder_names.map(e => ({ full_name: e, checked: true })),
-        markedDates: {
-            [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
-                color: "#00A68C",
-                selected: true
-            }
-        },
-        members: members.map(e => ({ full_name: e, checked: true })),
-        time: moment(existingData.check_in_time).format('h,m,A').replace('AM', 'false').replace('PM', 'true')
-    };
 }
 // function getDateString (markedDates = {}) {
 //     const date = Object.keys(markedDates)[0];
@@ -173,7 +146,7 @@ class CheckInForm extends React.Component {
 
     handleOnSubmit = () => {
         if (!this.validate()) return;
-        const { elders, notes, members, anyOneCanComplete, selectedDateTime } = this.state;
+        const { elders, notes, members, anyOneCanComplete, selectedDateTime }: any = this.state;
         const check_in_time = moment(selectedDateTime).format('YYYY-MM-DD HH:mm:ss');
         const payload = {
             elder_names: elders.map(e => e.full_name),
