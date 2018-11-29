@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { AuthReducer, MemberFormReducer, EmaiInvitationReducer, MemberAccountReducer } from "./modules/Auth";
 import { activities } from './modules/Activity';
 import { member_call_reducer as member_call } from './modules/CallOrder';
+import { creditCard } from './modules/AccountSettings'
 import menu from 'reducers/menu';
 import loaders from 'reducers/loader';
 import errors from 'reducers/error';
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   member_call,
   loaders,
   errors,
+  creditCard
 });
 
 const rootReducer = (state, action) => {

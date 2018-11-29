@@ -1,12 +1,19 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 import { Content } from 'native-base';
 import { Screen, Input, Button } from 'componentsLib';
 import Stripe from 'react-native-stripe-api'
 import { STRIPE_API_KEY } from './apiKey';
 import { deviceWidth } from 'styles/Theme';
 import CommonStyles from 'styles/CommonStyles';
-
+import InputFields from "./inputFieldsConfig";
+import {
+  UPDATE_INPUT_STATUS
+} from './action'
+const mapStateToProps = state => {
+  return { ...state.creditCard };
+};
 class CreditCardForm extends React.Component {
 
   constructor(props) {
@@ -164,5 +171,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CreditCardForm;
-
+export default connect(mapStateToProps)(CreditCardForm);
