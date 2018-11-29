@@ -1,38 +1,38 @@
-export default [
-  {
+export default {
+  name: {
     "id": "fullName",
-    "placeholder": "Name",
+    "placeholder": "Full Name (As it appears on Card)",
     "errorId": "fullNameErrorMessage",
-    "statusId":"nameStatus"
+    "statusId": "nameStatus"
   },
-  {
-    "id": "email",
-    "placeholder": "Email address",
-    "errorId": "emailErrorMessage",
-    "statusId":"emailStatus"
+  phone: {
+    "id": "phoneNumber",
+    "placeholder": "Phone Number",
+    "errorId": "phoneNumberErrorMessage",
+    "statusId": "phoneNumberStatus"
   },
-  {
-    "id": "primaryPhoneNumber",
-    "placeholder": "Primary phone number",
-    "errorId": "primaryPhoneNumberErrorMessage",
-    "statusId":"primaryPhoneStatus"
+  zip: {
+    "id": "zip",
+    "placeholder": "ZIP",
+    "errorId": "zipErrorMessage",
+    "statusId": "zipStatus"
   },
-  {
-    "id": "secondaryPhoneNumber",
-    "placeholder": "Alternative phone number",
-    "errorId": "secondaryPhoneNumberErrorMessage",
-    "statusId":"alternativePhoneStatus"
+  card: {
+    "id": "cardNumber",
+    "placeholder": "Card Number",
+    "errorId": "cardNumberErrorMessage",
+    "statusId": "cardStatus"
   },
-  {
-    "id": "primaryPhoneNumber",
-    "placeholder": "Primary phone number",
-    "errorId": "primaryPhoneNumberErrorMessage",
-    "statusId":"primaryPhoneStatus"
+  mmyy: {
+    "id": "expMondayYear",
+    "placeholder": "MM / YY",
+    "errorId": "expMondayYearErrorMessage",
+    "statusId": "expMondayYearStatus"
   },
-  {
-    "id": "secondaryPhoneNumber",
-    "placeholder": "Alternative phone number",
-    "errorId": "secondaryPhoneNumberErrorMessage",
-    "statusId":"alternativePhoneStatus"
+  cvv: {
+    "id": "cvv",
+    "placeholder": "CVV",
+    "errorId": "cvvErrorMessage",
+    "statusId": "cvvStatus"
   }
-];
+};
