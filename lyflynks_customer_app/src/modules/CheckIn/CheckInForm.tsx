@@ -134,7 +134,6 @@ class CheckInForm extends React.Component {
         if (elders.filter(e => e.checked).length === 0) message = 'Please select elders';
         else if (members.filter(e => e.checked).length === 0 && !anyOneCanComplete) message = 'Please select members';
         else if (!selectedDateTime) message = 'Please select check in date and time.';
-        else if (!notes) message = 'Please enter notes.';
 
         if (message) {
             Toast.show({ text: message, buttonText: 'Okay', duration: 3000 });
