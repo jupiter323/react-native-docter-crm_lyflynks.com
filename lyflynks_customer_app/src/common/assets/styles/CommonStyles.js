@@ -273,4 +273,12 @@ export default CommonStyles = StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Avenir'
   },  
+  fieldLabel: {
+    textAlign: "left",
+    fontSize: 15,
+    marginLeft: 25,
+    marginTop: 10,
+    zIndex: 0,
+    color: '#000'
+  }
 });

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     lineStyle:{        
         margin: 0,
         backgroundColor:colorSwatch.bombayGray,
-        height:1.5
+        height:1.5          
     }
 })
 const BoundaryLine = ({...props})=>(

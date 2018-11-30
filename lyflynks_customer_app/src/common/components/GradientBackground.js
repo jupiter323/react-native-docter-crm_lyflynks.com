@@ -165,7 +165,7 @@ export default class GradientBackground extends React.Component{
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerTopLeft]}
-                onPress={() => true}>
+                onPress={() =>this.props.navigation.navigate('ActivityLogScreen')}>
                 <View style={styles.serviceIconCircle}>
                   <ActivityLogIcon {...iconsProps} />
                 </View>

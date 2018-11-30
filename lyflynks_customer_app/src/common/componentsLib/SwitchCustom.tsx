@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         shadowOffset: { width: 0, height: 0 },
         elevation: 2,
-        backgroundColor: 'white'
+        backgroundColor:Platform.OS === "android" ?undefined: 'white'
     },
 
     notificationContainer: {
@@ -43,7 +43,7 @@ const SwitchCustom = ({ ...props }) => (
             switchRightPx={2.5}
             innerCircleStyle={{
                 borderWidth: props.value ? 0 : 1.5,
-                borderColor: '#CBCBCB'
+                borderColor: '#CBCBCB',              
             }} // style for inner animated circle for what you (may) be rendering inside the circle
             {...props}
         />
