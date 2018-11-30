@@ -47,7 +47,7 @@ function formatData(existingData: any) {
     return {
         anyOneCanComplete: existingData.anybody_flag,
         notes: existingData.note,
-        elders: existingData.elder_names.map(e => ({ full_name: e, checked: true })),
+        elders: existingData.checked_in_with_elder_names.map(e => ({ full_name: e, checked: true })),
         markedDates: {
             [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
                 color: "#00A68C",
@@ -96,7 +96,7 @@ class CheckInForm extends React.Component {
 
     fetchMembers = async (token) => {
         const response = await CheckInAPIs.fetchMembers(token);
-        const filteredMembers = response.data.map(a => ({ full_name: a.fname + '' + a.lname, email: a.email })).filter((a, i) => i < 2);
+        const filteredMembers = response.data.map(a => ({ full_name: a.fname + ' ' + a.lname, email: a.email })).filter((a, i) => i < 2);
         const options = this.mergeMembers(filteredMembers, this.state.members);
         const members = options.length === 1 ? options.map(m => ({...m, checked: true})) : options;
         this.setState({ members });
@@ -130,7 +130,6 @@ class CheckInForm extends React.Component {
         else if (members.filter(e => e.checked).length === 0 && !anyOneCanComplete) message = 'Please select members';
         else if (!markedDates) message = 'Please select check in date.';
         else if (!time) message = 'Please select check in time';
-        else if (!notes) message = 'Please enter notes.';
 
         if (message) {
             Toast.show({ text: message, buttonText: 'Okay', duration: 3000 });
@@ -152,7 +151,7 @@ class CheckInForm extends React.Component {
             elder_names: elders.map(e => e.full_name),
             anybody_flag: anyOneCanComplete ? 't' : 'f',
             requested_member_names: members.filter(m => m.checked).map(m => m.full_name),
-            note: notes,
+            note: notes || '',
             checked_in_with_elder_names: elders.filter(e => e.checked).map(e => e.full_name),
             created_by_id: 2,
             updated_by_id: 2,
