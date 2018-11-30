@@ -1,10 +1,12 @@
 import { BASE_URL } from 'constants';
 import base64 from 'base-64';
+import { AsyncStorage } from 'react-native';
 
 export async function makeRequest(route, method, data, token, isLogin) {
   const url = route.reduce((a, b) => a.concat(b));
   console.log(token, url);
-  const headers = getHeader(token, isLogin, data);
+  const account_id = await AsyncStorage.getItem('account_id');
+  const headers = getHeader(token, isLogin, data, account_id);
 
   let req;
   try {
@@ -19,7 +21,7 @@ export async function makeRequest(route, method, data, token, isLogin) {
   return req.json();
 }
 
-const getHeader = (token, isLogin, data) => {
+const getHeader = (token, isLogin, data, account_id) => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
@@ -27,8 +29,6 @@ const getHeader = (token, isLogin, data) => {
     const { username, password } = data;
     headers.append('Authorization', `Basic ` + base64.encode(username + ":" + password) )
   }
-
-  const account_id = data &&  data.account_id;
 
   if (data) {
     delete data.account_id;

@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  AsyncStorage
 } from 'react-native'; 
 
 
@@ -94,9 +95,11 @@ class MemberAccountLogin extends Component {
     // });  
   }
 
-  logIn = (account_id) => { 
+  logIn = async (account_id) => { 
     const { dispatch, username, password, member } = this.props;
-    const token = member.data;  
+    const token = member.data; 
+    
+    await AsyncStorage.setItem('account_id', account_id);
 
     dispatch(member_account({
       username,
@@ -119,7 +122,7 @@ class MemberAccountLogin extends Component {
     const { account_list } = this.props;  
     let accountList;  
     if (account_list.success) {
-      const results =getNamesAndShortNames(account_list.data);
+      const results = getNamesAndShortNames(account_list.data);
       console.log(results, 'results');
       accountList = results.map((data, index) => {
         return (
