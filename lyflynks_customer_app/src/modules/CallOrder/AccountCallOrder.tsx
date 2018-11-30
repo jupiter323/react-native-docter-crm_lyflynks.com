@@ -73,6 +73,7 @@ class CallOrder extends Component {
       'Avenir-Black': require('fonts/Avenir-Black.ttf'),
     });
     this.setState({ fontLoaded: true });
+    // debugger
   }
 
   renderTimeLine = (index) => {

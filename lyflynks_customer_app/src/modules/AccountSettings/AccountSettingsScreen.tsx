@@ -20,9 +20,7 @@ const stateMap = (store) => {
 class AccountSettingsScreen extends React.Component {
 
   render() {
-    navigateScreen = () => {
-      this.props.navigation.navigate("CreditCardUpdate");
-    };
+   
     return (
       <Screen
         navigation={this.props.navigation}
@@ -74,7 +72,7 @@ class AccountSettingsScreen extends React.Component {
             </View>
 
             <TouchableOpacity
-              onPress={navigateScreen}
+              onPress={()=>this.props.navigation.navigate("CreditCardUpdate")}
             >
               <Text style={styles.clickTxtStyle}>Update Credit Card</Text>
             </TouchableOpacity>
@@ -87,7 +85,7 @@ class AccountSettingsScreen extends React.Component {
 
 
             <TouchableOpacity
-              onPress={navigateScreen}
+              onPress={()=>this.props.navigation.navigate('CallOrder')}
             >
               <Text style={styles.clickTxtStyle}>Update Call Order</Text>
             </TouchableOpacity>
@@ -99,7 +97,7 @@ class AccountSettingsScreen extends React.Component {
             <BoundaryLine style={styles.boundaryLine} />
 
             <TouchableOpacity
-              onPress={navigateScreen}
+              onPress={()=>{this.deactivateAccount()}}
             >
               <Text style={styles.clickTxtStyle}>Deactivate Account</Text>
             </TouchableOpacity>
@@ -108,6 +106,10 @@ class AccountSettingsScreen extends React.Component {
         </Content>
       </Screen>
     );
+  }
+  deactivateAccount(){
+    alert("Do you want deactivate your account?")
+    
   }
 }
 
