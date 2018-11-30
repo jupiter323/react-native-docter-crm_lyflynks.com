@@ -53,7 +53,7 @@ export const MemberCard = ({ onEdit, editable = true, field, members, type, mess
                 <TouchableOpacity onPress={() => onEdit(field)} style={{flex: 1}}>
                 <View style={{ flexDirection: 'row', flex: 1 }}>
                     <View style={{ flex: 2 }}>
-                        <Initial name={'L'} />
+                        <Initial name={'Lyf Lynks'} />
                     </View>
                     <View style={{ flex: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
                         <Subtitle style={{ color: colorSwatch.codGray }}>{message}</Subtitle>
