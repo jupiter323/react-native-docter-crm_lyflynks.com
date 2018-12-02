@@ -87,6 +87,7 @@ const stateMap = (store) => {
             fontFamily: 'Avenir-Heavy',
             fontSize: 16
           }}
+      
         >
           <ScrollView heading='UPCOMING' style={CommonStyles.scrollView}>
             <ActivitiesUpcommingScreen navigation={this.props.navigation}/>

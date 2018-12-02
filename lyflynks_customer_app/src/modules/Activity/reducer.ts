@@ -19,6 +19,7 @@ import {
     isFetching: false,
     error: {},
     newAddedCheckIn: [],
+    currentPage:UPCOMING_ACTIVITIES
   }
   
   export default function activitiesReducer(state = initialState, action) {

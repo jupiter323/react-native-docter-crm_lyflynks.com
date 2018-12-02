@@ -25,6 +25,7 @@ import { SwitchCustom, Button, Input, BoundaryLine, DropdownMenu } from 'compone
 import notificationsConfig from './notificationsConfig';
 import CloseIcon from 'components/icons/CloseIcon';
 import Check from 'components/icons/Check';
+import CommonStyles from 'styles/CommonStyles';
 
 const mapStateToProps = state => {
   return { ...state.member_form };
@@ -37,16 +38,16 @@ class MemberSettingsForm extends React.Component {
       <Content>
         <View style={styles.containerStyle}>
           {this.renderInputFields()}
-          <Text style={styles.fieldLabel}>ROLE</Text>
+          <Text style={CommonStyles.fieldLabel}>ROLE</Text>
           {this.renderPicker()}
-          <Text style={styles.fieldLabel}>NOTIFICATIN SETTINGS</Text>
+          <Text style={CommonStyles.fieldLabel}>NOTIFICATIN SETTINGS</Text>
           <BoundaryLine style={styles.boundaryLine} />
           {this.renderNotifications()}
           <View style={styles.firstBtnContainer}>
-            <Button primary onPress={() => true} title="UPDATE" btnStyle={styles.BtnStyle} txtStyle={styles.BtnTxtStyle} />
+            <Button primary onPress={() => true} title="UPDATE" btnStyle={CommonStyles.BtnStyle} txtStyle={CommonStyles.BtnTxtStyle} />
           </View>
           <View style={styles.secondBtnContainer}>
-            <Button primary onPress={() => true} title="RESET PASSWORD" btnStyle={styles.BtnStyle} txtStyle={styles.BtnTxtStyle} />
+            <Button primary onPress={() => true} title="RESET PASSWORD" btnStyle={CommonStyles.BtnStyle} txtStyle={CommonStyles.BtnTxtStyle} />
           </View>
         </View>
       </Content>
@@ -67,14 +68,14 @@ class MemberSettingsForm extends React.Component {
     return InputFields.map((input, index) => {
       return (
         <View key={input.id}>
-          {input.id == "email" ? <Text style={styles.fieldLabel}>MY CONTACT DETAILS</Text> : null}
+          {input.id == "email" ? <Text style={CommonStyles.fieldLabel}>MY CONTACT DETAILS</Text> : null}
           <View key={input.id} style={styles.inputContainer}>
             <View key={input.id} style={styles.inputSubContainer}>
               <Input
                 onFocus={this.updateActive.bind(this, input)}
                 value={this.props[input.id]}
                 placeholder={input.placeholder}
-                style={this.props.inputStatus[input.statusId] == NORMAL_STATUS ? styles.InputNormalStatus : this.props.inputStatus[input.statusId] == ACTIVE_STATUS ? styles.InputActiveStatus : this.props.inputStatus[input.statusId] == ERROR_STATUS ? styles.InputErrorStatus : styles.InputActiveStatus}
+                style={this.props.inputStatus[input.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[input.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[input.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus}
                 onChangeText={this.updateInputFieldValue.bind(this, input)}
                 setReference={this.bindReferenceToInputFields.bind(this, input)}
                 focusNextInput={this.focusNextInput.bind(
@@ -139,8 +140,10 @@ class MemberSettingsForm extends React.Component {
   }
   updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    if (value.length == 3 || value.length == 7) value += '-';
-    if(value.length == 13) return; 
+    if (inputField.id === InputFields[2].id || inputField.id === InputFields[3].id) {
+      if (value.length == 3 || value.length == 7) value += '-';
+      if (value.length == 13) return;
+    }
     dispatch(updateMemberFormField({ prop: inputField.id, value })).then(() => {
       dispatch(updateInputStatus(
         {
@@ -240,73 +243,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30
   },
-  BtnStyle: {
-    backgroundColor: "#00A68C",
-    width: '100%',
-    height: 50,
-    borderColor: "transparent",
-    borderWidth: 0,
-    borderRadius: 25,
-    zIndex: 0,
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  BtnTxtStyle: {
-    fontSize: 17,
-    fontFamily: 'Avenir'
-  },
-  InputActiveStatus: {
-    height: 50,
-    backgroundColor: "#fff",
-    borderColor: "#00A68C",
-    borderWidth: 2,
-    width: "100%",
-    color: "#000",
-    shadowOpacity: 0.3,
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    shadowRadius: 4,
-    elevation: 3,
-    borderRadius: 25
-  },
-  InputNormalStatus: {
-    height: 50,
-    backgroundColor: "#fff",
-    borderWidth: 0,
-    width: "100%",
-    color: "#000",
-    shadowOpacity: 0.3,
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    shadowRadius: 4,
-    elevation: 4,
-    borderRadius: 25
-  },
-  InputErrorStatus: {
-    height: 50,
-    backgroundColor: "#fff",
-    borderColor: colorSwatch.red,
-    borderWidth: 2,
-    width: "100%",
-    color: "#000",
-    shadowOpacity: 0.3,
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    shadowRadius: 4,
-    elevation: 3,
-    borderRadius: 25
-  },
   inputIconContainerStyle: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -354,15 +290,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: 25,
     marginTop: 0
-  },
-  fieldLabel: {
-    textAlign: "left",
-    fontSize: 18,
-    marginLeft: 25,
-    marginTop: 10,
-    zIndex: 0,
-    color: '#000'
-  },
+  }, 
   notificationLabel: {
     textAlign: "center",
     fontSize: 16,
