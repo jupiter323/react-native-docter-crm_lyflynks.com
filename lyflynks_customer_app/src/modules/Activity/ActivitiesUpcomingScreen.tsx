@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import {
-  View,
+  View, Image, TouchableOpacity
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -40,10 +40,10 @@ class ActivitiesUpcoming extends Component {
     }, token));
   }
 
-  _renderContent () {
+  _renderContent() {
     let { error, upcoming, navigation, newAddedCheckIn } = this.props
     if (upcoming.success) {
-      return <ActivitiesTimeline navigation={navigation} data={[ ...newAddedCheckIn.map(n => ({ ...fakeCheckInData, id: n.id })), ...upcoming.data ]}/>
+      return <ActivitiesTimeline navigation={navigation} data={[...newAddedCheckIn.map(n => ({ ...fakeCheckInData, id: n.id })), ...upcoming.data]} />
     }
   }
 
@@ -60,6 +60,11 @@ class ActivitiesUpcoming extends Component {
         {
           this._renderContent()
         }
+        <TouchableOpacity
+          onPress={()=>this.props.navigation.navigate('TransportationDetailsScreen')}
+        >
+          <Image source={require('images/activityLogTemple.png')} style={{ marginTop: 20, width: '90%', alignSelf: 'center' }} />
+        </TouchableOpacity>
       </View>
     );
   }
