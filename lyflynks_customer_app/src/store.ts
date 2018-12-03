@@ -6,7 +6,6 @@ import { ApiMiddleware } from 'middlewares';
 
 const logger = createLogger({ predicate: () => __DEV__ });
 
-
 const middlewares = [
   thunk,
   logger,

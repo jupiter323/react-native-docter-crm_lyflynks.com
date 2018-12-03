@@ -17,9 +17,9 @@ class MemberLogin extends React.Component {
     console.log('back1');
     if (nextProps.member.success && !this.props.member.success) {
       if (nextProps.member.success && nextProps.member.data.newUser) {
-        this.props.navigation.navigate("NewMemberWizard");
+        this.props.navigation.replace("NewMemberWizard");
       } else {
-        this.props.navigation.navigate("MemberAccountLogin");
+        this.props.navigation.replace("MemberAccountLogin");
       }
     }
   }
