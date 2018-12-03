@@ -9,6 +9,10 @@ export default class CustomTabBar extends Component {
     super(props);
   }
 
+  componentDidMount = () => {
+    this._onHomeIconClick();
+  }
+
   render() {
     return (
       <BottomNavigationBar
@@ -62,7 +66,7 @@ export default class CustomTabBar extends Component {
   }
 
   _onDoctorsIconClick() {
-    this.props.navigation.navigate('ActivityLogScreen');
+    this.props.navigation.navigate('TransportationIntroScreen');
   }
 
   _onDashboardIconClick() {

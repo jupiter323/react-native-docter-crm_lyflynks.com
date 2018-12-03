@@ -60,7 +60,7 @@ class MemberAccountLogin extends Component {
 
   componentWillReceiveProps(nextProps) {  
     if (nextProps.member_account.success) {
-      this.props.navigation.navigate('ActivityLogScreen');
+      this.props.navigation.replace('ActivityLogScreen');
     }
   } 
 

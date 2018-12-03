@@ -71,7 +71,8 @@ export const activities = {
   root: "/activities",
   upcoming: "/upcoming",
   completed: "/completed",
-  alerts: "/alerts"
+  alerts: "/alerts",
+  requestTransportation: "/transport"
 };
 
 export const auth = {

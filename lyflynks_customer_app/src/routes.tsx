@@ -5,6 +5,15 @@ import { ActivityLogScreen, MainMenuScreen } from './modules/Activity';
 import { MemberInviteScreen } from './modules/Invite';
 import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
 import { AccountCallOrder } from './modules/CallOrder';
+import {
+  SelectElders,
+  TransportDateSelect,
+  TransportationIntroScreen,
+  TransportationPickup,
+  TransportationDestination,
+  TransportationEstimate,
+  TransportationConfirmation
+} from './modules/Transport';
 
 const Navigation = StackNavigator(
   {
@@ -85,6 +94,55 @@ const Navigation = StackNavigator(
     },
     MemberInvite: {
       screen: MemberInviteScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportationIntroScreen: {
+      screen: TransportationIntroScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    SelectElders: {
+      screen: SelectElders,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportDateSelect: {
+      screen: TransportDateSelect,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportationPickup: {
+      screen: TransportationPickup,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportationDestination: {
+      screen: TransportationDestination,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportationEstimate: {
+      screen: TransportationEstimate,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    TransportationConfirmation: {
+      screen: TransportationConfirmation,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
