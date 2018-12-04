@@ -12,7 +12,7 @@ export const INITIAL_STATE = {
   isFetching: false,
   fullName: "",
   phoneNumber: "",
-  zip: "",
+  zipCode: "",
   cardNumber: "",
   expMondayYear: "",
   cvv: "",
