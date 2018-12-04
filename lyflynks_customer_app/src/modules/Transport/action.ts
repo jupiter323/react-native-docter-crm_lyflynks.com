@@ -1,4 +1,5 @@
 import { upcoming } from '../Activity/action'
+import api from './api'
 
 export const ELDERS_SELECTED = 'ELDERS_SELECTED';
 export const TRANSPORTATION_DATE_UPDATED = 'TRANSPORTATION_DATE_UPDATED';
@@ -9,6 +10,8 @@ export const RIDE_ESTIMATE_UPDATED = 'RIDE_ESTIMATE_UPDATED';
 export const REQUEST_TRANSPORTATION_SUCCESS = 'REQUEST_TRANSPORTATION_SUCCESS';
 export const REQUEST_TRANSPORTATION_FAILURE = 'REQUEST_TRANSPORTATION_FAILURE';
 export const RESET_TRANSPORTATION = 'RESET_TRANSPORTATION';
+export const GET_HOUSEHOLD_ADDRESS_SUCCESS = 'GET_HOUSEHOLD_ADDRESS_SUCCESS';
+export const GET_HOUSEHOLD_ADDRESS_FAILURE = 'GET_HOUSEHOLD_ADDRESS_FAILURE';
 
 export function eldersSelected(elders) {
   return dispatch => {
@@ -52,7 +55,7 @@ export function requestTransportation(params, token) {
       let response = await requestTransportation(params, token)
       dispatch(requestTransportationSuccess(response));
       dispatch(upcoming({ limit: 15, }, token));
-      
+
     } catch (err) {
       dispatch(requestTransportationFailure(err));
     }
@@ -65,6 +68,16 @@ export function resetTransportation() {
   }
 }
 
+export function getHouseholdAddress(token) {
+  return async (dispatch) => {
+    try {
+      let response = await api.getHouseholdAddressApiCall(token);
+      dispatch(getHouseholdAddressSuccess(response));
+    } catch (err) {
+      dispatch(getHouseholdAddressError(err));
+    }
+  }
+}
 
 
 function eldersSelectedAction(elders) {
@@ -97,6 +110,14 @@ function requestTransportationSuccess(data) {
 
 function requestTransportationFailure(error) {
   return { type: REQUEST_TRANSPORTATION_FAILURE, error };
+}
+
+function getHouseholdAddressSuccess(data) {
+  return { type: GET_HOUSEHOLD_ADDRESS_SUCCESS, data };
+}
+
+function getHouseholdAddressError(error) {
+  return { type: GET_HOUSEHOLD_ADDRESS_FAILURE, error };
 }
 
 function resetTransportationAction() {

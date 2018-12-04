@@ -20,8 +20,24 @@ class TransportationPickup extends React.Component {
     super(props);
 
     this.state = {
-      mapBounds: null
+      mapBounds: null,
+      householdAutocompleteFormat: null
     }
+  }
+
+  componentDidMount = () => {
+    let formattedAddress = this.props.household.addr_line_1 + ' ' + this.props.household.city + ', ' + this.props.household.county_province;
+    const householdAutocompleteFormat = {
+      description: formattedAddress,
+      formatted_address: formattedAddress,
+      geometry: {
+        location: { lat: this.props.household.latitude, lng: this.props.household.longitude }
+      }
+    };
+
+    this.setState({
+      householdAutocompleteFormat: householdAutocompleteFormat
+    });
   }
 
   originSelected = (location) => {
@@ -82,6 +98,7 @@ class TransportationPickup extends React.Component {
             <LocationAutocomplete
               onLocationSelect={this.originSelected}
               location={this.props.originCoordinates}
+              predefinedPlaces={[this.state.householdAutocompleteFormat]}
                />
           </View>
           <View style={styles.button}>
@@ -126,7 +143,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   originAddress: state.transport.originAddress,
-  originCoordinates: state.transport.originCoordinates
+  originCoordinates: state.transport.originCoordinates,
+  household: state.transport.household
 });
 
 export default connect(mapStateToProps, null)(TransportationPickup);

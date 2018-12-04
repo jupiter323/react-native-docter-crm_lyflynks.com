@@ -8,6 +8,10 @@ export default {
       return makeRequest([base, activities.requestTransportation], 'POST', params, token);
     },
 
+    async getHouseholdAddressApiCall(token) {
+      return makeRequest([domain, '/household/address'], 'GET', null, token);
+    },
+
     getLyftEstimate(origin, destination) {
       var lyft = require('node-lyft');
       var defaultClient = lyft.ApiClient.instance;

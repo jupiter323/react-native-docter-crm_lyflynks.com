@@ -20,7 +20,26 @@ class TransportationDestination extends React.Component {
     super(props);
 
     this.state = {
-      mapBounds: null
+      mapBounds: null,
+      householdAutocompleteFormat: null
+    }
+  }
+
+  componentDidMount = () => {
+    if (this.props.originCoordinates.latitude != this.props.household.latitude &&
+      this.props.originCoordinates.longitude != this.props.household.longitude) {
+      let formattedAddress = this.props.household.addr_line_1 + ' ' + this.props.household.city + ', ' + this.props.household.county_province;
+      const householdAutocompleteFormat = {
+        description: formattedAddress,
+        formatted_address: formattedAddress,
+        geometry: {
+          location: { lat: this.props.household.latitude, lng: this.props.household.longitude }
+        }
+      };
+
+      this.setState({
+        householdAutocompleteFormat: householdAutocompleteFormat
+      });
     }
   }
 
@@ -127,7 +146,8 @@ class TransportationDestination extends React.Component {
           <View style={styles.searchbar}>
             <LocationAutocomplete
               location={this.props.destinationCoordinates}
-              onLocationSelect={this.destinationSelected} />
+              onLocationSelect={this.destinationSelected}
+              predefinedPlaces={[this.state.householdAutocompleteFormat]} />
           </View>
 
           <View style={styles.button}>
@@ -174,7 +194,8 @@ const mapStateToProps = (state) => ({
   originAddress: state.transport.originAddress,
   originCoordinates: state.transport.originCoordinates,
   destinationAddress: state.transport.destinationAddress,
-  destinationCoordinates: state.transport.destinationCoordinates
+  destinationCoordinates: state.transport.destinationCoordinates,
+  household: state.transport.household
 });
 
 export default connect(mapStateToProps, null)(TransportationDestination);

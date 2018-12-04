@@ -7,7 +7,9 @@ import {
   RIDE_ESTIMATE_UPDATED,
   REQUEST_TRANSPORTATION_SUCCESS,
   REQUEST_TRANSPORTATION_FAILURE,
-  RESET_TRANSPORTATION
+  RESET_TRANSPORTATION,
+  GET_HOUSEHOLD_ADDRESS_FAILURE,
+  GET_HOUSEHOLD_ADDRESS_SUCCESS
 } from './action';
 
 import moment from 'moment';
@@ -21,7 +23,8 @@ const initialState = {
   rideEstimate: null,
   specialNeedsRequired: false,
   selectedElders: [],
-  rideSaved: false
+  rideSaved: false,
+  household: null
 };
 
 export default function transportReducer(state = initialState, action) {
@@ -67,6 +70,15 @@ export default function transportReducer(state = initialState, action) {
       return {
         ...state,
         rideSaved: true
+      }
+    case GET_HOUSEHOLD_ADDRESS_FAILURE:
+      return {
+        ...state
+      }
+    case GET_HOUSEHOLD_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        household: action.data.data
       }
     case RESET_TRANSPORTATION:
       return initialState;

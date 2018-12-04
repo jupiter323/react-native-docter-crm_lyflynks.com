@@ -55,7 +55,7 @@ class LocationAutocomplete extends React.Component  {
           types: 'geocode'
         }}
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
-        predefinedPlaces={[]}
+        predefinedPlaces={this.props.predefinedPlaces || []}
         debounce={200}
       />
     );

@@ -8,6 +8,7 @@ import Button from 'componentsLib/Button';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import { transportationDateUpdated } from './action';
+import { getHouseholdAddress } from './action'
 import {
   colorSwatch,
   fontSize,
@@ -15,6 +16,12 @@ import {
 } from 'styles/Theme';
 
 class TransportDateSelect extends React.Component {
+  componentDidMount = () => {
+    const { dispatch } = this.props;
+
+    dispatch(getHouseholdAddress(this.props.token));
+  }
+
   onContinuePressed = () => {
     this.props.navigation.navigate('TransportationPickup');
   }
@@ -107,7 +114,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  transportationDate: state.transport.transportationDate
+  transportationDate: state.transport.transportationDate,
+  token: state.auth.member_account.data
 });
 
 export default connect(mapStateToProps, null)(TransportDateSelect);
