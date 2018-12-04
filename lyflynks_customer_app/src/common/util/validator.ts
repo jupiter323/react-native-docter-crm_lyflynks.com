@@ -16,6 +16,18 @@ export const secondaryPhonenumberValidator = (inputElementName, value) => {
 
 }
 
+export const mmyyValidator = (inputElementName, value) => {
+  let valueYear = Number(value.split("/", 2)[1]);
+  let currentYear = new Date().getFullYear() % 100;
+  let currentMonth = new Date().getMonth() + 1;
+  let valueMonth = Number(value.split("/", 2)[0]);
+  console.log(currentMonth, valueMonth);
+  return (valueYear < currentYear) ?
+    "Your year is in the past" :
+    (valueYear == currentYear && currentMonth > valueMonth) ?
+      "Month is in the past" : validator(inputElementName, value);
+}
+
 export const confirmPasswordValidator = (password) => {
   const errorMessage = validate(password, CONSTRAINTS)
   console.log(errorMessage)
