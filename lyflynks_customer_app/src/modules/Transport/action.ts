@@ -1,3 +1,5 @@
+import { upcoming } from '../Activity/action'
+
 export const ELDERS_SELECTED = 'ELDERS_SELECTED';
 export const TRANSPORTATION_DATE_UPDATED = 'TRANSPORTATION_DATE_UPDATED';
 export const ORIGIN_UPDATED = 'ORIGIN_UPDATED';
@@ -47,9 +49,10 @@ export function rideEstimateUpdated(value) {
 export function requestTransportation(params, token) {
   return async (dispatch) => {
     try {
-      dispatch(requestTransportationSuccess(
-        await requestTransportation(params, token)
-      ))
+      let response = await requestTransportation(params, token)
+      dispatch(requestTransportationSuccess(response));
+      dispatch(upcoming({ limit: 15, }, token));
+      
     } catch (err) {
       dispatch(requestTransportationFailure(err));
     }
