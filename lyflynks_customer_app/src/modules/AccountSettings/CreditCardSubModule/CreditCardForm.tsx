@@ -283,10 +283,10 @@ class CreditCardForm extends React.Component {
       if (value.length == 4 || value.length == 9 || value.length == 14) value += ' ';
       if (value.length > 19) return;
     } else if (inputField.id === InputFields[4]['id']) { // MM / YY adding /
-      if (value.length == 1 && (Number(value) > 1)) value = "0" + value;
+      if (value.length == 1 && (Number(value) > 1)) value = "0" + value +"/";
 
       if (value.length == 2) {
-        if (Number(value[1]) > 2) value = "01/"
+        if (Number(value[0])==1 && Number(value[1]) > 2) value = "01/"
         else
           value += '/';
       }
@@ -327,15 +327,11 @@ class CreditCardForm extends React.Component {
     return validator(inputElementName, value);
   }
   disableSaveButton() {
-    const { inputStatus } = this.props;
-    console.log("++++++++++", inputStatus)
+    const { inputStatus } = this.props;  
     for (let inputStatu in inputStatus) {
-      if (inputStatus.hasOwnProperty(inputStatu)) {
-        console.log("++++++++++", inputStatus[inputStatu])
+      if (inputStatus.hasOwnProperty(inputStatu)) {  
         if (inputStatus[inputStatu] != SUCCESS_STATUS) {
-
           return true;
-
         }
       }
     }
