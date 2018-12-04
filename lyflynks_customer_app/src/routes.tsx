@@ -172,7 +172,7 @@ const Navigation = StackNavigator(
   },
   {
     headerMode: "screen",
-    initialRouteName: "ActivityLogScreen"
+    initialRouteName: "CreditCardUpdate"
   }
 );
 

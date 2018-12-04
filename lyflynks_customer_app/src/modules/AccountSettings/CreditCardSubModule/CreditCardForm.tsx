@@ -8,7 +8,7 @@ import { STRIPE_API_KEY } from './apiKey';
 import { colorSwatch, deviceWidth } from 'styles/Theme';
 import CommonStyles from 'styles/CommonStyles';
 import InputFields from "./inputFieldsConfig";
-import { validator } from "util/validator";
+import { validator, mmyyValidator } from "util/validator";
 import CloseIcon from 'components/icons/CloseIcon';
 import Check from 'components/icons/Check';
 import {
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 class CreditCardForm extends React.Component {
 
   constructor(props) {
-    super(props);   
+    super(props);
     this.state = {
       number: "5200828282828210",
       expmonth: "09",
@@ -36,17 +36,21 @@ class CreditCardForm extends React.Component {
       custommer_id: "test_custommer",
       firstname: "",
       lastname: "",
-      token_id: ""
+      token_id: "",
     }
   }
 
   addCard() {
     const client = new Stripe(STRIPE_API_KEY);
+    let cardnumber = this.props[InputFields[3].id].trim();
+    let expmonth = this.props[InputFields[4].id].split("/",2)[0];
+    let expyear = this.props[InputFields[4].id].split("/",2)[1];
+    let cvc = this.props[InputFields[5].id]    
     const tokenFormData = {
-      number: this.state.number,
-      exp_month: this.state.expmonth,
-      exp_year: this.state.expyear,
-      cvc: this.state.cvc
+      number: cardnumber,
+      exp_month: expmonth,
+      exp_year: expyear,
+      cvc: cvc
     }
     const token = client.createToken(tokenFormData).then((res) => {
       alert(JSON.stringify(res.id));
@@ -71,24 +75,24 @@ class CreditCardForm extends React.Component {
         <Content >
           <View style={styles.containerStyle}>
             {/* name input start */}
-            <View key={InputFields.name.id} style={styles.inputContainer}>
-              <View key={InputFields.name.id} style={styles.inputSubContainer}>
+            <View key={InputFields[0].id} style={styles.inputContainer}>
+              <View key={InputFields[0].id} style={styles.inputSubContainer}>
                 <Input
-                  placeholder={InputFields.name.placeholder}
-                  value={this.props[InputFields.name.id]}
-                  onFocus={this.updateActive.bind(this, InputFields.name)}
-                  style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.name.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.name.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                  onChangeText={this.updateInputFieldValue.bind(this, InputFields.name)}
-                  onBlur={this.updateErrorMessage.bind(this, InputFields.name)}
+                  placeholder={InputFields[0].placeholder}
+                  value={this.props[InputFields[0].id]}
+                  onFocus={this.updateActive.bind(this, InputFields[0])}
+                  style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[0].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[0].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[0].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                  onChangeText={this.updateInputFieldValue.bind(this, InputFields[0])}
+                  onBlur={this.updateErrorMessage.bind(this, InputFields[0])}
                 />
 
                 <View style={styles.inputIconContainerStyle}>
-                  {this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.name.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                  {this.props.inputStatus[InputFields[0].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[0].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                 </View>
               </View>
               <View style={styles.errorContainer}>
                 <Text style={styles.errorMessage}>
-                  {this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? this.props.errors[InputFields.name.errorId] : null}
+                  {this.props.inputStatus[InputFields[0].statusId] == ERROR_STATUS ? this.props.errors[InputFields[0].errorId] : null}
                 </Text>
               </View>
             </View>
@@ -98,48 +102,48 @@ class CreditCardForm extends React.Component {
             {/* phone and zip input start */}
             <View style={styles.rowContainer}>
               <View style={styles.rowSubContainerLeft}>
-                <View key={InputFields.phone.id} style={styles.inputContainer}>
-                  <View key={InputFields.phone.id} style={styles.inputSubContainer}>
+                <View key={InputFields[1].id} style={styles.inputContainer}>
+                  <View key={InputFields[1].id} style={styles.inputSubContainer}>
                     <Input //phone number input          
-                      placeholder={InputFields.phone.placeholder}
-                      value={this.props[InputFields.phone.id]}
-                      onFocus={this.updateActive.bind(this, InputFields.phone)}
-                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.phone.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.phone.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                      onChangeText={this.updateInputFieldValue.bind(this, InputFields.phone)}
-                      onBlur={this.updateErrorMessage.bind(this, InputFields.phone)}
+                      placeholder={InputFields[1].placeholder}
+                      value={this.props[InputFields[1].id]}
+                      onFocus={this.updateActive.bind(this, InputFields[1])}
+                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[1].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[1].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[1].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                      onChangeText={this.updateInputFieldValue.bind(this, InputFields[1])}
+                      onBlur={this.updateErrorMessage.bind(this, InputFields[1])}
                     />
 
                     <View style={styles.inputIconContainerStyle}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.phone.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                      {this.props.inputStatus[InputFields[1].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[1].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                     </View>
                   </View>
                   <View style={styles.errorContainer}>
                     <Text style={styles.errorMessage}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? this.props.errors[InputFields.phone.errorId] : null}
+                      {this.props.inputStatus[InputFields[1].statusId] == ERROR_STATUS ? this.props.errors[InputFields[1].errorId] : null}
                     </Text>
                   </View>
                 </View>
               </View>
 
               <View style={styles.rowSubContainerRight}>
-                <View key={InputFields.phone.id} style={styles.inputContainer}>
-                  <View key={InputFields.phone.id} style={styles.inputSubContainer}>
+                <View style={styles.inputContainer}>
+                  <View style={styles.inputSubContainer}>
                     <Input //zip code input        
-                      placeholder={InputFields.zip.placeholder}
-                      value={this.props[InputFields.phone.id]}
-                      onFocus={this.updateActive.bind(this, InputFields.phone)}
-                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.phone.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.phone.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                      onChangeText={this.updateInputFieldValue.bind(this, InputFields.phone)}
-                      onBlur={this.updateErrorMessage.bind(this, InputFields.phone)}
+                      placeholder={InputFields[2].placeholder}
+                      value={this.props[InputFields[2].id]}
+                      onFocus={this.updateActive.bind(this, InputFields[2])}
+                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[2].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[2].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[2].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                      onChangeText={this.updateInputFieldValue.bind(this, InputFields[2])}
+                      onBlur={this.updateErrorMessage.bind(this, InputFields[2])}
                     />
 
                     <View style={styles.inputIconContainerStyle}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.phone.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                      {this.props.inputStatus[InputFields[2].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[2].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                     </View>
                   </View>
                   <View style={styles.errorContainer}>
                     <Text style={styles.errorMessage}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? this.props.errors[InputFields.phone.errorId] : null}
+                      {this.props.inputStatus[InputFields[2].statusId] == ERROR_STATUS ? this.props.errors[InputFields[2].errorId] : null}
                     </Text>
                   </View>
                 </View>
@@ -150,24 +154,24 @@ class CreditCardForm extends React.Component {
 
 
             {/* card number input start */}
-            <View key={InputFields.name.id} style={styles.inputContainer}>
-              <View key={InputFields.name.id} style={styles.inputSubContainer}>
+            <View style={styles.inputContainer}>
+              <View style={styles.inputSubContainer}>
                 <Input // card number input
-                  placeholder={InputFields.card.placeholder}
-                  value={this.props[InputFields.name.id]}
-                  onFocus={this.updateActive.bind(this, InputFields.name)}
-                  style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.name.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.name.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                  onChangeText={this.updateInputFieldValue.bind(this, InputFields.name)}
-                  onBlur={this.updateErrorMessage.bind(this, InputFields.name)}
-                />          
+                  placeholder={InputFields[3].placeholder}
+                  value={this.props[InputFields[3].id]}
+                  onFocus={this.updateActive.bind(this, InputFields[3])}
+                  style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[3].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[3].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[3].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                  onChangeText={this.updateInputFieldValue.bind(this, InputFields[3])}
+                  onBlur={this.updateErrorMessage.bind(this, InputFields[3])}
+                />
 
                 <View style={styles.inputIconContainerStyle}>
-                  {this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.name.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                  {this.props.inputStatus[InputFields[3].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[3].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                 </View>
               </View>
               <View style={styles.errorContainer}>
                 <Text style={styles.errorMessage}>
-                  {this.props.inputStatus[InputFields.name.statusId] == ERROR_STATUS ? this.props.errors[InputFields.name.errorId] : null}
+                  {this.props.inputStatus[InputFields[3].statusId] == ERROR_STATUS ? this.props.errors[InputFields[3].errorId] : null}
                 </Text>
               </View>
             </View>
@@ -177,57 +181,57 @@ class CreditCardForm extends React.Component {
             {/* MM/YY  and CVV input start */}
             <View style={styles.rowContainer}>
               <View style={styles.rowSubContainerLeft}>
-                <View key={InputFields.phone.id} style={styles.inputContainer}>
-                  <View key={InputFields.phone.id} style={styles.inputSubContainer}>
+                <View style={styles.inputContainer}>
+                  <View style={styles.inputSubContainer}>
                     <Input // MM/YY number input          
-                      placeholder={InputFields.mmyy.placeholder}
-                      value={this.props[InputFields.phone.id]}
-                      onFocus={this.updateActive.bind(this, InputFields.phone)}
-                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.phone.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.phone.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                      onChangeText={this.updateInputFieldValue.bind(this, InputFields.phone)}
-                      onBlur={this.updateErrorMessage.bind(this, InputFields.phone)}
+                      placeholder={InputFields[4].placeholder}
+                      value={this.props[InputFields[4].id]}
+                      onFocus={this.updateActive.bind(this, InputFields[4])}
+                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[4].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[4].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[4].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                      onChangeText={this.updateInputFieldValue.bind(this, InputFields[4])}
+                      onBlur={this.updateErrorMessage.bind(this, InputFields[4])}
                     />
 
                     <View style={styles.inputIconContainerStyle}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.phone.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                      {this.props.inputStatus[InputFields[4].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[4].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                     </View>
                   </View>
                   <View style={styles.errorContainer}>
                     <Text style={styles.errorMessage}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? this.props.errors[InputFields.phone.errorId] : null}
+                      {this.props.inputStatus[InputFields[4].statusId] == ERROR_STATUS ? this.props.errors[InputFields[4].errorId] : null}
                     </Text>
                   </View>
                 </View>
               </View>
 
               <View style={styles.rowSubContainerRight}>
-                <View key={InputFields.phone.id} style={styles.inputContainer}>
-                  <View key={InputFields.phone.id} style={styles.inputSubContainer}>
+                <View style={styles.inputContainer}>
+                  <View style={styles.inputSubContainer}>
                     <Input //CVV code input        
-                      placeholder={InputFields.cvv.placeholder}
-                      value={this.props[InputFields.phone.id]}
-                      onFocus={this.updateActive.bind(this, InputFields.phone)}
-                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields.phone.statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields.phone.statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
-                      onChangeText={this.updateInputFieldValue.bind(this, InputFields.phone)}
-                      onBlur={this.updateErrorMessage.bind(this, InputFields.phone)}
+                      placeholder={InputFields[5].placeholder}
+                      value={this.props[InputFields[5].id]}
+                      onFocus={this.updateActive.bind(this, InputFields[5])}
+                      style={[{ marginLeft: 0 }, this.props.inputStatus[InputFields[5].statusId] == NORMAL_STATUS ? CommonStyles.InputNormalStatus : this.props.inputStatus[InputFields[5].statusId] == ACTIVE_STATUS ? CommonStyles.InputActiveStatus : this.props.inputStatus[InputFields[5].statusId] == ERROR_STATUS ? CommonStyles.InputErrorStatus : CommonStyles.InputActiveStatus]}
+                      onChangeText={this.updateInputFieldValue.bind(this, InputFields[5])}
+                      onBlur={this.updateErrorMessage.bind(this, InputFields[5])}
                     />
 
                     <View style={styles.inputIconContainerStyle}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields.phone.statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
+                      {this.props.inputStatus[InputFields[5].statusId] == ERROR_STATUS ? <CloseIcon style={styles.inputIconStyle} color='red' /> : this.props.inputStatus[InputFields[5].statusId] == SUCCESS_STATUS ? <Check style={styles.inputIconStyle} color={colorSwatch.persianGreen} /> : null}
                     </View>
                   </View>
                   <View style={styles.errorContainer}>
                     <Text style={styles.errorMessage}>
-                      {this.props.inputStatus[InputFields.phone.statusId] == ERROR_STATUS ? this.props.errors[InputFields.phone.errorId] : null}
+                      {this.props.inputStatus[InputFields[5].statusId] == ERROR_STATUS ? this.props.errors[InputFields[5].errorId] : null}
                     </Text>
                   </View>
                 </View>
               </View>
             </View>
-            {/*  MM/YY  and CVV input end */}     
+            {/*  MM/YY  and CVV input end */}
 
 
-           
+
             <View style={styles.btnContainer}>
               <Button
                 primary
@@ -238,7 +242,6 @@ class CreditCardForm extends React.Component {
             </View>
           </View>
         </Content>
-
       </Screen >
 
     );
@@ -257,8 +260,27 @@ class CreditCardForm extends React.Component {
 
   updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    if (value.length == 3 || value.length == 7) value += '-';
-    if (value.length == 13) return;
+    if (inputField.id === InputFields[1]['id']) { // phone number adding dash
+      if (value.length == 3 || value.length == 7) value += '-';
+      if (value.length > 12) return;
+    } else if (inputField.id === InputFields[2]['id']) { // zip code limitaion    
+      if (value.length > 5) return;
+    } else if (inputField.id === InputFields[3]['id']) { // card number adding space
+      if (value.length == 4 || value.length == 9 || value.length == 14) value += ' ';
+      if (value.length > 19) return;
+    } else if (inputField.id === InputFields[4]['id']) { // MM / YY adding /
+      if (value.length == 1 && (Number(value) > 1)) value = "0" + value;
+
+      if (value.length == 2) {
+        if (Number(value[1]) > 2) value = "01/"
+        else
+          value += '/';
+      }
+      if (value.length > 5) return;
+    } else if (inputField.id === InputFields[5]['id']) { // cvv
+      if (value.length > 4) return;
+    }
+
     dispatch(updateMemberFormField({ prop: inputField.id, value })).then(() => {
       dispatch(updateInputStatus(
         {
@@ -287,6 +309,7 @@ class CreditCardForm extends React.Component {
   }
 
   validateValue(inputElementName, value) {
+    if (inputElementName == InputFields[4].id) return mmyyValidator(inputElementName, value);
     return validator(inputElementName, value);
   }
 
@@ -369,8 +392,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     width: '100%',
-    height: 10,
-    marginTop: 5,
+    height: 20,
+    marginTop: 3,
     marginBottom: 10
   },
   errorMessage: {
