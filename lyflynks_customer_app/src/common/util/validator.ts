@@ -25,7 +25,10 @@ export const mmyyValidator = (inputElementName, value) => {
   return (valueYear < currentYear) ?
     "Your year is in the past" :
     (valueYear == currentYear && currentMonth > valueMonth) ?
-      "Month is in the past" : validator(inputElementName, value);
+      "Month is in the past" :
+      (!valueYear||!valueMonth)?
+      "Must be a number":
+       validator(inputElementName, value);
 }
 
 export const confirmPasswordValidator = (password) => {

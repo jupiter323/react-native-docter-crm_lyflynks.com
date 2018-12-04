@@ -41,11 +41,22 @@ class CreditCardForm extends React.Component {
   }
 
   addCard() {
+
+    if (this.disableSaveButton()) {
+      for (let inputField of InputFields)
+        this.updateErrorMessage(inputField);
+      return;
+    }
+    else
+      this.getStripToken();
+  }
+
+  getStripToken() {
     const client = new Stripe(STRIPE_API_KEY);
     let cardnumber = this.props[InputFields[3].id].trim();
-    let expmonth = this.props[InputFields[4].id].split("/",2)[0];
-    let expyear = this.props[InputFields[4].id].split("/",2)[1];
-    let cvc = this.props[InputFields[5].id]    
+    let expmonth = this.props[InputFields[4].id].split("/", 2)[0];
+    let expyear = this.props[InputFields[4].id].split("/", 2)[1];
+    let cvc = this.props[InputFields[5].id]
     const tokenFormData = {
       number: cardnumber,
       exp_month: expmonth,
@@ -53,7 +64,10 @@ class CreditCardForm extends React.Component {
       cvc: cvc
     }
     const token = client.createToken(tokenFormData).then((res) => {
-      alert(JSON.stringify(res.id));
+      if (res.id)
+        alert("Success as: "+JSON.stringify(res.id));
+      else
+        alert("Info is incorrect!")
       console.log(res);
     }).catch((error) => console.log("error", error));
 
@@ -312,7 +326,21 @@ class CreditCardForm extends React.Component {
     if (inputElementName == InputFields[4].id) return mmyyValidator(inputElementName, value);
     return validator(inputElementName, value);
   }
+  disableSaveButton() {
+    const { inputStatus } = this.props;
+    console.log("++++++++++", inputStatus)
+    for (let inputStatu in inputStatus) {
+      if (inputStatus.hasOwnProperty(inputStatu)) {
+        console.log("++++++++++", inputStatus[inputStatu])
+        if (inputStatus[inputStatu] != SUCCESS_STATUS) {
 
+          return true;
+
+        }
+      }
+    }
+    return false;
+  }
 
 }
 
