@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { Input, BoundaryLine, DropdownMenu, Screen } from 'componentsLib';
+import { Input, BoundaryLine, DropdownMenu, Screen, Button } from 'componentsLib';
 import { colorSwatch } from 'styles/Theme';
 import { Content } from "native-base";
 import CommonStyles from 'styles/CommonStyles';
+import { SortCallOderComponent } from './CallOrderSubModule';
+
 const stateMap = (store) => {
   const { member, member_account } = store.auth;
   const { errorMessage, invitationResponse } = store.email_invitations;
@@ -20,7 +22,6 @@ const stateMap = (store) => {
 class AccountSettingsScreen extends React.Component {
 
   render() {
-   
     return (
       <Screen
         navigation={this.props.navigation}
@@ -68,27 +69,31 @@ class AccountSettingsScreen extends React.Component {
                 <Text style={CommonStyles.fieldLabel}>VISA</Text>
               </View>
 
-              <Text style={CommonStyles.fieldLabel}>...{this.props.cardNumber.substring(12)}</Text>
+              <Text style={CommonStyles.fieldLabel}>...{this.props.cardNumber.substring(15)}</Text>
             </View>
 
-            <TouchableOpacity
-              onPress={()=>this.props.navigation.navigate("CreditCardUpdate")}
-            >
-              <Text style={styles.clickTxtStyle}>Update Credit Card</Text>
-            </TouchableOpacity>
-
+            <View style={styles.BtnContainer}>
+              <Button
+                primary
+                onPress={() => this.props.navigation.navigate("CreditCardUpdate")}
+                title="UPDATE PAYMENT"
+                btnStyle={CommonStyles.BtnStyle}
+                txtStyle={CommonStyles.BtnTxtStyle} />
+            </View>
             <View style={styles.wrapperBox}></View>
 
             <Text style={styles.fieldLabel}>ACCOUNT CALL ORDER</Text>
 
             <BoundaryLine style={styles.boundaryLine} />
-
-
-            <TouchableOpacity
-              onPress={()=>this.props.navigation.navigate('CallOrder')}
-            >
-              <Text style={styles.clickTxtStyle}>Update Call Order</Text>
-            </TouchableOpacity>
+            <SortCallOderComponent />
+            <View style={styles.BtnContainer}>
+              <Button
+                primary
+                onPress={() => this.props.navigation.navigate('CallOrder')}
+                title="UPDATE CALL ORDER"
+                btnStyle={CommonStyles.BtnStyle}
+                txtStyle={CommonStyles.BtnTxtStyle} />
+            </View>
 
             <View style={styles.wrapperBox}></View>
 
@@ -96,20 +101,25 @@ class AccountSettingsScreen extends React.Component {
 
             <BoundaryLine style={styles.boundaryLine} />
 
-            <TouchableOpacity
-              onPress={()=>{this.deactivateAccount()}}
-            >
-              <Text style={styles.clickTxtStyle}>Deactivate Account</Text>
-            </TouchableOpacity>
+
+            <View style={styles.BtnContainer}>
+              <Button
+                primary
+                onPress={() => { this.deactivateAccount() }}
+                title="DEACTIVATE ACCOUNT"
+                btnStyle={CommonStyles.BtnStyle}
+                txtStyle={CommonStyles.BtnTxtStyle} />
+            </View>
+
           </View>
 
         </Content>
       </Screen>
     );
   }
-  deactivateAccount(){
+  deactivateAccount() {
     alert("Do you want deactivate your account?")
-    
+
   }
 }
 
@@ -120,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingTop: 30,
-    paddingHorizontal: 10
+    paddingHorizontal: 25
 
   },
   boundaryLine: {
@@ -184,12 +194,17 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: "left",
     fontSize: 15,
-    marginTop: 10,
+    marginTop: 20,
     zIndex: 0,
     color: '#000'
   },
   wrapperBox: {
     margin: 10
+  },
+  BtnContainer: {
+    marginTop: 20,
+    width: '100%',
+    paddingHorizontal: 15
   }
 });
 
