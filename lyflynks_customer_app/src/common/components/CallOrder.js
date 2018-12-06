@@ -24,20 +24,20 @@ const capilizeWords = (word) => {
 
 export default ElementCall = props => {
   let fullname = `${props.ll_member.fname} ${props.ll_member.lname}`
- return (
-   <View style={[styles.container]}>
-    <View style={{ justifyContent: 'center', }}>
-      <Image style={styles.image} source={require('../assets/images/default-avatar.png')} />
+
+  return (
+    <View style={[styles.container]}>
+      <View style={{ justifyContent: 'center', }}>
+        <Image style={styles.image} source={require('../assets/images/default-avatar.png')} />
+      </View>
+      <View style={styles.containerText}>
+        <Text style={styles.text}>{capilizeWords(fullname)}</Text>
+        <Text style={[styles.text, styles.role]}>{capilizeWords(props.roles[0])}</Text>
+      </View>
+      {props.isUpdate && <View style={{ justifyContent: 'center' }}><UpDownGreen height={18} width={18} style={styles.rightIcon} /></View>}
+
     </View>
-    <View style={styles.containerText}>
-      <Text style={styles.text}>{capilizeWords(fullname)}</Text>
-      <Text style={[styles.text, styles.role]}>{capilizeWords(props.roles[0])}</Text>
-    </View>
-    <View style={{ justifyContent: 'center' }}>
-      <UpDownGreen height={18} width={18} style={styles.rightIcon}/>
-    </View>
-  </View>
- )
+  )
 }
 
 
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
   },
-  text:  {
+  text: {
     fontFamily: fontFamily.medium,
     fontSize: fontSize.medium,
     color: colorSwatch.codGray,
