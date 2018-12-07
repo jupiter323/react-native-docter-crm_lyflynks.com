@@ -18,7 +18,7 @@ import CustomTabBar from 'components/CustomTabBar';
 import { getList, updateList, reorderList } from './action';
 import PrimeButton from 'components/PrimeButton';
 
-Array.prototype.move = function (from, to ) {
+Array.prototype.move = function (from, to) {
   this.splice(to, 0, this.splice(from, 1)[0])
   return this
 }
@@ -30,12 +30,12 @@ const stateMap = (store) => {
 };
 
 class CallOrder extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-      this.state = {
-        fontLoaded: false,
-        data: []
-      };
+    this.state = {
+      fontLoaded: false,
+      data: []
+    };
     this.laodFonts = this.laodFonts.bind(this);
     this.dispatch = this.props.dispatch
   }
@@ -46,7 +46,7 @@ class CallOrder extends Component {
     this.dispatch(getList(account_id, token))
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.laodFonts();
     this.loadList();
   }
@@ -65,14 +65,15 @@ class CallOrder extends Component {
 
 
   async laodFonts() {
-    await Font.loadAsync({
-      'Avenir-Light': require('fonts/Avenir-Light.ttf'),
-      'Avenir-Book': require('fonts/Avenir-Book.ttf'),
-      'Avenir-Medium': require('fonts/Avenir-Medium.ttf'),
-      'Avenir-Heavy': require('fonts/Avenir-Heavy.ttf'),
-      'Avenir-Black': require('fonts/Avenir-Black.ttf'),
-    });
     this.setState({ fontLoaded: true });
+    // await Font.loadAsync({
+    //   'Avenir-Light': require('fonts/Avenir-Light.ttf'),
+    //   'Avenir-Book': require('fonts/Avenir-Book.ttf'),
+    //   'Avenir-Medium': require('fonts/Avenir-Medium.ttf'),
+    //   'Avenir-Heavy': require('fonts/Avenir-Heavy.ttf'),
+    //   'Avenir-Black': require('fonts/Avenir-Black.ttf'),
+    // });
+    // this.setState({ fontLoaded: true });
     // debugger
   }
 
@@ -80,13 +81,13 @@ class CallOrder extends Component {
     let { data } = this.props.list
     return (
       <View style={styles.timeLine}>
-      <View style={index  === 0 ? {}: styles.line} />
-        <View style={[styles.circle, index === 0 ? {marginTop: 22} : {}]}>
+        <View style={index === 0 ? {} : styles.line} />
+        <View style={[styles.circle, index === 0 ? { marginTop: 22 } : {}]}>
           <Text style={{ color: '#fff', fontSize: 15 }}>
             {index + 1}
           </Text>
         </View>
-        <View style={data.length -1 === index ? {}: styles.line} />
+        <View style={data.length - 1 === index ? {} : styles.line} />
       </View>
     )
   }
@@ -113,18 +114,18 @@ class CallOrder extends Component {
 
     return (
       <View style={btnContainer}>
-        <PrimeButton onPressButton={()=> this.updateList()} btnText='Save' setting={settingBtn} />
+        <PrimeButton onPressButton={() => this.updateList()} btnText='Save' setting={settingBtn} />
       </View>
     )
   }
 
   renderItem = (data, section, index) => {
     return (
-      <TouchableHighlight underlayColor={'#eee'} {...this.props.sortHandlers} style={{ flex: 1,}} >
+      <TouchableHighlight underlayColor={'#eee'} {...this.props.sortHandlers} style={{ flex: 1, }} >
         <View
-        style= {{ display: 'flex', flexDirection: 'row' }} >
+          style={{ display: 'flex', flexDirection: 'row' }} >
           {this.renderTimeLine(parseInt(index))}
-          <CallOrderItem {...data} />
+          <CallOrderItem {...data} isUpdate={true} />
         </View>
       </TouchableHighlight>
     )
@@ -136,9 +137,11 @@ class CallOrder extends Component {
     this.dispatch(reorderList(orderList))
   }
 
-  renderList () {
-    let {data, success} = this.props.list
+  renderList() {
+    let { data, success } = this.props.list
+
     if (success) {
+  
       let order = Object.keys(data);
       return (
         <View style={styles.containerList}>
@@ -159,19 +162,19 @@ class CallOrder extends Component {
     } return null // return component for failed request
   }
 
-  render () {
+  render() {
     if (this.state.fontLoaded) {
       return (
         <View style={styles.container}>
           <GradientNavigationBar
             back
             navigation={this.props.navigation}
-            titleText='Call Order' />
-            {this.renderList()}
-            {this.renderButton()}
-            <CustomTabBar
+            titleText='CALL ORDER' />
+          {this.renderList()}
+          {this.renderButton()}
+          <CustomTabBar
             navigation={this.props.navigation}
-            isActive = 'tabHome' />
+            isActive='tabHome' />
         </View>
       )
     } else {
