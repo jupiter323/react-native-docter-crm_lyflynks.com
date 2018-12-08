@@ -16,14 +16,16 @@ const intialState = {
           fname: "Teodor",
           lname: "Milano"
         },
-        roles: ["Elder", "Member"]
+        roles: ["Elder", "Member"],
+        avatar:"elder-02.png"
       },
       {
         ll_member: {
           fname: "deodor",
           lname: "nilano"
         },
-        roles: ["Member"]
+        roles: ["Member"],
+        avatar:"elder-02.png"
       },
       {
         ll_member: {
@@ -31,6 +33,7 @@ const intialState = {
           lname: "Dilano"
         },
         roles: ["Elder"]
+       
       }
     ],
     success:1

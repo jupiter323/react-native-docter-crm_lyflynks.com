@@ -91,10 +91,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    width: '100%'
+    width: '100%',
+    // marginLeft:0
+   
   },
   containerList: {
-    padding: 20,
+    // padding: 20,
     paddingBottom: 0,
     flex: 1
   },

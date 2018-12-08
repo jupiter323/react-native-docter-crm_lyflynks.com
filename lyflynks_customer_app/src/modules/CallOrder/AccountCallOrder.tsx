@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native'
 import Font from "react-native-vector-icons/FontAwesome";
 import { connect } from 'react-redux';
@@ -125,7 +126,7 @@ class CallOrder extends Component {
         <View
           style={{ display: 'flex', flexDirection: 'row' }} >
           {this.renderTimeLine(parseInt(index))}
-          <CallOrderItem {...data} index = {index} />
+          <CallOrderItem {...data} isLast={index == this.props.list.data.length - 1 ? true : false} />
         </View>
       </TouchableHighlight>
     )
@@ -137,6 +138,12 @@ class CallOrder extends Component {
     this.dispatch(reorderList(orderList))
   }
 
+  changeNebour(index) {
+    let orderList = [...this.props.list.data]
+    orderList = orderList.move(index, index-1)
+    this.dispatch(reorderList(orderList))
+  }
+  
   renderList() {
     let { data, success } = this.props.list
 
@@ -157,9 +164,15 @@ class CallOrder extends Component {
             }}
             renderRow={this.renderItem}
           />
-          <View style={{marginTop:10}} >
+          <View style={{ marginTop: 10 }} >
             {data.map((item, index) => {
-              if (index != 0) return <View key={index} style={{marginTop:50 }}><UpDownGreen height={18} width={18} /></View>
+              if (index != 0) return <TouchableOpacity
+                key={index}
+                onPress={this.changeNebour.bind(this, index)}>
+                <View key={index} style={{ marginTop: 50 }}>
+                  <UpDownGreen height={18} width={18} />
+                </View>
+              </TouchableOpacity>
             })}
           </View>
 
