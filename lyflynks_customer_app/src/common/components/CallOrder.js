@@ -12,8 +12,6 @@ import {
   fontFamily,
   fontSize,
 } from 'styles/Theme';
-import { UpDownGreen } from './icons'
-import { cpus } from 'os';
 const capilizeWords = (word) => {
   if (word) {
     return word.replace(
@@ -26,12 +24,11 @@ const capilizeWords = (word) => {
 
 export default ElementCall = props => {
   let fullname = `${props.ll_member.fname} ${props.ll_member.lname}`
-  var avatarPath = '../assets/images/default-avatar.png'
-  alert(props.avatar+props.ll_member.fname)
+  var avatarPath = '../assets/images/default-avatar.png'  
   return (
     <View style={props.isLast ? styles.container : [styles.container, { marginRight: 20 }]}>
       <View style={{ justifyContent: 'center', }}>
-        <Image style={styles.image} source={require('../assets/images/default-avatar.png')} />
+        <Image style={styles.image} source={require(avatarPath)} />
       </View>
       <View style={styles.containerText}>
         <Text style={styles.text}>{capilizeWords(fullname)}</Text>

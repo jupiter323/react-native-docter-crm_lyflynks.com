@@ -269,6 +269,22 @@ export default CommonStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
+  SecondaryBtnStyle: { ////////height 50 secondary button
+    backgroundColor: "#C5AE91",
+    width: '100%',
+    height: 50,
+    borderColor: "transparent",
+    borderWidth: 0,
+    borderRadius: 25,
+    zIndex: 0,
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 4,
+    elevation: 2,
+  },
   BtnTxtStyle: {
     fontSize: 17,
     fontFamily: 'Avenir'

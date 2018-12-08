@@ -103,11 +103,10 @@ class AccountSettingsScreen extends React.Component {
 
 
             <View style={styles.BtnContainer}>
-              <Button
-                primary
-                onPress={() => { this.deactivateAccount() }}
+              <Button           
+                onPress={() => this.props.navigation.navigate('DeactivateScreen')}
                 title="DEACTIVATE ACCOUNT"
-                btnStyle={CommonStyles.BtnStyle}
+                btnStyle={CommonStyles.SecondaryBtnStyle}
                 txtStyle={CommonStyles.BtnTxtStyle} />
             </View>
 
@@ -118,7 +117,7 @@ class AccountSettingsScreen extends React.Component {
     );
   }
   deactivateAccount() {
-    alert("Do you want deactivate your account?")
+    
 
   }
 }

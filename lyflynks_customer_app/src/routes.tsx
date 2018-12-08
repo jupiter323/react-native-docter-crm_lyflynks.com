@@ -7,8 +7,7 @@ import { CheckInDetailsScreen, CheckInFormScreen } from './modules/CheckIn';
 import { TransportationDetails, TransportationForm } from './modules/Transportation';
 import { AccountCallOrder } from './modules/CallOrder';
 import { MemberSettingsScreen } from './modules/MemberSettings';
-import { AccountSettingsScreen, CreditCardForm } from './modules/AccountSettings';
-
+import { AccountSettingsScreen, CreditCardForm, DeactivateScreen } from './modules/AccountSettings';
 import { Screen } from 'components/Screen';
 import ResetPasswordForm from './modules/Auth/Signup Forms/ResetPasswordForm/ResetPasswordForm';
 const Navigation = StackNavigator(
@@ -167,6 +166,13 @@ const Navigation = StackNavigator(
         gesturesEnabled: false
       }
 
+    },
+    DeactivateScreen:{
+      screen:DeactivateScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
     }
 
   },

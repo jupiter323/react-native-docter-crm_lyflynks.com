@@ -17,7 +17,7 @@ const intialState = {
           lname: "Milano"
         },
         roles: ["Elder", "Member"],
-        avatar:"elder-02.png"
+        avatar:"../assets/images/default-avatar.png"
       },
       {
         ll_member: {
@@ -25,14 +25,15 @@ const intialState = {
           lname: "nilano"
         },
         roles: ["Member"],
-        avatar:"elder-02.png"
+        avatar:"../assets/images/default-avatar.png"
       },
       {
         ll_member: {
           fname: "Leonor",
           lname: "Dilano"
         },
-        roles: ["Elder"]
+        roles: ["Elder"],
+        avatar:"../assets/images/elder-02.png"
        
       }
     ],
