@@ -17,7 +17,7 @@ import CallOrderItem from 'components/CallOrder';
 import CustomTabBar from 'components/CustomTabBar';
 import { getList, updateList, reorderList } from './action';
 import PrimeButton from 'components/PrimeButton';
-
+import { UpDownGreen } from 'components/icons'
 Array.prototype.move = function (from, to) {
   this.splice(to, 0, this.splice(from, 1)[0])
   return this
@@ -125,7 +125,7 @@ class CallOrder extends Component {
         <View
           style={{ display: 'flex', flexDirection: 'row' }} >
           {this.renderTimeLine(parseInt(index))}
-          <CallOrderItem {...data} isUpdate={true} />
+          <CallOrderItem {...data} index = {index} />
         </View>
       </TouchableHighlight>
     )
@@ -141,7 +141,7 @@ class CallOrder extends Component {
     let { data, success } = this.props.list
 
     if (success) {
-  
+
       let order = Object.keys(data);
       return (
         <View style={styles.containerList}>
@@ -157,6 +157,12 @@ class CallOrder extends Component {
             }}
             renderRow={this.renderItem}
           />
+          <View style={{marginTop:10}} >
+            {data.map((item, index) => {
+              if (index != 0) return <View key={index} style={{marginTop:50 }}><UpDownGreen height={18} width={18} /></View>
+            })}
+          </View>
+
         </View>
       )
     } return null // return component for failed request
@@ -191,7 +197,9 @@ const styles = StyleSheet.create({
   containerList: {
     padding: 20,
     paddingBottom: 140,
-    flex: 1
+    flex: 1,
+    flexDirection: "row"
+
   },
   list: {
     margin: 20,

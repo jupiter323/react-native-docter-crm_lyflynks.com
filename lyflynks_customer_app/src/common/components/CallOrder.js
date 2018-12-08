@@ -34,8 +34,7 @@ export default ElementCall = props => {
         <Text style={styles.text}>{capilizeWords(fullname)}</Text>
         <Text style={[styles.text, styles.role]}>{capilizeWords(props.roles[0])}</Text>
       </View>
-      {props.isUpdate && <View style={{ justifyContent: 'center' }}><UpDownGreen height={18} width={18} style={styles.rightIcon} /></View>}
-
+     
     </View>
   )
 }
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#aaa'
+    borderBottomColor: '#aaa',      
   },
   image: {
     width: 40,

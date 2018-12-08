@@ -11,7 +11,9 @@ import InputFields from "./inputFieldsConfig";
 import { validator, mmyyValidator } from "util/validator";
 import CloseIcon from 'components/icons/CloseIcon';
 import Check from 'components/icons/Check';
+
 import {
+
   updateMemberFormField,
   updateErrorMessage,
   updateInputStatus,
@@ -82,7 +84,7 @@ class CreditCardForm extends React.Component {
     return (
       <Screen
         navigation={this.props.navigation}
-        title="UPDATE PAYMENT"
+        title="UPDATE PAYMENT DETAILS"
         back={true}
       >
 

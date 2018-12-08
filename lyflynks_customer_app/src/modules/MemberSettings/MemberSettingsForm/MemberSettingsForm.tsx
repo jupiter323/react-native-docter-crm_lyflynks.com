@@ -236,12 +236,14 @@ const styles = StyleSheet.create({
   },
   firstBtnContainer: {
     flex: 1,
-    marginTop: 25
+    marginTop: 25,
+    paddingHorizontal:25
   },
   secondBtnContainer: {
     flex: 1,
     marginTop: 20,
-    marginBottom: 30
+    marginBottom: 30,
+    paddingHorizontal:25
   },
   inputIconContainerStyle: {
     justifyContent: 'center',
