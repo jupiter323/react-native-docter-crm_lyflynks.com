@@ -1,16 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { Content } from 'native-base';
-import { Screen, Input, Button } from 'componentsLib';
+import { Content, CheckBox } from 'native-base';
+import { Screen, Input, Button, BoundaryLine } from 'componentsLib';
 import { colorSwatch, deviceWidth } from 'styles/Theme';
 import CommonStyles from 'styles/CommonStyles';
 import { validator, mmyyValidator } from "util/validator";
 import CloseIcon from 'components/icons/CloseIcon';
 import Check from 'components/icons/Check';
-
 import {
-
   updateMemberFormField,
   updateErrorMessage,
   updateInputStatus,
@@ -19,10 +17,25 @@ import {
   NORMAL_STATUS,
   ACTIVE_STATUS
 } from './action'
+import checkboxConfig from "./checkboxConfig";
 const mapStateToProps = state => {
   return { ...state.creditCard };
 };
 class DeactivateScreen extends React.Component {
+  state = { checked: false }
+  renderCheckbox() {
+    return checkboxConfig.map((check, index) => {
+      return (
+        <TouchableOpacity key={index} style={{width:'100%'}}>
+          <View key={index} style={styles.checkboxStyle}>
+            <Text style={CommonStyles.itemText}>{check['title']}</Text>
+            <CheckBox checked={true} color={colorSwatch.caribbeanGreen} style={{ marginRight: 10, borderRadius: 10, shadowOpacity: 0.5, shadowOffset: { width: 0, height: 4 }, shadowRadius: 4, elevation: 2, }} />
+          </View>
+          <BoundaryLine style={styles.boundaryLine} />
+        </TouchableOpacity>
+      )
+    })
+  }
   render() {
     return (
       <Screen
@@ -30,11 +43,19 @@ class DeactivateScreen extends React.Component {
         title="DEACTIVATE ACCOUNT"
         back={true}
       >
-
         <Content >
           <View style={styles.containerStyle}>
+            {this.renderCheckbox()}          
 
-         </View>
+            <View style={styles.BtnContainer}>
+              <Button
+                onPress={() => true}
+                title="DEACTIVATE ACCOUNT"
+                btnStyle={CommonStyles.SecondaryBtnStyle}
+                txtStyle={CommonStyles.BtnTxtStyle} />
+            </View>
+          </View>
+
         </Content>
       </Screen >
 
@@ -49,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
-    padding: 20,
+    padding: 25,
     paddingTop: 30
 
   },
@@ -128,6 +149,24 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: 10,
     marginTop: 0
+  },
+  boundaryLine: {
+    width: '100%',
+    marginTop: 15
+
+  },
+  BtnContainer: {
+    marginTop: 40,
+    width: '100%',
+    paddingHorizontal: 15
+  },
+  checkboxStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 30
   }
 });
 
