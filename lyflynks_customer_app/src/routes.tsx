@@ -178,7 +178,7 @@ const Navigation = StackNavigator(
   },
   {
     headerMode: "screen",
-    initialRouteName: "MainMenuScreen"
+    initialRouteName: "MemberLogin"
   }
 );
 

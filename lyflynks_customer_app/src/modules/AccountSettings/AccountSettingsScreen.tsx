@@ -30,7 +30,6 @@ class AccountSettingsScreen extends React.Component {
       >
         <Content>
 
-
           <View style={styles.containerStyle}>
 
             {/* name input start */}
