@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Image } from 'react-native';
 
 import BottomNavigationBar from './BottomNavigationBar';
 
 export default class CustomTabBar extends Component {
   constructor(props) {
-    console.log("custom tabbar constructor",BottomNavigationBar);
+    console.log("custom tabbar constructor", BottomNavigationBar);
     super(props);
   }
 
   componentDidMount = () => {
-    this._onHomeIconClick();
+    if (!this.props.isCallOrder)
+      this._onHomeIconClick();
   }
 
   render() {
