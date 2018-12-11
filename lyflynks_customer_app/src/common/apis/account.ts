@@ -11,10 +11,13 @@ export default {
   createMemberAccount(memberAcount, userToken) {
     return makeRequest([baseForMemberAccount], "POST", memberAcount, userToken);
   },
-  getOrderCall(id, token) {
+  getOrderCall(id, token) { 
     return makeRequest([base, `/${id}`, '/call_order'], "GET", null, token)
   },
   updateOrderCall(id, token, data) {
     return makeRequest([base, `/${id}`, '/call_order'], "PATCH", data, token)
+  },
+  deactivateAccount(id, token, data) {
+
   }
 };
