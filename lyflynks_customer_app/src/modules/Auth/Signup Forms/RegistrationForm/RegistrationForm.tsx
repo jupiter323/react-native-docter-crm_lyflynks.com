@@ -7,7 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
@@ -17,6 +18,8 @@ import Input from "components/Input";
 import { validator } from "util/validator";
 import InputFields from "./inputFieldsConfig";
 import Roles from "./rolesConfig";
+import { resetMemberForm } from '../../memberAction';
+
 
 import {
   updateMemberFormField,
@@ -28,6 +31,12 @@ import ImageButton from "components/ImageButton";
 const mapStateToProps = state => {
   return { ...state.member_form };
 };
+
+function getDashedPhoneNumber(phoneNumber: string = '') {
+	return phoneNumber.replace(/^(\d{3})?(\d{3})?(\d{4})?/, function (data, first = '', second = '', third = '') {
+	  return `${first ? first : ''}${first && '-'}${second || ''}${second && '-'}${third || ''}`
+  });
+}
 
 class RegistrationForm extends React.Component {
 
@@ -46,6 +55,7 @@ class RegistrationForm extends React.Component {
         }
       });
 
+    this.props.dispatch(resetMemberForm());
   }
 
   render() {
@@ -96,7 +106,7 @@ class RegistrationForm extends React.Component {
         <View key={input.id}>
           <View key={input.id} style={styles.inputContainer}>
             <Input
-              value={this.props[input.id]}
+              value={input.id === 'primaryPhoneNumber' ? getDashedPhoneNumber(this.props[input.id]) : this.props[input.id]}
               placeholder={input.placeholder}
               style={styles.input}
               setReference={this.bindReferenceToInputFields.bind(this, input)}
@@ -105,12 +115,14 @@ class RegistrationForm extends React.Component {
                 InputFields,
                 index
               )}
-              onChangeText={this.updateInputFieldValue.bind(this, input.id)}
+              onChangeText={this.updateInputFieldValue.bind(this, input)}
               onBlur={this.updateErrorMessage.bind(this, input)}
             />
-            <Text style={styles.errorMessage}>
-              {this.props.errors[input.errorId]}
-            </Text>
+            <View style={{ width: '90%'}}>
+              <Text style={styles.errorMessage}>
+                {this.props.errors[input.errorId]}
+              </Text>
+            </View>
           </View>
         </View>
       );
@@ -137,16 +149,20 @@ class RegistrationForm extends React.Component {
       : "";
   }
 
-  updateInputFieldValue(inputFieldId, value) {
+  updateInputFieldValue(inputField, value) {
     const { dispatch } = this.props;
-    dispatch(updateMemberFormField({ prop: inputFieldId, value }));
+    dispatch(updateMemberFormField({ prop: inputField.id, value: value.replace(/-/g, '') }));
+    setTimeout(() => {
+      this.updateErrorMessage(inputField, value);
+    }, 0);
   }
 
   validateValue(inputElementName, value) {
     return validator(inputElementName, value);
   }
 
-  updateErrorMessage(inputField) {
+  updateErrorMessage(inputField, value) {
+    console.log(inputField.id, this.props[inputField.id]);
     const { dispatch } = this.props;
     dispatch(
       updateErrorMessage({
@@ -205,10 +221,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0
   },
-  Picker: {
-    marginLeft: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
+  Picker:{
+    marginLeft:20,
+    ...Platform.select({
+      android: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+      }
+    }),
   },
   nextBtn: {
     borderRadius: 10,
@@ -226,9 +246,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderColor: "#00A68C",
     borderWidth: 1,
-    width: "90%",
-    color: "#000",
-    shadowRadius: 5,
+    marginBottom: 0,
+    // width: "90%",
+    color:"#000",
+    shadowRadius: 5, 
     shadowOffset: {
       width: 0,
       height: 3
@@ -239,15 +260,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: "center",
     height: 83,
-    alignItems: "center"
+    alignItems: "center",
   },
   formFieldsContainer: {
     width: "100%"
   },
   errorMessage: {
+    paddingLeft:10,
+    alignSelf: 'flex-start',
     color: "red",
-    alignSelf: "flex-start",
-    marginLeft: 20
+    paddingTop: 4,
   },
   pickerLabel: {
     textAlign: "center",

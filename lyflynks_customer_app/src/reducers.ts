@@ -3,6 +3,7 @@ import { AuthReducer, MemberFormReducer, EmaiInvitationReducer, MemberAccountRed
 import { activities } from './modules/Activity';
 import { member_call_reducer as member_call } from './modules/CallOrder';
 import { creditCard } from './modules/AccountSettings'
+import transportReducer from './modules/Transport/reducer';
 import menu from 'reducers/menu';
 import loaders from 'reducers/loader';
 import errors from 'reducers/error';
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   member_form: MemberFormReducer,
   email_invitations: EmaiInvitationReducer,
   members_accounts: MemberAccountReducer,
+  transport: transportReducer,
   activities,
   menu,
   member_call,

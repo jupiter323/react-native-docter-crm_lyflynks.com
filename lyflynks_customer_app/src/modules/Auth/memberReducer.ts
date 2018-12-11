@@ -4,6 +4,7 @@ import {
   UPDATE_PREFERRED_DAYS,
   UPDATE_PREFERRED_TIME,
   UPDATE_ACTIVITIES,
+  RESET_MEMBER_FORM,
   UPDATE_NOTIFICATION_VALUE,
   UPDATE_INPUT_STATUS,
   NORMAL_STATUS,
@@ -12,12 +13,12 @@ import {
   ERROR_STATUS
 } from "./memberAction";
 
-// import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "../actions/accounts";
+import { CREATING_ACCOUNT, ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_FAILURE } from "./accountAction";
 
 import { SET_USERNAME } from "actions/auth";
 
 export const INITIAL_STATE = {
-  fullName:"",
+  fullName: "",
   firstName: "",
   lastName: "",
   userName: "",
@@ -51,7 +52,7 @@ export const INITIAL_STATE = {
   },
   relationship: "child",
   errors: {
-    fullNameErrorMessage:"",
+    fullNameErrorMessage: "",
     firstNameErrorMessage: true,
     lastNameErrorMessage: "",
     userNameErrorMessage: "",
@@ -85,6 +86,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         [action.payload.prop]: action.payload.value
       };
+    case RESET_MEMBER_FORM:
+      return INITIAL_STATE;
+
     case UPDATE_NOTIFICATION_VALUE:
       return {
         ...state,
@@ -140,26 +144,26 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         preferredTime: updatedpreferredTime
       };
-    // case CREATING_ACCOUNT:
-    //   return { ...state, creatingAccount: true };
-    // case ACCOUNT_CREATION_SUCCESS:
-    //   return {
-    //     ...INITIAL_STATE,
-    //     accountCreated: "success",
-    //     token: action.payload,
-    //     creatingAccount: false
-    //   };
-    // case ACCOUNT_CREATION_FAILURE:
-    //   return {
-    //     ...state,
-    //     accountCreated: "failure",
-    //     errorMessage:
-    //       action.payload == "Validation error"
-    //         ? "Email already in use."
-    //         : "Seems like a network problem. Please try again later",
-    //     token: null,
-    //     creatingAccount: false
-    //   };
+    case CREATING_ACCOUNT:
+      return { ...state, creatingAccount: true };
+    case ACCOUNT_CREATION_SUCCESS:
+      return {
+        ...INITIAL_STATE,
+        accountCreated: "success",
+        token: action.payload,
+        creatingAccount: false
+      };
+    case ACCOUNT_CREATION_FAILURE:
+      return {
+        ...state,
+        accountCreated: "failure",
+        errorMessage:
+          action.payload == "Validation error"
+            ? "Email already in use."
+            : "Seems like a network problem. Please try again later",
+        token: null,
+        creatingAccount: false
+      };
     case UPDATE_ACTIVITIES:
       const activityToEdit = state.activities[action.payload.key];
       const updatedActivity = {

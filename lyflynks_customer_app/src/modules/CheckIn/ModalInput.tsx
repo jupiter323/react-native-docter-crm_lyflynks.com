@@ -9,21 +9,23 @@ import { CloseIcon } from 'components/icons';
 
 const Box = ({ onRequestClose, count, body, height = 300 }) => {
     return (
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', height: 40, zIndex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                <View style={{ zIndex: 10, height: 40, width: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 20, backgroundColor: colorSwatch.persianGreen }}>
+                <View style={{ zIndex: 10, height: 40, marginTop: 25, width: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 20, backgroundColor: colorSwatch.persianGreen }}>
                     <Text style={{ color: '#fff', fontSize: 14 }} >
                         {count}
                     </Text>
                 </View>
             </View>
             <View style={{height, borderRadius: 10, backgroundColor: '#fff', width: deviceWidth - 60}}>
-                <View style={{ alignSelf: 'flex-end', paddingRight: 16 }}>
+                <View style={{ alignSelf: 'flex-end', paddingRight: 16, paddingTop: 8 }}>
                     <TouchableOpacity onPress={onRequestClose}>
                         <CloseIcon style={{ width: 15 }}/>
                     </TouchableOpacity> 
                 </View>
-                {body}
+                {/* <View style={{ paddingHorizontal: 8, flex: 1 }}> */}
+                    {body}
+                {/* </View> */}
             </View>
         </View>
     );

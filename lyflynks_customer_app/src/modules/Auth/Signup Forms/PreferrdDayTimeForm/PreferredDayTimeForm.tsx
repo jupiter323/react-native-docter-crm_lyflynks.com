@@ -15,35 +15,6 @@ const mapStateToProps = state => {
 };
 
 class PrefferedDayTimeForm extends React.Component {
-  _didFocusSubscription;
-  _willBlurSubscription;
-  
-  constructor(props) {
-    super(props);
-    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
-      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-    );
-  }
-
-  componentDidMount() {  
-    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
-      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-    );
-  }
-
-  onBackButtonPressAndroid = () => { 
-    if (this.isSelectionModeEnabled()) { 
-      this.disableSelectionMode();
-      return true;
-    } else { 
-      return false;
-    }
-  };
-
-  componentWillUnmount() {  
-    this._didFocusSubscription && this._didFocusSubscription.remove();
-    this._willBlurSubscription && this._willBlurSubscription.remove();
-  }
 
   componentDidUpdate(prevProps) { 
     const { accountCreated, navigation } = this.props;
@@ -156,7 +127,12 @@ class PrefferedDayTimeForm extends React.Component {
 
   renderPreferredDays() {
     const { preferredDays } = this.props;
-    return _.map(preferredDays, (day, key) => {
+    console.log(preferredDays);
+
+    const keys = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+    return keys.map((key) => {
+      const day = preferredDays[key];
       return (
         <ListItem
           key={key}
@@ -172,7 +148,9 @@ class PrefferedDayTimeForm extends React.Component {
 
   renderPrefferedTime() {
     const { preferredTime } = this.props;
-    return _.map(preferredTime, (time, key) => {
+    const keys = ['morning', 'earlyAfternoon', 'evening'];
+    return keys.map(key => {
+      const time = preferredTime[key];
       return (
         <ListItem
           key={key}

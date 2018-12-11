@@ -6,11 +6,13 @@ import _ from "lodash";
 
 import { emailInviteValidator } from "util/validator";
 import Input from "components/Input";
+import ImageButton from "components/ImageButton";
 import {
   modifyEmailInvitations,
   sendEmailInvitations,
   updateEmailErrorMessage
 } from "actions/emailInvitation";
+import AddIcon from 'components/icons/AddIcon';
 
 const mapStateToProps = state => {
   return { ...state.email_invitations, ...state.member_form };
@@ -34,16 +36,53 @@ class InviteOthersForm extends React.Component {
     const { instructions, renderInstructions, invitationResponse, invitations } = this.props;
     return (
       <View style={styles.container}>
-        <Text h4 style={styles.heading}>
-          Would you like to add any other members to your account once it has been activated?
-        </Text>
+        <View style={{flex: 1, minHeight: 50}}>
+          <Text h4 style={styles.heading}>
+            Would you like to add any other members to your account once it has been activated?
+          </Text>
+        </View>
+        <View style={{ flex: 5, width: '100%' }}>
         <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
           {this.renderEmails()}
           {this.renderModal()}
           {this.renderTryAgain()}
         </ScrollView>
-        <View style={{ flex: 0.15 }}>
+        </View>
+        <TouchableOpacity style={{ alignSelf: 'flex-end', right: 30, backgroundColor: '#fff', shadowColor: 'rgba(0,0,0, .4)', // IOS
+            shadowOffset: { height: 1, width: 1 }, // IOS
+            shadowOpacity: 1, // IOS
+            shadowRadius: 1, //IOS
+            elevation: 2, // Android
+            height: 50, width: 50, marginBottom: 20, borderRadius: 25, alignItems: 'center', justifyContent: 'center' }} onPress={this.addEmail.bind(this, "add")}>
+            <AddIcon style={{ width: 45, height: 45 }}/>
+        </TouchableOpacity>
+        <View style={{ flex: 1, width: '100%', paddingRight: 16 }}>
+          <ImageButton/>
           <Button
+            style={styles.nextBtn}
+            title="Next"
+            fontWeight= 'bold'
+            fontFamily='Avenir' 
+            buttonStyle={{
+              backgroundColor: "#00A68C",
+              width: '100%',
+              height: 50,
+              borderColor: "transparent",
+              borderWidth: 0,
+              borderRadius: 25,
+              // elevation: 3,
+              marginBottom:5,
+              zIndex:0,
+            }}
+            textStyle={{
+              fontSize:18 ,  
+              fontFamily:'Avenir',
+              fontWeight:'bold'
+            }}
+            containerStyle={{ marginTop: 20 }}
+            onPress={this.sendEmailInvitations.bind(this, invitations)}
+          /> 
+          {/* <Button
             raised
             icon={{ name: "send" }}
             title="Next"
@@ -51,17 +90,18 @@ class InviteOthersForm extends React.Component {
             backgroundColor="#00A68C"
             containerViewStyle={styles.finishButton}
             onPress={this.sendEmailInvitations.bind(this, invitations)}
-          />
+          /> */}
         </View>
-        <Icon
+        
+        {/* <Icon
           raised
-          name="add"
+          name="delete"
           reverse={true}
           type="material-icon"
           color="#2096f3"
           containerStyle={styles.addButton}
           onPress={this.addEmail.bind(this, "add")}
-        />
+        /> */}
       </View>
     );
   }
@@ -127,7 +167,7 @@ class InviteOthersForm extends React.Component {
             raised
             backgroundColor="#00A68C"
             icon={{ name: "send" }}
-            title="Next"
+            title="Done"
             onPress={this.navigateToSignUpComplete.bind(this)}
           />
         </View>
@@ -160,7 +200,7 @@ class InviteOthersForm extends React.Component {
   navigateToSignUpComplete() {
     const { navigation } = this.props;
     this.setState({ modalVisible: false });
-    navigation.navigate("SignUpComplete");
+    navigation.goBack();
   }
 
   renderTryAgain() {
@@ -224,20 +264,31 @@ const styles = {
     alignItems: "center"
   },
   scrollViewContainer: {
-    width: "100%",
-    flex: 0.8
+    // width: "100%",
+    // flex: 5,
+    // backgroundColor: 'red'
+  },
+  nextBtn:{
+    borderRadius: 10,
+    shadowOpacity: 5, 
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5, 
+    elevation: 10,
   },
   heading: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
     color: "#0E3A53",
-    margin: 10,
-    flex: 0.15
+    margin: 10
   },
   addButton: {
     position: "absolute",
-    bottom: 35,
+    bottom: 75,
     right: 15,
     alignSelf: "flex-end"
   },

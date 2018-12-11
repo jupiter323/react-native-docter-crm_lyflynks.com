@@ -4,6 +4,7 @@ import { AsyncStorage, Platform ,Alert, BackHandler } from "react-native";
 // import configureStore from "./store";
 import NavigatorService from "./navigationService";
 import Navigation from "./routes";
+import { Root } from "native-base";
 
 import FCM, {  FCMEvent } from "react-native-fcm";
 
@@ -43,13 +44,15 @@ export default class LyfLynks_App extends React.Component {
   render() {
     // const store = configureStore(); 
     return (
-      <Provider store={this.props.store}>
-        <Navigation
-          ref={navigatorRef => {
-            NavigatorService.setContainer(navigatorRef);
-          }}
-        />
-      </Provider>
+      <Root>
+        <Provider store={this.props.store}>
+          <Navigation
+            ref={navigatorRef => {
+              NavigatorService.setContainer(navigatorRef);
+            }}
+          />
+        </Provider>
+      </Root>
     );
   }
 }

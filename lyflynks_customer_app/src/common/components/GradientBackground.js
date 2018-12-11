@@ -48,7 +48,7 @@ export default class GradientBackground extends React.Component{
     centerChildren: PropTypes.any,
     leftChildren: PropTypes.any,
     rightChildren: PropTypes.any,
-  
+
     // Styles
     outerContainerStyle: PropTypes.any,
     innerContainerStyle: PropTypes.any,
@@ -116,6 +116,10 @@ export default class GradientBackground extends React.Component{
 
   handelOnCheckInPress = () => {
     this.props.navigation.navigate('CheckInFormScreen');
+  }
+
+  handleTransportationPressed = () => {
+    this.props.navigation.navigate('TransportationIntroScreen');
   }
 
   render() {
@@ -228,7 +232,7 @@ export default class GradientBackground extends React.Component{
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={[styles.serviceIconContainer, styles.serviceIconContainerBottomRight]}
-                onPress={() => true}>
+                onPress={() => this.handleTransportationPressed()}>
                 <View style={styles.serviceIconCircle}>
                   <TransportIcon {...iconsProps} />
                 </View>

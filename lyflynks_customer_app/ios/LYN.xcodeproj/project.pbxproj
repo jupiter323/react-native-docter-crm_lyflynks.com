@@ -1548,7 +1548,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yves.blindy.com;
+				PRODUCT_BUNDLE_IDENTIFIER = LyfLynksLyn;
 				PRODUCT_NAME = LYN;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1582,7 +1582,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yves.blindy.com;
+				PRODUCT_BUNDLE_IDENTIFIER = LyfLynksLyn;
 				PRODUCT_NAME = LYN;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -12,9 +12,10 @@ export const EMAIL_INIVITATIONS_UPDATE = "email_invitations_update";
 export const sendAccountInvite = (data) => {
   return async dispatch => {
     try {
+      console.log(data);
       dispatch({ type: EMAIL_INIVITATIONS_UPDATE });
-
-      dispatch(memberAccountSuccess(await members.sendInvites(data)));
+      const response = await members.sendInvites(data)
+      dispatch(memberAccountSuccess(response));
       console.log('sendAccountInvite end');
     } catch (err) {
       console.log(err);

@@ -140,5 +140,11 @@ const styles = {
 
 // export default connect(stateMap,{ sendAccountInvite })(MemberInviteScreen);
 
+// const mapDispatchToProps = (dispatch) => ({
+//   sendAccountInvite(...params) {
+//     dispatch(...params);
+//   }
+// })
+
 export default connect(stateMap, { sendAccountInvite })(MemberInviteScreen);
 

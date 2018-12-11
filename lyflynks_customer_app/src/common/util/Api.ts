@@ -1,17 +1,19 @@
 import { BASE_URL } from 'constants';
 import base64 from 'base-64';
+import { AsyncStorage } from 'react-native';
 
 export async function makeRequest(route, method, data, token, isLogin) {
   const url = route.reduce((a, b) => a.concat(b));
-  const body = data ? JSON.stringify(data) : null;
   console.log(token, url);
+  const account_id = await AsyncStorage.getItem('account_id');
+  const headers = getHeader(token, isLogin, data, account_id);
 
   let req;
   try {
     req = await fetch(url, {
       method,
-      body,
-      headers: getHeader(token, isLogin, data)
+      headers,
+      body: data ? JSON.stringify(data) : null,      
     });
   } catch (err) {
     console.log(err);
@@ -19,7 +21,7 @@ export async function makeRequest(route, method, data, token, isLogin) {
   return req.json();
 }
 
-const getHeader = (token, isLogin, data) => {
+const getHeader = (token, isLogin, data, account_id) => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
@@ -28,15 +30,15 @@ const getHeader = (token, isLogin, data) => {
     headers.append('Authorization', `Basic ` + base64.encode(username + ":" + password) )
   }
 
-  const account_id = data &&  data.account_id;
-
   if (data) {
     delete data.account_id;
   }
 
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
-    headers.append('account_id', account_id);
+    if (account_id) {
+      headers.append('account_id', account_id);
+    }
   }
   return headers;
 };
@@ -69,7 +71,8 @@ export const activities = {
   root: "/activities",
   upcoming: "/upcoming",
   completed: "/completed",
-  alerts: "/alerts"
+  alerts: "/alerts",
+  requestTransportation: "/transport"
 };
 
 export const auth = {

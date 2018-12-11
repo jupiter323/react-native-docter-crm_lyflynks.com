@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  AsyncStorage
 } from 'react-native'; 
 
 
@@ -17,6 +18,7 @@ import { member_account } from 'actions/auth';
 import GradientNavigationBar from 'components/GradientNavigationBar';
 import CommonStyles from 'styles/CommonStyles'; 
 import {BackHandler} from 'react-native';
+import _ from 'lodash';
 
 const stateMap = (store) => { 
   console.log('test store');
@@ -34,6 +36,19 @@ const stateMap = (store) => {
   }
 };
 
+function getNamesAndShortNames(data) {
+	const result = [];
+	const obj = _.groupBy(data, 'account_id');
+	const keys = Object.keys(obj);
+	keys.forEach(accountKey => {
+		const name = obj[accountKey].map(a => a.full_name).join(' & ');
+		const shortName = obj[accountKey].map(a => a.short_name).join(' & ');
+		const temp = { account_id: accountKey, name, shortName };
+		result.push(temp);
+	});
+	return result;
+}
+
 class MemberAccountLogin extends Component { 
  
   static navigationOptions = {
@@ -45,7 +60,7 @@ class MemberAccountLogin extends Component {
 
   componentWillReceiveProps(nextProps) {  
     if (nextProps.member_account.success) {
-      this.props.navigation.navigate('ActivityLogScreen');
+      this.props.navigation.replace('ActivityLogScreen');
     }
   } 
 
@@ -80,9 +95,11 @@ class MemberAccountLogin extends Component {
     // });  
   }
 
-  logIn = (account_id) => { 
+  logIn = async (account_id) => { 
     const { dispatch, username, password, member } = this.props;
-    const token = member.data;  
+    const token = member.data; 
+    
+    await AsyncStorage.setItem('account_id', account_id);
 
     dispatch(member_account({
       username,
@@ -105,28 +122,26 @@ class MemberAccountLogin extends Component {
     const { account_list } = this.props;  
     let accountList;  
     if (account_list.success) {
-      accountList = account_list.data.map((account, index) => {
-       
-        let names = (account.names).join(' & '); 
-        let shortNames = (account.shortNames).join(''); 
+      const results = getNamesAndShortNames(account_list.data);
+      console.log(results, 'results');
+      accountList = results.map((data, index) => {
         return (
             <TouchableOpacity
               key={index}
               style={styles.card}
-              onPress={() => this.logIn(account.account_id)}
+              onPress={() => this.logIn(data.account_id)}
             >
             <Avatar 
             style={styles.inlineLayout}  
             small
               rounded
-              title={shortNames} 
+              title={data.shortName} 
               onPress={() => console.log("Works!")} 
             /> 
             <View style={styles.viewLayout} >
-              <Text style={styles.txtcolors}>{names}</Text> 
+              <Text style={styles.txtcolors}>{data.name}</Text> 
             </View>  
             </TouchableOpacity>
-           
         )
       });
     }

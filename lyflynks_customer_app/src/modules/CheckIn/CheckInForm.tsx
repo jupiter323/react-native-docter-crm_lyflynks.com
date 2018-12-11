@@ -13,8 +13,10 @@ import moment from 'moment';
 import { getHoursAndMinutes } from './util';
 import { connect } from 'react-redux';
 import CheckInAPIs from './api';
-import { checkIn } from './action';
+import { checkIn, updateCheckIn } from './action';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { Toast } from 'native-base';
+import CheckInDate from './CheckInDate'
 
 const fakeMembers = [
     {
@@ -27,10 +29,13 @@ const fakeMembers = [
     }
 ];
 
-function getDateString (markedDates = {}) {
-    const date = Object.keys(markedDates)[0];
-    return date ? moment(date, 'YYYY-MM-DD').format('MMMM D, YYYY') : 'Please Select a date';
+function getDateString (date) {
+    return date ? moment(date, "MM/DD/YYYY hh:mma").format('MMMM D, YYYY hh:mm a') : 'Please Select a date';
 }
+// function getDateString (markedDates = {}) {
+//     const date = Object.keys(markedDates)[0];
+//     return date ? moment(date, 'YYYY-MM-DD').format('MMMM D, YYYY') : 'Please Select a date';
+// }
 
 function getTwoDigitNumber(num) {
     return num > 9 ? num: `0${num}`;
@@ -41,12 +46,20 @@ function getTimeString (time) {
     return `${getTwoDigitNumber(hrs)}:${getTwoDigitNumber(min)} ${pm ? 'PM': 'AM'}`;
 }
 
-function formatData(data) {
+function formatData(existingData: any) {
+    const members = existingData.requested_member_names || [];
     return {
-        elder_names: [data.elder_name].map(e => ({ full_name: e })),
-        anybody_flag: data.anybody_flag,
-        notes: data.note,
-        checked_in_with_elder_names: [data.requested_member_name].map(e => ({ full_name: e, checked: true })),
+        anyOneCanComplete: existingData.anybody_flag,
+        notes: existingData.note,
+        elders: existingData.elder_names.map(e => ({ full_name: e, checked: true })),
+        markedDates: {
+            [moment(existingData.check_in_time).format('YYYY-MM-DD')] : {
+                color: "#00A68C",
+                selected: true
+            }
+        },
+        members: members.map(e => ({ full_name: e, checked: true })),
+        time: moment(existingData.check_in_time).format('h,m,A').replace('AM', 'false').replace('PM', 'true')
     };
 }
 
@@ -54,12 +67,13 @@ class CheckInForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
-            visible: false, 
-            count: 1, 
+        this.state = {
+            visible: false,
+            count: 1,
             checkInFormObj: {},
             elders: [],
             members: [],
+            selectedDateTime: moment(new Date(), "MM/DD/YYYY hh:ma")
         };
     }
 
@@ -69,23 +83,27 @@ class CheckInForm extends React.Component {
         const existingData = this.props.navigation.getParam('data');
         console.log(existingData);
         if (existingData) {
-            this.setState({
-                anyOneCanComplete: existingData.anybody_flag,
-                notes: existingData.note,
-                elders: [existingData.elder_name].map(e => ({ full_name: e, checked: true })),
-            });
+            console.log(formatData(existingData), 'formatted');
+            this.setState(formatData(existingData));
         }
 
-        // console.log(, 'data');
         const token = this.props.token;
         this.fetchMembers(token);
         this.fetchElders(token);
     }
 
+    mergeMembers = (apiMembers, selectedMembers) => {
+        if (apiMembers) {
+            return apiMembers.map(e => ({ ...e, checked: selectedMembers.find(s => s.full_name === e.full_name) ? true: false}))
+        }
+        return apiMembers;
+    }
+
     fetchMembers = async (token) => {
         const response = await CheckInAPIs.fetchMembers(token);
-        const filteredMembers = response.data.filter((a, i) => i < 2).map(a => ({ full_name: a.fname + '' + a.lname, email: a.email }));
-        const members = filteredMembers.length === 1 ? filteredMembers.map(m => ({...m, checked: true})) : filteredMembers;
+        const filteredMembers = response.data.map(a => ({ full_name: a.fname + ' ' + a.lname, email: a.email })).filter((a, i) => i < 2);
+        const options = this.mergeMembers(filteredMembers, this.state.members);
+        const members = options.length === 1 ? options.map(m => ({...m, checked: true})) : options;
         this.setState({ members });
     }
 
@@ -99,46 +117,72 @@ class CheckInForm extends React.Component {
 
     fetchElders = async (token) => {
         const response = await CheckInAPIs.fetchElders(token);
-        console.log(response, 'response');
         const options = response.data.length === 1 ? response.data.map(e => ({ ...e, checked: true})) : response.data;
         const elders = this.mergeElders(options.length > 0 ? options : fakeMembers, this.state.elders);
-        console.log(elders, 'elders');
-        this.setState({ elders, visible: true });
+        this.setState({ elders : elders.length === 1 ? elders.map(e => ({ ...e, checked: true })) : elders, visible: true, count: elders.length === 1 ? 2 : 1 });
     }
-    
+
 
     handleOnRequestClose = () => {
         this.setState({ visible: false });
     }
 
+    validate = () => {
+        const { elders, notes, members, anyOneCanComplete, selectedDateTime } : any = this.state;
+        let message;
+
+        if (elders.filter(e => e.checked).length === 0) message = 'Please select elders';
+        else if (members.filter(e => e.checked).length === 0 && !anyOneCanComplete) message = 'Please select members';
+        else if (!selectedDateTime) message = 'Please select check in date and time.';
+
+        if (message) {
+            Toast.show({ text: message, buttonText: 'Okay', duration: 3000 });
+            return false;
+        }
+
+        return true;
+    }
+
     handleOnSubmit = () => {
-        const { elders, notes, members, anyOneCanComplete, markedDates, time } = this.state;
-        const selectedDate = Object.keys(markedDates)[0];
-        const [hrs, mins, pm] = getHoursAndMinutes(time);
-        const checkin_time = moment(`${selectedDate} ${hrs}:${mins} ${pm ? 'PM': 'AM'}`, 'YYYY-MM-DD hh:mm A').format('YYYY-MM-DD HH:mm:ss');
+        if (!this.validate()) return;
+        const { elders, notes, members, anyOneCanComplete, selectedDateTime }: any = this.state;
+        const check_in_time = moment(selectedDateTime).format('YYYY-MM-DD HH:mm:ss');
         const payload = {
             elder_names: elders.map(e => e.full_name),
             anybody_flag: anyOneCanComplete ? 't' : 'f',
             requested_member_names: members.filter(m => m.checked).map(m => m.full_name),
-            note: notes,
+            note: notes || '',
             checked_in_with_elder_names: elders.filter(e => e.checked).map(e => e.full_name),
             created_by_id: 2,
             updated_by_id: 2,
-            checkin_time,
+            check_in_time,
             publish_to_app: true
         };
 
-        this.props.checkIn(payload, this.props.token, ()=> {
-            const resetAction = StackActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: 'ActivityLogScreen'
-                    })
-                ]
-            });
-            this.props.navigation.dispatch(resetAction);
+        const patchObject = {
+            activity:{},
+            activity_fin:{},
+            check_in: payload
+        };
+
+        const existingData = this.props.navigation.getParam('data');
+        if (existingData) { 
+            this.props.updateCheckIn(existingData.id, patchObject, this.props.token, this.afterSubmit);
+        } else {
+            this.props.checkIn(payload, this.props.token, this.afterSubmit);
+        }
+    }
+
+    afterSubmit = ()=> {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'ActivityLogScreen'
+                })
+            ]
         });
+        this.props.navigation.dispatch(resetAction);
     }
 
     handleOnCancel = () => {
@@ -150,10 +194,10 @@ class CheckInForm extends React.Component {
     }
 
     render() {
-        const { visible, anyOneCanComplete, count, elders, members, notes, markedDates, time } = this.state;
+        const { visible, anyOneCanComplete, count, elders, members, notes, selectedDateTime } = this.state;
 
         return (
-            <Screen 
+            <Screen
                 navigation={this.props.navigation}
                 title="Check In"
                 back={true}
@@ -164,30 +208,24 @@ class CheckInForm extends React.Component {
                         editable={elders.length > 1}
                         message="Please Select Elders"
                         type="Elder"
-                        members={elders.filter(e => e.checked)} 
+                        members={elders.filter(e => e.checked)}
                         onEdit={this.handleOnEdit}
                     />
-                    {anyOneCanComplete ? <AnyMemberCanComplete checked={true} /> : <MemberCard
+                    {anyOneCanComplete ? <AnyMemberCanComplete checked={true} onCheck={() => {}} /> : <MemberCard
                         field={2}
                         editable={members.length > 1}
                         message="Please Select Members"
                         type="Member"
-                        members={members.filter(e => e.checked)} 
+                        members={members.filter(e => e.checked)}
                         onEdit={this.handleOnEdit}
                     />}
                     <InfoCard
                         field={3}
                         onEdit={this.handleOnEdit}
-                        icon={<CalendarIcon style={{}} />} 
-                        text={getDateString(markedDates)} 
+                        icon={<CalendarIcon style={{}} />}
+                        text={getDateString(selectedDateTime)}
                     />
-                    <InfoCard
-                        field={4}
-                        onEdit={this.handleOnEdit} 
-                        icon={<ClockIcon style={{}} />} 
-                        text={getTimeString(time)} 
-                    />                    
-                    <Notes 
+                    <Notes
                         onEdit={this.handleOnEdit}
                         notes={notes}
                         field={5}
@@ -210,7 +248,7 @@ class CheckInForm extends React.Component {
 
     handleOnNext = () => {
         this.setState({ count: this.state.count + 1 }, () => {
-            if (this.state.count > 5) {
+            if (this.state.count > 4) {
                 this.setState({ visible: false });
             }
         });
@@ -224,8 +262,8 @@ class CheckInForm extends React.Component {
         });
     }
 
-    handleOnDateChange = (markedDates) => {
-        this.setState({ markedDates });
+    handleOnDateChange = (selectedDateTime) => {
+        this.setState({ selectedDateTime });
     }
 
     handleOnTimeChange = (time) => {
@@ -260,36 +298,30 @@ class CheckInForm extends React.Component {
     renderOption = () => {
         switch(this.state.count) {
             case 1:
-                return <SelectMembers 
-                    title="Select Elders" 
+                return <SelectMembers
+                    title="Select Elders"
                     members={this.state.elders}
-                    onCheck={this.handleOnElderCheck} 
+                    onCheck={this.handleOnElderCheck}
                     />;
             case 2:
-                return <SelectMembers 
+                return <SelectMembers
                     title="Select Members"
                     onAnyCheck={this.handleOnAnyCheck}
                     anyOneCanComplete={this.state.anyOneCanComplete}
                     members={this.state.members}
-                    onCheck={this.handleOnMemberCheck} 
+                    onCheck={this.handleOnMemberCheck}
                     />;
             case 3:
-                return <CalendarItem 
-                    markedDates={this.state.markedDates} 
-                    title="Select Date" 
-                    onDateChange={this.handleOnDateChange} 
+                return <CheckInDate
+                    title="Select Date"
+                    onDateChange={this.handleOnDateChange}
+                    selectedDateTime={this.state.selectedDateTime}
                     />;
-            case 4:
-                return <TimeItem 
-                    title="Select Time"
-                    value={this.state.time}
-                    onChange={this.handleOnTimeChange} 
-                />;
             default:
                 return <InputNotes
                     notes={this.state.notes}
-                    onNoteChange={this.handleOnNoteChange} 
-                    title="Notes" 
+                    onNoteChange={this.handleOnNoteChange}
+                    title="Notes"
                 />;
         }
     }
@@ -297,10 +329,10 @@ class CheckInForm extends React.Component {
     renderBody = () => {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ flex : 4}}>                
+                <View style={{ flex : 4}}>
                 {this.renderOption()}
                 </View>
-                <View style={{ flex : 1, flexDirection: 'row'}}>
+                <View style={{ flex : 1, flexDirection: 'row', paddingHorizontal: 16}}>
                     {this.state.count !== 1 && <View style={{flex: 1}}>
                         <Button title="Back" onPress={this.handleOnBack} />
                     </View>}
@@ -320,6 +352,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProp = (dispatch) => ({
     checkIn(...params) {
         dispatch(checkIn(...params));
+    },
+    updateCheckIn(...params) {
+        dispatch(updateCheckIn(...params))
     }
 });
 

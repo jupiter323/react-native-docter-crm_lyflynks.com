@@ -20,7 +20,7 @@ class SignupComplete extends React.Component {
           raised
           backgroundColor="#00A68C"
           iconRight={{ name: "done" }}
-          title="Finish"
+          title="Done"
           onPress={this.navigateToLogin.bind(this)}
         />
       </View>

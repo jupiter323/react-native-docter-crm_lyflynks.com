@@ -10,6 +10,7 @@ export const NORMAL_STATUS = 0;
 export const ACTIVE_STATUS = 1;
 export const SUCCESS_STATUS = 2;
 export const ERROR_STATUS = 3;
+export const RESET_MEMBER_FORM = 'RESET_MEMBER_FORM';
 
 export const updateMemberFormField = ({ prop, value }) => {
   return {
@@ -23,6 +24,11 @@ export const updateMemberNotifications = ({prop, value}) =>{
     payload: { prop, value }
   };
 }
+
+export const resetMemberForm = () => ({
+  type: RESET_MEMBER_FORM,
+});
+
 export const updateErrorMessage = ({ prop, value }) => {
   return {
     type: UPDATE_ERROR_MESSAGE,

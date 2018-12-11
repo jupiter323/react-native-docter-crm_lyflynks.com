@@ -1,33 +1,38 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { CustomCard, AnyMemberCanComplete } from './Cards';
+import {  AnyMemberCanComplete } from './Cards';
 import { CheckBox, View, Input, Subtitle, Thumbnail, Switch, Label } from 'native-base';
 import {
     colorSwatch,
-    deviceWidth
+    deviceWidth,
+    colors,
   } from 'styles/Theme';
-import CalendarItem from 'componentsLib/Calendar';
-import TimeItem from 'componentsLib/TimeInput';
+import Calendar from 'componentsLib/Calendar';
+import Time  from 'componentsLib/TimeInput';
+import Initial from './Initial';
+// import { colors } from 'react-native-elements';
 
-export { CalendarItem, TimeItem }; 
+export const CalendarItem = Calendar;
+export const TimeItem = Time;
+
 
 export const SelectMembers = ({ anyOneCanComplete, onCheck, title, onAnyCheck, members }) => {
     const options = members.map((m, i) => (
-        <CustomCard  height={40} width={deviceWidth - 60} key={i}>
+        <View style={{ paddingHorizontal: 32, backgroundColor: anyOneCanComplete || m.checked ? '#F7F4F0' : '#fff', height: 50 }}>
             <TouchableOpacity onPress={() => onCheck(i, !m.checked)}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 2 }}>
-                        <Thumbnail style={{ height: 30, width: 30 }} source={ require('images/elder-01.png') } />
+                <View style={{ flexDirection: 'row',  height: 50, borderBottomWidth: anyOneCanComplete || m.checked ? 0 : .8, borderBottomColor: colorSwatch.bombayGray }}>
+                    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'flex-start' }}>
+                        <Initial name={m.full_name} size={36} />
                     </View>
-                    <View style={{ flex: 5, alignItems: 'flex-start' }}>
-                        <Subtitle style={{ color: colorSwatch.dustyGray }}>{m.full_name}</Subtitle>
+                    <View style={{ flex: 4, alignItems: 'flex-start', justifyContent: 'center', paddingLeft: 4 }}>
+                        <Subtitle style={{ color: colors.black }}>{m.full_name}</Subtitle>
                     </View>
-                    <View style={{flex:1 }}>
+                    <View style={{flex:1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 8 }}>
                         <CheckBox disabled={anyOneCanComplete} checked={anyOneCanComplete || m.checked} onPress={() => onCheck(i, !m.checked)} color={colorSwatch.caribbeanGreen} />
                     </View>
                 </View>
             </TouchableOpacity>
-        </CustomCard>
+        </View>
     ));
 
     return (
@@ -38,7 +43,7 @@ export const SelectMembers = ({ anyOneCanComplete, onCheck, title, onAnyCheck, m
                 </Text>
             </View>
             {onAnyCheck && 
-                <View style={{ padding: 8 }}>
+                <View style={{ paddingVertical: 8, paddingHorizontal: 24  }}>
                     <AnyMemberCanComplete checked={anyOneCanComplete} onCheck={onAnyCheck} />
                 </View>}
             {options}

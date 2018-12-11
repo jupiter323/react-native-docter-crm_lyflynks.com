@@ -15,5 +15,5 @@ export default {
   async alerts(params, token) {
     params = toQueryString(params);
     return makeRequest([base, activities.alerts, params], 'GET', null, token);
-  },
+  }
 }

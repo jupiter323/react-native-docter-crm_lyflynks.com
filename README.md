@@ -1,47 +1,38 @@
 # LyfLynks Customer Facing Mobile App
 -----------------------------------
 
-## Setup Dev Environment
+## Development environment setup
 
-### Short Instructions
+1. [Get the API running](https://github.com/LyfLynks/lyflynks_api)
+2. Clone this repo
+3. Install [Yarn](https://yarnpkg.com/en/docs/install)
+4. `cd lyflynks_customer_app/lyflynks_customer_app`
+5. `yarn install`
 
-1. Install [Yarn](https://yarnpkg.com/en/docs/install)
-2. Clone the APP repo
-3. Clone the API repo
-4. Start local API server
-5. Build the app
-6. Access via Expo
+## Running the application
 
-*Note:* Yarn is required due to bugs in NPM v5 that cause create-react-native-app to crash
+*Note:* the application has been ejected from expo. XCode and Android Studio should be used to run the applications.
 
-### Detailed Instructions
+### Running on iOS
 
-Clone the APP and API repositories:
-```
-git clone https://github.com/LyfLynks/lyflynks_customer_app.git
-git clone https://github.com/LyfLynks/lyflynks_api.git
-```
+1. If you haven't already, install [CocoaPods](https://cocoapods.org/)
+2. In this ios directory, run `pod install`
+3. Open LYN.xcworkspace in XCode
+4. Clean the build (cmd + shift + k)
+4. Run the app on a simulator or device
 
-Then start the API dev server:
-```
-cd lyflynks_api
-vagrant up
-vagrant ssh
-npm run dev
-```
+### Running on Android
 
-In a new tab, build the mobile app:
-```
-cd lyflynks_customer_app
-yarn install
-yarn start
-```
+TODO
 
-Now, you may either scan the QR code via the Expo app on an Android / iOS device,
-or open the app simulator/emulator with one of the commands listed in your terminal (provided
-you have the appropriate SDKs installed to do so). It may take about a minute
-to build and run the app. Once the app is running, hot-reload will automatically
-rebuild the app whenever changes are saved to the code.
+### Logging into the application
+
+Note that the registration process for LyfLynks is a manual process that includes an interview with the user prior to activating their account. Due to this, the API database is seeded with pre-registered users that you can use to interact with the application. One such user is:
+
+- username: billyj
+- password: bjpassword
+
+This user belongs to two accounts that you should be able to select from after logging in.
 
 ## App Architecture
 
